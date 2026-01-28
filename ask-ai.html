@@ -51,10 +51,80 @@
             font-weight: bold;
             font-size: 16px;
             transition: 0.3s;
+            cursor: pointer;
+            border: none;
+            background: none;
         }
 
         .nav-link:hover {
             color: #D4AF37;
+        }
+
+        .options-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .options-btn {
+            color: #C9A961;
+            font-weight: bold;
+            font-size: 16px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .options-btn:hover {
+            color: #D4AF37;
+        }
+
+        .options-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            margin-top: 8px;
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid #FFD700;
+            border-radius: 10px;
+            display: none;
+            min-width: 160px;
+            padding: 8px 0;
+            z-index: 1000;
+        }
+
+        .options-menu.show {
+            display: block;
+            animation: slideDown 0.2s ease-out;
+        }
+
+        .options-item {
+            width: 100%;
+            background: none;
+            border: none;
+            color: #C9A961;
+            text-align: left;
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .options-item:hover {
+            background: #FFD700;
+            color: black;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .page {
@@ -190,8 +260,13 @@
     <div class="nav-bar">
         <div class="nav-brand">LEARNcraft</div>
         <div class="nav-links">
-            <button onclick="window.history.back()" class="nav-link" style="border: none; background: none; cursor: pointer; font-weight: bold; color: #C9A961; font-size: 16px;">Back</button>
-            <span class="nav-link">Ask AI</span>
+            <button onclick="window.history.back()" class="nav-link">Back</button>
+            <div class="options-dropdown">
+                <button class="options-btn" onclick="toggleOptionsMenu()">Options</button>
+                <div class="options-menu" id="options-menu">
+                    <button class="options-item" onclick="closeOptionsMenu()">Ask AI</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -395,6 +470,26 @@
             const chats = JSON.parse(localStorage.getItem('learncraft_chats')) || [];
             lastMessageCount = chats.filter(chat => chat.userEmail === currentUser.email).length;
         }
+
+        // Options menu functions
+        function toggleOptionsMenu() {
+            const menu = document.getElementById('options-menu');
+            menu.classList.toggle('show');
+        }
+
+        function closeOptionsMenu() {
+            const menu = document.getElementById('options-menu');
+            menu.classList.remove('show');
+        }
+
+        // Close options menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const optionsMenu = document.getElementById('options-menu');
+            const optionsDropdown = event.target.closest('.options-dropdown');
+            if (!optionsDropdown && optionsMenu) {
+                optionsMenu.classList.remove('show');
+            }
+        });
     </script>
 </body>
 </html>
