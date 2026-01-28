@@ -2,9 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="description" content="LEARNcraft - Your AI-powered Engineering Support App on Telegram">
-    <title>LEARNcraft - Engineering Support Bot</title>
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="LEARNcraft">
+    <title>LEARNcraft - Engineering Support App</title>
+    <!-- Telegram Web App Script -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -922,6 +928,19 @@
     </footer>
 
     <script>
+        // Initialize Telegram Web App
+        if (typeof TelegramWebApp !== 'undefined') {
+            const tg = window.Telegram.WebApp;
+            tg.ready();
+            
+            // Set header color
+            tg.setHeaderColor('#1a1a1a');
+            tg.setBackgroundColor('#000000');
+            
+            // Enable closing button
+            tg.MainButton.hide();
+        }
+
         const roadmapData = {
             civil: {
                 title: {
