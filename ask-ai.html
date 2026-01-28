@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ask AI - LEARNcraft">
+    <title>Ask AI - LEARNcraft</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            color: #FFD700;
+            min-height: 100vh;
+        }
+
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 2px solid #FFD700;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            z-index: 999;
+        }
+
+        .nav-brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FFD700;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: #C9A961;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #D4AF37;
+        }
+
+        .page {
+            padding: 120px 20px 60px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .content {
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+        }
+
+        .title {
+            font-size: 48px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #D4AF37;
+            margin-bottom: 30px;
+        }
+
+        .chat-window {
+            background: rgba(201, 169, 97, 0.05);
+            border: 2px solid #C9A961;
+            border-radius: 16px;
+            padding: 24px;
+            min-height: 380px;
+            max-height: 500px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            line-height: 1.5;
+            word-wrap: break-word;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            white-space: normal;
+        }
+
+        .message.bot {
+            background: rgba(201, 169, 97, 0.15);
+            color: #C9A961;
+            align-self: flex-start;
+            margin-right: auto;
+            border-left: 4px solid #C9A961;
+            text-align: left;
+        }
+
+        .message.user {
+            background: rgba(212, 175, 55, 0.2);
+            color: #C9A961;
+            align-self: flex-end;
+            margin-left: auto;
+            border-right: 4px solid #D4AF37;
+            text-align: right;
+        }
+
+        .message.system {
+            align-self: center;
+            background: rgba(201, 169, 97, 0.1);
+            border: 1px dashed #C9A961;
+            color: #C9A961;
+            font-weight: bold;
+        }
+
+        .chat-input {
+            margin-top: 20px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 2px solid #C9A961;
+            background: rgba(0, 0, 0, 0.6);
+            color: #C9A961;
+            font-size: 16px;
+        }
+
+        .chat-input button {
+            padding: 12px 20px;
+            border-radius: 10px;
+            border: none;
+            background: #C9A961;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .chat-input button:hover {
+            background: #D4AF37;
+            transform: translateY(-2px);
+        }
+
+        .chat-input button:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 36px;
+            }
+
+            .message {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <div class="nav-brand">LEARNcraft</div>
+        <div class="nav-links">
+            <button onclick="window.history.back()" class="nav-link" style="border: none; background: none; cursor: pointer; font-weight: bold; color: #C9A961; font-size: 16px;">Back</button>
+            <span class="nav-link">Ask AI</span>
+        </div>
+    </div>
+
+    <div class="page">
+        <div class="content">
+            <h1 class="title">Ask AI</h1>
+            <p class="subtitle">Chat with our AI assistant</p>
+
+            <div class="chat-window" id="chatWindow">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message bot">Hi! I'm your engineering assistant. How can I help you today?</div>
+                </div>
+            </div>
+
+            <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Type your question..." onkeypress="if(event.key==='Enter') sendMessage()">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chatMessages = document.getElementById('chatMessages');
+        const userInput = document.getElementById('userInput');
+        const chatWindow = document.getElementById('chatWindow');
+
+        // Load chat history on page load
+        function loadChatHistory() {
+            const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
+            if (!currentUser) return;
+
+            const chats = JSON.parse(localStorage.getItem('learncraft_chats')) || [];
+            const userChats = chats.filter(chat => chat.userEmail === currentUser.email);
+            
+            // Sort by timestamp
+            userChats.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
+            // Display messages
+            userChats.forEach(chat => {
+                const messageType = chat.sender === 'admin' ? 'bot' : 'user';
+                addMessage(chat.text, messageType, false); // false means don't save again
+            });
+        }
+
+        // Load history when page loads
+        loadChatHistory();
+
+        // Sample responses
+        const responses = {
+            greetings: [
+                "Hello! How can I assist you with your engineering studies today?",
+                "Hi there! What engineering topic would you like to learn about?",
+                "Welcome! I'm here to help you with engineering concepts."
+            ],
+            fields: [
+                "We offer courses in Civil, Aerospace, Mechanical, Electrical, Nuclear, and Chemical Engineering. Which field interests you?",
+                "Our platform covers six major engineering disciplines. Would you like to know more about a specific field?",
+                "You can explore Civil, Aerospace, Mechanical, Electrical, Nuclear, or Chemical Engineering on our platform."
+            ],
+            learning: [
+                "Great question! Start by exploring our Road Map section for structured learning paths.",
+                "I recommend checking out our Fields section to find the area that interests you most.",
+                "Begin with the fundamentals and gradually move to advanced topics. Our Road Map can guide you!"
+            ],
+            default: [
+                "That's an interesting question! For detailed information, please explore our learning materials.",
+                "I can help guide you, but I recommend checking our comprehensive course materials for in-depth answers.",
+                "Let me help you find the right resources. Have you checked our Road Map section?",
+                "Good question! Our platform has extensive materials on this topic. Would you like me to point you in the right direction?"
+            ]
+        };
+
+        function sendMessage() {
+            const message = userInput.value.trim();
+            if (message === '') return;
+
+            // Add user message
+            addMessage(message, 'user');
+            userInput.value = '';
+
+            // Save user message to chats for admin
+            saveMessageToChats(message, 'user');
+
+            // Simulate thinking
+            setTimeout(() => {
+                const response = generateResponse(message);
+                addMessage(response, 'bot');
+                // Note: Bot responses are not saved to admin chats, only user messages
+            }, 500);
+        }
+
+        function saveMessageToChats(text, sender) {
+            const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
+            if (!currentUser) return; // Only save if user is logged in
+
+            let chats = JSON.parse(localStorage.getItem('learncraft_chats')) || [];
+            
+            const chatMessage = {
+                userEmail: currentUser.email,
+                userName: currentUser.email, // You can update this if you store user names
+                text: text,
+                sender: sender, // 'user' or 'admin'
+                timestamp: new Date().toISOString()
+            };
+
+            chats.push(chatMessage);
+            localStorage.setItem('learncraft_chats', JSON.stringify(chats));
+        }
+
+        function addMessage(text, type, shouldSave = true) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.textContent = text;
+            chatMessages.appendChild(messageDiv);
+            
+            // Scroll to bottom
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        function generateResponse(userMessage) {
+            const lowerMessage = userMessage.toLowerCase();
+            
+            // Check for greetings
+            if (lowerMessage.match(/\b(hi|hello|hey|greetings)\b/)) {
+                return getRandomResponse(responses.greetings);
+            }
+            
+            // Check for field-related questions
+            if (lowerMessage.match(/\b(field|engineering|civil|mechanical|electrical|aerospace|nuclear|chemical)\b/)) {
+                return getRandomResponse(responses.fields);
+            }
+            
+            // Check for learning questions
+            if (lowerMessage.match(/\b(learn|start|begin|how|study|course)\b/)) {
+                return getRandomResponse(responses.learning);
+            }
+            
+            // Default response
+            return getRandomResponse(responses.default);
+        }
+
+        function getRandomResponse(responseArray) {
+            return responseArray[Math.floor(Math.random() * responseArray.length)];
+        }
+
+        // Save chat to user's account if logged in
+        function saveChatHistory() {
+            const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
+            if (!currentUser) return;
+            
+            const users = JSON.parse(localStorage.getItem('learncraft_users')) || [];
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            
+            if (userIndex !== -1) {
+                if (!users[userIndex].chatHistory) {
+                    users[userIndex].chatHistory = [];
+                }
+                
+                const messages = Array.from(chatMessages.children).map(msg => ({
+                    text: msg.textContent,
+                    type: msg.classList.contains('user') ? 'user' : 'bot',
+                    timestamp: new Date().toISOString()
+                }));
+                
+                users[userIndex].chatHistory = messages;
+                users[userIndex].lastChatAt = new Date().toISOString();
+                localStorage.setItem('learncraft_users', JSON.stringify(users));
+            }
+        }
+
+        // Auto-save chat history periodically
+        const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
+        if (currentUser) {
+            setInterval(saveChatHistory, 10000); // Save every 10 seconds
+            
+            // Check for new admin messages every 5 seconds
+            let lastMessageCount = 0;
+            setInterval(() => {
+                const chats = JSON.parse(localStorage.getItem('learncraft_chats')) || [];
+                const userChats = chats.filter(chat => chat.userEmail === currentUser.email);
+                
+                if (userChats.length > lastMessageCount) {
+                    // New message received, reload chat
+                    const newMessages = userChats.slice(lastMessageCount);
+                    newMessages.forEach(chat => {
+                        const messageType = chat.sender === 'admin' ? 'bot' : 'user';
+                        // Check if this message is already displayed
+                        const existingMessages = Array.from(chatMessages.children);
+                        const messageExists = existingMessages.some(msg => 
+                            msg.textContent === chat.text && msg.classList.contains(messageType)
+                        );
+                        if (!messageExists) {
+                            addMessage(chat.text, messageType, false);
+                        }
+                    });
+                    lastMessageCount = userChats.length;
+                }
+            }, 5000);
+            
+            // Initialize last message count
+            const chats = JSON.parse(localStorage.getItem('learncraft_chats')) || [];
+            lastMessageCount = chats.filter(chat => chat.userEmail === currentUser.email).length;
+        }
+    </script>
+</body>
+</html>

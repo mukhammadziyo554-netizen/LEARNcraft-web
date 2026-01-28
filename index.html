@@ -1,94 +1,1416 @@
-<<<<<<< HEAD
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.6">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-  </style>
-</head>
-<body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;My Website&lt;/title&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;Hello, this is my website!&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;Created using Terminal on my Mac.&lt;/p&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
-</body>
-</html>
-=======
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>LEARNcraft</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LEARNcraft - Your AI-powered Engineering Support App on Telegram">
+    <title>LEARNcraft - Engineering Support Bot</title>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: black;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            color: #C9A961;
+            text-align: center;
+            min-height: 100vh;
+        }
+
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            border-bottom: 2px solid #C9A961;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            z-index: 999;
+            animation: slideDown 0.5s ease-out;
+            gap: 40px;
+        }
+
+        .nav-brand {
+            font-size: 24px;
+            font-weight: bold;
             color: #FFD700;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            margin-left: 0;
+        }
+
+        .nav-links button {
+            background: none;
+            border: none;
+            color: #C9A961;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .nav-links button:hover {
+            color: #D4AF37;
+            transform: scale(1.1);
+        }
+
+        .options-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .options-btn {
+            background: none;
+            border: none;
+            color: #FFD700;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .options-btn::after {
+            content: '▼';
+            font-size: 10px;
+        }
+
+        .options-btn:hover {
+            color: #FFA500;
+            transform: scale(1.05);
+        }
+
+        .options-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            margin-top: 8px;
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid #FFD700;
+            border-radius: 10px;
+            display: none;
+            min-width: 160px;
+            padding: 8px 0;
+        }
+
+        .options-menu.show {
+            display: block;
+            animation: slideDown 0.2s ease-out;
+        }
+
+        .options-item {
+            width: 100%;
+            background: none;
+            border: none;
+            color: #C9A961;
+            text-align: left;
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .options-item:hover {
+            background: #FFD700;
+            color: black;
+        }
+
+        #roadmap-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            min-height: 100vh;
+            display: flex;
+            gap: 40px;
+        }
+
+        .roadmap-sidebar {
+            flex: 0 0 250px;
+            background: rgba(201, 169, 97, 0.05);
+            border: 2px solid #C9A961;
+            border-radius: 12px;
+            padding: 30px;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .roadmap-sidebar h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #C9A961;
             text-align: center;
         }
 
+        .roadmap-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .roadmap-item {
+            padding: 15px;
+            background: rgba(201, 169, 97, 0.1);
+            border-left: 4px solid #C9A961;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            color: #C9A961;
+            font-weight: bold;
+        }
+
+        .roadmap-item:hover {
+            background: rgba(201, 169, 97, 0.2);
+            transform: translateX(5px);
+        }
+
+        .roadmap-item.active {
+            background: #C9A961;
+            color: black;
+        }
+
+        .roadmap-content {
+            flex: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .roadmap-title {
+            font-size: 48px;
+            margin-bottom: 10px;
+            color: #C9A961;
+            text-shadow: 0 0 15px rgba(201, 169, 97, 0.3);
+        }
+
+        .roadmap-subtitle {
+            font-size: 20px;
+            color: #C9A961;
+            margin-bottom: 40px;
+        }
+
+        .roadmap-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .roadmap-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            background: rgba(201, 169, 97, 0.05);
+            border: 2px solid #C9A961;
+            border-radius: 12px;
+            padding: 18px 20px;
+            text-align: left;
+        }
+
+        .step-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #C9A961;
+            color: black;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .step-text {
+            color: #C9A961;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .language-switcher {
+            position: fixed;
+            top: 8px;
+            right: 20px;
+            z-index: 1000;
+            animation: fadeIn 1s ease-out;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .language-switcher button {
+            background: none;
+            border: none;
+            color: #C9A961;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .language-switcher button:hover {
+            color: #D4AF37;
+            transform: scale(1.1);
+        }
+
+        .lang-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .lang-btn {
+            padding: 10px 20px;
+            background: rgba(201, 169, 97, 0.1);
+            border: 2px solid #C9A961;
+            color: #C9A961;
+            cursor: pointer;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lang-btn:hover {
+            background: #FFD700;
+            color: black;
+            transform: scale(1.05);
+        }
+
+        .lang-btn::after {
+            content: '▼';
+            font-size: 10px;
+        }
+
+        .lang-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 5px;
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid #FFD700;
+            border-radius: 8px;
+            overflow: hidden;
+            display: none;
+            min-width: 120px;
+        }
+
+        .lang-menu.show {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .lang-option {
+            padding: 12px 20px;
+            color: #C9A961;
+            cursor: pointer;
+            transition: 0.2s;
+            border-bottom: 1px solid rgba(201, 169, 97, 0.2);
+        }
+
+        .lang-option:last-child {
+            border-bottom: none;
+        }
+
+        .lang-option:hover {
+            background: #FFD700;
+            color: black;
+        }
+
+        .lang-option.active {
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .user-account {
+            position: relative;
+            display: inline-block;
+        }
+
+        .user-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #C9A961 0%, #D4AF37 100%);
+            border: 2px solid #C9A961;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        .user-circle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(201, 169, 97, 0.5);
+        }
+
+        .user-menu {
+            position: absolute;
+            top: 55px;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid #C9A961;
+            border-radius: 8px;
+            min-width: 200px;
+            display: none;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .user-menu.show {
+            display: block;
+        }
+
+        .user-menu-header {
+            padding: 15px;
+            border-bottom: 1px solid rgba(201, 169, 97, 0.3);
+            color: #C9A961;
+            font-size: 14px;
+        }
+
+        .user-menu-item {
+            padding: 12px 15px;
+            color: #C9A961;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 14px;
+            border-bottom: 1px solid rgba(201, 169, 97, 0.1);
+        }
+
+        .user-menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .user-menu-item:hover {
+            background: rgba(201, 169, 97, 0.2);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         header {
-            padding: 60px 20px;
+            padding: 100px 20px 60px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 0;
+        }
+
+        .logo {
+            font-size: 80px;
+            margin-bottom: 10px;
+            animation: fadeInDown 1s ease-out;
         }
 
         h1 {
             font-size: 60px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            animation: fadeInDown 1s ease-out 0.2s both;
+        }
+
+        .tagline {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #D4AF37;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .description {
+            font-size: 18px;
+            color: #ccc;
+            max-width: 600px;
+            margin: 20px auto;
+            line-height: 1.6;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 40px 20px;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        .feature-card {
+            background: rgba(201, 169, 97, 0.1);
+            border: 2px solid #C9A961;
+            border-radius: 12px;
+            padding: 25px;
+            width: 200px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: bold;
             margin-bottom: 10px;
         }
 
-        p {
-            font-size: 20px;
+        .feature-text {
+            font-size: 14px;
+            color: #bbb;
         }
 
         .button {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
             margin-top: 30px;
-            padding: 15px 30px;
-            background-color: #FFD700;
-            color: black;
+            padding: 18px 40px;
+            background: linear-gradient(135deg, #C9A961 0%, #D4AF37 100%);
+            color: #000;
             font-weight: bold;
+            font-size: 18px;
             text-decoration: none;
-            border-radius: 8px;
-            transition: 0.3s;
+            border-radius: 50px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 20px rgba(201, 169, 97, 0.4);
+            animation: fadeInUp 1s ease-out 1s both;
         }
 
         .button:hover {
-            background-color: white;
+            background: linear-gradient(135deg, #D4AF37 0%, #C9A961 100%);
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.6);
+        }
+
+        .telegram-icon {
+            width: 28px;
+            height: 28px;
+            background: #0088cc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-word {
+            transition: transform 0.3s ease;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .telegram-icon:hover {
+            transform: scale(1.5);
+        }
+
+        .btn-word:hover {
+            transform: scale(1.4);
+        }
+
+        #fields-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            min-height: 100vh;
+        }
+
+        .fields-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 48px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .section-subtitle {
+            font-size: 20px;
+            color: #D4AF37;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .fields-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .field-card {
+            background: rgba(255, 215, 0, 0.05);
+            border: 2px solid #FFD700;
+            border-radius: 12px;
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+            position: relative;
+            min-height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .field-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+
+        .field-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .field-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .field-card.civil-bg {
+            background-image: url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&h=600&fit=crop');
+        }
+
+        .field-card.aerospace-bg {
+            background-image: url('https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=800&h=600&fit=crop');
+        }
+
+        .field-card.mechanical-bg {
+            background-image: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=600&fit=crop');
+        }
+
+        .field-card.electrical-bg {
+            background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop');
+        }
+
+        .field-card.nuclear-bg {
+            background-image: url('https://img.freepik.com/premium-vector/old-looking-atomic-sign_606501-183.jpg?w=2000');
+        }
+
+        .field-card.chemical-bg {
+            background-image: url('https://images.unsplash.com/photo-1576086213369-97a306d36557?w=800&h=600&fit=crop');
+        }
+
+        .field-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .field-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #C9A961;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .field-description {
+            font-size: 16px;
+            color: #ccc;
+            line-height: 1.6;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+
+        .field-card.active .field-description {
+            max-height: 500px;
+        }
+
+        .expand-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: rgba(201, 169, 97, 0.85);
+            color: black;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .expand-btn:hover {
+            background: rgba(212, 175, 55, 0.95);
+            transform: scale(1.05);
+        }
+
+        .field-card.active .expand-btn {
+            background: rgba(212, 175, 55, 0.95);
         }
 
         footer {
-            margin-top: 80px;
-            padding: 20px;
+            padding: 30px 20px;
             font-size: 14px;
             color: #888;
+            border-top: 1px solid #333;
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 40px;
+            }
+            .logo {
+                font-size: 60px;
+            }
+            .tagline {
+                font-size: 20px;
+            }
+            .features {
+                gap: 20px;
+            }
+            .feature-card {
+                width: 160px;
+                padding: 20px;
+            }
+            .nav-links {
+                gap: 15px;
+                margin-left: 10px;
+            }
+            .nav-links button {
+                font-size: 14px;
+            }
+            .section-title {
+                font-size: 32px;
+            }
+            .section-subtitle {
+                font-size: 16px;
+            }
+            .fields-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .field-icon {
+                font-size: 50px;
+            }
+            .field-title {
+                font-size: 22px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <header>
+    <div class="nav-bar">
+        <div class="nav-brand">LEARNcraft</div>
+        <div class="nav-links">
+            <button onclick="document.getElementById('header-section').scrollIntoView();" data-en="Home" data-ru="Главная" data-uz="Bosh sahifa">Home</button>
+            <div class="options-dropdown">
+                <button class="options-btn" onclick="toggleOptionsMenu()" data-en="Options" data-ru="Опции" data-uz="Variantlar">Options</button>
+                <div class="options-menu" id="options-menu">
+                    <button class="options-item" onclick="document.getElementById('fields-section').scrollIntoView(); closeOptionsMenu();" data-en="Fields" data-ru="Поля" data-uz="Sohalari">Fields</button>
+                    <button class="options-item" onclick="document.getElementById('roadmap-section').scrollIntoView(); closeOptionsMenu();" data-en="Road Map" data-ru="Дорожная карта" data-uz="Yo'l xaritas">Road Map</button>
+                    <button class="options-item" onclick="window.location.href='support.html'; closeOptionsMenu();" data-en="Support" data-ru="Поддержка" data-uz="Yordam">Support</button>
+                </div>
+            </div>
+            <button onclick="window.location.href='ask-ai.html'" data-en="Ask AI" data-ru="Спросить ИИ" data-uz="AI so'rash">Ask AI</button>
+            <button id="adminBtn" onclick="window.location.href='admin.html'" data-en="Admin" data-ru="Админ" data-uz="Admin" style="display: none;">Admin</button>
+        </div>
+    </div>
+
+    <div class="language-switcher">
+        <div class="user-account" id="userAccount" style="display: none;">
+            <div class="user-circle" id="userCircle"></div>
+            <div class="user-menu" id="userMenu">
+                <div class="user-menu-header" id="userEmail"></div>
+                <div class="user-menu-item" id="logoutBtn">Logout</div>
+            </div>
+        </div>
+        <button id="signInBtn" onclick="window.location.href='registration.html'" data-en="Sign In" data-ru="Войти" data-uz="Kirish">Sign In</button>
+        <div class="lang-dropdown">
+            <button class="lang-btn" onclick="toggleLanguageMenu()">
+                <span id="current-lang">🌐 EN</span>
+            </button>
+            <div class="lang-menu" id="lang-menu">
+                <div class="lang-option active" onclick="changeLanguage('en', '🌐 EN')">🇬🇧&nbsp;English</div>
+                <div class="lang-option" onclick="changeLanguage('ru', '🌐 RU')">🇷🇺&nbsp;Русский</div>
+                <div class="lang-option" onclick="changeLanguage('uz', '🌐 UZ')">🇺🇿&nbsp;O'zbek</div>
+            </div>
+        </div>
+    </div>
+
+    <header id="header-section">
+        <div class="logo">🎓</div>
         <h1>LEARNcraft</h1>
-        <p>Your Engineering Support Bot</p>
-        <a class="button" href="https://t.me/LEARN_craft_bot" target="_blank">Open Telegram Bot</a>
+        <p class="tagline" data-en="Your AI-Powered Engineering Support App" data-ru="Ваше AI-приложение для инженерной поддержки" data-uz="Sizning AI muhandislik yordamchi ilovangiz">Your AI-Powered Engineering Support App</p>
+        <p class="description" data-en="Get instant help on Telegram bot with engineering concepts, academic resources, and personalized learning roadmaps. Explore this app 24/7 to support your learning journey!" data-ru="Получите мгновенную помощь в Telegram боте с инженерными концепциями, академическими ресурсами и персонализированными картами обучения. Изучайте это приложение 24/7 для поддержки вашего обучения!" data-uz="Telegram botida muhandislik tushunchalari, akademik manbalar va shaxsiy ta'lim yo'l xaritalari bo'yicha darhol yordam oling. Bu ilovani 24/7 o'quv jarayoningizni qo'llab-quvvatlash uchun o'rganing!">
+            Get instant help on Telegram bot with engineering concepts, academic resources, and personalized learning roadmaps. 
+            Explore this app 24/7 to support your learning journey!
+        </p>
+
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">💡</div>
+                <div class="feature-title" data-en="Smart Answers" data-ru="Умные Ответы" data-uz="Aqlli Javoblar">Smart Answers</div>
+                <div class="feature-text" data-en="AI-powered responses to your technical questions" data-ru="AI-ответы на ваши технические вопросы" data-uz="Texnik savollaringizga AI javoblari">AI-powered responses to your technical questions</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-title" data-en="Fast Response" data-ru="Быстрый Ответ" data-uz="Tez Javob">Fast Response</div>
+                <div class="feature-text" data-en="Get help instantly, anytime you need it" data-ru="Получите помощь мгновенно, когда вам нужно" data-uz="Kerak bo'lganda darhol yordam oling">Get help instantly, anytime you need it</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔧</div>
+                <div class="feature-title" data-en="Debug Help" data-ru="Помощь в Отладке" data-uz="Xatolarni Tuzatish">Debug Help</div>
+                <div class="feature-text" data-en="Solve coding issues with expert guidance" data-ru="Решайте проблемы кода с экспертной помощью" data-uz="Mutaxassis yo'riqnomasi bilan kodlash muammolarini yeching">Solve coding issues with expert guidance</div>
+            </div>
+        </div>
+
+        <a class="button" href="https://t.me/LEARN_craft_bot" target="_blank">
+            <span class="telegram-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161l-1.764 8.317c-.132.593-.48.74-.968.46l-2.671-1.968-1.287 1.24c-.143.143-.262.262-.537.262l.191-2.726 4.95-4.473c.215-.191-.047-.298-.334-.107l-6.117 3.853-2.636-.824c-.573-.18-.584-.573.12-.849l10.302-3.97c.478-.178.896.107.741.849z"/>
+                </svg>
+            </span>
+            <span class="btn-word" data-en="Launch" data-ru="Открыть" data-uz="Ochish">Launch</span>
+            <span class="btn-word" data-en="Telegram" data-ru="Telegram" data-uz="Telegram">Telegram</span>
+            <span class="btn-word" data-en="Bot" data-ru="Бот" data-uz="Bot">Bot</span>
+        </a>
     </header>
 
+    <section id="fields-section">
+        <div class="fields-container">
+            <h2 class="section-title" data-en="Engineering Fields" data-ru="Инженерные направления" data-uz="Muhandislik sohalari">Engineering Fields</h2>
+            <p class="section-subtitle" data-en="Explore different disciplines of engineering" data-ru="Изучите различные дисциплины инженерии" data-uz="Muhandislikning turli sohalarini o'rganing">Explore different disciplines of engineering</p>
+
+            <div class="fields-grid">
+                <div class="field-card civil-bg">
+                    <div class="field-title" data-en="Civil Engineering" data-ru="Гражданское строительство" data-uz="Fuqarolik inzhinering">Civil Engineering</div>
+                    <div class="field-description" data-en="Civil engineering involves the design, construction, and maintenance of infrastructure projects such as buildings, bridges, roads, and dams. It focuses on creating safe, sustainable, and efficient structures that meet human needs and withstand environmental challenges." data-ru="Гражданское строительство включает проектирование, строительство и обслуживание инфраструктурных проектов, таких как здания, мосты, дороги и плотины. Оно сосредоточено на создании безопасных, устойчивых и эффективных конструкций, которые удовлетворяют потребности человека и выдерживают экологические вызовы." data-uz="Fuqarolik inzhinering binolar, ko'priklar, yo'llar va dambalar kabi infratuzilma loyihalarini loyihalashtirish, qurilish va texabarini o'z ichiga oladi. U inson ehtiyojlarini qondirish va atrof-muhit qiyinchiliklariga chidamli xavfsiz, barqaror va samarali tuzilmalarni yaratishga qaratilgan.">Civil engineering involves the design, construction, and maintenance of infrastructure projects.</div>
+                    <button class="expand-btn" onclick="window.location.href='civil-engineering.html'" data-en="Learn More" data-ru="Узнать больше" data-uz="Ko'proq bilish">Learn More</button>
+                </div>
+
+                <div class="field-card aerospace-bg">
+                    <div class="field-title" data-en="Aerospace Engineering" data-ru="Аэрокосмическая инженерия" data-uz="Aviatsion inzhinering">Aerospace Engineering</div>
+                    <div class="field-description" data-en="Aerospace engineering deals with the design, development, and testing of aircraft, spacecraft, and related systems. It combines principles of aerodynamics, propulsion, materials science, and control systems to create vehicles that fly and explore space safely and efficiently." data-ru="Аэрокосмическая инженерия занимается проектированием, разработкой и испытанием самолетов, космических аппаратов и связанных с ними систем. Она объединяет принципы аэродинамики, двигателестроения, науки о материалах и систем управления для создания летательных аппаратов, которые летают и исследуют космос безопасно и эффективно." data-uz="Aviatsion inzhinering samolyotlar, kosmik kemalar va tegishli tizimlarni loyihalashtirish, ishlab chiqish va sinab o'tkazish bilan shug'ullanadi. U aerodinamika, dvigatel texnologiyasi, material fani va boshqaruv tizimlari tamoyillarini birlashtirib, xavfsiz va samarali ravishda uchiladigan va kosmosni o'rgana oladigan vositalarni yaratadi.">Aerospace engineering deals with the design, development, and testing of aircraft and spacecraft.</div>
+                    <button class="expand-btn" onclick="window.location.href='aerospace-engineering.html'" data-en="Learn More" data-ru="Узнать больше" data-uz="Ko'proq bilish">Learn More</button>
+                </div>
+
+                <div class="field-card mechanical-bg">
+                    <div class="field-title" data-en="Mechanical Engineering" data-ru="Машиностроение" data-uz="Mexanik inzhinering">Mechanical Engineering</div>
+                    <div class="field-description" data-en="Mechanical engineering is the application of physics and materials science to design, analyze, and manufacture mechanical systems. It covers everything from engines and turbines to robots and consumer products, focusing on creating machines that are efficient, durable, and cost-effective." data-ru="Машиностроение - это применение физики и материаловедения для проектирования, анализа и производства механических систем. Оно охватывает все, от двигателей и турбин до роботов и потребительских товаров, сосредоточиваясь на создании машин, которые эффективны, долговечны и экономичны." data-uz="Mexanik inzhinering fizika va material fani qoidalarini mexanik tizimlarni loyihalashtirish, tahlil qilish va ishlab chiqarish uchun qo'llashdir. U dvigatellardan va turbinalardan robotlar va iste'mol mahsulotlarigacha hamma narsani qamrab oladi, samarali, uzoq umrli va tejamkor mashinalar yaratishga qaratilgan.">Mechanical engineering is the application of physics and materials science to design mechanical systems.</div>
+                    <button class="expand-btn" onclick="window.location.href='mechanical-engineering.html'" data-en="Learn More" data-ru="Узнать больше" data-uz="Ko'proq bilish">Learn More</button>
+                </div>
+
+                <div class="field-card electrical-bg">
+                    <div class="field-title" data-en="Electrical Engineering" data-ru="Электротехника" data-uz="Elektr inzhinering">Electrical Engineering</div>
+                    <div class="field-description" data-en="Electrical engineering focuses on the generation, transmission, and use of electric power and the design of electrical equipment and systems. It includes power systems, electronics, telecommunications, and renewable energy technologies, powering modern society." data-ru="Электротехника сосредоточена на производстве, передаче и использовании электроэнергии, а также проектировании электрического оборудования и систем. Она включает энергетические системы, электронику, телекоммуникации и технологии возобновляемых источников энергии, питающие современное общество." data-uz="Elektr inzhinering elektr energiyasining ishlab chiqarilishi, uzatilishi va ishlatilishi, shuningdek elektr asbob-uskunalarini va tizimlarini loyihalashtirish masalalariga qaratilgan. U elektr tizimlarini, elektronikani, telekommunikatsiyalarni va qayta tiklanadigan energiya texnologiyalarini o'z ichiga oladi va zamonaviy jamiyatga kuch beradi.">Electrical engineering focuses on the generation, transmission, and use of electric power.</div>
+                    <button class="expand-btn" onclick="window.location.href='electrical-engineering.html'" data-en="Learn More" data-ru="Узнать больше" data-uz="Ko'proq bilish">Learn More</button>
+                </div>
+
+                <div class="field-card nuclear-bg">
+                    <div class="field-title" data-en="Nuclear Engineering" data-ru="Ядерная инженерия" data-uz="Yadro inzhinering">Nuclear Engineering</div>
+                    <div class="field-description" data-en="Nuclear engineering involves the design, construction, and operation of nuclear power plants and systems. It applies principles of nuclear physics and materials science to develop safe, efficient, and sustainable nuclear energy technologies for electricity generation and medical applications." data-ru="Ядерная инженерия включает проектирование, строительство и эксплуатацию атомных электростанций и систем. Она применяет принципы ядерной физики и материаловедения для разработки безопасных, эффективных и устойчивых технологий ядерной энергии для производства электроэнергии и медицинских применений." data-uz="Yadro inzhinering atom elektrostansiyalari va tizimlarini loyihalashtirish, qurilish va ishlatish masalalarini o'z ichiga oladi. U yadro fizikasi va material fani tamoyillarini qo'llab, elektr energiyasi ishlab chiqarish va tibbiy qo'llaniş uchun xavfsiz, samarali va barqaror yadro energiya texnologiyalarini ishlab chiqadi.">Nuclear engineering involves the design and operation of nuclear power plants and systems.</div>
+                    <button class="expand-btn" onclick="window.location.href='nuclear-engineering.html'" data-en="Learn More" data-ru="Узнать больше" data-uz="Ko'proq bilish">Learn More</button>
+                </div>
+
+                <div class="field-card chemical-bg">
+                    <div class="field-title" data-en="Chemical Engineering" data-ru="Химическая инженерия" data-uz="Kimyo inzhinering">Chemical Engineering</div>
+                    <div class="field-description" data-en="Chemical engineering combines chemistry, physics, and engineering principles to design processes and equipment for manufacturing chemicals, pharmaceuticals, food products, and materials. It focuses on scaling laboratory processes to industrial production while ensuring safety, efficiency, and environmental sustainability." data-ru="Химическая инженерия объединяет принципы химии, физики и инженерии для проектирования процессов и оборудования для производства химикатов, фармацевтических препаратов, пищевых продуктов и материалов. Она сосредоточена на масштабировании лабораторных процессов до промышленного производства при обеспечении безопасности, эффективности и экологической устойчивости." data-uz="Kimyo inzhinering kimyo, fizika va inzhinering tamoyillarini birlashtirarak kimyoviy moddalar, dori-darmonlar, oziq-ovqat mahsulotlari va materiallarni ishlab chiqarish uchun jarayonlar va asbob-uskunalarni loyihalashtirish. U laboratoriya jarayonlarini sanoat ishlab chiqarishiga o'tkazish, xavfsizlik, samarali va atrof-muhitni muhofaza qilish tamoyillarini ta'minlash bilan shug'ullanadi.">Chemical engineering combines chemistry and physics to design manufacturing processes and equipment.</div>
+                    <button class="expand-btn" onclick="window.location.href='chemical-engineering.html'" data-en="Learn More" data-ru="Узнать больше" data-uz="Ko'proq bilish">Learn More</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="roadmap-section">
+        <div class="roadmap-sidebar">
+            <h3 data-en="Engineering Fields" data-ru="Инженерные направления" data-uz="Muhandislik sohalari">Engineering Fields</h3>
+            <div class="roadmap-list">
+                <div class="roadmap-item active" data-field="civil" data-en="Civil Engineering" data-ru="Гражданское строительство" data-uz="Fuqarolik inzhinering">🏗️ Civil Engineering</div>
+                <div class="roadmap-item" data-field="aerospace" data-en="Aerospace Engineering" data-ru="Аэрокосмическая инженерия" data-uz="Aviatsion inzhinering">✈️ Aerospace Engineering</div>
+                <div class="roadmap-item" data-field="mechanical" data-en="Mechanical Engineering" data-ru="Машиностроение" data-uz="Mexanik inzhinering">⚙️ Mechanical Engineering</div>
+                <div class="roadmap-item" data-field="electrical" data-en="Electrical Engineering" data-ru="Электротехника" data-uz="Elektr inzhinering">⚡ Electrical Engineering</div>
+                <div class="roadmap-item" data-field="nuclear" data-en="Nuclear Engineering" data-ru="Ядерная инженерия" data-uz="Yadro inzhinering">☢️ Nuclear Engineering</div>
+                <div class="roadmap-item" data-field="chemical" data-en="Chemical Engineering" data-ru="Химическая инженерия" data-uz="Kimyo inzhinering">🧪 Chemical Engineering</div>
+            </div>
+        </div>
+
+        <div class="roadmap-content">
+            <h2 class="roadmap-title" id="roadmap-title">Civil Engineering</h2>
+            <p class="roadmap-subtitle" id="roadmap-subtitle">Step-by-step learning path to become a professional</p>
+            <div class="roadmap-steps" id="roadmap-steps"></div>
+        </div>
+    </section>
+
     <footer>
-        © 2026 LEARNcraft. Built by Muhammadziyo.
+        © 2026 LEARNcraft. By Muhammadziyo
     </footer>
+
+    <script>
+        const roadmapData = {
+            civil: {
+                title: {
+                    en: "Civil Engineering",
+                    ru: "Гражданское строительство",
+                    uz: "Fuqarolik inzhinering"
+                },
+                subtitle: {
+                    en: "Step-by-step learning path to become a professional",
+                    ru: "Пошаговый путь обучения до уровня профессионала",
+                    uz: "Professional darajaga yetishish uchun bosqichma-bosqich yo'l"
+                },
+                steps: {
+                    en: [
+                        "Build strong foundations in math, physics, and mechanics.",
+                        "Learn statics, dynamics, and strength of materials.",
+                        "Master structural design principles, codes, and CAD tools.",
+                        "Study construction materials, geotechnics, and surveying.",
+                        "Develop project management, safety, and site supervision skills."
+                    ],
+                    ru: [
+                        "Создайте прочную базу в математике, физике и механике.",
+                        "Изучите статику, динамику и сопротивление материалов.",
+                        "Освойте принципы расчёта конструкций, нормы и CAD.",
+                        "Изучите строительные материалы, геотехнику и геодезию.",
+                        "Развивайте управление проектами, безопасность и контроль работ."
+                    ],
+                    uz: [
+                        "Matematika, fizika va mexanika bo‘yicha mustahkam asos yarating.",
+                        "Statika, dinamika va materiallar mustahkamligini o‘rganing.",
+                        "Tuzilma loyihalash, me’yorlar va CAD vositalarini o‘zlashtiring.",
+                        "Qurilish materiallari, geotexnika va geodeziyani o‘rganing.",
+                        "Loyiha boshqaruvi, xavfsizlik va nazorat ko‘nikmalarini rivojlantiring."
+                    ]
+                }
+            },
+            aerospace: {
+                title: {
+                    en: "Aerospace Engineering",
+                    ru: "Аэрокосмическая инженерия",
+                    uz: "Aviatsion inzhinering"
+                },
+                subtitle: {
+                    en: "Step-by-step learning path to become a professional",
+                    ru: "Пошаговый путь обучения до уровня профессионала",
+                    uz: "Professional darajaga yetishish uchun bosqichma-bosqich yo'l"
+                },
+                steps: {
+                    en: [
+                        "Build fundamentals in calculus, physics, and programming.",
+                        "Learn aerodynamics, flight mechanics, and propulsion.",
+                        "Study aerospace structures, materials, and fatigue.",
+                        "Master control systems, avionics, and navigation.",
+                        "Complete design projects, simulations, and testing workflows."
+                    ],
+                    ru: [
+                        "Освойте основы математики, физики и программирования.",
+                        "Изучите аэродинамику, динамику полёта и двигатели.",
+                        "Изучите конструкции, материалы и усталость в авиации.",
+                        "Освойте системы управления, авионику и навигацию.",
+                        "Выполняйте проекты, моделирование и испытания."
+                    ],
+                    uz: [
+                        "Matematika, fizika va dasturlash asoslarini o‘zlashtiring.",
+                        "Aerodinamika, parvoz mexanikasi va dvigatellarni o‘rganing.",
+                        "Aviatsion konstruksiyalar, materiallar va charchashni o‘rganing.",
+                        "Boshqaruv tizimlari, avionika va navigatsiyani o‘zlashtiring.",
+                        "Loyihalar, modellashtirish va sinov jarayonlarini bajaring."
+                    ]
+                }
+            },
+            mechanical: {
+                title: {
+                    en: "Mechanical Engineering",
+                    ru: "Машиностроение",
+                    uz: "Mexanik inzhinering"
+                },
+                subtitle: {
+                    en: "Step-by-step learning path to become a professional",
+                    ru: "Пошаговый путь обучения до уровня профессионала",
+                    uz: "Professional darajaga yetishish uchun bosqichma-bosqich yo'l"
+                },
+                steps: {
+                    en: [
+                        "Learn math, physics, and engineering graphics.",
+                        "Study thermodynamics, fluid mechanics, and heat transfer.",
+                        "Master CAD, machine design, and kinematics.",
+                        "Understand manufacturing processes and material selection.",
+                        "Build systems projects and practice testing and optimization."
+                    ],
+                    ru: [
+                        "Изучите математику, физику и инженерную графику.",
+                        "Освойте термодинамику, механику жидкостей и теплообмен.",
+                        "Овладейте CAD, проектированием машин и кинематикой.",
+                        "Поймите технологии производства и выбор материалов.",
+                        "Делайте проекты и практикуйтесь в тестировании и оптимизации."
+                    ],
+                    uz: [
+                        "Matematika, fizika va muhandislik grafikani o‘rganing.",
+                        "Termodinamika, suyuqliklar mexanikasi va issiqlik almashuvini o‘rganing.",
+                        "CAD, mashina dizayni va kinematikani o‘zlashtiring.",
+                        "Ishlab chiqarish jarayonlari va material tanlashni tushuning.",
+                        "Loyiha qiling va sinov hamda optimallashtirishni bajaring."
+                    ]
+                }
+            },
+            electrical: {
+                title: {
+                    en: "Electrical Engineering",
+                    ru: "Электротехника",
+                    uz: "Elektr inzhinering"
+                },
+                subtitle: {
+                    en: "Step-by-step learning path to become a professional",
+                    ru: "Пошаговый путь обучения до уровня профессионала",
+                    uz: "Professional darajaga yetishish uchun bosqichma-bosqich yo'l"
+                },
+                steps: {
+                    en: [
+                        "Master circuit theory, math, and basic electronics.",
+                        "Learn analog/digital systems and microcontrollers.",
+                        "Study signals, systems, and control theory.",
+                        "Explore power systems, renewable energy, and safety.",
+                        "Build embedded, communications, or automation projects."
+                    ],
+                    ru: [
+                        "Освойте теорию цепей, математику и основы электроники.",
+                        "Изучите аналоговые/цифровые системы и микроконтроллеры.",
+                        "Освойте сигналы, системы и теорию управления.",
+                        "Изучите энергосистемы, ВИЭ и безопасность.",
+                        "Создавайте проекты в embedded, связи или автоматизации."
+                    ],
+                    uz: [
+                        "Zanjir nazariyasi, matematika va elektronika asoslarini o‘rganing.",
+                        "Analog/raqamli tizimlar va mikrokontrollerlarni o‘rganing.",
+                        "Signallar, tizimlar va boshqaruv nazariyasini o‘zlashtiring.",
+                        "Energiya tizimlari, qayta tiklanuvchi energiya va xavfsizlikni o‘rganing.",
+                        "Embedded, aloqa yoki avtomatlashtirish loyihalarini yarating."
+                    ]
+                }
+            },
+            nuclear: {
+                title: {
+                    en: "Nuclear Engineering",
+                    ru: "Ядерная инженерия",
+                    uz: "Yadro inzhinering"
+                },
+                subtitle: {
+                    en: "Step-by-step learning path to become a professional",
+                    ru: "Пошаговый путь обучения до уровня профессионала",
+                    uz: "Professional darajaga yetishish uchun bosqichma-bosqich yo'l"
+                },
+                steps: {
+                    en: [
+                        "Build a strong base in math, physics, and thermodynamics.",
+                        "Study nuclear physics and reactor fundamentals.",
+                        "Learn radiation protection and nuclear regulations.",
+                        "Master thermal-hydraulics, materials, and fuel cycles.",
+                        "Apply knowledge in reactor design, operations, and safety."
+                    ],
+                    ru: [
+                        "Создайте базу в математике, физике и термодинамике.",
+                        "Изучите ядерную физику и основы реакторов.",
+                        "Освойте радиационную защиту и нормы безопасности.",
+                        "Изучите теплогидравлику, материалы и топливные циклы.",
+                        "Применяйте знания в проектировании и эксплуатации реакторов."
+                    ],
+                    uz: [
+                        "Matematika, fizika va termodinamikadan kuchli asos yarating.",
+                        "Yadro fizikasi va reaktor asoslarini o‘rganing.",
+                        "Radiatsiya himoyasi va me’yorlarni o‘zlashtiring.",
+                        "Issiqlik-gidravlika, materiallar va yoqilg‘i sikllarini o‘rganing.",
+                        "Reaktor dizayni, ekspluatatsiya va xavfsizlikni amalda qo‘llang."
+                    ]
+                }
+            },
+            chemical: {
+                title: {
+                    en: "Chemical Engineering",
+                    ru: "Химическая инженерия",
+                    uz: "Kimyo inzhinering"
+                },
+                subtitle: {
+                    en: "Step-by-step learning path to become a professional",
+                    ru: "Пошаговый путь обучения до уровня профессионала",
+                    uz: "Professional darajaga yetishish uchun bosqichma-bosqich yo'l"
+                },
+                steps: {
+                    en: [
+                        "Learn chemistry, physics, and basic process calculations.",
+                        "Study thermodynamics and transport phenomena.",
+                        "Master reaction engineering and process control.",
+                        "Use process simulation and plant design tools.",
+                        "Focus on safety, scale-up, and industrial operations."
+                    ],
+                    ru: [
+                        "Изучите химию, физику и расчёты процессов.",
+                        "Освойте термодинамику и переносные процессы.",
+                        "Изучите кинетику реакций и управление процессами.",
+                        "Используйте моделирование процессов и проектирование установок.",
+                        "Сфокусируйтесь на безопасности, масштабировании и эксплуатации."
+                    ],
+                    uz: [
+                        "Kimyo, fizika va jarayon hisob-kitoblarini o‘rganing.",
+                        "Termodinamika va transport hodisalarini o‘zlashtiring.",
+                        "Reaksiya injiniringi va jarayon boshqaruvini o‘rganing.",
+                        "Jarayon simulyatsiyasi va zavod dizaynini qo‘llang.",
+                        "Xavfsizlik, masshtablashtirish va ishlab chiqarishga e’tibor bering."
+                    ]
+                }
+            }
+        };
+
+        let currentRoadmapField = "civil";
+
+        function renderRoadmap(fieldKey) {
+            const lang = localStorage.getItem("preferredLanguage") || "en";
+            const data = roadmapData[fieldKey];
+            if (!data) {
+                return;
+            }
+
+            // Track field interaction
+            trackFieldInteraction(fieldKey);
+
+            const titleEl = document.getElementById("roadmap-title");
+            const subtitleEl = document.getElementById("roadmap-subtitle");
+            const stepsEl = document.getElementById("roadmap-steps");
+
+            titleEl.textContent = data.title[lang];
+            subtitleEl.textContent = data.subtitle[lang];
+            stepsEl.innerHTML = "";
+
+            data.steps[lang].forEach((step, index) => {
+                const stepItem = document.createElement("div");
+                stepItem.className = "roadmap-step";
+
+                const number = document.createElement("div");
+                number.className = "step-number";
+                number.textContent = String(index + 1);
+
+                const text = document.createElement("div");
+                text.className = "step-text";
+                text.textContent = step;
+
+                stepItem.appendChild(number);
+                stepItem.appendChild(text);
+                stepsEl.appendChild(stepItem);
+            });
+
+            document.querySelectorAll(".roadmap-item").forEach(item => {
+                item.classList.toggle("active", item.dataset.field === fieldKey);
+            });
+        }
+
+        function toggleField(card) {
+            document.querySelectorAll('.field-card').forEach(c => {
+                if (c !== card) {
+                    c.classList.remove('active');
+                }
+            });
+            card.classList.toggle('active');
+        }
+
+        function toggleOptionsMenu() {
+            const menu = document.getElementById('options-menu');
+            menu.classList.toggle('show');
+        }
+
+        function closeOptionsMenu() {
+            const menu = document.getElementById('options-menu');
+            menu.classList.remove('show');
+        }
+
+        function toggleLanguageMenu() {
+            const menu = document.getElementById('lang-menu');
+            menu.classList.toggle('show');
+        }
+
+        function changeLanguage(lang, displayText) {
+            // Update current language display
+            document.getElementById('current-lang').textContent = displayText;
+
+            // Update active option
+            document.querySelectorAll('.lang-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update all elements with translations
+            document.querySelectorAll('[data-' + lang + ']').forEach(element => {
+                element.textContent = element.getAttribute('data-' + lang);
+            });
+
+            // Save language preference
+            localStorage.setItem('preferredLanguage', lang);
+            localStorage.setItem('languageDisplay', displayText);
+
+            renderRoadmap(currentRoadmapField);
+
+            // Close the menu
+            document.getElementById('lang-menu').classList.remove('show');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (event) => {
+            const dropdown = document.querySelector('.lang-dropdown');
+            const menu = document.getElementById('lang-menu');
+            const optionsDropdown = document.querySelector('.options-dropdown');
+            const optionsMenu = document.getElementById('options-menu');
+            if (dropdown && !dropdown.contains(event.target)) {
+                menu.classList.remove('show');
+            }
+            if (optionsDropdown && !optionsDropdown.contains(event.target)) {
+                optionsMenu.classList.remove('show');
+            }
+        });
+
+        // Load saved language preference on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('preferredLanguage');
+            const savedDisplay = localStorage.getItem('languageDisplay');
+
+            if (savedLang && savedLang !== 'en') {
+                if (savedDisplay) {
+                    document.getElementById('current-lang').textContent = savedDisplay;
+                }
+
+                document.querySelectorAll('[data-' + savedLang + ']').forEach(element => {
+                    element.textContent = element.getAttribute('data-' + savedLang);
+                });
+
+                document.querySelectorAll('.lang-option').forEach(option => {
+                    option.classList.remove('active');
+                    if (option.getAttribute('onclick').includes("'" + savedLang + "'")) {
+                        option.classList.add('active');
+                    }
+                });
+            }
+
+            document.querySelectorAll('.roadmap-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    currentRoadmapField = item.dataset.field;
+                    renderRoadmap(currentRoadmapField);
+                });
+            });
+
+            renderRoadmap(currentRoadmapField);
+
+            // User Account Management
+            checkUserLogin();
+        });
+
+        // Check if user is logged in
+        function checkUserLogin() {
+            const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
+            
+            if (currentUser) {
+                // User is logged in - show account circle, hide sign in button
+                const userAccount = document.getElementById('userAccount');
+                const signInBtn = document.getElementById('signInBtn');
+                const userCircle = document.getElementById('userCircle');
+                const userEmail = document.getElementById('userEmail');
+                
+                // Get first letter of email for avatar
+                const initial = currentUser.email.charAt(0).toUpperCase();
+                userCircle.textContent = initial;
+                userEmail.textContent = currentUser.email;
+                
+                // Toggle visibility
+                userAccount.style.display = 'inline-block';
+                signInBtn.style.display = 'none';
+                
+                // Check if user is admin
+                checkAdminAccess(currentUser.email);
+                
+                // Add click event to toggle menu
+                userCircle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const userMenu = document.getElementById('userMenu');
+                    userMenu.classList.toggle('show');
+                });
+                
+                // Add logout functionality
+                document.getElementById('logoutBtn').addEventListener('click', function() {
+                    logout();
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    const userMenu = document.getElementById('userMenu');
+                    const userAccount = document.getElementById('userAccount');
+                    if (!userAccount.contains(e.target)) {
+                        userMenu.classList.remove('show');
+                    }
+                });
+            } else {
+                // User not logged in - show sign in button
+                document.getElementById('signInBtn').style.display = 'inline-block';
+                document.getElementById('userAccount').style.display = 'none';
+            }
+        }
+
+        // Check admin access
+        function checkAdminAccess(email) {
+            // Only this email can see the Admin button
+            const adminEmail = 'mukhammadziyo554@gmail.com';
+            
+            if (email.toLowerCase() === adminEmail.toLowerCase()) {
+                document.getElementById('adminBtn').style.display = 'inline-block';
+            }
+        }
+
+        // Logout function
+        function logout() {
+            // Save any pending user data before logout
+            saveUserData();
+            
+            // Clear session
+            localStorage.removeItem('learncraft_current_user');
+            
+            // Reload page to update UI
+            window.location.reload();
+        }
+
+        // Save user interaction data
+        function saveUserData() {
+            const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
+            if (!currentUser) return;
+            
+            const users = JSON.parse(localStorage.getItem('learncraft_users')) || [];
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            
+            if (userIndex !== -1) {
+                // Update user's data
+                users[userIndex].lastActive = new Date().toISOString();
+                
+                // Save language preference
+                const currentLanguage = localStorage.getItem('selectedLanguage') || 'en';
+                users[userIndex].preferredLanguage = currentLanguage;
+                
+                // Track visited fields (from roadmap interactions)
+                if (!users[userIndex].visitedFields) {
+                    users[userIndex].visitedFields = [];
+                }
+                
+                // Save back to localStorage
+                localStorage.setItem('learncraft_users', JSON.stringify(users));
+            }
+        }
+
+        // Auto-save user data periodically
+        let autoSaveInterval;
+        const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
+        if (currentUser) {
+            autoSaveInterval = setInterval(saveUserData, 30000); // Save every 30 seconds
+        }
+
+        // Track field interactions
+        function trackFieldInteraction(fieldName) {
+            const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
+            if (!currentUser) return;
+            
+            const users = JSON.parse(localStorage.getItem('learncraft_users')) || [];
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            
+            if (userIndex !== -1) {
+                if (!users[userIndex].visitedFields) {
+                    users[userIndex].visitedFields = [];
+                }
+                
+                if (!users[userIndex].visitedFields.includes(fieldName)) {
+                    users[userIndex].visitedFields.push(fieldName);
+                }
+                
+                users[userIndex].lastVisitedField = fieldName;
+                users[userIndex].lastActive = new Date().toISOString();
+                
+                localStorage.setItem('learncraft_users', JSON.stringify(users));
+            }
+        }
+
+        // Override existing changeLanguage function to track language preference
+        const originalChangeLanguage = changeLanguage;
+        changeLanguage = function(lang, displayText) {
+            originalChangeLanguage(lang, displayText);
+            saveUserData(); // Save language preference
+        };
+    </script>
 
 </body>
 </html>
-
->>>>>>> 3917ea5192095c23d62ca4397a2752bea34ff0d1
