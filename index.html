@@ -1105,6 +1105,7 @@
         <div class="roadmap-header">
             <h2 class="section-title" data-en="Learning Roadmap" data-ru="Дорожная карта" data-uz="O'quv yo'l xaritasi">Learning Roadmap</h2>
             <p class="section-subtitle" data-en="Choose an engineering field to explore the learning path" data-ru="Выберите инженерное направление для изучения" data-uz="O'quv yo'lini o'rganish uchun muhandislik sohasini tanlang">Choose an engineering field to explore the learning path</p>
+            <div id="roadmap-content" class="roadmap-content"></div>
         </div>
     </section>
 
@@ -1363,8 +1364,69 @@
             }
         }
 
+        // Display roadmap steps when a field is selected
+        function displayRoadmapSteps(fieldKey) {
+            const data = roadmapData[fieldKey];
+            const lang = localStorage.getItem("preferredLanguage") || "en";
+            const contentDiv = document.getElementById('roadmap-content');
+            
+            if (!data) return;
+
+            let stepsHTML = `
+                <h3 class="roadmap-title">${data.title[lang]}</h3>
+                <p class="roadmap-subtitle">${data.subtitle[lang]}</p>
+                <div class="roadmap-steps">
+            `;
+
+            data.steps[lang].forEach((step, index) => {
+                stepsHTML += `
+                    <div class="roadmap-step">
+                        <div class="step-number">${index + 1}</div>
+                        <div class="step-text">${step}</div>
+                    </div>
+                `;
+            });
+
+            stepsHTML += '</div>';
+            contentDiv.innerHTML = stepsHTML;
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             updateRoadmapSidebar();
+            
+            // Add click handlers to roadmap items
+            document.querySelectorAll('.roadmap-item').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const fieldMap = {
+                        'civil-engineering.html': 'civil',
+                        'aerospace-engineering.html': 'aerospace',
+                        'mechanical-engineering.html': 'mechanical',
+                        'electrical-engineering.html': 'electrical',
+                        'nuclear-engineering.html': 'nuclear',
+                        'chemical-engineering.html': 'chemical'
+                    };
+                    
+                    const href = this.getAttribute('href');
+                    for (const [page, field] of Object.entries(fieldMap)) {
+                        if (href.includes(page.replace('.html', ''))) {
+                            // Update active state
+                            document.querySelectorAll('.roadmap-item').forEach(i => i.classList.remove('active'));
+                            this.classList.add('active');
+                            
+                            // Display the roadmap steps
+                            displayRoadmapSteps(field);
+                            
+                            // Scroll to content
+                            document.getElementById('roadmap-content').scrollIntoView({ behavior: 'smooth' });
+                            break;
+                        }
+                    }
+                });
+            });
+            
+            // Display civil engineering by default
+            displayRoadmapSteps('civil');
         });
 
         function toggleField(card) {
