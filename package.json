@@ -1,0 +1,23 @@
+{
+  "name": "learncraft-web",
+  "version": "1.0.0",
+  "description": "LEARNcraft - Your AI-powered Engineering Support App on Telegram",
+  "main": "bot.py",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "start": "python3 bot.py"
+  },
+  "keywords": [
+    "telegram",
+    "mini-app",
+    "engineering",
+    "education",
+    "ai"
+  ],
+  "author": "Muhammadziyo",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mukhammadziyo554-netizen/LEARNcraft-web.git"
+  }
+}

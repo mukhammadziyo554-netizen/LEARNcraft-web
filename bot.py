@@ -10,9 +10,11 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Replace with your Telegram Bot Token
-BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE'
+# Get it from @BotFather on Telegram
+BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE'  # ← REPLACE THIS with your token from @BotFather
 
-# Your mini app URL - CHANGE THIS TO YOUR ACTUAL DOMAIN
+# Your mini app URL - SET THIS TO YOUR ACTUAL DOMAIN after deployment
+# Example: https://learncraft.yourwebsite.com or https://yourdomain.com/index.html
 MINI_APP_URL = 'https://your-domain.com/index.html'
 
 # Command handlers
