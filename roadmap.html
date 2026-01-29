@@ -224,6 +224,32 @@
             font-size: 16px;
             line-height: 1.6;
         }
+
+        .back-to-top-button {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #C9A961 0%, #D4AF37 100%);
+            color: black;
+            border: 2px solid #FFD700;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-to-top-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(255, 215, 0, 0.5);
+            background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+        }
     </style>
 </head>
 <body>
@@ -294,6 +320,10 @@
         </div>
 
         <div class="roadmap-steps" id="roadmap-steps"></div>
+        
+        <button onclick="scrollToTop()" class="back-to-top-button" id="backToTopBtn" style="display: none;">
+            ↑ <span data-en="Back to Fields" data-ru="Вернуться к списку" data-uz="Ro'yxatga qaytish">Back to Fields</span>
+        </button>
     </div>
 
     <script>
@@ -512,6 +542,14 @@
 
             // Smooth scroll to steps
             stepsContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            // Show back-to-top button
+            document.getElementById('backToTopBtn').style.display = 'flex';
+        }
+
+        // Scroll back to top (roadmap buttons)
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // Display roadmap steps for Civil Engineering by default
@@ -540,6 +578,9 @@
                 stepEl.appendChild(textEl);
                 stepsContainer.appendChild(stepEl);
             });
+
+            // Show back-to-top button since steps are displayed
+            document.getElementById('backToTopBtn').style.display = 'flex';
         }
 
         // Load saved language preference on page load
