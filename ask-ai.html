@@ -39,6 +39,13 @@
             height: 48px;
         }
 
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
         .nav-brand {
             font-size: 18px;
             font-weight: bold;
@@ -50,11 +57,11 @@
         .nav-links {
             display: flex;
             gap: 12px;
-            margin-left: auto;
+            align-items: center;
             flex-shrink: 0;
         }
 
-        .nav-link {
+        .nav-link, .back-btn {
             color: #C9A961;
             text-decoration: none;
             font-weight: bold;
@@ -66,7 +73,7 @@
             padding: 2px 4px;
         }
 
-        .nav-link:hover {
+        .nav-link:hover, .back-btn:hover {
             color: #D4AF37;
         }
 
@@ -268,9 +275,11 @@
 </head>
 <body>
     <div class="nav-bar">
-        <div class="nav-brand">LEARNcraft</div>
+        <div class="nav-left">
+            <div class="nav-brand">LEARNcraft</div>
+            <button onclick="window.history.back()" class="back-btn">← Back</button>
+        </div>
         <div class="nav-links">
-            <button onclick="window.history.back()" class="nav-link">Back</button>
             <div class="options-dropdown">
                 <button class="options-btn" onclick="toggleOptionsMenu()">Options</button>
                 <div class="options-menu" id="options-menu">
