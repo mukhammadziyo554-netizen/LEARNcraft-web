@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Learning Roadmap - LEARNcraft</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            color: #C9A961;
+            min-height: 100vh;
+        }
+
+        .page-container {
+            max-width: 100%;
+            padding: 60px 20px 40px;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: rgba(201, 169, 97, 0.2);
+            border: 2px solid #C9A961;
+            border-radius: 8px;
+            color: #C9A961;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 40px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background: rgba(201, 169, 97, 0.3);
+            transform: translateX(-5px);
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .page-title {
+            font-size: 64px;
+            font-weight: bold;
+            color: #D4AF37;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+            margin-bottom: 20px;
+        }
+
+        .page-subtitle {
+            font-size: 24px;
+            color: #C9A961;
+        }
+
+        .roadmap-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .roadmap-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .roadmap-button {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 25px;
+            background: rgba(255, 215, 0, 0.05);
+            border: 2px solid #C9A961;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .roadmap-button:hover {
+            background: rgba(255, 215, 0, 0.15);
+            border-color: #FFD700;
+            transform: translateX(10px);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .button-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #C9A961 0%, #D4AF37 100%);
+            color: black;
+            font-weight: bold;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .button-info {
+            flex: 1;
+        }
+
+        .button-title {
+            font-size: 24px;
+            color: #FFD700;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .button-subtitle {
+            font-size: 16px;
+            color: #C9A961;
+        }
+
+        .button-emoji {
+            font-size: 32px;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-container {
+                padding: 40px 12px;
+            }
+
+            .page-title {
+                font-size: 42px;
+            }
+
+            .page-subtitle {
+                font-size: 18px;
+            }
+
+            .roadmap-button {
+                padding: 18px;
+                gap: 15px;
+            }
+
+            .button-number {
+                width: 50px;
+                height: 50px;
+                font-size: 22px;
+            }
+
+            .button-title {
+                font-size: 18px;
+            }
+
+            .button-subtitle {
+                font-size: 14px;
+            }
+
+            .button-emoji {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <button onclick="window.history.back()" class="back-button">← Back</button>
+        
+        <div class="page-header">
+            <h1 class="page-title" data-en="🗺️ Learning Roadmap" data-ru="🗺️ Дорожная карта" data-uz="🗺️ O'quv yo'l xaritasi">🗺️ Learning Roadmap</h1>
+            <p class="page-subtitle" data-en="Choose an engineering field to explore" data-ru="Выберите инженерное направление для изучения" data-uz="O'quv yo'lini o'rganish uchun muhandislik sohasini tanlang">Choose an engineering field to explore</p>
+        </div>
+
+        <div class="roadmap-container">
+            <div class="roadmap-vertical">
+                <a href="civil-engineering.html" class="roadmap-button">
+                    <div class="button-number">1</div>
+                    <div class="button-info">
+                        <div class="button-emoji">🏗️</div>
+                        <div class="button-title" data-en="Civil Engineering" data-ru="Гражданское строительство" data-uz="Fuqarolik inzhinering">Civil Engineering</div>
+                        <div class="button-subtitle" data-en="Building the infrastructure of tomorrow" data-ru="Построение инфраструктуры будущего" data-uz="Bukunning infratuzilmasini qurilish">Building the infrastructure of tomorrow</div>
+                    </div>
+                </a>
+
+                <a href="aerospace-engineering.html" class="roadmap-button">
+                    <div class="button-number">2</div>
+                    <div class="button-info">
+                        <div class="button-emoji">✈️</div>
+                        <div class="button-title" data-en="Aerospace Engineering" data-ru="Аэрокосмическая инженерия" data-uz="Aviatsion inzhinering">Aerospace Engineering</div>
+                        <div class="button-subtitle" data-en="Reaching for the stars" data-ru="Стремление к звёздам" data-uz="Yulduzlarga etishish">Reaching for the stars</div>
+                    </div>
+                </a>
+
+                <a href="mechanical-engineering.html" class="roadmap-button">
+                    <div class="button-number">3</div>
+                    <div class="button-info">
+                        <div class="button-emoji">⚙️</div>
+                        <div class="button-title" data-en="Mechanical Engineering" data-ru="Машиностроение" data-uz="Mexanik inzhinering">Mechanical Engineering</div>
+                        <div class="button-subtitle" data-en="Designing machines that change the world" data-ru="Проектирование машин, меняющих мир" data-uz="Dunyoni o'zgartiruvchi mashinalarni dizayn qilish">Designing machines that change the world</div>
+                    </div>
+                </a>
+
+                <a href="electrical-engineering.html" class="roadmap-button">
+                    <div class="button-number">4</div>
+                    <div class="button-info">
+                        <div class="button-emoji">⚡</div>
+                        <div class="button-title" data-en="Electrical Engineering" data-ru="Электротехника" data-uz="Elektr inzhinering">Electrical Engineering</div>
+                        <div class="button-subtitle" data-en="Powering the future with innovation" data-ru="Питание будущего инновациями" data-uz="Innovatsiya bilan kelajakni quvvatlantirish">Powering the future with innovation</div>
+                    </div>
+                </a>
+
+                <a href="nuclear-engineering.html" class="roadmap-button">
+                    <div class="button-number">5</div>
+                    <div class="button-info">
+                        <div class="button-emoji">☢️</div>
+                        <div class="button-title" data-en="Nuclear Engineering" data-ru="Ядерная инженерия" data-uz="Yadro inzhinering">Nuclear Engineering</div>
+                        <div class="button-subtitle" data-en="Harnessing the power of the atom" data-ru="Использование силы атома" data-uz="Atomning kuchini ishlating">Harnessing the power of the atom</div>
+                    </div>
+                </a>
+
+                <a href="chemical-engineering.html" class="roadmap-button">
+                    <div class="button-number">6</div>
+                    <div class="button-info">
+                        <div class="button-emoji">🧪</div>
+                        <div class="button-title" data-en="Chemical Engineering" data-ru="Химическая инженерия" data-uz="Kimyo inzhinering">Chemical Engineering</div>
+                        <div class="button-subtitle" data-en="Transforming matter into innovation" data-ru="Превращение материи в инновации" data-uz="Materiyani innovatsiyaga aylantirish">Transforming matter into innovation</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Telegram Web App
+        if (typeof TelegramWebApp !== 'undefined') {
+            const tg = window.Telegram.WebApp;
+            tg.ready();
+            tg.setHeaderColor('#1a1a1a');
+            tg.setBackgroundColor('#000000');
+            tg.MainButton.hide();
+        }
+
+        // Load saved language preference on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('preferredLanguage');
+            
+            if (savedLang && savedLang !== 'en') {
+                document.querySelectorAll('[data-' + savedLang + ']').forEach(element => {
+                    element.textContent = element.getAttribute('data-' + savedLang);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
