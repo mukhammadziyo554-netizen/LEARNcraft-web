@@ -1033,27 +1033,27 @@
             <p class="section-subtitle" data-en="Step-by-step path to becoming an engineer" data-ru="Пошаговый путь к становлению инженером" data-uz="Muhandis bo'lish uchun bosqichma-bosqich yo'l">Step-by-step path to becoming an engineer</p>
             
             <div class="roadmap-sidebar">
-                <div class="roadmap-item active" onclick="showRoadmap('civil')">
+                <div class="roadmap-item active" onclick="showRoadmap('civil', event)">
                     <span class="roadmap-item-emoji">🏗️</span>
                     <span class="roadmap-item-name" data-en="Civil" data-ru="Гражданское" data-uz="Fuqarolik">Civil</span>
                 </div>
-                <div class="roadmap-item" onclick="showRoadmap('aerospace')">
+                <div class="roadmap-item" onclick="showRoadmap('aerospace', event)">
                     <span class="roadmap-item-emoji">✈️</span>
                     <span class="roadmap-item-name" data-en="Aerospace" data-ru="Аэрокосмос" data-uz="Aviatsiya">Aerospace</span>
                 </div>
-                <div class="roadmap-item" onclick="showRoadmap('mechanical')">
+                <div class="roadmap-item" onclick="showRoadmap('mechanical', event)">
                     <span class="roadmap-item-emoji">⚙️</span>
                     <span class="roadmap-item-name" data-en="Mechanical" data-ru="Машиностроение" data-uz="Mexanika">Mechanical</span>
                 </div>
-                <div class="roadmap-item" onclick="showRoadmap('electrical')">
+                <div class="roadmap-item" onclick="showRoadmap('electrical', event)">
                     <span class="roadmap-item-emoji">⚡</span>
                     <span class="roadmap-item-name" data-en="Electrical" data-ru="Электротехника" data-uz="Elektr">Electrical</span>
                 </div>
-                <div class="roadmap-item" onclick="showRoadmap('nuclear')">
+                <div class="roadmap-item" onclick="showRoadmap('nuclear', event)">
                     <span class="roadmap-item-emoji">☢️</span>
                     <span class="roadmap-item-name" data-en="Nuclear" data-ru="Ядерная" data-uz="Yadro">Nuclear</span>
                 </div>
-                <div class="roadmap-item" onclick="showRoadmap('chemical')">
+                <div class="roadmap-item" onclick="showRoadmap('chemical', event)">
                     <span class="roadmap-item-emoji">🧪</span>
                     <span class="roadmap-item-name" data-en="Chemical" data-ru="Химическая" data-uz="Kimyo">Chemical</span>
                 </div>
@@ -1546,7 +1546,7 @@
         }
 
         // Roadmap functionality
-        function showRoadmap(field) {
+        function showRoadmap(field, event) {
             const lang = localStorage.getItem('preferredLanguage') || 'en';
             const data = roadmapData[field];
             
@@ -1556,7 +1556,19 @@
             document.querySelectorAll('.roadmap-item').forEach(item => {
                 item.classList.remove('active');
             });
-            event.target.closest('.roadmap-item').classList.add('active');
+            
+            // Set active based on field name
+            if (event && event.target) {
+                event.target.closest('.roadmap-item').classList.add('active');
+            } else {
+                // When called without event (e.g., on page load), find the matching item
+                document.querySelectorAll('.roadmap-item').forEach(item => {
+                    const onclick = item.getAttribute('onclick');
+                    if (onclick && onclick.includes(`'${field}'`)) {
+                        item.classList.add('active');
+                    }
+                });
+            }
             
             // Update content
             document.getElementById('roadmap-title').textContent = data.title[lang];
