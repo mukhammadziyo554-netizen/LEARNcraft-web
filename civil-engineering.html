@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Civil Engineering - LEARNcraft</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         * {
             margin: 0;
@@ -19,9 +23,8 @@
         }
 
         .page-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 60px 20px;
+            max-width: 100%;
+            padding: 60px 20px 40px;
         }
 
         .back-button {
@@ -35,6 +38,7 @@
             font-weight: bold;
             margin-bottom: 40px;
             transition: 0.3s;
+            cursor: pointer;
         }
 
         .back-button:hover {
@@ -45,6 +49,7 @@
         .field-header {
             text-align: center;
             margin-bottom: 60px;
+            animation: fadeInDown 1s ease-out;
         }
 
         .field-title {
@@ -60,7 +65,110 @@
             color: #C9A961;
         }
 
+        .roadmap-section {
+            max-width: 900px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .roadmap-title {
+            font-size: 32px;
+            color: #D4AF37;
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .roadmap-subtitle {
+            font-size: 18px;
+            color: #C9A961;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .roadmap-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .roadmap-step {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(201, 169, 97, 0.1);
+            border-left: 4px solid #FFD700;
+            border-radius: 8px;
+            transition: all 0.3s;
+            animation: slideInLeft 0.6s ease-out;
+        }
+
+        .roadmap-step:hover {
+            background: rgba(201, 169, 97, 0.15);
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(201, 169, 97, 0.2);
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #C9A961 0%, #D4AF37 100%);
+            color: black;
+            font-weight: bold;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .step-text {
+            color: #C9A961;
+            font-size: 16px;
+            line-height: 1.6;
+            display: flex;
+            align-items: center;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
         @media (max-width: 768px) {
+            .page-container {
+                padding: 40px 12px;
+            }
+
             .field-title {
                 font-size: 42px;
             }
@@ -68,17 +176,92 @@
             .field-subtitle {
                 font-size: 18px;
             }
+
+            .roadmap-step {
+                padding: 16px;
+                gap: 15px;
+            }
+
+            .step-number {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+
+            .step-text {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="page-container">
-        <button onclick="window.history.back()" class="back-button" style="border: none; cursor: pointer; background: rgba(201, 169, 97, 0.2);">← Back</button>
+        <button onclick="window.history.back()" class="back-button">← Back</button>
         
         <div class="field-header">
-            <h1 class="field-title">Civil Engineering</h1>
+            <h1 class="field-title">🏗️ Civil Engineering</h1>
             <p class="field-subtitle">Building the foundations of our world</p>
         </div>
+
+        <div style="max-width: 900px; margin: 60px auto; text-align: center; padding: 40px; background: rgba(201, 169, 97, 0.1); border-radius: 12px;">
+            <h2 style="font-size: 32px; color: #D4AF37; margin-bottom: 20px;">📚 Articles Coming Soon</h2>
+            <p style="font-size: 18px; color: #C9A961; line-height: 1.8;">We're preparing comprehensive articles and resources about Civil Engineering. Stay tuned for exciting content!</p>
+        </div>
     </div>
+
+    <script>
+        // Initialize Telegram Web App
+        if (typeof TelegramWebApp !== 'undefined') {
+            const tg = window.Telegram.WebApp;
+            tg.ready();
+            tg.setHeaderColor('#1a1a1a');
+            tg.setBackgroundColor('#000000');
+            tg.MainButton.hide();
+        }
+
+        const roadmapSteps = {
+            en: [
+                "Build strong foundations in math, physics, and mechanics.",
+                "Learn statics, dynamics, and strength of materials.",
+                "Master structural design principles, codes, and CAD tools.",
+                "Study construction materials, geotechnics, and surveying.",
+                "Develop project management, safety, and site supervision skills."
+            ],
+            ru: [
+                "Создайте прочную базу в математике, физике и механике.",
+                "Изучите статику, динамику и сопротивление материалов.",
+                "Освойте принципы расчёта конструкций, нормы и CAD.",
+                "Изучите строительные материалы, геотехнику и геодезию.",
+                "Развивайте управление проектами, безопасность и контроль работ."
+            ],
+            uz: [
+                "Matematika, fizika va mexanika bo'yicha mustahkam asos yarating.",
+                "Statika, dinamika va materiallar mustahkamligini o'rganing.",
+                "Tuzilma loyihalash, me'yorlar va CAD vositalarini o'zlashtiring.",
+                "Qurilish materiallari, geotexnika va geodeziyani o'rganing.",
+                "Loyiha boshqaruvi, xavfsizlik va nazorat ko'nikmalarini rivojlantiring."
+            ]
+        };
+
+        const lang = localStorage.getItem("preferredLanguage") || "en";
+        const stepsContainer = document.getElementById("roadmap-steps");
+
+        roadmapSteps[lang].forEach((step, index) => {
+            const stepEl = document.createElement("div");
+            stepEl.className = "roadmap-step";
+            
+            const numberEl = document.createElement("div");
+            numberEl.className = "step-number";
+            numberEl.textContent = index + 1;
+            
+            const textEl = document.createElement("div");
+            textEl.className = "step-text";
+            textEl.textContent = step;
+            
+            stepEl.appendChild(numberEl);
+            stepEl.appendChild(textEl);
+            stepsContainer.appendChild(stepEl);
+        });
+    </script>
 </body>
 </html>

@@ -439,6 +439,22 @@
             tickets.push(ticket);
             localStorage.setItem('learncraft_support_tickets', JSON.stringify(tickets));
 
+            // Also create a chat message so it appears in admin chat
+            const chatMessage = {
+                userEmail: userEmail,
+                userName: userName,
+                text: `[${issueType.toUpperCase()}] ${subject}\n\n${messageText}`,
+                sender: 'user',
+                timestamp: new Date().toISOString()
+            };
+
+            // Get existing chats
+            let chats = JSON.parse(localStorage.getItem('learncraft_chats')) || [];
+
+            // Add chat message
+            chats.push(chatMessage);
+            localStorage.setItem('learncraft_chats', JSON.stringify(chats));
+
             // Track in user account if logged in
             const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
             if (currentUser) {

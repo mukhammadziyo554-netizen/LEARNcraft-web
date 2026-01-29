@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "_bot.py",
+			"path": "../Desktop/venv/lib/python3.14/site-packages/telegram/_bot.py"
+		}
+	],
+	"settings": {}
+}

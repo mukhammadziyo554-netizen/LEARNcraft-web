@@ -119,6 +119,25 @@
             transform: scale(1.1);
         }
 
+        #signInBtn {
+            background: rgba(201, 169, 97, 0.2);
+            border: 1.5px solid #C9A961;
+            color: #C9A961;
+            font-weight: bold;
+            font-size: 12px;
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        #signInBtn:hover {
+            background: #C9A961;
+            color: #000;
+            transform: scale(1.05);
+        }
+
         .options-dropdown {
             position: relative;
             display: inline-block;
@@ -189,83 +208,135 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 30px;
+        }
+
+        .roadmap-header {
+            text-align: center;
+            animation: fadeInDown 1s ease-out;
         }
 
         .roadmap-sidebar {
-            flex: 0 0 auto;
-            background: rgba(201, 169, 97, 0.05);
-            border: 2px solid #C9A961;
-            border-radius: 8px;
-            padding: 15px;
-            height: fit-content;
-            position: sticky;
-            top: 55px;
-            order: 2;
-        }
-
-        .roadmap-sidebar h3 {
-            font-size: 14px;
-            margin-bottom: 12px;
-            color: #C9A961;
-            text-align: center;
-        }
-
-        .roadmap-list {
             display: flex;
-            flex-direction: column;
-            gap: 8px;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 30px;
         }
 
         .roadmap-item {
-            padding: 10px;
-            background: rgba(201, 169, 97, 0.1);
-            border-left: 3px solid #C9A961;
-            border-radius: 4px;
+            background: rgba(255, 215, 0, 0.08);
+            border: 2px solid #FFD700;
+            border-radius: 8px;
+            padding: 10px 16px;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 11px;
-            color: #C9A961;
-            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .roadmap-item:hover {
-            background: rgba(201, 169, 97, 0.2);
-            transform: translateX(5px);
+            background: rgba(255, 215, 0, 0.15);
+            transform: translateY(-2px);
         }
 
         .roadmap-item.active {
-            background: #C9A961;
-            color: black;
+            background: rgba(255, 215, 0, 0.2);
+            border-color: #D4AF37;
+        }
+
+        .roadmap-item-emoji {
+            font-size: 20px;
+        }
+
+        .roadmap-item-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #FFD700;
         }
 
         .roadmap-content {
-            flex: 1;
+            background: rgba(255, 215, 0, 0.05);
+            border-radius: 16px;
+            padding: 40px;
             animation: fadeInUp 1s ease-out;
-            order: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
         }
 
         .roadmap-title {
-            font-size: 28px;
-            margin-bottom: 6px;
-            color: #C9A961;
-            text-shadow: 0 0 15px rgba(201, 169, 97, 0.3);
+            font-size: 36px;
+            color: #D4AF37;
+            margin-bottom: 10px;
         }
 
         .roadmap-subtitle {
-            font-size: 14px;
+            font-size: 18px;
             color: #C9A961;
-            margin-bottom: 16px;
+            margin-bottom: 40px;
         }
 
         .roadmap-steps {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 20px;
         }
 
         .roadmap-step {
+            background: rgba(201, 169, 97, 0.1);
+            border-left: 4px solid #FFD700;
+            border-radius: 8px;
+            padding: 20px;
             display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #C9A961 0%, #D4AF37 100%);
+            color: black;
+            font-weight: bold;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .step-text {
+            color: #C9A961;
+            font-size: 16px;
+            line-height: 1.6;
+        @media (max-width: 768px) {
+            .roadmap-sidebar {
+                gap: 8px;
+            }
+            
+            .roadmap-item {
+                padding: 8px 12px;
+            }
+            
+            .roadmap-item-emoji {
+                font-size: 18px;
+            }
+            
+            .roadmap-item-name {
+                font-size: 12px;
+            }
+            
+            .roadmap-content {
+                padding: 20px;
+            }
+        }       padding: 20px;
+            }
+        }
+
+        .field-card {
             align-items: flex-start;
             gap: 10px;
             background: rgba(201, 169, 97, 0.05);
@@ -959,21 +1030,41 @@
     </section>
 
     <section id="roadmap-section">
-        <div class="roadmap-sidebar">
-            <h3 data-en="Engineering Fields" data-ru="Инженерные направления" data-uz="Muhandislik sohalari">Engineering Fields</h3>
-            <div class="roadmap-list">
-                <div class="roadmap-item active" data-field="civil" data-en="Civil Engineering" data-ru="Гражданское строительство" data-uz="Fuqarolik inzhinering">🏗️ Civil Engineering</div>
-                <div class="roadmap-item" data-field="aerospace" data-en="Aerospace Engineering" data-ru="Аэрокосмическая инженерия" data-uz="Aviatsion inzhinering">✈️ Aerospace Engineering</div>
-                <div class="roadmap-item" data-field="mechanical" data-en="Mechanical Engineering" data-ru="Машиностроение" data-uz="Mexanik inzhinering">⚙️ Mechanical Engineering</div>
-                <div class="roadmap-item" data-field="electrical" data-en="Electrical Engineering" data-ru="Электротехника" data-uz="Elektr inzhinering">⚡ Electrical Engineering</div>
-                <div class="roadmap-item" data-field="nuclear" data-en="Nuclear Engineering" data-ru="Ядерная инженерия" data-uz="Yadro inzhinering">☢️ Nuclear Engineering</div>
-                <div class="roadmap-item" data-field="chemical" data-en="Chemical Engineering" data-ru="Химическая инженерия" data-uz="Kimyo inzhinering">🧪 Chemical Engineering</div>
+        <div class="roadmap-header">
+            <h2 class="section-title" data-en="Learning Roadmap" data-ru="Дорожная карта" data-uz="O'quv yo'l xaritasi">Learning Roadmap</h2>
+            <p class="section-subtitle" data-en="Step-by-step path to becoming an engineer" data-ru="Пошаговый путь к становлению инженером" data-uz="Muhandis bo'lish uchun bosqichma-bosqich yo'l">Step-by-step path to becoming an engineer</p>
+            
+            <div class="roadmap-sidebar">
+                <div class="roadmap-item active" onclick="showRoadmap('civil')">
+                    <span class="roadmap-item-emoji">🏗️</span>
+                    <span class="roadmap-item-name" data-en="Civil" data-ru="Гражданское" data-uz="Fuqarolik">Civil</span>
+                </div>
+                <div class="roadmap-item" onclick="showRoadmap('aerospace')">
+                    <span class="roadmap-item-emoji">✈️</span>
+                    <span class="roadmap-item-name" data-en="Aerospace" data-ru="Аэрокосмос" data-uz="Aviatsiya">Aerospace</span>
+                </div>
+                <div class="roadmap-item" onclick="showRoadmap('mechanical')">
+                    <span class="roadmap-item-emoji">⚙️</span>
+                    <span class="roadmap-item-name" data-en="Mechanical" data-ru="Машиностроение" data-uz="Mexanika">Mechanical</span>
+                </div>
+                <div class="roadmap-item" onclick="showRoadmap('electrical')">
+                    <span class="roadmap-item-emoji">⚡</span>
+                    <span class="roadmap-item-name" data-en="Electrical" data-ru="Электротехника" data-uz="Elektr">Electrical</span>
+                </div>
+                <div class="roadmap-item" onclick="showRoadmap('nuclear')">
+                    <span class="roadmap-item-emoji">☢️</span>
+                    <span class="roadmap-item-name" data-en="Nuclear" data-ru="Ядерная" data-uz="Yadro">Nuclear</span>
+                </div>
+                <div class="roadmap-item" onclick="showRoadmap('chemical')">
+                    <span class="roadmap-item-emoji">🧪</span>
+                    <span class="roadmap-item-name" data-en="Chemical" data-ru="Химическая" data-uz="Kimyo">Chemical</span>
+                </div>
             </div>
         </div>
 
         <div class="roadmap-content">
-            <h2 class="roadmap-title" id="roadmap-title">Civil Engineering</h2>
-            <p class="roadmap-subtitle" id="roadmap-subtitle">Step-by-step learning path to become a professional</p>
+            <h3 class="roadmap-title" id="roadmap-title"></h3>
+            <p class="roadmap-subtitle" id="roadmap-subtitle"></p>
             <div class="roadmap-steps" id="roadmap-steps"></div>
         </div>
     </section>
@@ -1209,48 +1300,6 @@
             }
         };
 
-        let currentRoadmapField = "civil";
-
-        function renderRoadmap(fieldKey) {
-            const lang = localStorage.getItem("preferredLanguage") || "en";
-            const data = roadmapData[fieldKey];
-            if (!data) {
-                return;
-            }
-
-            // Track field interaction
-            trackFieldInteraction(fieldKey);
-
-            const titleEl = document.getElementById("roadmap-title");
-            const subtitleEl = document.getElementById("roadmap-subtitle");
-            const stepsEl = document.getElementById("roadmap-steps");
-
-            titleEl.textContent = data.title[lang];
-            subtitleEl.textContent = data.subtitle[lang];
-            stepsEl.innerHTML = "";
-
-            data.steps[lang].forEach((step, index) => {
-                const stepItem = document.createElement("div");
-                stepItem.className = "roadmap-step";
-
-                const number = document.createElement("div");
-                number.className = "step-number";
-                number.textContent = String(index + 1);
-
-                const text = document.createElement("div");
-                text.className = "step-text";
-                text.textContent = step;
-
-                stepItem.appendChild(number);
-                stepItem.appendChild(text);
-                stepsEl.appendChild(stepItem);
-            });
-
-            document.querySelectorAll(".roadmap-item").forEach(item => {
-                item.classList.toggle("active", item.dataset.field === fieldKey);
-            });
-        }
-
         function toggleField(card) {
             document.querySelectorAll('.field-card').forEach(c => {
                 if (c !== card) {
@@ -1334,16 +1383,7 @@
                         option.classList.add('active');
                     }
                 });
-            }
-
-            document.querySelectorAll('.roadmap-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    currentRoadmapField = item.dataset.field;
-                    renderRoadmap(currentRoadmapField);
-                });
-            });
-
-            renderRoadmap(currentRoadmapField);
+            }            renderRoadmap(currentRoadmapField);
 
             // User Account Management
             checkUserLogin();
@@ -1487,6 +1527,46 @@
             originalChangeLanguage(lang, displayText);
             saveUserData(); // Save language preference
         };
+
+        // Roadmap functionality
+        function showRoadmap(field) {
+            const lang = localStorage.getItem('preferredLanguage') || 'en';
+            const data = roadmapData[field];
+            
+            if (!data) return;
+            
+            // Update active item
+            document.querySelectorAll('.roadmap-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.closest('.roadmap-item').classList.add('active');
+            
+            // Update content
+            document.getElementById('roadmap-title').textContent = data.title[lang];
+            document.getElementById('roadmap-subtitle').textContent = data.subtitle[lang];
+            
+            // Render steps
+            const stepsContainer = document.getElementById('roadmap-steps');
+            stepsContainer.innerHTML = '';
+            
+            data.steps[lang].forEach((step, index) => {
+                const stepEl = document.createElement('div');
+                stepEl.className = 'roadmap-step';
+                stepEl.innerHTML = `
+                    <div class="step-number">${index + 1}</div>
+                    <div class="step-text">${step}</div>
+                `;
+                stepsContainer.appendChild(stepEl);
+            });
+            
+            // Track interaction
+            trackFieldInteraction(field);
+        }
+        
+        // Initialize with civil engineering
+        document.addEventListener('DOMContentLoaded', function() {
+            showRoadmap('civil');
+        });
     </script>
 
 </body>
