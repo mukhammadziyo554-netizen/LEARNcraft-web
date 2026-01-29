@@ -802,11 +802,11 @@
                 <div class="options-menu" id="options-menu">
                     <button class="options-item" onclick="document.getElementById('fields-section').scrollIntoView(); closeOptionsMenu();" data-en="Fields" data-ru="Поля" data-uz="Sohalari">Fields</button>
                     <button class="options-item" onclick="document.getElementById('roadmap-section').scrollIntoView(); closeOptionsMenu();" data-en="Road Map" data-ru="Дорожная карта" data-uz="Yo'l xaritas">Road Map</button>
+                    <button class="options-item" onclick="window.location.href='ask-ai.html'; closeOptionsMenu();" data-en="Ask AI" data-ru="Спросить ИИ" data-uz="AI so'rash">Ask AI</button>
                     <button class="options-item" onclick="window.location.href='support.html'; closeOptionsMenu();" data-en="Support" data-ru="Поддержка" data-uz="Yordam">Support</button>
+                    <button class="options-item" id="adminBtnMenu" onclick="window.location.href='admin.html'; closeOptionsMenu();" data-en="Admin" data-ru="Админ" data-uz="Admin" style="display: none;">Admin</button>
                 </div>
             </div>
-            <button onclick="window.location.href='ask-ai.html'" data-en="Ask AI" data-ru="Спросить ИИ" data-uz="AI so'rash">Ask AI</button>
-            <button id="adminBtn" onclick="window.location.href='admin.html'" data-en="Admin" data-ru="Админ" data-uz="Admin" style="display: none;">Admin</button>
         </div>
     </div>
 
@@ -1362,7 +1362,10 @@
             const adminEmail = 'mukhammadziyo554@gmail.com';
             
             if (email.toLowerCase() === adminEmail.toLowerCase()) {
-                document.getElementById('adminBtn').style.display = 'inline-block';
+                const adminMenuItem = document.getElementById('adminBtnMenu');
+                if (adminMenuItem) {
+                    adminMenuItem.style.display = 'block';
+                }
             }
         }
 
