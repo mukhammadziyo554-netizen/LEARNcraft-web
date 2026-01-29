@@ -178,6 +178,46 @@
                 font-size: 24px;
             }
         }
+
+        .roadmap-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(255, 215, 0, 0.05);
+            border-radius: 16px;
+        }
+
+        .roadmap-step {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(201, 169, 97, 0.1);
+            border-left: 4px solid #FFD700;
+            border-radius: 8px;
+            align-items: center;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #C9A961 0%, #D4AF37 100%);
+            color: black;
+            font-weight: bold;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .step-text {
+            color: #C9A961;
+            font-size: 16px;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
@@ -246,9 +286,40 @@
                 </a>
             </div>
         </div>
+
+        <div class="roadmap-steps" id="roadmap-steps"></div>
     </div>
 
     <script>
+        // Roadmap data for all engineering fields
+        const roadmapData = {
+            civil: {
+                steps: {
+                    en: [
+                        "Build strong foundations in math, physics, and mechanics.",
+                        "Learn statics, dynamics, and strength of materials.",
+                        "Master structural design principles, codes, and CAD tools.",
+                        "Study construction materials, geotechnics, and surveying.",
+                        "Develop project management, safety, and site supervision skills."
+                    ],
+                    ru: [
+                        "Создайте прочную базу в математике, физике и механике.",
+                        "Изучите статику, динамику и сопротивление материалов.",
+                        "Освойте принципы расчёта конструкций, нормы и CAD.",
+                        "Изучите строительные материалы, геотехнику и геодезию.",
+                        "Развивайте управление проектами, безопасность и контроль работ."
+                    ],
+                    uz: [
+                        "Matematika, fizika va mexanika bo'yicha mustahkam asos yarating.",
+                        "Statika, dinamika va materiallar mustahkamligini o'rganing.",
+                        "Tuzilma loyihalash, me'yorlar va CAD vositalarini o'zlashtiring.",
+                        "Qurilish materiallari, geotexnika va geodeziyani o'rganing.",
+                        "Loyiha boshqaruvi, xavfsizlik va nazorat ko'nikmalarini rivojlantiring."
+                    ]
+                }
+            }
+        };
+
         // Initialize Telegram Web App
         if (typeof TelegramWebApp !== 'undefined') {
             const tg = window.Telegram.WebApp;
@@ -256,6 +327,31 @@
             tg.setHeaderColor('#1a1a1a');
             tg.setBackgroundColor('#000000');
             tg.MainButton.hide();
+        }
+
+        // Display roadmap steps for Civil Engineering by default
+        function displayRoadmapSteps() {
+            const lang = localStorage.getItem('preferredLanguage') || 'en';
+            const stepsContainer = document.getElementById('roadmap-steps');
+            const steps = roadmapData.civil.steps[lang];
+
+            stepsContainer.innerHTML = '';
+            steps.forEach((step, index) => {
+                const stepEl = document.createElement('div');
+                stepEl.className = 'roadmap-step';
+                
+                const numberEl = document.createElement('div');
+                numberEl.className = 'step-number';
+                numberEl.textContent = index + 1;
+                
+                const textEl = document.createElement('div');
+                textEl.className = 'step-text';
+                textEl.textContent = step;
+                
+                stepEl.appendChild(numberEl);
+                stepEl.appendChild(textEl);
+                stepsContainer.appendChild(stepEl);
+            });
         }
 
         // Load saved language preference on page load
@@ -267,6 +363,9 @@
                     element.textContent = element.getAttribute('data-' + savedLang);
                 });
             }
+
+            // Display Civil roadmap steps by default
+            displayRoadmapSteps();
         });
     </script>
 </body>
