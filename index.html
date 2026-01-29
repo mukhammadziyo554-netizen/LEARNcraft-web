@@ -332,9 +332,7 @@
             .roadmap-content {
                 padding: 20px;
             }
-        }       padding: 20px;
-            }
-        }
+        }       
 
         .field-card {
             align-items: flex-start;
@@ -1342,8 +1340,34 @@
             // Save language preference
             localStorage.setItem('preferredLanguage', lang);
             localStorage.setItem('languageDisplay', displayText);
+            
+            // Save to user data if logged in
+            saveUserData();
 
-            renderRoadmap(currentRoadmapField);
+            // Update roadmap if visible
+            const activeRoadmapItem = document.querySelector('.roadmap-item.active');
+            if (activeRoadmapItem) {
+                const field = activeRoadmapItem.getAttribute('onclick').match(/showRoadmap\('(.+)'\)/)?.[1];
+                if (field) {
+                    const data = roadmapData[field];
+                    if (data) {
+                        document.getElementById('roadmap-title').textContent = data.title[lang];
+                        document.getElementById('roadmap-subtitle').textContent = data.subtitle[lang];
+                        
+                        const stepsContainer = document.getElementById('roadmap-steps');
+                        stepsContainer.innerHTML = '';
+                        data.steps[lang].forEach((step, index) => {
+                            const stepEl = document.createElement('div');
+                            stepEl.className = 'roadmap-step';
+                            stepEl.innerHTML = `
+                                <div class="step-number">${index + 1}</div>
+                                <div class="step-text">${step}</div>
+                            `;
+                            stepsContainer.appendChild(stepEl);
+                        });
+                    }
+                }
+            }
 
             // Close the menu
             document.getElementById('lang-menu').classList.remove('show');
@@ -1383,7 +1407,7 @@
                         option.classList.add('active');
                     }
                 });
-            }            renderRoadmap(currentRoadmapField);
+            }
 
             // User Account Management
             checkUserLogin();
@@ -1520,13 +1544,6 @@
                 localStorage.setItem('learncraft_users', JSON.stringify(users));
             }
         }
-
-        // Override existing changeLanguage function to track language preference
-        const originalChangeLanguage = changeLanguage;
-        changeLanguage = function(lang, displayText) {
-            originalChangeLanguage(lang, displayText);
-            saveUserData(); // Save language preference
-        };
 
         // Roadmap functionality
         function showRoadmap(field) {
