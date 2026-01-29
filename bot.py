@@ -13,9 +13,9 @@ logger = logging.getLogger(__name__)
 # Get it from @BotFather on Telegram
 BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE'  # ← REPLACE THIS with your token from @BotFather
 
-# Your mini app URL - SET THIS TO YOUR ACTUAL DOMAIN after deployment
-# Example: https://learncraft.yourwebsite.com or https://yourdomain.com/index.html
-MINI_APP_URL = 'https://your-domain.com/index.html'
+# Your mini app URL - GitHub Pages deployment
+# GitHub Pages URL: https://mukhammadziyo554-netizen.github.io/LEARNcraft-web/
+MINI_APP_URL = 'https://mukhammadziyo554-netizen.github.io/LEARNcraft-web/index.html'
 
 # Command handlers
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
