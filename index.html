@@ -1400,20 +1400,44 @@
             position: absolute;
             inset: 0;
             border-radius: 999px;
-            background: conic-gradient(from 0deg, rgba(255, 215, 0, 0.8) 0%, rgba(255, 215, 0, 0.8) 25%, transparent 50%);
-            -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), black calc(100% - 2px));
-            mask: radial-gradient(farthest-side, transparent calc(100% - 2px), black calc(100% - 2px));
-            animation: slideBorder 3s linear infinite;
+            border: 2px solid transparent;
+            border-top-color: rgba(255, 215, 0, 0.8);
+            border-right-color: rgba(255, 215, 0, 0.4);
+            animation: borderFlow 3s linear infinite;
             z-index: 0;
             pointer-events: none;
         }
 
-        @keyframes slideBorder {
+        @keyframes borderFlow {
             0% {
-                transform: rotate(0deg);
+                border-top-color: rgba(255, 215, 0, 0.8);
+                border-right-color: rgba(255, 215, 0, 0.4);
+                border-bottom-color: transparent;
+                border-left-color: transparent;
+            }
+            25% {
+                border-top-color: transparent;
+                border-right-color: rgba(255, 215, 0, 0.8);
+                border-bottom-color: rgba(255, 215, 0, 0.4);
+                border-left-color: transparent;
+            }
+            50% {
+                border-top-color: transparent;
+                border-right-color: transparent;
+                border-bottom-color: rgba(255, 215, 0, 0.8);
+                border-left-color: rgba(255, 215, 0, 0.4);
+            }
+            75% {
+                border-top-color: rgba(255, 215, 0, 0.4);
+                border-right-color: transparent;
+                border-bottom-color: transparent;
+                border-left-color: rgba(255, 215, 0, 0.8);
             }
             100% {
-                transform: rotate(360deg);
+                border-top-color: rgba(255, 215, 0, 0.8);
+                border-right-color: rgba(255, 215, 0, 0.4);
+                border-bottom-color: transparent;
+                border-left-color: transparent;
             }
         }
 
