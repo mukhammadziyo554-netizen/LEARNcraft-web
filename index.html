@@ -1510,10 +1510,12 @@
         .page-content {
             opacity: 1;
             transition: opacity 1.5s ease-out;
+            pointer-events: auto;
         }
 
         .page-content.hidden {
             opacity: 0;
+            pointer-events: none;
         }
 
 
@@ -2762,24 +2764,8 @@
                 sessionStorage.removeItem('learncraft-intro-shown-this-session');
             }
             
-            // Check if this is a navigation (from another page) vs fresh page load
-            // Using sessionStorage to track if animation was shown in current session
-            if (sessionStorage.getItem('learncraft-intro-shown-this-session')) {
-                // Skip the startup overlay - show page content immediately
-                const overlay = document.getElementById('startupOverlay');
-                const welcomeMessage = document.getElementById('welcomeMessage');
-                const pageContent = document.getElementById('pageContent');
-                
-                if (overlay) overlay.style.display = 'none';
-                if (welcomeMessage) welcomeMessage.style.display = 'none';
-                if (pageContent) pageContent.classList.remove('hidden');
-                
-                // Re-enable scrolling
-                document.body.style.overflow = '';
-            } else {
-                // First time visit in this session - show startup animation immediately
-                startExperience();
-            }
+            // Always trigger startup animation on page load
+            startExperience();
         });
     </script>
 
