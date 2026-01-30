@@ -1028,7 +1028,16 @@
             color: var(--muted) !important;
         }
 
-        .field-card,
+        .field-card {
+            background-color: var(--surface) !important;
+            border: 1px solid var(--border) !important;
+            box-shadow: none !important;
+        }
+
+        .field-card::before {
+            background: rgba(15, 17, 21, 0.55) !important;
+        }
+
         .roadmap-item,
         .roadmap-steps,
         .roadmap-step {
@@ -1039,7 +1048,6 @@
 
         .field-card:hover,
         .roadmap-item:hover {
-            background: var(--surface-2) !important;
             transform: none !important;
         }
 
