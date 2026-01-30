@@ -485,7 +485,7 @@
 
         /* Hamburger Menu Styles */
         .hamburger-menu {
-            display: none;
+            display: flex;
             flex-direction: column;
             gap: 5px;
             background: none;
@@ -493,6 +493,10 @@
             cursor: pointer;
             padding: 8px;
             z-index: 999;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
         .hamburger-menu span {
