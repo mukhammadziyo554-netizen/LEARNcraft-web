@@ -1395,6 +1395,26 @@
             pointer-events: none;
         }
 
+        .enter-button::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 999px;
+            background: conic-gradient(from 0deg, rgba(255, 215, 0, 0.8), rgba(255, 215, 0, 0), rgba(255, 215, 0, 0), rgba(255, 215, 0, 0));
+            animation: rotateBorder 3s linear infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes rotateBorder {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
         .enter-button span {
             position: relative;
             z-index: 2;
@@ -1854,12 +1874,19 @@
         function typeWriterHandwritten(element, text, speed = 80, callback = null) {
             element.innerHTML = ''; // Clear any existing content
             
-            // Create spans for each character
+            // Create spans for each character (including newlines)
             for (let i = 0; i < text.length; i++) {
                 const char = text.charAt(i);
                 const span = document.createElement('span');
                 span.className = 'char';
-                span.textContent = char;
+                
+                // Handle newlines
+                if (char === '\n') {
+                    span.innerHTML = '<br>';
+                } else {
+                    span.textContent = char;
+                }
+                
                 span.style.animationDelay = (i * speed) + 'ms';
                 element.appendChild(span);
             }
@@ -1898,9 +1925,9 @@
             
             // Start handwritten animation after a short delay
             setTimeout(() => {
-                const textToType = 'Welcome future engineer';
+                const textToType = 'Welcome\nfuture engineer';
                 typeWriterHandwritten(welcomeText, textToType, 200, () => {
-                    // Keep message visible briefly
+                    // Keep message visible longer (2 seconds)
                     setTimeout(() => {
                         welcomeText.classList.add('fade-out');
                         
@@ -1923,7 +1950,7 @@
                             // Re-enable scrolling
                             document.body.style.overflow = '';
                         }, 1100);
-                    }, 500);
+                    }, 2000);
                 });
             }, 120);
         }
