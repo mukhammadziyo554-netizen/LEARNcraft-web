@@ -1966,8 +1966,8 @@
                         setTimeout(() => {
                             overlay.style.display = 'none';
                             welcomeMessage.style.display = 'none';
-                            // Mark animation as shown in localStorage
-                            localStorage.setItem('learncraft-intro-shown', 'true');
+                            // Mark animation as shown in this session (prevents repeat on navigation)
+                            sessionStorage.setItem('learncraft-intro-shown-this-session', 'true');
                             // Re-enable scrolling
                             document.body.style.overflow = '';
                         }, 1100);
@@ -2517,7 +2517,9 @@
                 localStorage.removeItem('learncraft-intro-shown');
             }
             
-            if (localStorage.getItem('learncraft-intro-shown')) {
+            // Check if this is a navigation (from another page) vs fresh page load
+            // Using sessionStorage to track if animation was shown in current session
+            if (sessionStorage.getItem('learncraft-intro-shown-this-session')) {
                 // Skip the startup overlay - show page content immediately
                 const overlay = document.getElementById('startupOverlay');
                 const welcomeMessage = document.getElementById('welcomeMessage');
