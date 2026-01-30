@@ -494,18 +494,18 @@
         .hamburger-menu {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 3px;
             background: none;
             border: none;
             cursor: pointer;
-            padding: 4px;
+            padding: 2px;
             z-index: 999;
             margin-left: auto;
-            margin-right: 60px;
+            margin-right: 48px;
         }
 
         .hamburger-menu span {
-            width: 18px;
+            width: 14px;
             height: 2px;
             background: #e5e7eb;
             border-radius: 1px;
@@ -513,7 +513,7 @@
         }
 
         .hamburger-menu.active span:nth-child(1) {
-            transform: rotate(45deg) translate(10px, 10px);
+            transform: rotate(45deg) translate(5px, 5px);
         }
 
         .hamburger-menu.active span:nth-child(2) {
@@ -521,7 +521,7 @@
         }
 
         .hamburger-menu.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
+            transform: rotate(-45deg) translate(4px, -4px);
         }
 
         /* Sidebar Overlay */
@@ -3156,6 +3156,15 @@
             sidebarItems.forEach(item => {
                 item.addEventListener('click', closeSidebar);
             });
+
+            const sidebarMenu = document.getElementById('sidebarMenu');
+            if (sidebarMenu) {
+                sidebarMenu.addEventListener('click', (event) => {
+                    if (event.target === sidebarMenu) {
+                        closeSidebar();
+                    }
+                });
+            }
         });
 
         // Check if intro animation has already been shown (run after page loads)
