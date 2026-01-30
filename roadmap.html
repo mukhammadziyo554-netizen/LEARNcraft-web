@@ -250,6 +250,60 @@
             box-shadow: 0 6px 25px rgba(255, 215, 0, 0.5);
             background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
         }
+        /* Minimal matte theme overrides */
+        :root {
+            --bg: #0f1115;
+            --surface: #151a21;
+            --surface-2: #1b222c;
+            --text: #e5e7eb;
+            --muted: #9aa3af;
+            --accent: #94a3b8;
+            --accent-strong: #cbd5e1;
+            --border: rgba(148, 163, 184, 0.25);
+        }
+
+        body {
+            background: var(--bg) !important;
+            color: var(--text) !important;
+            font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            letter-spacing: 0.2px;
+        }
+
+        .page-title,
+        .roadmap-title,
+        .button-title {
+            color: var(--text) !important;
+            font-weight: 600 !important;
+        }
+
+        .page-subtitle,
+        .button-subtitle,
+        .step-text {
+            color: var(--muted) !important;
+        }
+
+        .roadmap-button,
+        .roadmap-steps,
+        .roadmap-step {
+            background: var(--surface) !important;
+            border: 1px solid var(--border) !important;
+            box-shadow: none !important;
+        }
+
+        .roadmap-button:hover,
+        .roadmap-button.active {
+            background: var(--surface-2) !important;
+            border-color: var(--accent) !important;
+            transform: none !important;
+        }
+
+        .back-button,
+        .back-to-top-button {
+            background: transparent !important;
+            border: 1px solid var(--border) !important;
+            color: var(--text) !important;
+            box-shadow: none !important;
+        }
     </style>
 </head>
 <body>

@@ -939,6 +939,136 @@
                 text-align: center;
             }
         }
+
+        /* Minimal matte theme overrides */
+        :root {
+            --bg: #0f1115;
+            --surface: #151a21;
+            --surface-2: #1b222c;
+            --text: #e5e7eb;
+            --muted: #9aa3af;
+            --accent: #94a3b8;
+            --accent-strong: #cbd5e1;
+            --border: rgba(148, 163, 184, 0.25);
+        }
+
+        body {
+            background: var(--bg) !important;
+            color: var(--text) !important;
+            font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            letter-spacing: 0.2px;
+        }
+
+        .nav-bar {
+            background: rgba(15, 17, 21, 0.95) !important;
+            border-bottom: 1px solid var(--border) !important;
+        }
+
+        .nav-brand {
+            color: var(--text) !important;
+            font-weight: 600 !important;
+        }
+
+        .nav-center button,
+        .nav-links button,
+        .options-item,
+        .lang-option {
+            color: var(--muted) !important;
+            font-weight: 600 !important;
+        }
+
+        .nav-center button:hover,
+        .nav-links button:hover,
+        .options-item:hover,
+        .lang-option:hover {
+            color: var(--text) !important;
+            transform: none !important;
+            background: var(--surface-2) !important;
+        }
+
+        #signInBtn,
+        .lang-btn {
+            background: transparent !important;
+            border: 1px solid var(--border) !important;
+            color: var(--text) !important;
+        }
+
+        #signInBtn:hover,
+        .lang-btn:hover {
+            background: var(--surface-2) !important;
+            color: var(--text) !important;
+            transform: none !important;
+        }
+
+        .options-btn {
+            color: var(--text) !important;
+        }
+
+        .options-menu,
+        .lang-menu,
+        .user-menu {
+            background: var(--surface) !important;
+            border: 1px solid var(--border) !important;
+        }
+
+        .user-circle {
+            background: var(--surface-2) !important;
+            border: 1px solid var(--border) !important;
+            color: var(--text) !important;
+        }
+
+        .section-title {
+            color: var(--text) !important;
+            font-weight: 600 !important;
+        }
+
+        .section-subtitle,
+        .field-description,
+        .roadmap-subtitle {
+            color: var(--muted) !important;
+        }
+
+        .field-card,
+        .roadmap-item,
+        .roadmap-steps,
+        .roadmap-step {
+            background: var(--surface) !important;
+            border: 1px solid var(--border) !important;
+            box-shadow: none !important;
+        }
+
+        .field-card:hover,
+        .roadmap-item:hover {
+            background: var(--surface-2) !important;
+            transform: none !important;
+        }
+
+        .roadmap-item.active {
+            background: var(--surface-2) !important;
+            border-color: var(--accent) !important;
+            color: var(--text) !important;
+        }
+
+        .field-title,
+        .roadmap-title {
+            color: var(--text) !important;
+        }
+
+        .field-btn,
+        .cta-button,
+        .roadmap-button,
+        .options-item {
+            background: transparent !important;
+            border: 1px solid var(--border) !important;
+            color: var(--text) !important;
+        }
+
+        .field-btn:hover,
+        .cta-button:hover,
+        .roadmap-button:hover {
+            background: var(--surface-2) !important;
+            color: var(--text) !important;
+        }
     </style>
 </head>
 <body>

@@ -370,6 +370,110 @@
                 gap: 15px;
             }
         }
+        /* Minimal matte theme overrides */
+        :root {
+            --bg: #0f1115;
+            --surface: #151a21;
+            --surface-2: #1b222c;
+            --text: #e5e7eb;
+            --muted: #9aa3af;
+            --accent: #94a3b8;
+            --accent-strong: #cbd5e1;
+            --border: rgba(148, 163, 184, 0.25);
+        }
+
+        body {
+            background: var(--bg) !important;
+            color: var(--text) !important;
+            font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            letter-spacing: 0.2px;
+        }
+
+        .nav-bar,
+        .top-nav,
+        .navbar {
+            background: rgba(15, 17, 21, 0.95) !important;
+            border-bottom: 1px solid var(--border) !important;
+        }
+
+        .nav-brand,
+        .logo,
+        .brand {
+            color: var(--text) !important;
+            font-weight: 600 !important;
+        }
+
+        .nav-links button,
+        .nav-center button,
+        .options-item,
+        .lang-option {
+            color: var(--muted) !important;
+            font-weight: 600 !important;
+        }
+
+        .nav-links button:hover,
+        .nav-center button:hover,
+        .options-item:hover,
+        .lang-option:hover {
+            color: var(--text) !important;
+            transform: none !important;
+            background: var(--surface-2) !important;
+        }
+
+        button,
+        .btn,
+        .cta-button,
+        .field-btn {
+            background: transparent !important;
+            border: 1px solid var(--border) !important;
+            color: var(--text) !important;
+            box-shadow: none !important;
+        }
+
+        button:hover,
+        .btn:hover,
+        .cta-button:hover,
+        .field-btn:hover {
+            background: var(--surface-2) !important;
+            color: var(--text) !important;
+            transform: none !important;
+        }
+
+        .card,
+        .field-card,
+        .feature-card,
+        .content-card,
+        .panel,
+        .roadmap-item,
+        .roadmap-steps,
+        .roadmap-step {
+            background: var(--surface) !important;
+            border: 1px solid var(--border) !important;
+            box-shadow: none !important;
+        }
+
+        .card:hover,
+        .field-card:hover,
+        .feature-card:hover,
+        .content-card:hover,
+        .roadmap-item:hover {
+            background: var(--surface-2) !important;
+            transform: none !important;
+        }
+
+        h1, h2, h3, h4, h5, h6,
+        .section-title,
+        .title {
+            color: var(--text) !important;
+            font-weight: 600 !important;
+        }
+
+        p,
+        .subtitle,
+        .section-subtitle,
+        .field-description {
+            color: var(--muted) !important;
+        }
     </style>
 </head>
 <body>
