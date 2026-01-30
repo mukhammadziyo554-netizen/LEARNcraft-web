@@ -456,11 +456,14 @@
 
             // Get registered users from localStorage
             const users = JSON.parse(localStorage.getItem('learncraft_users')) || [];
+            console.log('Total registered users:', users.length);
+            console.log('Looking for email:', email);
 
             // Find user with matching email
             const user = users.find(u => u.email === email);
 
             if (!user) {
+                console.log('User not found. Available emails:', users.map(u => u.email));
                 errorMsg.textContent = '⚠ No account found with this email. Please register first.';
                 errorMsg.classList.add('show');
                 return;

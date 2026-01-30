@@ -422,6 +422,37 @@
     </div>
 
     <script>
+        // Test localStorage availability
+        function testLocalStorage() {
+            try {
+                const testKey = 'learncraft_test';
+                localStorage.setItem(testKey, 'test');
+                const result = localStorage.getItem(testKey);
+                localStorage.removeItem(testKey);
+                
+                if (result === 'test') {
+                    console.log('✅ localStorage is working correctly');
+                    return true;
+                } else {
+                    console.error('❌ localStorage read/write mismatch');
+                    return false;
+                }
+            } catch (e) {
+                console.error('❌ localStorage is not available:', e);
+                return false;
+            }
+        }
+
+        // Run test on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const isWorking = testLocalStorage();
+            if (!isWorking) {
+                const errorMsg = document.getElementById('error-message');
+                errorMsg.textContent = '⚠ Storage is disabled. Please enable cookies/storage in your browser settings.';
+                errorMsg.classList.add('show');
+            }
+        });
+
         // Initialize Telegram Web App
         if (typeof TelegramWebApp !== 'undefined') {
             const tg = window.Telegram.WebApp;
@@ -470,6 +501,7 @@
 
             // Get existing users from localStorage
             let users = JSON.parse(localStorage.getItem('learncraft_users')) || [];
+            console.log('Current users before registration:', users.length);
 
             // Check if email already exists
             const existingUser = users.find(user => user.email === email);
@@ -484,12 +516,17 @@
                 email: email,
                 password: password,
                 registeredAt: new Date().toISOString(),
-                id: Date.now().toString()
+                id: Date.now().toString(),
+                visitedFields: [],
+                preferredLanguage: 'en',
+                lastActive: new Date().toISOString()
             };
 
             // Add user to array and save to localStorage
             users.push(newUser);
             localStorage.setItem('learncraft_users', JSON.stringify(users));
+            console.log('User registered. Total users now:', users.length);
+            console.log('Saved to localStorage:', localStorage.getItem('learncraft_users'));
 
             // Set current user session
             localStorage.setItem('learncraft_current_user', JSON.stringify({
@@ -497,6 +534,18 @@
                 id: newUser.id,
                 loggedInAt: new Date().toISOString()
             }));
+
+            // Broadcast the registration event to other tabs/windows
+            try {
+                const channel = new BroadcastChannel('learncraft_updates');
+                channel.postMessage({ 
+                    type: 'user_registered', 
+                    user: { email: email, id: newUser.id } 
+                });
+                channel.close();
+            } catch (e) {
+                console.log('BroadcastChannel not supported:', e);
+            }
 
             // Show success message
             successMsg.classList.add('show');

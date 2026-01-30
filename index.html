@@ -1558,6 +1558,11 @@
         // Check if user is logged in
         function checkUserLogin() {
             const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
+            const allUsers = JSON.parse(localStorage.getItem('learncraft_users')) || [];
+            
+            console.log('Checking login status...');
+            console.log('Current user:', currentUser);
+            console.log('Total registered users:', allUsers.length);
             
             if (currentUser) {
                 // User is logged in - show account circle, hide sign in button
