@@ -1688,12 +1688,12 @@
             height: 100%;
             position: relative;
             transform-style: preserve-3d;
-            animation: rotate3d 6s infinite linear;
-            transition: animation-duration 0.3s ease;
+            animation: rotate3d 12s infinite linear;
+            transition: animation 0.4s ease;
         }
 
         .social-3d-cube-wrapper:hover .social-3d-cube {
-            animation-duration: 1s;
+            animation: rotateFront 2s ease-in-out forwards;
         }
 
         .cube-face {
@@ -1773,6 +1773,18 @@
             }
             100% {
                 transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+            }
+        }
+
+        @keyframes rotateFront {
+            0% {
+                transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+            }
+            50% {
+                transform: rotateY(180deg);
+            }
+            100% {
+                transform: rotateY(0deg);
             }
         }
 
