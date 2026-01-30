@@ -1366,51 +1366,33 @@
         }
 
         .enter-button {
-            padding: 18px 56px;
-            font-size: 16px;
+            padding: 18px 70px;
+            font-size: 18px;
             font-weight: 600;
-            background: #0a0a0a;
-            color: #FFD700;
-            border: 2px solid rgba(255, 215, 0, 0.15);
-            border-radius: 10px;
+            background: #0b0b0f;
+            color: #a78bfa;
+            border: 1px solid rgba(167, 139, 250, 0.25);
+            border-radius: 999px;
             cursor: pointer;
-            transition: all 0.5s ease;
-            letter-spacing: 1.2px;
+            transition: box-shadow 0.4s ease, background 0.4s ease, border-color 0.4s ease;
+            letter-spacing: 1.6px;
             position: relative;
             overflow: visible;
-            box-shadow: inset 0 0 25px rgba(255, 215, 0, 0.08);
+            box-shadow:
+                inset 0 0 18px rgba(255, 255, 255, 0.04),
+                0 0 30px rgba(124, 58, 237, 0.35);
         }
 
-        /* Moving spark around the border edge */
         .enter-button::before {
             content: '';
             position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            background: conic-gradient(
-                from 0deg at 50% 50%,
-                transparent 0deg,
-                transparent 20deg,
-                #FFD700 35deg,
-                #FFD700 55deg,
-                transparent 70deg,
-                transparent 360deg
-            );
-            border-radius: 12px;
-            animation: sparkAround 8s linear infinite;
+            inset: -16px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 70% 50%, rgba(124, 58, 237, 0.6), transparent 60%);
+            filter: blur(14px);
+            opacity: 0.45;
             z-index: -1;
             pointer-events: none;
-        }
-
-        @keyframes sparkAround {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
         }
 
         .enter-button span {
@@ -1421,18 +1403,15 @@
 
         /* Smooth hover glow effect */
         .enter-button:hover {
-            background: #151a21;
-            box-shadow: inset 0 0 30px rgba(255, 215, 0, 0.12),
-                        0 0 25px rgba(255, 215, 0, 0.2);
-            border-color: rgba(255, 215, 0, 0.25);
-        }
-
-        .enter-button:hover::before {
-            animation: sparkAround 6s linear infinite;
+            background: #0d0d14;
+            box-shadow:
+                inset 0 0 22px rgba(255, 255, 255, 0.06),
+                0 0 40px rgba(124, 58, 237, 0.5);
+            border-color: rgba(167, 139, 250, 0.45);
         }
 
         .enter-button:active {
-            opacity: 0.95;
+            opacity: 0.98;
         }
 
         /* Welcome message - just text, no animation container */
@@ -1441,7 +1420,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 9998;
+            z-index: 10002;
             opacity: 0;
             pointer-events: none;
             display: none;
@@ -1472,15 +1451,15 @@
         @keyframes charAppear {
             0% {
                 opacity: 0;
-                transform: scale(0.3) rotate(-10deg);
+                transform: scale(0.3);
             }
             50% {
                 opacity: 1;
-                transform: scale(1.1) rotate(0deg);
+                transform: scale(1.1);
             }
             100% {
                 opacity: 1;
-                transform: scale(1) rotate(0deg);
+                transform: scale(1);
             }
         }
 
@@ -1724,7 +1703,7 @@
 
     <script>
         // Handwritten animation for each character
-        function typeWriterHandwritten(element, text, speed = 140, callback = null) {
+        function typeWriterHandwritten(element, text, speed = 80, callback = null) {
             element.innerHTML = ''; // Clear any existing content
             
             // Create spans for each character
@@ -1739,7 +1718,7 @@
             
             // Call callback after all characters are animated
             if (callback) {
-                setTimeout(callback, text.length * speed + 500);
+                setTimeout(callback, text.length * speed + 200);
             }
         }
 
@@ -1762,33 +1741,36 @@
             // Show welcome message
             welcomeMessage.style.display = 'block';
             welcomeMessage.style.opacity = '1';
+            welcomeText.style.opacity = '1';
+            welcomeText.style.visibility = 'visible';
+            welcomeText.classList.remove('fade-out');
             
             // Start handwritten animation after a short delay
             setTimeout(() => {
                 const textToType = 'Welcome future engineer';
-                typeWriterHandwritten(welcomeText, textToType, 140, () => {
-                    // Keep message visible for 2 seconds
+                typeWriterHandwritten(welcomeText, textToType, 80, () => {
+                    // Keep message visible briefly
                     setTimeout(() => {
                         welcomeText.classList.add('fade-out');
                         
                         // Fade in page content
                         setTimeout(() => {
                             pageContent.classList.remove('hidden');
-                        }, 300);
+                        }, 150);
                         
                         // Fade out overlay
                         setTimeout(() => {
                             overlay.classList.add('fade-out');
-                        }, 800);
+                        }, 250);
                         
                         // Remove overlay from DOM
                         setTimeout(() => {
                             overlay.style.display = 'none';
                             welcomeMessage.style.display = 'none';
-                        }, 2500);
-                    }, 2000);
+                        }, 1100);
+                    }, 500);
                 });
-            }, 400);
+            }, 120);
         }
 
         // Initialize Telegram Web App
