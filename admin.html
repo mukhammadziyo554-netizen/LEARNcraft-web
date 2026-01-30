@@ -756,6 +756,11 @@
             const users = JSON.parse(localStorage.getItem('learncraft_users')) || [];
             const tickets = JSON.parse(localStorage.getItem('learncraft_support_tickets')) || [];
             const chats = JSON.parse(localStorage.getItem('learncraft_chats')) || [];
+            
+            console.log('📊 Admin Dashboard - Loading data...');
+            console.log('Total registered users:', users.length);
+            console.log('Users:', users);
+            
             allUsers = users;
             allTickets = tickets;
             allChats = chats;
@@ -1558,6 +1563,26 @@
             const savedApi = localStorage.getItem('learncraft_realtime_api') || '';
             document.getElementById('realtimeApiUrl').value = savedApi;
             setInterval(updateLiveActivity, 15000);
+            
+            // Auto-refresh data every 30 seconds
+            setInterval(() => {
+                console.log('🔄 Auto-refreshing admin data...');
+                loadData();
+            }, 30000);
+            
+            // Listen for updates from other tabs (registration, login, etc.)
+            try {
+                const updateChannel = new BroadcastChannel('learncraft_updates');
+                updateChannel.addEventListener('message', (event) => {
+                    console.log('📡 Received update:', event.data);
+                    if (event.data.type === 'user_registered' || event.data.type === 'user_updated') {
+                        console.log('👤 User data changed, refreshing...');
+                        loadData();
+                    }
+                });
+            } catch (e) {
+                console.log('BroadcastChannel not supported');
+            }
         });
     </script>
 </body>
