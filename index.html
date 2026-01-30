@@ -1666,6 +1666,110 @@
                 }
             }
         }
+
+        /* Animated text classes */
+        .animate-text {
+            opacity: 0;
+        }
+
+        .animate-text.in-view {
+            animation: textSlideIn 0.8s ease-out forwards;
+        }
+
+        .animate-text.delay-1.in-view { animation-delay: 0.1s; }
+        .animate-text.delay-2.in-view { animation-delay: 0.2s; }
+        .animate-text.delay-3.in-view { animation-delay: 0.3s; }
+        .animate-text.delay-4.in-view { animation-delay: 0.4s; }
+
+        @keyframes textSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Animated box/square classes */
+        .animate-box {
+            opacity: 0;
+        }
+
+        .animate-box.in-view {
+            animation: boxSlideUp 0.8s ease-out forwards;
+        }
+
+        .animate-box.delay-1.in-view { animation-delay: 0.1s; }
+        .animate-box.delay-2.in-view { animation-delay: 0.2s; }
+        .animate-box.delay-3.in-view { animation-delay: 0.3s; }
+        .animate-box.delay-4.in-view { animation-delay: 0.4s; }
+
+        @keyframes boxSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Alternative slide from right */
+        .animate-slide-right {
+            opacity: 0;
+        }
+
+        .animate-slide-right.in-view {
+            animation: slideFromRight 0.8s ease-out forwards;
+        }
+
+        @keyframes slideFromRight {
+            0% {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Fade in animation */
+        .animate-fade {
+            opacity: 0;
+        }
+
+        .animate-fade.in-view {
+            animation: fadeInScale 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Pulse animation for highlights */
+        .animate-pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2509,8 +2613,33 @@
     </footer>
 
     <script>
+        // ===== PRESENTATION ANIMATIONS ON SCROLL =====
+        function initScrollAnimations() {
+            const animatedElements = document.querySelectorAll('[class*="animate-"]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                        // Optionally stop observing after animation
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+
         // Check if intro animation has already been shown (run after page loads)
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize scroll animations
+            initScrollAnimations();
+            
             // Check if user wants to reset animation (for testing: ?reset-intro=true)
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('reset-intro') === 'true') {
