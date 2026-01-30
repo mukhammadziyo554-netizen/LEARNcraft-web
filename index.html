@@ -1648,6 +1648,20 @@
     <!-- Page content with initial opacity -->
     <div class="page-content hidden" id="pageContent">
 
+    <script>
+        // Check if intro animation has already been shown
+        if (localStorage.getItem('learncraft-intro-shown')) {
+            // Skip the startup overlay - show page content immediately
+            const overlay = document.getElementById('startupOverlay');
+            const welcomeMessage = document.getElementById('welcomeMessage');
+            const pageContent = document.getElementById('pageContent');
+            
+            overlay.style.display = 'none';
+            welcomeMessage.style.display = 'none';
+            pageContent.classList.remove('hidden');
+        }
+    </script>
+
     <div class="nav-bar">
         <div class="nav-left">
             <div class="nav-brand">LEARNcraft</div>
@@ -1911,10 +1925,12 @@
                             overlay.classList.add('fade-out');
                         }, 250);
                         
-                        // Remove overlay from DOM
+                        // Remove overlay from DOM and set flag
                         setTimeout(() => {
                             overlay.style.display = 'none';
                             welcomeMessage.style.display = 'none';
+                            // Mark animation as shown in localStorage
+                            localStorage.setItem('learncraft-intro-shown', 'true');
                         }, 1100);
                     }, 500);
                 });
