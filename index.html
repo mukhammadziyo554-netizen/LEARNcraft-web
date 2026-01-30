@@ -2759,6 +2759,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('reset-intro') === 'true') {
                 localStorage.removeItem('learncraft-intro-shown');
+                sessionStorage.removeItem('learncraft-intro-shown-this-session');
             }
             
             // Check if this is a navigation (from another page) vs fresh page load
@@ -2775,6 +2776,11 @@
                 
                 // Re-enable scrolling
                 document.body.style.overflow = '';
+            } else {
+                // First time visit in this session - show startup animation after a short delay
+                setTimeout(() => {
+                    startExperience();
+                }, 500);
             }
         });
     </script>
