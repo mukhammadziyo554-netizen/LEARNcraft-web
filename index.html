@@ -1400,44 +1400,18 @@
             position: absolute;
             inset: 0;
             border-radius: 999px;
-            border: 2px solid transparent;
-            border-top-color: rgba(255, 215, 0, 0.8);
-            border-right-color: rgba(255, 215, 0, 0.4);
-            animation: borderFlow 3s linear infinite;
+            background: conic-gradient(from 0deg at 50% 50%, rgba(255, 215, 0, 0.8) 0deg, rgba(255, 215, 0, 0.6) 45deg, transparent 90deg, transparent 270deg, rgba(255, 215, 0, 0.6) 315deg, rgba(255, 215, 0, 0.8) 360deg);
+            animation: snakeBorder 4s linear infinite;
             z-index: 0;
             pointer-events: none;
         }
 
-        @keyframes borderFlow {
+        @keyframes snakeBorder {
             0% {
-                border-top-color: rgba(255, 215, 0, 0.8);
-                border-right-color: rgba(255, 215, 0, 0.4);
-                border-bottom-color: transparent;
-                border-left-color: transparent;
-            }
-            25% {
-                border-top-color: transparent;
-                border-right-color: rgba(255, 215, 0, 0.8);
-                border-bottom-color: rgba(255, 215, 0, 0.4);
-                border-left-color: transparent;
-            }
-            50% {
-                border-top-color: transparent;
-                border-right-color: transparent;
-                border-bottom-color: rgba(255, 215, 0, 0.8);
-                border-left-color: rgba(255, 215, 0, 0.4);
-            }
-            75% {
-                border-top-color: rgba(255, 215, 0, 0.4);
-                border-right-color: transparent;
-                border-bottom-color: transparent;
-                border-left-color: rgba(255, 215, 0, 0.8);
+                background: conic-gradient(from 0deg at 50% 50%, rgba(255, 215, 0, 0.8) 0deg, rgba(255, 215, 0, 0.6) 45deg, transparent 90deg, transparent 270deg, rgba(255, 215, 0, 0.6) 315deg, rgba(255, 215, 0, 0.8) 360deg);
             }
             100% {
-                border-top-color: rgba(255, 215, 0, 0.8);
-                border-right-color: rgba(255, 215, 0, 0.4);
-                border-bottom-color: transparent;
-                border-left-color: transparent;
+                background: conic-gradient(from 360deg at 50% 50%, rgba(255, 215, 0, 0.8) 0deg, rgba(255, 215, 0, 0.6) 45deg, transparent 90deg, transparent 270deg, rgba(255, 215, 0, 0.6) 315deg, rgba(255, 215, 0, 0.8) 360deg);
             }
         }
 
