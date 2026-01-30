@@ -1426,6 +1426,74 @@
             }
         }
 
+        /* Typewriter Welcome Message */
+        .welcome-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9998;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .welcome-text {
+            font-size: 42px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-align: center;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            min-height: 60px;
+            line-height: 1.4;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3),
+                         0 0 40px rgba(255, 215, 0, 0.2);
+        }
+
+        .welcome-text.typing {
+            animation: fadeInWelcome 0.3s ease-out forwards;
+        }
+
+        @keyframes fadeInWelcome {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .welcome-text.fade-out {
+            animation: fadeOutWelcome 1s ease-out forwards;
+        }
+
+        @keyframes fadeOutWelcome {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        /* Background brightening effect */
+        .startup-overlay.brightening {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            animation: brightenBackground 3s ease-out forwards;
+        }
+
+        @keyframes brightenBackground {
+            0% {
+                background: #000000;
+            }
+            50% {
+                background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            }
+            100% {
+                background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            }
+        }
+
         .page-content {
             opacity: 1;
             transition: opacity 1.5s ease-out;
@@ -1458,6 +1526,11 @@
                 ✨ Enter LEARNcraft
             </button>
         </div>
+    </div>
+
+    <!-- Welcome message with typewriter effect -->
+    <div class="welcome-message" id="welcomeMessage">
+        <div class="welcome-text" id="welcomeText"></div>
     </div>
 
     <!-- Light bloom effect -->
@@ -1647,9 +1720,28 @@
     </footer>
 
     <script>
+        // Typewriter effect function
+        function typeWriter(element, text, speed = 80, callback = null) {
+            let index = 0;
+            
+            function type() {
+                if (index < text.length) {
+                    element.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(type, speed);
+                } else if (callback) {
+                    callback();
+                }
+            }
+            
+            type();
+        }
+
         // Startup animation function
         function startExperience() {
             const overlay = document.getElementById('startupOverlay');
+            const welcomeMessage = document.getElementById('welcomeMessage');
+            const welcomeText = document.getElementById('welcomeText');
             const pageContent = document.getElementById('pageContent');
             const lightBloom = document.getElementById('lightBloom');
             const enterButton = document.getElementById('enterButton');
@@ -1657,35 +1749,50 @@
             // Disable button to prevent multiple clicks
             enterButton.disabled = true;
             
-            // Trigger light bloom animation
-            lightBloom.classList.add('animate');
+            // Start background brightening
+            overlay.classList.add('brightening');
             
             // Hide enter button smoothly
             enterButton.style.opacity = '0';
             enterButton.style.transform = 'scale(0.8)';
             
-            // Fade in page content after a short delay
-            setTimeout(() => {
-                pageContent.classList.remove('hidden');
-            }, 300);
+            // Show welcome message
+            welcomeMessage.style.opacity = '1';
+            welcomeMessage.style.pointerEvents = 'none';
             
-            // Fade out overlay
+            // Start typewriter effect after a short delay
             setTimeout(() => {
-                overlay.classList.add('fade-out');
+                welcomeText.classList.add('typing');
+                typeWriter(welcomeText, 'Welcome, future engineer.', 100, () => {
+                    // Keep message visible for 2 seconds
+                    setTimeout(() => {
+                        welcomeText.classList.remove('typing');
+                        welcomeText.classList.add('fade-out');
+                        
+                        // Trigger light bloom animation
+                        setTimeout(() => {
+                            lightBloom.classList.add('animate');
+                        }, 200);
+                        
+                        // Fade in page content
+                        setTimeout(() => {
+                            pageContent.classList.remove('hidden');
+                        }, 500);
+                        
+                        // Fade out overlay
+                        setTimeout(() => {
+                            overlay.classList.add('fade-out');
+                        }, 1000);
+                        
+                        // Remove overlay from DOM
+                        setTimeout(() => {
+                            overlay.style.display = 'none';
+                            welcomeMessage.style.display = 'none';
+                        }, 3000);
+                    }, 2000);
+                });
             }, 500);
-            
-            // Remove overlay from DOM after animation
-            setTimeout(() => {
-                overlay.style.display = 'none';
-            }, 2500);
         }
-
-        // Auto-start animation after page load (optional - comment out if you want manual button click only)
-        // window.addEventListener('load', () => {
-        //     setTimeout(() => {
-        //         startExperience();
-        //     }, 500);
-        // });
 
         // Initialize Telegram Web App
         if (typeof TelegramWebApp !== 'undefined') {
