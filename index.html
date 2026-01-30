@@ -2463,6 +2463,12 @@
     <script>
         // Check if intro animation has already been shown (run after page loads)
         document.addEventListener('DOMContentLoaded', function() {
+            // Check if user wants to reset animation (for testing: ?reset-intro=true)
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('reset-intro') === 'true') {
+                localStorage.removeItem('learncraft-intro-shown');
+            }
+            
             if (localStorage.getItem('learncraft-intro-shown')) {
                 // Skip the startup overlay - show page content immediately
                 const overlay = document.getElementById('startupOverlay');
