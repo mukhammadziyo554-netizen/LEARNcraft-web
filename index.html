@@ -532,8 +532,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.75);
-            z-index: 9999;
+            background: rgba(0, 0, 0, 0);
+            z-index: 9990;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -578,7 +578,7 @@
         }
 
         .page-content.sidebar-open {
-            filter: blur(1.5px);
+            filter: none;
         }
 
         .sidebar-close {
@@ -626,14 +626,16 @@
 
         .sidebar-item {
             padding: 10px 24px;
-            color: #e5e7eb;
+            color: #ffffff;
             text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
+            font-size: 15px;
+            font-weight: 600;
             transition: color 0.3s ease;
             position: relative;
             display: block;
             text-align: left;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
+            letter-spacing: 0.2px;
         }
 
         .sidebar-menu.show .sidebar-item {
@@ -679,13 +681,15 @@
             padding: 10px 0;
             background: transparent;
             border: none;
-            color: #e5e7eb;
+            color: #ffffff;
             border-radius: 0;
-            font-weight: 500;
-            font-size: 14px;
+            font-weight: 600;
+            font-size: 15px;
             cursor: pointer;
             transition: color 0.3s;
             text-align: left;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
+            letter-spacing: 0.2px;
         }
 
         .sidebar-login:hover {
@@ -695,16 +699,18 @@
         .sidebar-signup {
             padding: 10px 20px;
             background: transparent;
-            border: 1px solid #ffffff;
+            border: 1.5px solid #ffffff;
             color: #ffffff;
             border-radius: 16px;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 15px;
             cursor: pointer;
             transition: all 0.3s;
             width: fit-content;
             min-width: 100px;
             text-align: center;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.25);
         }
 
         .sidebar-signup:hover {
@@ -716,11 +722,6 @@
         @media (max-width: 768px) {
             .hamburger-menu {
                 display: flex;
-            }
-
-            .sidebar-menu {
-                width: 100%;
-                left: -100%;
             }
 
             .nav-center {
