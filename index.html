@@ -552,7 +552,7 @@
             height: 100vh;
             background: #0f1115;
             border-right: 1px solid rgba(148, 163, 184, 0.25);
-            z-index: 1000;
+            z-index: 1001;
             display: flex;
             flex-direction: column;
             transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -625,8 +625,8 @@
         .sidebar-footer {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            padding: 16px 24px;
+            gap: 12px;
+            padding: 20px 24px;
             border-top: 1px solid rgba(148, 163, 184, 0.15);
             margin-top: auto;
             animation: slideInText 0.5s ease 0.8s forwards;
@@ -635,7 +635,7 @@
         }
 
         .sidebar-login {
-            padding: 8px 0;
+            padding: 10px 0;
             background: transparent;
             border: none;
             color: #9aa3af;
@@ -643,33 +643,33 @@
             font-weight: 400;
             font-size: 13px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: color 0.3s;
             text-align: left;
         }
 
         .sidebar-login:hover {
-            background: transparent;
-            border-color: transparent;
             color: #e5e7eb;
         }
 
         .sidebar-signup {
-            padding: 8px 16px;
+            padding: 10px 16px;
             background: #e5e7eb;
             border: none;
             color: #0f1115;
             border-radius: 16px;
             font-weight: 600;
-            font-size: 12px;
+            font-size: 13px;
             cursor: pointer;
             transition: all 0.3s;
             width: fit-content;
+            min-width: 100px;
+            text-align: center;
         }
 
         .sidebar-signup:hover {
             background: #ffffff;
-            transform: translateY(-1px);
-            box-shadow: 0 2px 8px rgba(148, 163, 184, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
         }
 
         @media (max-width: 768px) {
