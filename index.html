@@ -856,6 +856,129 @@
             font-weight: 500;
         }
 
+        /* Footer Styles */
+        footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 60px 20px 30px;
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+            align-items: start;
+        }
+
+        .footer-section-left h3 {
+            font-size: 24px;
+            color: var(--text);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .footer-section-left p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 18px;
+        }
+
+        .social-icon:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg);
+            transform: translateY(-3px);
+        }
+
+        .footer-section-right {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-link {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .footer-link:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+        }
+
+        .copyright {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        @media (max-width: 768px) {
+            footer {
+                padding: 40px 20px 25px;
+                margin-top: 60px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-section-left h3 {
+                font-size: 20px;
+            }
+
+            .footer-section-right {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .footer-links {
+                flex-direction: row;
+                gap: 20px;
+            }
+        }
+
         .fields-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
@@ -1882,5 +2005,53 @@
         }
     </script>
 
-</body>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section-left">
+                    <h3 data-en="Stay Connected" data-ru="Будьте в курсе" data-uz="Bog'liq qoling">Stay Connected</h3>
+                    <p data-en="Follow us for the latest updates, engineering tips, and learning resources to accelerate your growth." data-ru="Следите за последними обновлениями, инженерными советами и ресурсами для обучения." data-uz="Oxirgi yangilanishlar, muhandislik maslahatlar va o'quv resurslar uchun bizni kuzatib turing.">Follow us for the latest updates, engineering tips, and learning resources to accelerate your growth.</p>
+                    <div class="social-icons">
+                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-icon" title="Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37Z"></path>
+                                <circle cx="17.5" cy="6.5" r="1.5"></circle>
+                            </svg>
+                        </a>
+                        <a href="https://telegram.org" target="_blank" rel="noopener noreferrer" class="social-icon" title="Telegram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161l-1.764 8.317c-.132.593-.48.74-.968.46l-2.671-1.968-1.287 1.24c-.143.143-.262.262-.537.262l.191-2.726 4.95-4.473c.215-.191-.047-.298-.334-.107l-6.117 3.853-2.636-.824c-.573-.18-.584-.573.12-.849l10.302-3.97c.478-.178.896.107.741.849z"></path>
+                            </svg>
+                        </a>
+                        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-icon" title="YouTube">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path>
+                            </svg>
+                        </a>
+                        <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="social-icon" title="X">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.207-6.802-5.974 6.802H2.882l7.432-8.49H1.227l5.684-6.486h6.331l4.802 6.302 5.47-6.486m-1.161 17.52h1.833L7.084 4.126H5.117l12.926 15.644z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-section-right">
+                    <div class="footer-links">
+                        <a href="#" class="footer-link" data-en="About" data-ru="О нас" data-uz="Haqida">About</a>
+                        <a href="support.html" class="footer-link" data-en="Contact" data-ru="Контакт" data-uz="Aloqa">Contact</a>
+                        <a href="#" class="footer-link" data-en="Privacy Policy" data-ru="Политика конфиденциальности" data-uz="Maxfiylik siyosati">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright" data-en="© 2026 LEARNcraft. All rights reserved." data-ru="© 2026 LEARNcraft. Все права защищены." data-uz="© 2026 LEARNcraft. Barcha huquqlar himoyalangan.">© 2026 LEARNcraft. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    </body>
 </html>
