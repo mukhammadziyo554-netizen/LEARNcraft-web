@@ -483,6 +483,193 @@
             background: rgba(255, 215, 0, 0.2);
         }
 
+        /* Hamburger Menu Styles */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 999;
+        }
+
+        .hamburger-menu span {
+            width: 24px;
+            height: 2.5px;
+            background: #e5e7eb;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-menu.active span:nth-child(1) {
+            transform: rotate(45deg) translate(10px, 10px);
+        }
+
+        .hamburger-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-menu.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Sidebar Overlay */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar-overlay.show {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Sidebar Menu */
+        .sidebar-menu {
+            position: fixed;
+            top: 0;
+            left: -400px;
+            width: 400px;
+            height: 100vh;
+            background: #0f1115;
+            border-right: 1px solid rgba(148, 163, 184, 0.25);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 20px 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-menu.show {
+            left: 0;
+        }
+
+        .sidebar-close {
+            align-self: flex-end;
+            background: none;
+            border: none;
+            color: #e5e7eb;
+            font-size: 28px;
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: color 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-close:hover {
+            color: #94a3b8;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            flex: 1;
+        }
+
+        .sidebar-item {
+            padding: 16px 24px;
+            color: #9aa3af;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            position: relative;
+        }
+
+        .sidebar-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #94a3b8;
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sidebar-item:hover {
+            color: #e5e7eb;
+            background: rgba(148, 163, 184, 0.1);
+            padding-left: 32px;
+        }
+
+        .sidebar-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        .sidebar-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 20px 24px;
+            border-top: 1px solid rgba(148, 163, 184, 0.25);
+            margin-top: auto;
+        }
+
+        .sidebar-login {
+            padding: 12px 20px;
+            background: transparent;
+            border: 1px solid #94a3b8;
+            color: #e5e7eb;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .sidebar-login:hover {
+            background: rgba(148, 163, 184, 0.1);
+            border-color: #cbd5e1;
+            color: #cbd5e1;
+        }
+
+        .sidebar-signup {
+            padding: 12px 20px;
+            background: #94a3b8;
+            border: none;
+            color: #0f1115;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .sidebar-signup:hover {
+            background: #cbd5e1;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(148, 163, 184, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .hamburger-menu {
+                display: flex;
+            }
+
+            .sidebar-menu {
+                width: 100%;
+                left: -100%;
+            }
+
+            .nav-center {
+                display: none;
+            }
+        }
+
         .user-account {
             position: relative;
             display: inline-block;
@@ -1949,17 +2136,14 @@
         <div class="nav-left">
             <div class="nav-brand">LEARNcraft</div>
             <button onclick="document.getElementById('header-section').scrollIntoView();" data-en="Home" data-ru="Главная" data-uz="Bosh sahifa">Home</button>
-            <div class="options-dropdown">
-                <button class="options-btn" onclick="toggleOptionsMenu()" data-en="Options" data-ru="Опции" data-uz="Variantlar">Options</button>
-                <div class="options-menu" id="options-menu">
-                    <button class="options-item" onclick="window.location.href='ask-ai.html'; closeOptionsMenu();" data-en="Ask AI" data-ru="Спросить ИИ" data-uz="AI so'rash">Ask AI</button>
-                    <button class="options-item" onclick="document.getElementById('fields-section').scrollIntoView(); closeOptionsMenu();" data-en="Fields" data-ru="Поля" data-uz="Sohalari">Fields</button>
-                    <button class="options-item" onclick="window.location.href='roadmap.html'; closeOptionsMenu();" data-en="Road Map" data-ru="Дорожная карта" data-uz="Yo'l xaritas">Road Map</button>
-                    <button class="options-item" onclick="window.location.href='support.html'; closeOptionsMenu();" data-en="Support" data-ru="Поддержка" data-uz="Yordam">Support</button>
-                    <button class="options-item" id="adminBtnMenu" onclick="window.location.href='admin.html'; closeOptionsMenu();" data-en="Admin" data-ru="Админ" data-uz="Admin" style="display: none;">Admin</button>
-                </div>
-            </div>
         </div>
+        
+        <!-- Hamburger Menu -->
+        <button class="hamburger-menu" id="hamburgerMenu" onclick="toggleSidebar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
         
         <div class="nav-right">
             <div class="user-account" id="userAccount" style="display: none;">
@@ -1970,6 +2154,27 @@
                 </div>
             </div>
             <button id="signInBtn" onclick="window.location.href='registration.html'" data-en="Sign In" data-ru="Войти" data-uz="Kirish">Sign In</button>
+        </div>
+    </div>
+
+    <!-- Sidebar Menu Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <!-- Sidebar Menu -->
+    <div class="sidebar-menu" id="sidebarMenu">
+        <button class="sidebar-close" onclick="closeSidebar()">✕</button>
+        <nav class="sidebar-nav">
+            <a href="#" class="sidebar-item" onclick="closeSidebar();" data-en="Product" data-ru="Продукт" data-uz="Mahsulot">Product</a>
+            <a href="#" class="sidebar-item" onclick="closeSidebar();" data-en="Teams" data-ru="Команды" data-uz="Jamoalar">Teams</a>
+            <a href="#" class="sidebar-item" onclick="closeSidebar();" data-en="Resources" data-ru="Ресурсы" data-uz="Manbalar">Resources</a>
+            <a href="#" class="sidebar-item" onclick="closeSidebar();" data-en="Community" data-ru="Сообщество" data-uz="Hamjamiyat">Community</a>
+            <a href="support.html" class="sidebar-item" onclick="closeSidebar();" data-en="Support" data-ru="Поддержка" data-uz="Yordam">Support</a>
+            <a href="#" class="sidebar-item" onclick="closeSidebar();" data-en="Enterprise" data-ru="Предприятие" data-uz="Biznes">Enterprise</a>
+            <a href="#" class="sidebar-item" onclick="closeSidebar();" data-en="Pricing" data-ru="Цены" data-uz="Narxlar">Pricing</a>
+        </nav>
+        <div class="sidebar-footer">
+            <button class="sidebar-login" onclick="window.location.href='registration.html'; closeSidebar();" data-en="Log in" data-ru="Войти" data-uz="Kirish">Log in</button>
+            <button class="sidebar-signup" onclick="window.location.href='registration.html'; closeSidebar();" data-en="Sign up" data-ru="Зарегистрироваться" data-uz="Ro'yxatdan o'tish">Sign up</button>
         </div>
     </div>
 
@@ -2850,6 +3055,43 @@
                 observer.observe(element);
             });
         }
+
+        // Hamburger Menu Functions
+        function toggleSidebar() {
+            const hamburger = document.getElementById('hamburgerMenu');
+            const sidebar = document.getElementById('sidebarMenu');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            hamburger.classList.toggle('active');
+            sidebar.classList.toggle('show');
+            overlay.classList.toggle('show');
+            
+            // Prevent body scroll when sidebar is open
+            if (sidebar.classList.contains('show')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function closeSidebar() {
+            const hamburger = document.getElementById('hamburgerMenu');
+            const sidebar = document.getElementById('sidebarMenu');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            hamburger.classList.remove('active');
+            sidebar.classList.remove('show');
+            overlay.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        // Close sidebar when a menu item is clicked
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarItems = document.querySelectorAll('.sidebar-item');
+            sidebarItems.forEach(item => {
+                item.addEventListener('click', closeSidebar);
+            });
+        });
 
         // Check if intro animation has already been shown (run after page loads)
         document.addEventListener('DOMContentLoaded', function() {
