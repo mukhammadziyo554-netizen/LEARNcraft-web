@@ -547,8 +547,8 @@
         .sidebar-menu {
             position: fixed;
             top: 0;
-            left: -400px;
-            width: 400px;
+            left: -280px;
+            width: 280px;
             height: 100vh;
             background: #0f1115;
             border-right: 1px solid rgba(148, 163, 184, 0.25);
@@ -564,34 +564,37 @@
             left: 0;
         }
 
+        /* Blur effect on main content when sidebar is open */
+        .page-content.sidebar-open {
+            filter: blur(3px);
+        }
+
         .sidebar-close {
-            align-self: flex-end;
+            position: absolute;
+            top: 16px;
+            right: 16px;
             background: none;
             border: none;
             color: #e5e7eb;
             font-size: 24px;
-            padding: 12px 20px;
+            padding: 4px 8px;
             cursor: pointer;
             transition: color 0.3s;
-            margin-bottom: 20px;
+            z-index: 1001;
         }
 
         .sidebar-close:hover {
             color: #94a3b8;
-        }
-
-        .sidebar-nav {
-            display: flex;
-            flex-direction: column;
+        }   flex-direction: column;
             gap: 0;
             flex: 1;
         }
 
         .sidebar-item {
-            padding: 12px 24px;
+            padding: 10px 24px;
             color: #9aa3af;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 400;
             transition: all 0.3s ease;
             position: relative;
@@ -622,8 +625,8 @@
         .sidebar-footer {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            padding: 20px 24px;
+            gap: 10px;
+            padding: 16px 24px;
             border-top: 1px solid rgba(148, 163, 184, 0.25);
             margin-top: auto;
             animation: slideInText 0.5s ease 0.8s forwards;
@@ -2173,6 +2176,9 @@
 
     <!-- Sidebar Menu -->
     <div class="sidebar-menu" id="sidebarMenu">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">⚡</div>
+        </div>
         <button class="sidebar-close" onclick="closeSidebar()">✕</button>
         <nav class="sidebar-nav">
             <a href="#" class="sidebar-item" onclick="closeSidebar();" data-en="Product" data-ru="Продукт" data-uz="Mahsulot">Product</a>
@@ -3072,10 +3078,12 @@
             const hamburger = document.getElementById('hamburgerMenu');
             const sidebar = document.getElementById('sidebarMenu');
             const overlay = document.getElementById('sidebarOverlay');
+            const pageContent = document.getElementById('pageContent');
             
             hamburger.classList.toggle('active');
             sidebar.classList.toggle('show');
             overlay.classList.toggle('show');
+            pageContent.classList.toggle('sidebar-open');
             
             // Prevent body scroll when sidebar is open
             if (sidebar.classList.contains('show')) {
@@ -3089,10 +3097,12 @@
             const hamburger = document.getElementById('hamburgerMenu');
             const sidebar = document.getElementById('sidebarMenu');
             const overlay = document.getElementById('sidebarOverlay');
+            const pageContent = document.getElementById('pageContent');
             
             hamburger.classList.remove('active');
             sidebar.classList.remove('show');
             overlay.classList.remove('show');
+            pageContent.classList.remove('sidebar-open');
             document.body.style.overflow = '';
         }
 
