@@ -1400,18 +1400,35 @@
             position: absolute;
             inset: 0;
             border-radius: 999px;
-            background: conic-gradient(from 0deg at 50% 50%, rgba(255, 215, 0, 0.8) 0deg, rgba(255, 215, 0, 0.6) 45deg, transparent 90deg, transparent 270deg, rgba(255, 215, 0, 0.6) 315deg, rgba(255, 215, 0, 0.8) 360deg);
-            animation: snakeBorder 4s linear infinite;
+            border: 2px solid transparent;
+            border-image: linear-gradient(90deg, rgba(255, 215, 0, 0.8) 0%, rgba(255, 215, 0, 0.8) 30%, transparent 50%, transparent 100%) 1;
+            background: conic-gradient(from var(--angle, 0deg), rgba(255, 215, 0, 0.8) 0deg, rgba(255, 215, 0, 0.8) 30deg, transparent 40deg, transparent 320deg, rgba(255, 215, 0, 0.8) 330deg);
+            background-clip: padding-box;
+            animation: snakeBorder 3s linear infinite;
             z-index: 0;
             pointer-events: none;
         }
 
         @keyframes snakeBorder {
             0% {
-                background: conic-gradient(from 0deg at 50% 50%, rgba(255, 215, 0, 0.8) 0deg, rgba(255, 215, 0, 0.6) 45deg, transparent 90deg, transparent 270deg, rgba(255, 215, 0, 0.6) 315deg, rgba(255, 215, 0, 0.8) 360deg);
+                --angle: 0deg;
+                background: conic-gradient(from 0deg, rgba(255, 215, 0, 0.8) 0deg, rgba(255, 215, 0, 0.8) 30deg, transparent 40deg, transparent 320deg, rgba(255, 215, 0, 0.8) 330deg);
+            }
+            25% {
+                --angle: 90deg;
+                background: conic-gradient(from 90deg, rgba(255, 215, 0, 0.8) 0deg, rgba(255, 215, 0, 0.8) 30deg, transparent 40deg, transparent 320deg, rgba(255, 215, 0, 0.8) 330deg);
+            }
+            50% {
+                --angle: 180deg;
+                background: conic-gradient(from 180deg, rgba(255, 215, 0, 0.8) 0deg, rgba(255, 215, 0, 0.8) 30deg, transparent 40deg, transparent 320deg, rgba(255, 215, 0, 0.8) 330deg);
+            }
+            75% {
+                --angle: 270deg;
+                background: conic-gradient(from 270deg, rgba(255, 215, 0, 0.8) 0deg, rgba(255, 215, 0, 0.8) 30deg, transparent 40deg, transparent 320deg, rgba(255, 215, 0, 0.8) 330deg);
             }
             100% {
-                background: conic-gradient(from 360deg at 50% 50%, rgba(255, 215, 0, 0.8) 0deg, rgba(255, 215, 0, 0.6) 45deg, transparent 90deg, transparent 270deg, rgba(255, 215, 0, 0.6) 315deg, rgba(255, 215, 0, 0.8) 360deg);
+                --angle: 360deg;
+                background: conic-gradient(from 360deg, rgba(255, 215, 0, 0.8) 0deg, rgba(255, 215, 0, 0.8) 30deg, transparent 40deg, transparent 320deg, rgba(255, 215, 0, 0.8) 330deg);
             }
         }
 
