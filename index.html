@@ -1438,29 +1438,40 @@
         }
 
         .welcome-text {
-            font-size: 42px;
+            font-size: 56px;
             font-weight: 300;
-            letter-spacing: 2px;
+            letter-spacing: -1px;
             color: #ffffff;
             text-align: center;
-            font-family: 'Inter', 'Segoe UI', sans-serif;
-            min-height: 60px;
+            font-family: 'Brush Script MT', cursive, 'Comic Sans MS', 'Apple Chancery', 'Segoe UI';
+            min-height: 80px;
             line-height: 1.4;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3),
-                         0 0 40px rgba(255, 215, 0, 0.2);
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.4),
+                         0 0 60px rgba(255, 215, 0, 0.25);
+            font-style: italic;
             opacity: 1;
+            letter-spacing: 1px;
         }
 
-        .welcome-text.typing {
-            animation: fadeInWelcome 0.3s ease-out forwards;
+        /* Character animation */
+        .welcome-text .char {
+            display: inline-block;
+            opacity: 0;
+            animation: charAppear 0.15s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
-        @keyframes fadeInWelcome {
-            from {
+        @keyframes charAppear {
+            0% {
                 opacity: 0;
+                transform: scale(0.3) rotate(-10deg);
             }
-            to {
+            50% {
                 opacity: 1;
+                transform: scale(1.1) rotate(0deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
             }
         }
 
@@ -1721,23 +1732,26 @@
     </footer>
 
     <script>
-        // Typewriter effect function
-        function typeWriter(element, text, speed = 80, callback = null) {
-            let index = 0;
-            element.textContent = ''; // Clear any existing text
+        // Handwritten typewriter effect with character animation
+        function typeWriterHandwritten(element, text, speed = 120, callback = null) {
+            element.innerHTML = ''; // Clear any existing content
             
-            function type() {
-                if (index < text.length) {
-                    element.textContent += text.charAt(index);
-                    index++;
-                    setTimeout(type, speed);
-                } else if (callback) {
-                    callback();
-                }
+            // Create spans for each character
+            for (let i = 0; i < text.length; i++) {
+                const char = text.charAt(i);
+                const span = document.createElement('span');
+                span.className = 'char';
+                span.textContent = char;
+                span.style.animationDelay = (i * speed) + 'ms';
+                element.appendChild(span);
             }
             
-            console.log('Starting typewriter for:', text);
-            type();
+            // Call callback after all characters are animated
+            if (callback) {
+                setTimeout(callback, text.length * speed + 500);
+            }
+            
+            console.log('Handwritten typewriter started for:', text);
         }
 
         // Startup animation function
@@ -1750,7 +1764,7 @@
             const lightBloom = document.getElementById('lightBloom');
             const enterButton = document.getElementById('enterButton');
 
-            console.log('Elements:', { overlay, welcomeMessage, welcomeText, pageContent, lightBloom, enterButton });
+            console.log('Elements found:', { overlay, welcomeMessage, welcomeText, pageContent, lightBloom, enterButton });
 
             // Disable button to prevent multiple clicks
             enterButton.disabled = true;
@@ -1769,15 +1783,14 @@
             welcomeText.style.opacity = '1';
             welcomeText.style.display = 'block';
             
-            // Start typewriter effect after a short delay
+            // Start handwritten typewriter effect after a short delay
             setTimeout(() => {
-                console.log('Starting typewriter animation');
-                welcomeText.classList.add('typing');
-                typeWriter(welcomeText, 'Welcome, future engineer.', 100, () => {
-                    console.log('Typewriter finished');
+                console.log('Starting handwritten animation');
+                const textToType = 'Welcome, future engineer.';
+                typeWriterHandwritten(welcomeText, textToType, 120, () => {
+                    console.log('Handwritten animation finished');
                     // Keep message visible for 2 seconds
                     setTimeout(() => {
-                        welcomeText.classList.remove('typing');
                         welcomeText.classList.add('fade-out');
                         
                         // Trigger light bloom animation
@@ -1800,7 +1813,7 @@
                             overlay.style.display = 'none';
                             welcomeMessage.style.display = 'none';
                         }, 3000);
-                    }, 2000);
+                    }, 1500);
                 });
             }, 500);
         }
