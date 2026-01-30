@@ -1371,52 +1371,46 @@
             font-weight: 600;
             background: #0a0a0a;
             color: #FFD700;
-            border: 2px solid #FFD700;
+            border: 2px solid rgba(255, 215, 0, 0.15);
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.5s ease;
             letter-spacing: 1.2px;
             position: relative;
             overflow: visible;
-            box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.05);
+            box-shadow: inset 0 0 25px rgba(255, 215, 0, 0.08);
         }
 
-        /* Animated glowing border */
+        /* Moving spark around the border edge */
         .enter-button::before {
             content: '';
             position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: conic-gradient(from 0deg at 50% 50%, #FFD700, #FFD700 90deg, transparent 180deg, #FFD700 270deg, #FFD700);
-            border-radius: 10px;
-            animation: rotateBorder 4s linear infinite;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            background: conic-gradient(
+                from 0deg at 50% 50%,
+                transparent 0deg,
+                transparent 20deg,
+                #FFD700 35deg,
+                #FFD700 55deg,
+                transparent 70deg,
+                transparent 360deg
+            );
+            border-radius: 12px;
+            animation: sparkAround 8s linear infinite;
             z-index: -1;
-            opacity: 0.7;
+            pointer-events: none;
         }
 
-        @keyframes rotateBorder {
+        @keyframes sparkAround {
             0% {
                 transform: rotate(0deg);
             }
             100% {
                 transform: rotate(360deg);
             }
-        }
-
-        /* Static border on top */
-        .enter-button::after {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            border: 2px solid #FFD700;
-            border-radius: 10px;
-            box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
-            pointer-events: none;
         }
 
         .enter-button span {
@@ -1427,66 +1421,30 @@
 
         /* Smooth hover glow effect */
         .enter-button:hover {
-            background: #1a1a1a;
-            box-shadow: inset 0 0 30px rgba(255, 215, 0, 0.15),
-                        0 0 40px rgba(255, 215, 0, 0.25);
-            transform: scale(1.02);
+            background: #151a21;
+            box-shadow: inset 0 0 30px rgba(255, 215, 0, 0.12),
+                        0 0 25px rgba(255, 215, 0, 0.2);
+            border-color: rgba(255, 215, 0, 0.25);
         }
 
         .enter-button:hover::before {
-            opacity: 1;
-        }
-
-        .enter-button:hover::after {
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+            animation: sparkAround 6s linear infinite;
         }
 
         .enter-button:active {
-            transform: scale(0.98);
+            opacity: 0.95;
         }
 
-        .light-bloom {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.6) 0%, rgba(255, 215, 0, 0.2) 70%, transparent 100%);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            opacity: 0;
-            z-index: 9999;
-        }
-
-        .light-bloom.animate {
-            animation: lightBloom 1.5s ease-out forwards;
-        }
-
-        @keyframes lightBloom {
-            0% {
-                opacity: 1;
-                width: 100px;
-                height: 100px;
-                box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
-            }
-            100% {
-                opacity: 0;
-                width: 800px;
-                height: 800px;
-                box-shadow: 0 0 100px rgba(255, 215, 0, 0.1);
-            }
-        }
-
-        /* Typewriter Welcome Message */
+        /* Welcome message - just text, no animation container */
         .welcome-message {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 9998;
-            opacity: 1;
+            opacity: 0;
             pointer-events: none;
+            display: none;
         }
 
         .welcome-text {
@@ -1495,17 +1453,16 @@
             letter-spacing: -1px;
             color: #ffffff;
             text-align: center;
-            font-family: 'Brush Script MT', cursive, 'Comic Sans MS', 'Apple Chancery', 'Segoe UI';
+            font-family: 'Brush Script MT', cursive, 'Comic Sans MS', 'Apple Chancery', sans-serif;
             min-height: 80px;
             line-height: 1.4;
             text-shadow: 0 0 30px rgba(255, 255, 255, 0.4),
                          0 0 60px rgba(255, 215, 0, 0.25);
             font-style: italic;
             opacity: 1;
-            letter-spacing: 1px;
         }
 
-        /* Character animation */
+        /* Character animation for handwriting effect */
         .welcome-text .char {
             display: inline-block;
             opacity: 0;
@@ -1537,24 +1494,6 @@
             }
             to {
                 opacity: 0;
-            }
-        }
-
-        /* Background brightening effect */
-        .startup-overlay.brightening {
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-            animation: brightenBackground 3s ease-out forwards;
-        }
-
-        @keyframes brightenBackground {
-            0% {
-                background: #000000;
-            }
-            50% {
-                background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-            }
-            100% {
-                background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
             }
         }
 
@@ -1784,8 +1723,8 @@
     </footer>
 
     <script>
-        // Handwritten typewriter effect with character animation
-        function typeWriterHandwritten(element, text, speed = 120, callback = null) {
+        // Handwritten animation for each character
+        function typeWriterHandwritten(element, text, speed = 140, callback = null) {
             element.innerHTML = ''; // Clear any existing content
             
             // Create spans for each character
@@ -1802,72 +1741,54 @@
             if (callback) {
                 setTimeout(callback, text.length * speed + 500);
             }
-            
-            console.log('Handwritten typewriter started for:', text);
         }
 
         // Startup animation function
         function startExperience() {
-            console.log('startExperience called');
             const overlay = document.getElementById('startupOverlay');
             const welcomeMessage = document.getElementById('welcomeMessage');
             const welcomeText = document.getElementById('welcomeText');
             const pageContent = document.getElementById('pageContent');
-            const lightBloom = document.getElementById('lightBloom');
             const enterButton = document.getElementById('enterButton');
-
-            console.log('Elements found:', { overlay, welcomeMessage, welcomeText, pageContent, lightBloom, enterButton });
 
             // Disable button to prevent multiple clicks
             enterButton.disabled = true;
             
-            // Start background brightening
-            overlay.classList.add('brightening');
-            
             // Hide enter button smoothly
             enterButton.style.opacity = '0';
             enterButton.style.transform = 'scale(0.8)';
+            enterButton.style.pointerEvents = 'none';
             
-            // Show welcome message (make sure it's visible)
+            // Show welcome message
             welcomeMessage.style.display = 'block';
             welcomeMessage.style.opacity = '1';
-            welcomeMessage.style.pointerEvents = 'none';
-            welcomeText.style.opacity = '1';
-            welcomeText.style.display = 'block';
             
-            // Start handwritten typewriter effect after a short delay
+            // Start handwritten animation after a short delay
             setTimeout(() => {
-                console.log('Starting handwritten animation');
                 const textToType = 'Welcome future engineer';
                 typeWriterHandwritten(welcomeText, textToType, 140, () => {
-                    console.log('Handwritten animation finished');
                     // Keep message visible for 2 seconds
                     setTimeout(() => {
                         welcomeText.classList.add('fade-out');
                         
-                        // Trigger light bloom animation
-                        setTimeout(() => {
-                            lightBloom.classList.add('animate');
-                        }, 200);
-                        
                         // Fade in page content
                         setTimeout(() => {
                             pageContent.classList.remove('hidden');
-                        }, 500);
+                        }, 300);
                         
                         // Fade out overlay
                         setTimeout(() => {
                             overlay.classList.add('fade-out');
-                        }, 1000);
+                        }, 800);
                         
                         // Remove overlay from DOM
                         setTimeout(() => {
                             overlay.style.display = 'none';
                             welcomeMessage.style.display = 'none';
-                        }, 3000);
+                        }, 2500);
                     }, 2000);
                 });
-            }, 600);
+            }, 400);
         }
 
         // Initialize Telegram Web App

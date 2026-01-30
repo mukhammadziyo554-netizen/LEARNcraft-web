@@ -18,7 +18,7 @@ BOT_TOKEN = '7950732190:AAGjT0DoRWwJuBsMpPy_2XFGc-VzvORdBKk'  # ← REPLACE THIS
 MINI_APP_URL = 'https://mukhammadziyo554-netizen.github.io/LEARNcraft-web/index.html'
 
 # Admin group/chat ID where feedback will be sent (example: -1001234567890)
-ADMIN_CHAT_ID = -1000000000000
+ADMIN_CHAT_ID = -1003644858128
 
 FEEDBACK_PROMPT = (
     "📝 *Send Feedback*\n\n"
@@ -201,29 +201,54 @@ async def feedback_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -
     await update.message.reply_text(FEEDBACK_PROMPT, parse_mode='Markdown')
 
 async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    if not context.user_data.get("awaiting_feedback"):
-        return
+    # If awaiting feedback, process the feedback
+    if context.user_data.get("awaiting_feedback"):
+        context.user_data["awaiting_feedback"] = False
+        user = update.effective_user
+        message = update.message.text
 
-    context.user_data["awaiting_feedback"] = False
-    user = update.effective_user
-    message = update.message.text
+        if ADMIN_CHAT_ID == -1000000000000:
+            await update.message.reply_text(
+                "⚠️ Admin chat ID is not configured yet.\n"
+                "Add the bot to your admin group and run /chatid in that group, then update ADMIN_CHAT_ID."
+            )
+            return
 
-    if ADMIN_CHAT_ID == -1000000000000:
-        await update.message.reply_text(
-            "⚠️ Admin chat ID is not configured yet.\n"
-            "Add the bot to your admin group and run /chatid in that group, then update ADMIN_CHAT_ID."
+        admin_text = (
+            "📩 *New Feedback*\n\n"
+            f"👤 User: {user.full_name} (@{user.username or 'no-username'})\n"
+            f"🆔 ID: {user.id}\n\n"
+            f"💬 Message:\n{message}"
         )
+
+        await context.bot.send_message(chat_id=ADMIN_CHAT_ID, text=admin_text, parse_mode='Markdown')
+        await update.message.reply_text(FEEDBACK_THANKS)
         return
 
-    admin_text = (
-        "📩 *New Feedback*\n\n"
-        f"👤 User: {user.full_name} (@{user.username or 'no-username'})\n"
-        f"🆔 ID: {user.id}\n\n"
-        f"💬 Message:\n{message}"
+    # Otherwise, respond to regular messages
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton(
+            text="🚀 Open LEARNcraft App",
+            web_app=WebAppInfo(url=MINI_APP_URL)
+        )],
+        [InlineKeyboardButton(
+            text="📚 Get Help",
+            callback_data="show_help"
+        )],
+        [InlineKeyboardButton(
+            text="📝 Send Feedback",
+            callback_data="start_feedback"
+        )]
+    ])
+    
+    await update.message.reply_text(
+        "👋 Hi! I'm LEARNcraft Bot.\n\n"
+        "Use the buttons below or type:\n"
+        "• /start - Welcome message\n"
+        "• /help - Full help guide\n"
+        "• /custom - Advanced features",
+        reply_markup=keyboard
     )
-
-    await context.bot.send_message(chat_id=ADMIN_CHAT_ID, text=admin_text, parse_mode='Markdown')
-    await update.message.reply_text(FEEDBACK_THANKS)
 
 async def chatid_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     chat = update.effective_chat
