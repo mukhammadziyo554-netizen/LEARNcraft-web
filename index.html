@@ -734,7 +734,7 @@
 
         .about-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 24px;
             margin: 40px 0;
         }
@@ -744,7 +744,32 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 32px;
-            transition: transform 0.3s, border-color 0.3s;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 17, 21, 0.85);
+            z-index: 1;
+        }
+
+        .about-card > * {
+            position: relative;
+            z-index: 2;
         }
 
         .about-card:hover {
@@ -752,10 +777,26 @@
             border-color: var(--accent);
         }
 
+        .about-card.mission-bg {
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23FFD700;stop-opacity:0.1" /><stop offset="100%" style="stop-color:%235B21B6;stop-opacity:0.1" /></linearGradient></defs><rect fill="url(%23g1)" width="400" height="300"/><circle cx="100" cy="80" r="30" fill="%23CBD5E1" opacity="0.15"/><circle cx="320" cy="180" r="40" fill="%238B5CF6" opacity="0.1"/><path d="M50,250 Q100,150 200,200 T350,200" stroke="%2394A3B8" stroke-width="2" fill="none" opacity="0.15"/></svg>');
+        }
+
+        .about-card.why-bg {
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><defs><linearGradient id="g2" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:%2360A5FA;stop-opacity:0.1" /><stop offset="100%" style="stop-color:%23EC4899;stop-opacity:0.1" /></linearGradient></defs><rect fill="url(%23g2)" width="400" height="300"/><rect x="30" y="40" width="60" height="60" fill="%2394A3B8" opacity="0.1" rx="8"/><rect x="150" y="80" width="80" height="80" fill="%23CBD5E1" opacity="0.1" rx="10"/><rect x="280" y="50" width="70" height="70" fill="%238B5CF6" opacity="0.08" rx="8"/></svg>');
+        }
+
+        .about-card.help-bg {
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><defs><linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%2310B981;stop-opacity:0.1" /><stop offset="100%" style="stop-color:%23F59E0B;stop-opacity:0.1" /></linearGradient></defs><rect fill="url(%23g3)" width="400" height="300"/><circle cx="80" cy="100" r="25" fill="%2394A3B8" opacity="0.12"/><circle cx="200" cy="60" r="35" fill="%23CBD5E1" opacity="0.1"/><circle cx="300" cy="180" r="28" fill="%2310B981" opacity="0.08"/><path d="M50,200 L350,200" stroke="%23CBD5E1" stroke-width="1" opacity="0.15"/></svg>');
+        }
+
+        .about-card.community-bg {
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><defs><linearGradient id="g4" x1="100%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:%238B5CF6;stop-opacity:0.1" /><stop offset="100%" style="stop-color:%23EC4899;stop-opacity:0.1" /></linearGradient></defs><rect fill="url(%23g4)" width="400" height="300"/><circle cx="100" cy="80" r="22" fill="%23CBD5E1" opacity="0.12"/><circle cx="200" cy="120" r="28" fill="%2394A3B8" opacity="0.1"/><circle cx="300" cy="90" r="20" fill="%23CBD5E1" opacity="0.12"/><line x1="50" y1="200" x2="350" y2="200" stroke="%238B5CF6" stroke-width="1" opacity="0.1"/><circle cx="150" cy="200" r="15" fill="%238B5CF6" opacity="0.08"/><circle cx="250" cy="200" r="15" fill="%238B5CF6" opacity="0.08"/></svg>');
+        }
+
         .about-icon {
             font-size: 48px;
             margin-bottom: 16px;
-            display: block;
+            display: none;
         }
 
         .about-subtitle {
@@ -1264,22 +1305,24 @@
             <h2 class="section-title" data-en="About LEARNcraft" data-ru="О LEARNcraft" data-uz="LEARNcraft haqida">About LEARNcraft</h2>
             
             <div class="about-content">
-                <div class="about-card">
-                    <div class="about-icon">🎯</div>
+                <div class="about-card mission-bg">
                     <h3 class="about-subtitle" data-en="Our Mission" data-ru="Наша миссия" data-uz="Bizning missiya">Our Mission</h3>
-                    <p class="about-text" data-en="LEARNcraft is an AI-powered educational platform designed to support engineering students and professionals worldwide. We provide instant access to expert guidance, learning resources, and personalized roadmaps to help you master engineering concepts and solve real-world problems." data-ru="LEARNcraft — это платформа электронного обучения на основе искусственного интеллекта, разработанная для поддержки студентов инженерных специальностей и профессионалов во всем мире. Мы предоставляем мгновенный доступ к рекомендациям экспертов, ресурсам для обучения и персонализированным дорожным картам, которые помогут вам освоить инженерные концепции и решить реальные проблемы." data-uz="LEARNcraft dunyo bo'ylab muhandislik talabalariga va mutaxassissalarga yordam berish uchun mo'ljallangan sun'iy intellekt asosidagi ta'lim platformasi. Biz muhandislik tushunchalarini o'zlashtirish va real muammolarni hal qilishga yordam beradigan mutaxassis yo'riqnomalari, ta'lim resurslari va shaxsiylashtirilgan yo'l xaritalari bilan darhol foydalanish imkoniyatini taqdim etamiz.">LEARNcraft is an AI-powered educational platform designed to support engineering students worldwide.</p>
+                    <p class="about-text" data-en="LEARNcraft is an AI-powered educational platform designed to support engineering students and professionals worldwide. We provide instant access to expert guidance, learning resources, and personalized roadmaps." data-ru="LEARNcraft — это платформа электронного обучения на основе искусственного интеллекта, разработанная для поддержки студентов инженерных специальностей и профессионалов во всем мире." data-uz="LEARNcraft dunyo bo'ylab muhandislik talabalariga va mutaxassissalarga yordam berish uchun mo'ljallangan sun'iy intellekt asosidagi ta'lim platformasi.">LEARNcraft is an AI-powered educational platform for engineering students.</p>
                 </div>
 
-                <div class="about-card">
-                    <div class="about-icon">🚀</div>
+                <div class="about-card why-bg">
                     <h3 class="about-subtitle" data-en="Why LEARNcraft?" data-ru="Почему LEARNcraft?" data-uz="Nega LEARNcraft?">Why LEARNcraft?</h3>
-                    <p class="about-text" data-en="Engineering education can be challenging. Complex concepts, vast amounts of information, and the need for practical application often leave students struggling to find the right resources. LEARNcraft bridges this gap by combining cutting-edge AI technology with expert knowledge to provide personalized learning experiences that adapt to your needs." data-ru="Инженерное образование может быть сложным. Сложные концепции, огромное количество информации и необходимость практического применения часто оставляют студентов в затруднении при поиске нужных ресурсов. LEARNcraft преодолевает этот разрыв, объединяя передовые технологии искусственного интеллекта с экспертными знаниями для предоставления персонализированного обучения, адаптирующегося к вашим потребностям." data-uz="Muhandislik ta'limi qiyin bo'lishi mumkin. Murakkab tushunchalar, katta miqdordagi ma'lumot va amaliy qo'llashning zaruriyati ko'pincha talabalarni kerakli resurslarni topishda qiynalishi qoldiradi. LEARNcraft bu boʻshliqni yangi AI texnologiyasini mutaxassislik bilan birlashtirib, sizning ehtiyojlaringizga moslashtiradigan shaxsiylashtirgan ta'lim tajribalarini taqdim etishni ko'p foydalanadi.">Engineering education is challenging, and LEARNcraft provides personalized solutions.</p>
+                    <p class="about-text" data-en="Engineering education is complex. LEARNcraft bridges the gap between theory and practice by combining cutting-edge AI technology with expert knowledge. We adapt to your learning style and help you succeed." data-ru="Инженерное образование может быть сложным. LEARNcraft преодолевает этот разрыв, объединяя передовые технологии искусственного интеллекта с экспертными знаниями." data-uz="Muhandislik ta'limi murakkab bo'lishi mumkin. LEARNcraft nazariya va amaliyot o'rtasidagi bo'shliqni to'ldiradi.">We adapt to your learning style and help you succeed.</p>
                 </div>
 
-                <div class="about-card">
-                    <div class="about-icon">💪</div>
+                <div class="about-card help-bg">
                     <h3 class="about-subtitle" data-en="How We Help" data-ru="Как мы помогаем" data-uz="Biz qanday yordam beramiz">How We Help</h3>
-                    <p class="about-text" data-en="Through instant AI responses, comprehensive learning roadmaps, interactive debugging help, and access to multiple engineering disciplines, LEARNcraft empowers you to: learn efficiently, solve problems faster, build stronger foundations, and advance your career. Available 24/7 on Telegram, LEARNcraft is always there when you need help." data-ru="Благодаря мгновенным ответам ИИ, всесторонним дорожным картам обучения, интерактивной справке по отладке и доступу к нескольким инженерным дисциплинам, LEARNcraft помогает вам: учиться эффективно, быстрее решать проблемы, строить более прочную основу и продвигать вашу карьеру. Доступный 24/7 в Telegram, LEARNcraft всегда готов помочь." data-uz="Darhol AI javoblari, keng qamrovli o'quv yo'l xaritalari, interaktiv tuzatish yordami va bir nechta muhandislik sohalari bilan ishlashning orqali LEARNcraft sizni qo'llab-quvvatlaydi: samarali o'qing, muammolarni tezroq hal qiling, mustahkam asos yarating va karera bo'ylab rivojlanish. Telegram'da 24/7 mavjud bo'lgan LEARNcraft siz yordam kerak bo'lganda har doim tayyordir.">LEARNcraft empowers you to learn efficiently and solve problems faster.</p>
+                    <p class="about-text" data-en="Through instant AI responses, comprehensive learning roadmaps, interactive debugging, and access to 6 engineering disciplines, LEARNcraft empowers you to learn efficiently, solve problems faster, and advance your career available 24/7 on Telegram." data-ru="Благодаря мгновенным ответам ИИ, всесторонним дорожным картам обучения, интерактивной справке и доступу к инженерным дисциплинам, LEARNcraft помогает вам." data-uz="Darhol AI javoblari, o'quv yo'l xaritalari, interaktiv tuzatish yordami orqali LEARNcraft sizni qo'llab-quvvatlaydi.">Instant help available 24/7 on Telegram.</p>
+                </div>
+
+                <div class="about-card community-bg">
+                    <h3 class="about-subtitle" data-en="Community" data-ru="Сообщество" data-uz="Jamiyat">Community</h3>
+                    <p class="about-text" data-en="Join thousands of engineering students and professionals who trust LEARNcraft. Share knowledge, collaborate with peers, and grow together in our supportive learning community dedicated to your success." data-ru="Присоединитесь к тысячам студентов инженерных специальностей и профессионалов, доверяющих LEARNcraft. Делитесь знаниями и растите вместе." data-uz="LEARNcraft'ga ishonch bilan munosabat ko'rsatayotgan minglab muhandislik talabalariga va mutaxassissalarga qo'shiling.">Grow with thousands of engineering professionals.</p>
                 </div>
             </div>
 
