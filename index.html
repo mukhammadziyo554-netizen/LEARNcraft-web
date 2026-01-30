@@ -1370,8 +1370,8 @@
             font-size: 18px;
             font-weight: 600;
             background: #0b0b0f;
-            color: #a78bfa;
-            border: 1px solid rgba(167, 139, 250, 0.25);
+            color: #FFD700;
+            border: 1px solid rgba(255, 215, 0, 0.25);
             border-radius: 999px;
             cursor: pointer;
             transition: box-shadow 0.4s ease, background 0.4s ease, border-color 0.4s ease;
@@ -1380,7 +1380,7 @@
             overflow: visible;
             box-shadow:
                 inset 0 0 18px rgba(255, 255, 255, 0.04),
-                0 0 30px rgba(124, 58, 237, 0.35);
+                0 0 30px rgba(255, 215, 0, 0.35);
         }
 
         .enter-button::before {
@@ -1388,7 +1388,7 @@
             position: absolute;
             inset: -16px;
             border-radius: 999px;
-            background: radial-gradient(circle at 70% 50%, rgba(124, 58, 237, 0.6), transparent 60%);
+            background: radial-gradient(circle at 70% 50%, rgba(255, 215, 0, 0.55), transparent 60%);
             filter: blur(14px);
             opacity: 0.45;
             z-index: -1;
@@ -1406,8 +1406,8 @@
             background: #0d0d14;
             box-shadow:
                 inset 0 0 22px rgba(255, 255, 255, 0.06),
-                0 0 40px rgba(124, 58, 237, 0.5);
-            border-color: rgba(167, 139, 250, 0.45);
+                0 0 40px rgba(255, 215, 0, 0.5);
+            border-color: rgba(255, 215, 0, 0.45);
         }
 
         .enter-button:active {
@@ -1483,6 +1483,114 @@
 
         .page-content.hidden {
             opacity: 0;
+        }
+
+        /* Stay Connected Section */
+        .social-connect-section {
+            background: #f2f3f5;
+            padding: 80px 24px;
+        }
+
+        .social-connect-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .social-connect-title {
+            font-size: 36px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .social-connect-subtitle {
+            font-size: 16px;
+            color: #6b7280;
+            margin-bottom: 40px;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .social-button {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 30px;
+            background: #ffffff;
+            color: #111111;
+            border-radius: 14px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 14px 24px rgba(15, 23, 42, 0.12);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            transform: perspective(900px) rotateX(6deg) rotateY(-6deg);
+            transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease, color 0.35s ease;
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .social-button::after {
+            content: '';
+            position: absolute;
+            left: 16px;
+            right: 16px;
+            bottom: -10px;
+            height: 12px;
+            background: rgba(15, 23, 42, 0.18);
+            filter: blur(10px);
+            z-index: -1;
+            opacity: 0.55;
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+
+        .social-button svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .social-button:hover {
+            transform: perspective(900px) rotateX(6deg) rotateY(-6deg) translateY(-10px);
+            box-shadow: 0 20px 34px rgba(15, 23, 42, 0.22);
+            color: #ffffff;
+        }
+
+        .social-button:hover::after {
+            opacity: 0.8;
+            transform: translateY(4px);
+        }
+
+        .social-button.facebook:hover,
+        .social-button.twitter:hover,
+        .social-button.google:hover,
+        .social-button.instagram:hover {
+            background: linear-gradient(135deg, #ffd54f, #ffb700);
+            color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            .social-connect-section {
+                padding: 60px 20px;
+            }
+
+            .social-connect-title {
+                font-size: 28px;
+            }
+
+            .social-button {
+                width: 100%;
+                max-width: 320px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1693,6 +1801,31 @@
                     <div class="field-description" data-en="Chemical engineering combines chemistry, physics, and engineering principles to design processes and equipment for manufacturing chemicals, pharmaceuticals, food products, and materials. It focuses on scaling laboratory processes to industrial production while ensuring safety, efficiency, and environmental sustainability." data-ru="Химическая инженерия объединяет принципы химии, физики и инженерии для проектирования процессов и оборудования для производства химикатов, фармацевтических препаратов, пищевых продуктов и материалов. Она сосредоточена на масштабировании лабораторных процессов до промышленного производства при обеспечении безопасности, эффективности и экологической устойчивости." data-uz="Kimyo inzhinering kimyo, fizika va inzhinering tamoyillarini birlashtirarak kimyoviy moddalar, dori-darmonlar, oziq-ovqat mahsulotlari va materiallarni ishlab chiqarish uchun jarayonlar va asbob-uskunalarni loyihalashtirish. U laboratoriya jarayonlarini sanoat ishlab chiqarishiga o'tkazish, xavfsizlik, samarali va atrof-muhitni muhofaza qilish tamoyillarini ta'minlash bilan shug'ullanadi.">Chemical engineering combines chemistry and physics to design manufacturing processes and equipment.</div>
                     <button class="expand-btn" onclick="window.location.href='chemical-engineering.html'" data-en="Learn More" data-ru="Узнать больше" data-uz="Ko'proq bilish">Learn More</button>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="social-connect-section" id="connect-section">
+        <div class="social-connect-container">
+            <h2 class="social-connect-title" data-en="Stay Connected" data-ru="Оставайтесь на связи" data-uz="Bog'lanishda qoling">Stay Connected</h2>
+            <p class="social-connect-subtitle" data-en="Follow us and connect with our community" data-ru="Подпишитесь и присоединяйтесь к нашему сообществу" data-uz="Bizni kuzatib boring va hamjamiyatimizga qo'shiling">Follow us and connect with our community</p>
+            <div class="social-buttons">
+                <a class="social-button facebook" href="#" aria-label="Facebook">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 8.5V6.7c0-.6.4-1 1-1h2V3h-2.6C11.5 3 10 4.6 10 6.9v1.6H8v2.8h2V21h3.5v-9.7h2.4l.4-2.8h-2.8z"/></svg>
+                    Facebook
+                </a>
+                <a class="social-button twitter" href="#" aria-label="Twitter">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.8 7.1c.1.2.1.4.1.6 0 5.9-4.5 10.1-10.1 10.1-2 0-3.9-.6-5.4-1.6h.8c1.7 0 3.3-.6 4.6-1.6-1.6 0-2.9-1.1-3.4-2.5.2 0 .4.1.7.1.3 0 .6 0 .9-.1-1.7-.3-3-1.8-3-3.6.5.3 1.1.5 1.7.5-1-.7-1.7-1.9-1.7-3.2 0-.7.2-1.4.5-2 1.9 2.4 4.8 3.9 8.1 4.1-.1-.3-.1-.6-.1-.9 0-2.2 1.8-4 4-4 1.1 0 2.1.5 2.8 1.2.9-.2 1.7-.5 2.4-.9-.3.9-.9 1.6-1.7 2.1.8-.1 1.5-.3 2.2-.6-.5.8-1.1 1.5-1.9 2z"/></svg>
+                    Twitter / X
+                </a>
+                <a class="social-button google" href="#" aria-label="Google">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 12.2c0-.7-.1-1.3-.2-1.9H12v3.6h5.4c-.2 1.2-.9 2.2-1.9 2.9v2.4h3.1c1.8-1.7 3-4.2 3-7z"/><path d="M12 22c2.6 0 4.8-.9 6.4-2.4l-3.1-2.4c-.9.6-2 .9-3.3.9-2.5 0-4.6-1.7-5.4-4H3.4v2.5C5 19.6 8.2 22 12 22z"/><path d="M6.6 13.1c-.2-.6-.3-1.2-.3-1.9s.1-1.3.3-1.9V6.8H3.4c-.7 1.4-1.1 2.9-1.1 4.4s.4 3 1.1 4.4l3.2-2.5z"/><path d="M12 4.6c1.4 0 2.7.5 3.7 1.4l2.8-2.8C16.8 1.7 14.6.8 12 .8 8.2.8 5 3.2 3.4 6.8l3.2 2.5c.8-2.3 2.9-4 5.4-4z"/></svg>
+                    Google
+                </a>
+                <a class="social-button instagram" href="#" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.8 3H7.2C4.9 3 3 4.9 3 7.2v9.6C3 19.1 4.9 21 7.2 21h9.6c2.3 0 4.2-1.9 4.2-4.2V7.2C21 4.9 19.1 3 16.8 3zm-4.8 12.8a3.8 3.8 0 1 1 0-7.6 3.8 3.8 0 0 1 0 7.6zm4.4-7.8a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/></svg>
+                    Instagram
+                </a>
             </div>
         </div>
     </section>
