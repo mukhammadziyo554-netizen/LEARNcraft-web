@@ -2162,14 +2162,17 @@
             overlay.style.display = 'flex';
             overlay.style.opacity = '1';
             
-            // Make sure button is visible initially
+            // Make sure button is visible and ready to click
             enterButton.style.opacity = '1';
             enterButton.style.transform = 'scale(1)';
             enterButton.style.pointerEvents = 'auto';
-            enterButton.disabled = true;
+            enterButton.disabled = false;
             
-            // Wait 3 seconds then start the transition
-            setTimeout(() => {
+            // Button stays visible until user clicks it
+            // When user clicks, hide button and show welcome animation
+            enterButton.onclick = function() {
+                enterButton.disabled = true;
+                
                 // Hide enter button smoothly
                 enterButton.style.transition = 'all 0.6s ease-out';
                 enterButton.style.opacity = '0';
@@ -2214,7 +2217,7 @@
                         }, 2000);
                     });
                 }, 700);
-            }, 3000);
+            };
         }
 
         // Initialize Telegram Web App
@@ -2784,8 +2787,11 @@
                 sessionStorage.removeItem('learncraft-intro-shown-this-session');
             }
             
-            // Always trigger startup animation on page load
-            startExperience();
+            // Show the startup overlay with the enter button
+            const overlay = document.getElementById('startupOverlay');
+            const pageContent = document.getElementById('pageContent');
+            overlay.style.display = 'flex';
+            pageContent.classList.add('hidden');
         });
     </script>
 
