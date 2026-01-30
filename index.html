@@ -2777,10 +2777,8 @@
                 // Re-enable scrolling
                 document.body.style.overflow = '';
             } else {
-                // First time visit in this session - show startup animation after a short delay
-                setTimeout(() => {
-                    startExperience();
-                }, 500);
+                // First time visit in this session - show startup animation immediately
+                startExperience();
             }
         });
     </script>
