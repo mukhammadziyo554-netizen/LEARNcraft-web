@@ -17,12 +17,37 @@
             box-sizing: border-box;
         }
 
+        /* Minimal matte theme overrides */
+        :root {
+            --bg: #0f1115;
+            --surface: #151a21;
+            --surface-2: #1b222c;
+            --text: #e5e7eb;
+            --muted: #9aa3af;
+            --accent: #94a3b8;
+            --accent-strong: #cbd5e1;
+            --border: rgba(148, 163, 184, 0.25);
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-            color: #C9A961;
+            background: var(--bg) !important;
+            color: var(--text) !important;
             padding: 12px;
             overflow-x: hidden;
+            font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            letter-spacing: 0.2px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--text) !important;
+            font-weight: 600 !important;
+        }
+
+        p,
+        .subtitle,
+        .section-subtitle {
+            color: var(--muted) !important;
         }
 
         .dashboard-container {
