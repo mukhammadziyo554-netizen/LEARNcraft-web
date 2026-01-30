@@ -60,6 +60,13 @@
             color: #FFD700;
             white-space: nowrap;
             flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-brand:hover {
+            color: #FFD700;
+            opacity: 0.8;
+            transform: scale(1.05);
         }
 
         .nav-center {
@@ -2139,8 +2146,7 @@
 
     <div class="nav-bar">
         <div class="nav-left">
-            <div class="nav-brand">LEARNcraft</div>
-            <button onclick="document.getElementById('header-section').scrollIntoView();" data-en="Home" data-ru="Главная" data-uz="Bosh sahifa">Home</button>
+            <div class="nav-brand" onclick="document.getElementById('header-section').scrollIntoView();" style="cursor: pointer;">LEARNcraft</div>
         </div>
         
         <div class="nav-right">
