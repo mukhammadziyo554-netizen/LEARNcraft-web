@@ -577,9 +577,9 @@
             transition: filter 0.3s ease;
         }
 
-        .page-content.sidebar-open {
-            filter: none;
+        .page-content.sidebar-open > *:not(.nav-bar) {
             opacity: 0;
+            pointer-events: none;
         }
 
         .sidebar-close {
@@ -2232,6 +2232,7 @@
             <a href="#" class="sidebar-item" onclick="closeSidebar();" data-en="Teams" data-ru="Команды" data-uz="Jamoalar">Teams</a>
             <a href="#" class="sidebar-item" onclick="closeSidebar();" data-en="Resources" data-ru="Ресурсы" data-uz="Manbalar">Resources</a>
             <a href="#" class="sidebar-item" onclick="closeSidebar();" data-en="Community" data-ru="Сообщество" data-uz="Hamjamiyat">Community</a>
+            <a href="ask-ai.html" class="sidebar-item" onclick="closeSidebar();" data-en="Ask AI" data-ru="Спросить AI" data-uz="AI so'rash">Ask AI</a>
             <a href="support.html" class="sidebar-item" onclick="closeSidebar();" data-en="Support" data-ru="Поддержка" data-uz="Yordam">Support</a>
             <a href="#" class="sidebar-item" onclick="closeSidebar();" data-en="Enterprise" data-ru="Предприятие" data-uz="Biznes">Enterprise</a>
             <a href="#" class="sidebar-item" onclick="closeSidebar();" data-en="Pricing" data-ru="Цены" data-uz="Narxlar">Pricing</a>
