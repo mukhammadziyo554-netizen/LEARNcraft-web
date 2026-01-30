@@ -532,8 +532,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 995;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 9999;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -547,27 +547,33 @@
         .sidebar-menu {
             position: fixed;
             top: 0;
-            left: -280px;
-            width: 280px;
+            left: 0;
+            width: 100vw;
             height: 100vh;
             background: transparent;
             border-right: none;
-            z-index: 1000;
-            display: flex;
+            z-index: 10000;
+            display: none;
             flex-direction: column;
-            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            padding: 20px 0;
+            justify-content: flex-start;
+            align-items: flex-start;
+            transition: opacity 0.3s ease;
+            padding: 80px 0 40px 24px;
             overflow-y: auto;
+            opacity: 0;
+            pointer-events: none;
         }
 
         .sidebar-menu.show {
-            left: 0;
+            display: flex;
+            opacity: 1;
+            pointer-events: auto;
         }
 
         /* Blur effect on main content when sidebar is open */
         .page-content {
             position: relative;
-            z-index: 990;
+            z-index: 1;
             transition: filter 0.3s ease;
         }
 
@@ -577,17 +583,18 @@
 
         .sidebar-close {
             position: absolute;
-            top: 16px;
-            right: 16px;
+            top: 24px;
+            right: 24px;
             background: transparent;
             border: none;
-            color: #e5e7eb;
-            font-size: 24px;
-            padding: 4px 8px;
+            color: #ffffff;
+            font-size: 32px;
+            padding: 8px;
             cursor: pointer;
             transition: all 0.3s;
-            z-index: 1005;
+            z-index: 10001;
             border-radius: 4px;
+            line-height: 1;
         }
 
         .sidebar-close:hover {
