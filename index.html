@@ -1648,20 +1648,6 @@
     <!-- Page content with initial opacity -->
     <div class="page-content hidden" id="pageContent">
 
-    <script>
-        // Check if intro animation has already been shown
-        if (localStorage.getItem('learncraft-intro-shown')) {
-            // Skip the startup overlay - show page content immediately
-            const overlay = document.getElementById('startupOverlay');
-            const welcomeMessage = document.getElementById('welcomeMessage');
-            const pageContent = document.getElementById('pageContent');
-            
-            overlay.style.display = 'none';
-            welcomeMessage.style.display = 'none';
-            pageContent.classList.remove('hidden');
-        }
-    </script>
-
     <div class="nav-bar">
         <div class="nav-left">
             <div class="nav-brand">LEARNcraft</div>
@@ -2473,6 +2459,25 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Check if intro animation has already been shown (run after page loads)
+        document.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem('learncraft-intro-shown')) {
+                // Skip the startup overlay - show page content immediately
+                const overlay = document.getElementById('startupOverlay');
+                const welcomeMessage = document.getElementById('welcomeMessage');
+                const pageContent = document.getElementById('pageContent');
+                
+                if (overlay) overlay.style.display = 'none';
+                if (welcomeMessage) welcomeMessage.style.display = 'none';
+                if (pageContent) pageContent.classList.remove('hidden');
+                
+                // Re-enable scrolling
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
 
     </body>
 </html>
