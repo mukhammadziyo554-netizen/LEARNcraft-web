@@ -720,6 +720,101 @@
             animation: fadeInUp 1s ease-out 0.2s both;
         }
 
+        /* About Section Styles */
+        #about-section {
+            padding: 60px 20px;
+            background: linear-gradient(180deg, rgba(15, 17, 21, 0.8) 0%, rgba(21, 26, 33, 0.8) 100%);
+            border-top: 1px solid rgba(148, 163, 184, 0.25);
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .about-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .about-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .about-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .about-subtitle {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        .about-text {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .about-benefits {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .benefits-title {
+            font-size: 28px;
+            color: var(--text);
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .benefit-item {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+
+        .benefit-item:hover {
+            background: var(--surface);
+            border-color: var(--accent);
+        }
+
+        .benefit-number {
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .benefit-text {
+            font-size: 14px;
+            color: var(--text);
+            font-weight: 500;
+        }
+
         .fields-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
@@ -1162,6 +1257,55 @@
             <span class="btn-word" data-en="Bot" data-ru="Бот" data-uz="Bot">Bot</span>
         </a>
     </header>
+
+    <!-- About Section - Page 2 -->
+    <section id="about-section">
+        <div class="about-container">
+            <h2 class="section-title" data-en="About LEARNcraft" data-ru="О LEARNcraft" data-uz="LEARNcraft haqida">About LEARNcraft</h2>
+            
+            <div class="about-content">
+                <div class="about-card">
+                    <div class="about-icon">🎯</div>
+                    <h3 class="about-subtitle" data-en="Our Mission" data-ru="Наша миссия" data-uz="Bizning missiya">Our Mission</h3>
+                    <p class="about-text" data-en="LEARNcraft is an AI-powered educational platform designed to support engineering students and professionals worldwide. We provide instant access to expert guidance, learning resources, and personalized roadmaps to help you master engineering concepts and solve real-world problems." data-ru="LEARNcraft — это платформа электронного обучения на основе искусственного интеллекта, разработанная для поддержки студентов инженерных специальностей и профессионалов во всем мире. Мы предоставляем мгновенный доступ к рекомендациям экспертов, ресурсам для обучения и персонализированным дорожным картам, которые помогут вам освоить инженерные концепции и решить реальные проблемы." data-uz="LEARNcraft dunyo bo'ylab muhandislik talabalariga va mutaxassissalarga yordam berish uchun mo'ljallangan sun'iy intellekt asosidagi ta'lim platformasi. Biz muhandislik tushunchalarini o'zlashtirish va real muammolarni hal qilishga yordam beradigan mutaxassis yo'riqnomalari, ta'lim resurslari va shaxsiylashtirilgan yo'l xaritalari bilan darhol foydalanish imkoniyatini taqdim etamiz.">LEARNcraft is an AI-powered educational platform designed to support engineering students worldwide.</p>
+                </div>
+
+                <div class="about-card">
+                    <div class="about-icon">🚀</div>
+                    <h3 class="about-subtitle" data-en="Why LEARNcraft?" data-ru="Почему LEARNcraft?" data-uz="Nega LEARNcraft?">Why LEARNcraft?</h3>
+                    <p class="about-text" data-en="Engineering education can be challenging. Complex concepts, vast amounts of information, and the need for practical application often leave students struggling to find the right resources. LEARNcraft bridges this gap by combining cutting-edge AI technology with expert knowledge to provide personalized learning experiences that adapt to your needs." data-ru="Инженерное образование может быть сложным. Сложные концепции, огромное количество информации и необходимость практического применения часто оставляют студентов в затруднении при поиске нужных ресурсов. LEARNcraft преодолевает этот разрыв, объединяя передовые технологии искусственного интеллекта с экспертными знаниями для предоставления персонализированного обучения, адаптирующегося к вашим потребностям." data-uz="Muhandislik ta'limi qiyin bo'lishi mumkin. Murakkab tushunchalar, katta miqdordagi ma'lumot va amaliy qo'llashning zaruriyati ko'pincha talabalarni kerakli resurslarni topishda qiynalishi qoldiradi. LEARNcraft bu boʻshliqni yangi AI texnologiyasini mutaxassislik bilan birlashtirib, sizning ehtiyojlaringizga moslashtiradigan shaxsiylashtirgan ta'lim tajribalarini taqdim etishni ko'p foydalanadi.">Engineering education is challenging, and LEARNcraft provides personalized solutions.</p>
+                </div>
+
+                <div class="about-card">
+                    <div class="about-icon">💪</div>
+                    <h3 class="about-subtitle" data-en="How We Help" data-ru="Как мы помогаем" data-uz="Biz qanday yordam beramiz">How We Help</h3>
+                    <p class="about-text" data-en="Through instant AI responses, comprehensive learning roadmaps, interactive debugging help, and access to multiple engineering disciplines, LEARNcraft empowers you to: learn efficiently, solve problems faster, build stronger foundations, and advance your career. Available 24/7 on Telegram, LEARNcraft is always there when you need help." data-ru="Благодаря мгновенным ответам ИИ, всесторонним дорожным картам обучения, интерактивной справке по отладке и доступу к нескольким инженерным дисциплинам, LEARNcraft помогает вам: учиться эффективно, быстрее решать проблемы, строить более прочную основу и продвигать вашу карьеру. Доступный 24/7 в Telegram, LEARNcraft всегда готов помочь." data-uz="Darhol AI javoblari, keng qamrovli o'quv yo'l xaritalari, interaktiv tuzatish yordami va bir nechta muhandislik sohalari bilan ishlashning orqali LEARNcraft sizni qo'llab-quvvatlaydi: samarali o'qing, muammolarni tezroq hal qiling, mustahkam asos yarating va karera bo'ylab rivojlanish. Telegram'da 24/7 mavjud bo'lgan LEARNcraft siz yordam kerak bo'lganda har doim tayyordir.">LEARNcraft empowers you to learn efficiently and solve problems faster.</p>
+                </div>
+            </div>
+
+            <div class="about-benefits">
+                <h3 class="benefits-title" data-en="Key Features" data-ru="Ключевые особенности" data-uz="Asosiy xususiyatlar">Key Features</h3>
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <div class="benefit-number">1</div>
+                        <p class="benefit-text" data-en="24/7 AI Support" data-ru="Поддержка ИИ 24/7" data-uz="24/7 AI qo'llab-quvvatlash">24/7 AI Support</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-number">2</div>
+                        <p class="benefit-text" data-en="6 Engineering Fields" data-ru="6 направлений инженерии" data-uz="6 ta muhandislik soha">6 Engineering Fields</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-number">3</div>
+                        <p class="benefit-text" data-en="Personalized Roadmaps" data-ru="Персонализированные дорожные карты" data-uz="Shaxsiy yo'l xaritalari">Personalized Roadmaps</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-number">4</div>
+                        <p class="benefit-text" data-en="Multi-language Support" data-ru="Поддержка на нескольких языках" data-uz="Ko'p tildan qo'llab-quvvatlash">Multi-language Support</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section id="fields-section">
         <div class="fields-container">
