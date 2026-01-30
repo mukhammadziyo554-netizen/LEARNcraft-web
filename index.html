@@ -1433,7 +1433,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 9998;
-            opacity: 0;
+            opacity: 1;
             pointer-events: none;
         }
 
@@ -1448,6 +1448,7 @@
             line-height: 1.4;
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.3),
                          0 0 40px rgba(255, 215, 0, 0.2);
+            opacity: 1;
         }
 
         .welcome-text.typing {
@@ -1723,6 +1724,7 @@
         // Typewriter effect function
         function typeWriter(element, text, speed = 80, callback = null) {
             let index = 0;
+            element.textContent = ''; // Clear any existing text
             
             function type() {
                 if (index < text.length) {
@@ -1734,17 +1736,21 @@
                 }
             }
             
+            console.log('Starting typewriter for:', text);
             type();
         }
 
         // Startup animation function
         function startExperience() {
+            console.log('startExperience called');
             const overlay = document.getElementById('startupOverlay');
             const welcomeMessage = document.getElementById('welcomeMessage');
             const welcomeText = document.getElementById('welcomeText');
             const pageContent = document.getElementById('pageContent');
             const lightBloom = document.getElementById('lightBloom');
             const enterButton = document.getElementById('enterButton');
+
+            console.log('Elements:', { overlay, welcomeMessage, welcomeText, pageContent, lightBloom, enterButton });
 
             // Disable button to prevent multiple clicks
             enterButton.disabled = true;
@@ -1756,14 +1762,19 @@
             enterButton.style.opacity = '0';
             enterButton.style.transform = 'scale(0.8)';
             
-            // Show welcome message
+            // Show welcome message (make sure it's visible)
+            welcomeMessage.style.display = 'block';
             welcomeMessage.style.opacity = '1';
             welcomeMessage.style.pointerEvents = 'none';
+            welcomeText.style.opacity = '1';
+            welcomeText.style.display = 'block';
             
             // Start typewriter effect after a short delay
             setTimeout(() => {
+                console.log('Starting typewriter animation');
                 welcomeText.classList.add('typing');
                 typeWriter(welcomeText, 'Welcome, future engineer.', 100, () => {
+                    console.log('Typewriter finished');
                     // Keep message visible for 2 seconds
                     setTimeout(() => {
                         welcomeText.classList.remove('typing');
