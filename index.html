@@ -493,10 +493,8 @@
             cursor: pointer;
             padding: 8px;
             z-index: 999;
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
+            margin-left: auto;
+            margin-right: 12px;
         }
 
         .hamburger-menu span {
@@ -2142,13 +2140,6 @@
             <button onclick="document.getElementById('header-section').scrollIntoView();" data-en="Home" data-ru="Главная" data-uz="Bosh sahifa">Home</button>
         </div>
         
-        <!-- Hamburger Menu -->
-        <button class="hamburger-menu" id="hamburgerMenu" onclick="toggleSidebar()">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        
         <div class="nav-right">
             <div class="user-account" id="userAccount" style="display: none;">
                 <div class="user-circle" id="userCircle"></div>
@@ -2159,6 +2150,13 @@
             </div>
             <button id="signInBtn" onclick="window.location.href='registration.html'" data-en="Sign In" data-ru="Войти" data-uz="Kirish">Sign In</button>
         </div>
+        
+        <!-- Hamburger Menu -->
+        <button class="hamburger-menu" id="hamburgerMenu" onclick="toggleSidebar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </div>
 
     <!-- Sidebar Menu Overlay -->
