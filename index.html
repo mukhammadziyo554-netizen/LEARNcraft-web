@@ -550,15 +550,14 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at 20% 20%, #11131a 0%, #0b0b0f 60%);
+            background: rgba(0, 0, 0, 0.95);
             z-index: 10001;
             opacity: 0;
             visibility: hidden;
             transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
             display: flex;
             align-items: flex-start;
-            justify-content: center;
-            padding: 140px 0 120px;
+            justify-content: flex-start;
             overflow-y: auto;
         }
 
@@ -671,7 +670,7 @@
         .app-menu {
             position: absolute;
             top: 120px;
-            left: 60px;
+            left: 80px;
             display: flex;
             flex-direction: column;
             gap: 28px;
@@ -687,7 +686,7 @@
         }
 
         .app-menu a {
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 500;
             color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
@@ -2534,9 +2533,9 @@
     <!-- Fullscreen Menu Overlay -->
     <div class="menu-overlay" id="menuOverlay">
         <div class="app-menu">
-            <a href="ask-ai.html" onclick="closeMenu();">AI Assistant</a>
-            <a href="#" onclick="closeMenu();">Learning Hub</a>
-            <a href="roadmap.html" onclick="closeMenu();">Roadmaps</a>
+            <a href="ask-ai.html" onclick="closeMenu();">AI</a>
+            <a href="#" onclick="closeMenu();">Learn</a>
+            <a href="roadmap.html" onclick="closeMenu();">Roadmap</a>
             <a href="#" onclick="closeMenu();">Practice</a>
             <a href="#" onclick="closeMenu();">Debug Help</a>
             <a href="#" onclick="closeMenu();">Community</a>
@@ -2588,13 +2587,6 @@
     <div class="nav-bar">
         <div class="nav-left">
             <div class="nav-brand" onclick="document.getElementById('header-section').scrollIntoView();" style="cursor: pointer;">LEARNcraft</div>
-        </div>
-        
-        <div class="nav-center">
-            <button onclick="window.location.href='ask-ai.html'" data-en="🤖 AI" data-ru="🤖 ИИ" data-uz="🤖 AI">🤖 AI</button>
-            <button onclick="window.location.href='roadmap.html'" data-en="🗺️ Roadmap" data-ru="🗺️ Дорожная карта" data-uz="🗺️ Xarita">🗺️ Roadmap</button>
-            <button onclick="window.location.href='support.html'" data-en="💬 Support" data-ru="💬 Поддержка" data-uz="💬 Yordam">💬 Support</button>
-            <button id="adminBtnNav" onclick="window.location.href='admin.html'" data-en="⚙️ Admin" data-ru="⚙️ Админ" data-uz="⚙️ Admin" style="display: none;">⚙️ Admin</button>
         </div>
         
         <div class="nav-right">
