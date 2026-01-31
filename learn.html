@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <title>Learn - LEARNcraft</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(180deg, #0a0a0f 0%, #0f0f15 100%);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 24px 60px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 80px;
+            padding: 60px 0;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ffffff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 16px 48px;
+            background: #ffd700;
+            color: #000;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+        }
+
+        /* Topic Categories Grid */
+        .section-title {
+            font-size: 32px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .topic-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .topic-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 215, 0, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .topic-card h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            color: #ffd700;
+        }
+
+        .topic-card p {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            padding: 12px 32px;
+            background: transparent;
+            color: #ffd700;
+            font-size: 16px;
+            font-weight: 500;
+            border: 2px solid #ffd700;
+            border-radius: 24px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #ffd700;
+            color: #000;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            margin-bottom: 80px;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .step-card {
+            text-align: center;
+            padding: 32px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+        }
+
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #ffd700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+        }
+
+        .step-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: #ffd700;
+        }
+
+        .step-card p {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.6;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #ffd700;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .topics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn">← Back</a>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Learn Engineering with AI</h1>
+            <p>Structured topics, guided explanations, and interactive learning powered by AI.</p>
+            <a href="#" class="btn-primary">Start Learning</a>
+        </section>
+
+        <!-- Topic Categories Grid -->
+        <section>
+            <h2 class="section-title">Explore Learning Paths</h2>
+            <div class="topics-grid">
+                <div class="topic-card">
+                    <h3>Civil Engineering</h3>
+                    <p>Learn structural design, construction management, and infrastructure development.</p>
+                    <a href="civil-engineering.html" class="btn-secondary">Explore</a>
+                </div>
+
+                <div class="topic-card">
+                    <h3>Mechanical Engineering</h3>
+                    <p>Master thermodynamics, mechanics, and machine design fundamentals.</p>
+                    <a href="mechanical-engineering.html" class="btn-secondary">Explore</a>
+                </div>
+
+                <div class="topic-card">
+                    <h3>Electrical Engineering</h3>
+                    <p>Understand circuits, power systems, and electronic devices.</p>
+                    <a href="electrical-engineering.html" class="btn-secondary">Explore</a>
+                </div>
+
+                <div class="topic-card">
+                    <h3>Computer Science</h3>
+                    <p>Dive into algorithms, data structures, and software engineering.</p>
+                    <a href="#" class="btn-secondary">Explore</a>
+                </div>
+
+                <div class="topic-card">
+                    <h3>Aerospace Engineering</h3>
+                    <p>Study aerodynamics, propulsion, and spacecraft systems.</p>
+                    <a href="aerospace-engineering.html" class="btn-secondary">Explore</a>
+                </div>
+
+                <div class="topic-card">
+                    <h3>Chemical Engineering</h3>
+                    <p>Explore process design, thermodynamics, and reaction engineering.</p>
+                    <a href="chemical-engineering.html" class="btn-secondary">Explore</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="how-it-works">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-icon">💬</div>
+                    <h3>Ask AI</h3>
+                    <p>Start by asking any engineering question or topic you want to understand.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-icon">📚</div>
+                    <h3>Get Structured Explanation</h3>
+                    <p>Receive clear, step-by-step explanations tailored to your learning level.</p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-icon">✍️</div>
+                    <h3>Practice with Examples</h3>
+                    <p>Apply what you learned with interactive examples and problem-solving.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
