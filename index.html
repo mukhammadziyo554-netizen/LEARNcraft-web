@@ -508,6 +508,8 @@
             z-index: 10001;
             margin-left: auto;
             transition: all 0.3s ease;
+            pointer-events: auto !important;
+            touch-action: manipulation;
         }
 
         .hamburger-menu span {
@@ -562,7 +564,7 @@
             background: transparent;
             border-right: none;
             z-index: 10000;
-            display: none;
+            display: none !important;
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
@@ -571,12 +573,14 @@
             overflow-y: auto;
             opacity: 0;
             pointer-events: none;
+            visibility: hidden;
         }
 
         .sidebar-menu.show {
-            display: flex;
+            display: flex !important;
             opacity: 1;
             pointer-events: auto;
+            visibility: visible;
         }
 
         /* Blur effect on main content when sidebar is open */
@@ -3172,15 +3176,25 @@
 
         // Hamburger Menu Functions
         function toggleSidebar() {
+            console.log('toggleSidebar called');
             const hamburger = document.getElementById('hamburgerMenu');
             const sidebar = document.getElementById('sidebarMenu');
             const overlay = document.getElementById('sidebarOverlay');
             const pageContent = document.getElementById('pageContent');
             
+            console.log('Elements found:', { hamburger: !!hamburger, sidebar: !!sidebar, overlay: !!overlay, pageContent: !!pageContent });
+            
+            if (!hamburger || !sidebar || !overlay || !pageContent) {
+                console.error('Missing required elements for sidebar');
+                return;
+            }
+            
             hamburger.classList.toggle('active');
             sidebar.classList.toggle('show');
             overlay.classList.toggle('show');
             pageContent.classList.toggle('sidebar-open');
+            
+            console.log('Sidebar show:', sidebar.classList.contains('show'));
             
             // Prevent body scroll when sidebar is open
             if (sidebar.classList.contains('show')) {
