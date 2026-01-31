@@ -2614,18 +2614,26 @@
     </section>
 
     <script>
-        // Check if user has already entered the site
+        // Check if user has already entered the site OR if coming from internal navigation
         (function checkIntroStatus() {
             const intro = document.getElementById('startupOverlay');
             const mainSite = document.getElementById('pageContent');
             const welcomeMsg = document.getElementById('welcomeMessage');
             
-            // If user already entered, skip intro completely
-            if (sessionStorage.getItem('enteredSite')) {
+            // Check if user is coming from internal navigation (has referrer from same domain)
+            const isInternalNavigation = document.referrer && document.referrer.includes(window.location.hostname);
+            
+            // If user already entered OR coming from internal page, skip intro completely
+            if (sessionStorage.getItem('enteredSite') || isInternalNavigation) {
                 intro.style.display = 'none';
                 welcomeMsg.style.display = 'none';
                 mainSite.classList.remove('hidden');
                 document.body.style.overflow = '';
+                
+                // Mark as entered if coming from internal navigation
+                if (!sessionStorage.getItem('enteredSite')) {
+                    sessionStorage.setItem('enteredSite', 'true');
+                }
             }
         })();
 
@@ -2715,9 +2723,6 @@
                 
                 // Save that user has entered the site
                 sessionStorage.setItem('enteredSite', 'true');
-                
-                // Prevent back button from returning to intro
-                history.replaceState(null, null, window.location.href);
                 
                 // Hide enter button smoothly
                 enterButton.style.transition = 'all 0.4s ease-out';
