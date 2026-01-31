@@ -1066,7 +1066,10 @@
             min-width: clamp(150px, 30vw, 300px);
             flex-shrink: 0;
             position: sticky;
-            top: clamp(60px, 10vh, 100px);
+            top: clamp(60px, 10dvh, 100px);
+            max-height: 100dvh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .step {
@@ -1101,14 +1104,14 @@
 
         .steps-right {
             flex: 1;
-            min-height: clamp(200px, 50vh, 400px);
+            min-height: clamp(200px, 50dvh, 400px);
             position: relative;
         }
 
         .step-content {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            opacity: 0.35;
+            transform: scale(0.96);
+            transition: opacity 0.35s ease, transform 0.35s ease;
             position: absolute;
             top: 0;
             left: 0;
@@ -1146,7 +1149,7 @@
 
         .step-content.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: scale(1);
             position: relative;
             pointer-events: auto;
         }
@@ -1936,21 +1939,26 @@
                 flex-wrap: wrap;
                 gap: 12px;
                 min-width: auto;
+                position: static;
+                max-height: auto;
+                overflow: visible;
             }
             .step {
                 flex: 1;
-                min-width: 100px;
+                min-width: 80px;
                 justify-content: center;
                 flex-direction: column;
                 text-align: center;
                 gap: 8px;
+                padding: clamp(10px, 1.5vw, 14px);
             }
             .step-icon {
                 font-size: clamp(20px, 3vw, 28px);
             }
             .steps-right {
                 width: 100%;
-                min-height: 250px;
+                min-height: 260dvh;
+                position: relative;
             }
             .nav-links {
                 gap: 15px;
@@ -3383,21 +3391,29 @@
             
             if (!steps.length || !contents.length) return;
 
+            let ticking = false;
+            
             // Create observer for premium scroll-driven animations
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        const stepNum = entry.target.dataset.step;
-                        
-                        // Remove active from all
-                        steps.forEach(s => s.classList.remove('active'));
-                        contents.forEach(c => c.classList.remove('active'));
-                        
-                        // Add active to current panel and matching step
-                        entry.target.classList.add('active');
-                        const matchingStep = document.querySelector(`.step[data-step="${stepNum}"]`);
-                        if (matchingStep) {
-                            matchingStep.classList.add('active');
+                        if (!ticking) {
+                            requestAnimationFrame(() => {
+                                const stepNum = entry.target.dataset.step;
+                                
+                                // Remove active from all
+                                steps.forEach(s => s.classList.remove('active'));
+                                contents.forEach(c => c.classList.remove('active'));
+                                
+                                // Add active to current panel and matching step
+                                entry.target.classList.add('active');
+                                const matchingStep = document.querySelector(`.step[data-step="${stepNum}"]`);
+                                if (matchingStep) {
+                                    matchingStep.classList.add('active');
+                                }
+                                ticking = false;
+                            });
+                            ticking = true;
                         }
                     }
                 });
@@ -3414,14 +3430,22 @@
             // Make steps clickable for manual navigation
             steps.forEach((step, index) => {
                 step.addEventListener('click', () => {
-                    steps.forEach(s => s.classList.remove('active'));
-                    contents.forEach(c => c.classList.remove('active'));
+                    if (!ticking) {
+                        requestAnimationFrame(() => {
+                            steps.forEach(s => s.classList.remove('active'));
+                            contents.forEach(c => c.classList.remove('active'));
 
-                    step.classList.add('active');
-                    contents[index].classList.add('active');
-                    
-                    // Smooth scroll to content
-                    contents[index].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            step.classList.add('active');
+                            contents[index].classList.add('active');
+                            
+                            // Smooth scroll to content (mobile-optimized)
+                            if (window.innerWidth <= 768) {
+                                contents[index].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            }
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
                 });
             });
         })();
