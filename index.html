@@ -1815,7 +1815,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.6s ease-out;
+            transition: opacity 0.4s ease-out;
         }
 
         .welcome-message.show {
@@ -2628,49 +2628,47 @@
                 enterButton.disabled = true;
                 
                 // Hide enter button smoothly
-                enterButton.style.transition = 'all 0.6s ease-out';
+                enterButton.style.transition = 'all 0.4s ease-out';
                 enterButton.style.opacity = '0';
                 enterButton.style.transform = 'scale(0.8)';
                 enterButton.style.pointerEvents = 'none';
                 
-                // Show welcome message after button hides
+                // Show welcome message immediately after button starts hiding
+                welcomeMessage.style.display = 'flex';
+                // Trigger animation with show class
                 setTimeout(() => {
-                    welcomeMessage.style.display = 'flex';
-                    // Trigger animation with show class
+                    welcomeMessage.classList.add('show');
+                }, 10);
+                
+                welcomeText.style.opacity = '1';
+                welcomeText.style.visibility = 'visible';
+                welcomeText.classList.remove('fade-out');
+                
+                // Start typing animation immediately
+                const textToType = 'Welcome';
+                typeWriterHandwritten(welcomeText, textToType, 150, () => {
+                    // Keep message visible for 1.5 seconds
                     setTimeout(() => {
-                        welcomeMessage.classList.add('show');
-                    }, 10);
-                    
-                    welcomeText.style.opacity = '1';
-                    welcomeText.style.visibility = 'visible';
-                    welcomeText.classList.remove('fade-out');
-                    
-                    // Start typing animation
-                    const textToType = 'Welcome';
-                    typeWriterHandwritten(welcomeText, textToType, 200, () => {
-                        // Keep message visible for 2 seconds
+                        welcomeText.classList.add('fade-out');
+                        
+                        // Fade in page content
                         setTimeout(() => {
-                            welcomeText.classList.add('fade-out');
-                            
-                            // Fade in page content
-                            setTimeout(() => {
-                                pageContent.classList.remove('hidden');
-                            }, 150);
-                            
-                            // Fade out overlay
-                            setTimeout(() => {
-                                overlay.classList.add('fade-out');
-                            }, 250);
-                            
-                            // Hide overlay completely
-                            setTimeout(() => {
-                                overlay.style.display = 'none';
-                                welcomeMessage.style.display = 'none';
-                                document.body.style.overflow = '';
-                            }, 1100);
-                        }, 2000);
-                    });
-                }, 700);
+                            pageContent.classList.remove('hidden');
+                        }, 150);
+                        
+                        // Fade out overlay
+                        setTimeout(() => {
+                            overlay.classList.add('fade-out');
+                        }, 250);
+                        
+                        // Hide overlay completely
+                        setTimeout(() => {
+                            overlay.style.display = 'none';
+                            welcomeMessage.style.display = 'none';
+                            document.body.style.overflow = '';
+                        }, 1100);
+                    }, 1500);
+                });
             };
         }
 
