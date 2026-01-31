@@ -1670,6 +1670,71 @@
             color: var(--text-primary);
         }
 
+        /* Main Navigation Bar */
+        .main-nav {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 18px;
+            margin-bottom: 24px;
+            padding: 0 20px;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-item {
+            font-size: 15px;
+            font-weight: 500;
+            color: #b8b8b8;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.25s ease;
+            padding: 6px 0;
+            white-space: nowrap;
+        }
+
+        .nav-item:hover {
+            color: #ffffff;
+        }
+
+        .nav-item.active {
+            color: #ffffff;
+        }
+
+        .nav-item.active::after {
+            content: "";
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #ffd84d, #ffb800);
+            border-radius: 2px;
+        }
+
+        /* Main Nav Responsive */
+        @media (max-width: 480px) {
+            .nav-list {
+                gap: 18px;
+            }
+            .nav-item {
+                font-size: 14px;
+            }
+            .main-nav {
+                margin-top: 14px;
+                margin-bottom: 20px;
+                padding: 0 16px;
+            }
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .footer-content {
@@ -3327,6 +3392,16 @@
             window.location.reload();
         }
 
+        // Main Navigation Active State Handler
+        function setActiveNav(element) {
+            // Remove active from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            // Add active to clicked item
+            element.classList.add('active');
+        }
+
         // Save user interaction data
         function saveUserData() {
             const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
@@ -3452,6 +3527,16 @@
     </script>
 
     </div><!-- Close page-content -->
+
+    <!-- Main Navigation Bar -->
+    <nav class="main-nav">
+        <ul class="nav-list">
+            <li class="nav-item active" onclick="setActiveNav(this)">Product</li>
+            <li class="nav-item" onclick="setActiveNav(this)">Resources</li>
+            <li class="nav-item" onclick="setActiveNav(this)">Company</li>
+            <li class="nav-item" onclick="setActiveNav(this)">Programs</li>
+        </ul>
+    </nav>
 
     <!-- Footer -->
     <footer>
