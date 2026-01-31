@@ -2479,6 +2479,21 @@
     </section>
 
     <script>
+        // Check if user has already entered the site
+        (function checkIntroStatus() {
+            const intro = document.getElementById('startupOverlay');
+            const mainSite = document.getElementById('pageContent');
+            const welcomeMsg = document.getElementById('welcomeMessage');
+            
+            // If user already entered, skip intro completely
+            if (sessionStorage.getItem('enteredSite')) {
+                intro.style.display = 'none';
+                welcomeMsg.style.display = 'none';
+                mainSite.classList.remove('hidden');
+                document.body.style.overflow = '';
+            }
+        })();
+
         // Handwritten animation for each character
         function typeWriterHandwritten(element, text, speed = 80, callback = null) {
             element.innerHTML = ''; // Clear any existing content
@@ -2562,6 +2577,12 @@
             // When user clicks, hide button and show welcome animation
             enterButton.onclick = function() {
                 enterButton.disabled = true;
+                
+                // Save that user has entered the site
+                sessionStorage.setItem('enteredSite', 'true');
+                
+                // Prevent back button from returning to intro
+                history.replaceState(null, null, window.location.href);
                 
                 // Hide enter button smoothly
                 enterButton.style.transition = 'all 0.4s ease-out';
