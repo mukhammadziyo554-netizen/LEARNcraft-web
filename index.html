@@ -1149,6 +1149,142 @@
             transform: scale(1.4);
         }
 
+        /* LEARNcraft Experience Section */
+        #experience-section {
+            padding: 120px 20px;
+            background: var(--bg-main);
+        }
+
+        .experience-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        .experience-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 40px 32px;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            text-align: left;
+        }
+
+        .experience-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 215, 0, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.1);
+        }
+
+        .experience-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #FFD700;
+            margin-bottom: 16px;
+        }
+
+        .experience-text {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+        }
+
+        /* Trust & Credibility Section */
+        #trust-section {
+            padding: 100px 20px;
+            background: linear-gradient(180deg, var(--bg-main) 0%, #08080c 100%);
+        }
+
+        .trust-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .trust-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin-top: 60px;
+        }
+
+        .trust-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding: 32px 20px;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .trust-item:hover {
+            border-color: rgba(255, 215, 0, 0.2);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .trust-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 700;
+            color: #FFD700;
+        }
+
+        .trust-text {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+        }
+
+        /* Quote Section */
+        #quote-section {
+            padding: 120px 20px;
+            background: var(--bg-main);
+        }
+
+        .quote-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .quote-text {
+            font-size: 36px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.5;
+            font-style: italic;
+            position: relative;
+        }
+
+        .quote-text::before {
+            content: '"';
+            font-size: 80px;
+            color: rgba(255, 215, 0, 0.2);
+            position: absolute;
+            top: -30px;
+            left: -20px;
+        }
+
+        /* Fields Section Removed - Replaced with Experience Section */
         #fields-section {
             padding: 120px 20px 80px;
             background: var(--bg-main);
@@ -1739,6 +1875,20 @@
             .fields-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
+            }
+            .experience-grid {
+                grid-template-columns: 1fr;
+            }
+            .trust-features {
+                grid-template-columns: 1fr;
+            }
+            .quote-text {
+                font-size: 24px;
+            }
+            .quote-text::before {
+                font-size: 60px;
+                top: -20px;
+                left: -10px;
             }
             .field-icon {
                 font-size: 50px;
@@ -2390,91 +2540,82 @@
             <div class="about-content">
                 <div class="about-card mission-bg">
                     <h3 class="about-subtitle" data-en="Our Mission" data-ru="Наша миссия" data-uz="Bizning missiya">Our Mission</h3>
-                    <p class="about-text" data-en="LEARNcraft is an AI-powered educational platform designed to support engineering students and professionals worldwide. We provide instant access to expert guidance, learning resources, and personalized roadmaps." data-ru="LEARNcraft — это платформа электронного обучения на основе искусственного интеллекта, разработанная для поддержки студентов инженерных специальностей и профессионалов во всем мире." data-uz="LEARNcraft dunyo bo'ylab muhandislik talabalariga va mutaxassissalarga yordam berish uchun mo'ljallangan sun'iy intellekt asosidagi ta'lim platformasi.">LEARNcraft is an AI-powered educational platform for engineering students.</p>
+                    <p class="about-text" data-en="LEARNcraft exists to make engineering education accessible, intelligent, and personalized through AI-powered support." data-ru="LEARNcraft существует, чтобы сделать инженерное образование доступным, интеллектуальным и персонализированным через поддержку искусственного интеллекта." data-uz="LEARNcraft muhandislik ta'limini sun'iy intellekt yordamida ochiq, aqlli va shaxsiylashtirilgan qilish uchun mavjud.">LEARNcraft exists to make engineering education accessible, intelligent, and personalized through AI-powered support.</p>
                 </div>
 
                 <div class="about-card why-bg">
-                    <h3 class="about-subtitle" data-en="Why LEARNcraft?" data-ru="Почему LEARNcraft?" data-uz="Nega LEARNcraft?">Why LEARNcraft?</h3>
-                    <p class="about-text" data-en="Engineering education is complex. LEARNcraft bridges the gap between theory and practice by combining cutting-edge AI technology with expert knowledge. We adapt to your learning style and help you succeed." data-ru="Инженерное образование может быть сложным. LEARNcraft преодолевает этот разрыв, объединяя передовые технологии искусственного интеллекта с экспертными знаниями." data-uz="Muhandislik ta'limi murakkab bo'lishi mumkin. LEARNcraft nazariya va amaliyot o'rtasidagi bo'shliqni to'ldiradi.">We adapt to your learning style and help you succeed.</p>
+                    <h3 class="about-subtitle" data-en="Why LEARNcraft" data-ru="Почему LEARNcraft" data-uz="Nega LEARNcraft">Why LEARNcraft</h3>
+                    <p class="about-text" data-en="Traditional learning is static. LEARNcraft adapts to your pace, your style, and your goals in real time." data-ru="Традиционное обучение статично. LEARNcraft адаптируется к вашему темпу, вашему стилю и вашим целям в режиме реального времени." data-uz="An'anaviy ta'lim statik. LEARNcraft sizning tezligingiz, uslubingiz va maqsadlaringizga real vaqtda moslashadi.">Traditional learning is static. LEARNcraft adapts to your pace, your style, and your goals in real time.</p>
                 </div>
 
                 <div class="about-card help-bg">
-                    <h3 class="about-subtitle" data-en="How We Help" data-ru="Как мы помогаем" data-uz="Biz qanday yordam beramiz">How We Help</h3>
-                    <p class="about-text" data-en="Through instant AI responses, comprehensive learning roadmaps, interactive debugging, and access to 6 engineering disciplines, LEARNcraft empowers you to learn efficiently, solve problems faster, and advance your career available 24/7 on Telegram." data-ru="Благодаря мгновенным ответам ИИ, всесторонним дорожным картам обучения, интерактивной справке и доступу к инженерным дисциплинам, LEARNcraft помогает вам." data-uz="Darhol AI javoblari, o'quv yo'l xaritalari, interaktiv tuzatish yordami orqali LEARNcraft sizni qo'llab-quvvatlaydi.">Instant help available 24/7 on Telegram.</p>
+                    <h3 class="about-subtitle" data-en="Instant Support" data-ru="Мгновенная поддержка" data-uz="Darhol yordam">Instant Support</h3>
+                    <p class="about-text" data-en="Get guidance, explanations, and problem-solving help anytime — powered by AI and available 24/7." data-ru="Получайте руководство, объяснения и помощь в решении проблем в любое время — на базе ИИ и доступно 24/7." data-uz="Har qanday vaqtda yo'riqnoma, tushuntirish va muammolarni hal qilish yordamini oling — AI bilan quvvatlanadi va 24/7 mavjud.">Get guidance, explanations, and problem-solving help anytime — powered by AI and available 24/7.</p>
                 </div>
 
                 <div class="about-card community-bg">
-                    <h3 class="about-subtitle" data-en="Community" data-ru="Сообщество" data-uz="Jamiyat">Community</h3>
-                    <p class="about-text" data-en="Join thousands of engineering students and professionals who trust LEARNcraft. Share knowledge, collaborate with peers, and grow together in our supportive learning community dedicated to your success." data-ru="Присоединитесь к тысячам студентов инженерных специальностей и профессионалов, доверяющих LEARNcraft. Делитесь знаниями и растите вместе." data-uz="LEARNcraft'ga ishonch bilan munosabat ko'rsatayotgan minglab muhandislik talabalariga va mutaxassissalarga qo'shiling.">Grow with thousands of engineering professionals.</p>
-                </div>
-            </div>
-
-            <div class="about-benefits">
-                <h3 class="benefits-title" data-en="Key Features" data-ru="Ключевые особенности" data-uz="Asosiy xususiyatlar">Key Features</h3>
-                <div class="benefits-grid">
-                    <div class="benefit-item">
-                        <div class="benefit-number">1</div>
-                        <p class="benefit-text" data-en="24/7 AI Support" data-ru="Поддержка ИИ 24/7" data-uz="24/7 AI qo'llab-quvvatlash">24/7 AI Support</p>
-                    </div>
-                    <div class="benefit-item">
-                        <div class="benefit-number">2</div>
-                        <p class="benefit-text" data-en="6 Engineering Fields" data-ru="6 направлений инженерии" data-uz="6 ta muhandislik soha">6 Engineering Fields</p>
-                    </div>
-                    <div class="benefit-item">
-                        <div class="benefit-number">3</div>
-                        <p class="benefit-text" data-en="Personalized Roadmaps" data-ru="Персонализированные дорожные карты" data-uz="Shaxsiy yo'l xaritalari">Personalized Roadmaps</p>
-                    </div>
-                    <div class="benefit-item">
-                        <div class="benefit-number">4</div>
-                        <p class="benefit-text" data-en="Multi-language Support" data-ru="Поддержка на нескольких языках" data-uz="Ko'p tildan qo'llab-quvvatlash">Multi-language Support</p>
-                    </div>
+                    <h3 class="about-subtitle" data-en="Built for the Future" data-ru="Создано для будущего" data-uz="Kelajak uchun qurilgan">Built for the Future</h3>
+                    <p class="about-text" data-en="We are building the next generation learning environment where AI and human curiosity grow together." data-ru="Мы создаем среду обучения нового поколения, где ИИ и человеческое любопытство растут вместе." data-uz="Biz keyingi avlod ta'lim muhitini yaratyapmiz, unda AI va inson qiziquvchanlik birga o'sadi.">We are building the next generation learning environment where AI and human curiosity grow together.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="fields-section">
-        <div class="fields-container">
-            <h2 class="section-title" data-en="Engineering Fields" data-ru="Инженерные направления" data-uz="Muhandislik sohalari">Engineering Fields</h2>
-            <p class="section-subtitle" data-en="Explore different disciplines of engineering" data-ru="Изучите различные дисциплины инженерии" data-uz="Muhandislikning turli sohalarini o'rganing">Explore different disciplines of engineering</p>
+    <!-- LEARNcraft Experience Section -->
+    <section id="experience-section">
+        <div class="experience-container">
+            <h2 class="section-title" data-en="The LEARNcraft Experience" data-ru="Опыт LEARNcraft" data-uz="LEARNcraft tajribasi">The LEARNcraft Experience</h2>
+            <p class="section-subtitle" data-en="More than a tool. A new way to learn." data-ru="Больше, чем инструмент. Новый способ обучения." data-uz="Vositadan ko'proq. O'qishning yangi usuli.">More than a tool. A new way to learn.</p>
 
-            <div class="fields-grid">
-                <div class="field-card civil-bg">
-                    <div class="field-title" data-en="Civil Engineering" data-ru="Гражданское строительство" data-uz="Fuqarolik inzhinering">Civil Engineering</div>
-                    <div class="field-description" data-en="Civil engineering involves the design, construction, and maintenance of infrastructure projects such as buildings, bridges, roads, and dams. It focuses on creating safe, sustainable, and efficient structures that meet human needs and withstand environmental challenges." data-ru="Гражданское строительство включает проектирование, строительство и обслуживание инфраструктурных проектов, таких как здания, мосты, дороги и плотины. Оно сосредоточено на создании безопасных, устойчивых и эффективных конструкций, которые удовлетворяют потребности человека и выдерживают экологические вызовы." data-uz="Fuqarolik inzhinering binolar, ko'priklar, yo'llar va dambalar kabi infratuzilma loyihalarini loyihalashtirish, qurilish va texabarini o'z ichiga oladi. U inson ehtiyojlarini qondirish va atrof-muhit qiyinchiliklariga chidamli xavfsiz, barqaror va samarali tuzilmalarni yaratishga qaratilgan.">Civil engineering involves the design, construction, and maintenance of infrastructure projects.</div>
-                    <button class="expand-btn" onclick="window.location.href='civil-engineering.html'" data-en="Learn More" data-ru="Узнать больше" data-uz="Ko'proq bilish">Learn More</button>
+            <div class="experience-grid">
+                <div class="experience-card">
+                    <h3 class="experience-title" data-en="AI That Understands You" data-ru="ИИ, который понимает вас" data-uz="Sizni tushunadigan AI">AI That Understands You</h3>
+                    <p class="experience-text" data-en="LEARNcraft does more than provide answers — it understands context and adapts explanations to your level." data-ru="LEARNcraft делает больше, чем просто предоставляет ответы — он понимает контекст и адаптирует объяснения к вашему уровню." data-uz="LEARNcraft javob berishdan ko'proq narsani qiladi — u kontekstni tushunadi va tushuntirishlarni sizning darajangizga moslashadi.">LEARNcraft does more than provide answers — it understands context and adapts explanations to your level.</p>
                 </div>
 
-                <div class="field-card aerospace-bg">
-                    <div class="field-title" data-en="Aerospace Engineering" data-ru="Аэрокосмическая инженерия" data-uz="Aviatsion inzhinering">Aerospace Engineering</div>
-                    <div class="field-description" data-en="Aerospace engineering deals with the design, development, and testing of aircraft, spacecraft, and related systems. It combines principles of aerodynamics, propulsion, materials science, and control systems to create vehicles that fly and explore space safely and efficiently." data-ru="Аэрокосмическая инженерия занимается проектированием, разработкой и испытанием самолетов, космических аппаратов и связанных с ними систем. Она объединяет принципы аэродинамики, двигателестроения, науки о материалах и систем управления для создания летательных аппаратов, которые летают и исследуют космос безопасно и эффективно." data-uz="Aviatsion inzhinering samolyotlar, kosmik kemalar va tegishli tizimlarni loyihalashtirish, ishlab chiqish va sinab o'tkazish bilan shug'ullanadi. U aerodinamika, dvigatel texnologiyasi, material fani va boshqaruv tizimlari tamoyillarini birlashtirib, xavfsiz va samarali ravishda uchiladigan va kosmosni o'rgana oladigan vositalarni yaratadi.">Aerospace engineering deals with the design, development, and testing of aircraft and spacecraft.</div>
-                    <button class="expand-btn" onclick="window.location.href='aerospace-engineering.html'" data-en="Learn More" data-ru="Узнать больше" data-uz="Ko'proq bilish">Learn More</button>
+                <div class="experience-card">
+                    <h3 class="experience-title" data-en="Personalized Learning Paths" data-ru="Персонализированные пути обучения" data-uz="Shaxsiylashtirilgan o'quv yo'llari">Personalized Learning Paths</h3>
+                    <p class="experience-text" data-en="Dynamic roadmaps built around your strengths, weaknesses, and goals." data-ru="Динамические дорожные карты, построенные вокруг ваших сильных и слабых сторон и целей." data-uz="Sizning kuchli va zaif tomonlaringiz va maqsadlaringiz asosida qurilgan dinamik yo'l xaritalari.">Dynamic roadmaps built around your strengths, weaknesses, and goals.</p>
                 </div>
 
-                <div class="field-card mechanical-bg">
-                    <div class="field-title" data-en="Mechanical Engineering" data-ru="Машиностроение" data-uz="Mexanik inzhinering">Mechanical Engineering</div>
-                    <div class="field-description" data-en="Mechanical engineering is the application of physics and materials science to design, analyze, and manufacture mechanical systems. It covers everything from engines and turbines to robots and consumer products, focusing on creating machines that are efficient, durable, and cost-effective." data-ru="Машиностроение - это применение физики и материаловедения для проектирования, анализа и производства механических систем. Оно охватывает все, от двигателей и турбин до роботов и потребительских товаров, сосредоточиваясь на создании машин, которые эффективны, долговечны и экономичны." data-uz="Mexanik inzhinering fizika va material fani qoidalarini mexanik tizimlarni loyihalashtirish, tahlil qilish va ishlab chiqarish uchun qo'llashdir. U dvigatellardan va turbinalardan robotlar va iste'mol mahsulotlarigacha hamma narsani qamrab oladi, samarali, uzoq umrli va tejamkor mashinalar yaratishga qaratilgan.">Mechanical engineering is the application of physics and materials science to design mechanical systems.</div>
-                    <button class="expand-btn" onclick="window.location.href='mechanical-engineering.html'" data-en="Learn More" data-ru="Узнать больше" data-uz="Ko'proq bilish">Learn More</button>
-                </div>
-
-                <div class="field-card electrical-bg">
-                    <div class="field-title" data-en="Electrical Engineering" data-ru="Электротехника" data-uz="Elektr inzhinering">Electrical Engineering</div>
-                    <div class="field-description" data-en="Electrical engineering focuses on the generation, transmission, and use of electric power and the design of electrical equipment and systems. It includes power systems, electronics, telecommunications, and renewable energy technologies, powering modern society." data-ru="Электротехника сосредоточена на производстве, передаче и использовании электроэнергии, а также проектировании электрического оборудования и систем. Она включает энергетические системы, электронику, телекоммуникации и технологии возобновляемых источников энергии, питающие современное общество." data-uz="Elektr inzhinering elektr energiyasining ishlab chiqarilishi, uzatilishi va ishlatilishi, shuningdek elektr asbob-uskunalarini va tizimlarini loyihalashtirish masalalariga qaratilgan. U elektr tizimlarini, elektronikani, telekommunikatsiyalarni va qayta tiklanadigan energiya texnologiyalarini o'z ichiga oladi va zamonaviy jamiyatga kuch beradi.">Electrical engineering focuses on the generation, transmission, and use of electric power.</div>
-                    <button class="expand-btn" onclick="window.location.href='electrical-engineering.html'" data-en="Learn More" data-ru="Узнать больше" data-uz="Ko'proq bilish">Learn More</button>
-                </div>
-
-                <div class="field-card nuclear-bg">
-                    <div class="field-title" data-en="Nuclear Engineering" data-ru="Ядерная инженерия" data-uz="Yadro inzhinering">Nuclear Engineering</div>
-                    <div class="field-description" data-en="Nuclear engineering involves the design, construction, and operation of nuclear power plants and systems. It applies principles of nuclear physics and materials science to develop safe, efficient, and sustainable nuclear energy technologies for electricity generation and medical applications." data-ru="Ядерная инженерия включает проектирование, строительство и эксплуатацию атомных электростанций и систем. Она применяет принципы ядерной физики и материаловедения для разработки безопасных, эффективных и устойчивых технологий ядерной энергии для производства электроэнергии и медицинских применений." data-uz="Yadro inzhinering atom elektrostansiyalari va tizimlarini loyihalashtirish, qurilish va ishlatish masalalarini o'z ichiga oladi. U yadro fizikasi va material fani tamoyillarini qo'llab, elektr energiyasi ishlab chiqarish va tibbiy qo'llaniş uchun xavfsiz, samarali va barqaror yadro energiya texnologiyalarini ishlab chiqadi.">Nuclear engineering involves the design and operation of nuclear power plants and systems.</div>
-                    <button class="expand-btn" onclick="window.location.href='nuclear-engineering.html'" data-en="Learn More" data-ru="Узнать больше" data-uz="Ko'proq bilish">Learn More</button>
-                </div>
-
-                <div class="field-card chemical-bg">
-                    <div class="field-title" data-en="Chemical Engineering" data-ru="Химическая инженерия" data-uz="Kimyo inzhinering">Chemical Engineering</div>
-                    <div class="field-description" data-en="Chemical engineering combines chemistry, physics, and engineering principles to design processes and equipment for manufacturing chemicals, pharmaceuticals, food products, and materials. It focuses on scaling laboratory processes to industrial production while ensuring safety, efficiency, and environmental sustainability." data-ru="Химическая инженерия объединяет принципы химии, физики и инженерии для проектирования процессов и оборудования для производства химикатов, фармацевтических препаратов, пищевых продуктов и материалов. Она сосредоточена на масштабировании лабораторных процессов до промышленного производства при обеспечении безопасности, эффективности и экологической устойчивости." data-uz="Kimyo inzhinering kimyo, fizika va inzhinering tamoyillarini birlashtirarak kimyoviy moddalar, dori-darmonlar, oziq-ovqat mahsulotlari va materiallarni ishlab chiqarish uchun jarayonlar va asbob-uskunalarni loyihalashtirish. U laboratoriya jarayonlarini sanoat ishlab chiqarishiga o'tkazish, xavfsizlik, samarali va atrof-muhitni muhofaza qilish tamoyillarini ta'minlash bilan shug'ullanadi.">Chemical engineering combines chemistry and physics to design manufacturing processes and equipment.</div>
-                    <button class="expand-btn" onclick="window.location.href='chemical-engineering.html'" data-en="Learn More" data-ru="Узнать больше" data-uz="Ko'proq bilish">Learn More</button>
+                <div class="experience-card">
+                    <h3 class="experience-title" data-en="Always Evolving" data-ru="Постоянно развивается" data-uz="Doim rivojlanmoqda">Always Evolving</h3>
+                    <p class="experience-text" data-en="Our AI improves continuously to deliver smarter, clearer, and more effective guidance." data-ru="Наш ИИ постоянно совершенствуется, чтобы предоставлять более умное, ясное и эффективное руководство." data-uz="Bizning AI yanada aqlli, aniqroq va samaraliroq yo'riqnoma berish uchun doimiy ravishda yaxshilanadi.">Our AI improves continuously to deliver smarter, clearer, and more effective guidance.</p>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Trust & Credibility Section -->
+    <section id="trust-section">
+        <div class="trust-container">
+            <h2 class="section-title" data-en="Designed for Serious Learners" data-ru="Разработано для серьезных учеников" data-uz="Jiddiy o'quvchilar uchun yaratilgan">Designed for Serious Learners</h2>
+            
+            <div class="trust-features">
+                <div class="trust-item">
+                    <div class="trust-icon">AI</div>
+                    <p class="trust-text" data-en="AI-powered educational system" data-ru="Образовательная система на базе ИИ" data-uz="AI bilan quvvatlanadigan ta'lim tizimi">AI-powered educational system</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">ES</div>
+                    <p class="trust-text" data-en="Built for engineering students" data-ru="Создано для студентов инженерных специальностей" data-uz="Muhandislik talabalari uchun qurilgan">Built for engineering students</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">24/7</div>
+                    <p class="trust-text" data-en="Accessible anytime, anywhere" data-ru="Доступно в любое время, в любом месте" data-uz="Har qanday vaqtda, har qanday joyda">Accessible anytime, anywhere</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">DU</div>
+                    <p class="trust-text" data-en="Focused on deep understanding" data-ru="Сосредоточено на глубоком понимании" data-uz="Chuqur tushunishga qaratilgan">Focused on deep understanding</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section id="quote-section">
+        <div class="quote-container">
+            <blockquote class="quote-text" data-en="LEARNcraft is not just an app. It's your AI learning partner." data-ru="LEARNcraft — это не просто приложение. Это ваш партнер по обучению с ИИ." data-uz="LEARNcraft shunchaki ilova emas. Bu sizning AI o'quv sherigingiz.">LEARNcraft is not just an app.<br>It's your AI learning partner.</blockquote>
         </div>
     </section>
 
