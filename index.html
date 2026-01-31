@@ -428,28 +428,11 @@
 
         .language-switcher {
             position: fixed;
-            top: 55px;
-            right: 12px;
-            z-index: 10002;
-            animation: fadeIn 1s ease-out;
+            top: 26px;
+            right: 80px;
+            z-index: 2000;
             display: flex;
-            gap: 8px;
             align-items: center;
-        }
-
-        .language-switcher button {
-            background: none;
-            border: none;
-            color: #b0b0b0;
-            font-weight: 500;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .language-switcher button:hover {
-            color: #ffffff;
-            transform: none;
         }
 
         .lang-dropdown {
@@ -458,28 +441,29 @@
         }
 
         .lang-btn {
-            padding: 8px 12px;
-            background: var(--bg-soft);
-            border: 1px solid var(--border-soft);
-            color: var(--text-secondary);
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.85);
             cursor: pointer;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: 500;
-            font-size: 12px;
-            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            font-size: 14px;
+            transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
+            backdrop-filter: blur(6px);
         }
 
         .lang-btn:hover {
-            background: rgba(124, 92, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
             color: var(--text-primary);
-            border-color: rgba(124, 92, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.12);
         }
 
         .lang-btn::after {
-            content: '▼';
+            content: '▾';
             font-size: 10px;
         }
 
@@ -527,7 +511,7 @@
         .menu-btn {
             position: fixed;
             top: 24px;
-            right: 84px;
+            right: 24px;
             background: none;
             border: none;
             cursor: pointer;
@@ -557,28 +541,7 @@
         }
 
         /* Language Selector */
-        .lang-selector {
-            position: fixed;
-            top: 20px;
-            right: 24px;
-            z-index: 10003;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 10px;
-            padding: 6px 10px;
-            font-size: 14px;
-            color: var(--text-primary);
-            cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .lang-selector:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.12);
-        }
+        /* Old lang-selector removed - using language-switcher instead */
 
         /* Fullscreen Menu Overlay */
         .menu-overlay {
@@ -2688,13 +2651,6 @@
         <span></span>
         <span></span>
     </button>
-
-    <!-- Language Selector -->
-    <div class="lang-selector" id="langSelector">
-        <span>🌐</span>
-        <span id="langDisplay">EN</span>
-        <span style="font-size: 10px;">▼</span>
-    </div>
 
     <!-- Startup Animation Overlay -->
     <div class="startup-overlay" id="startupOverlay">
