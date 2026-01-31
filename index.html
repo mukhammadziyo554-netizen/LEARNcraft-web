@@ -2608,23 +2608,24 @@
                         setTimeout(() => {
                             welcomeText.classList.add('fade-out');
                         
-                        // Fade in page content faster
-                        setTimeout(() => {
-                            pageContent.classList.remove('hidden');
-                        }, 100);
-                        
-                        // Fade out overlay
-                        setTimeout(() => {
-                            overlay.classList.add('fade-out');
-                        }, 200);
-                        
-                        // Hide overlay completely
-                        setTimeout(() => {
-                            overlay.style.display = 'none';
-                            welcomeMessage.style.display = 'none';
-                            document.body.style.overflow = '';
-                        }, 900);
-                    }, 1200);
+                            // Fade in page content faster
+                            setTimeout(() => {
+                                pageContent.classList.remove('hidden');
+                            }, 100);
+                            
+                            // Fade out overlay
+                            setTimeout(() => {
+                                overlay.classList.add('fade-out');
+                            }, 200);
+                            
+                            // Hide overlay completely
+                            setTimeout(() => {
+                                overlay.style.display = 'none';
+                                welcomeMessage.style.display = 'none';
+                                document.body.style.overflow = '';
+                            }, 900);
+                        }, 1200);
+                    });
                 }, 300);
             };
         }
