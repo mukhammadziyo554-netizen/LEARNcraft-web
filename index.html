@@ -999,7 +999,7 @@
         .user-account {
             position: relative;
             display: inline-block;
-            z-index: 10002;
+            z-index: 10001;
         }
 
         .user-circle {
@@ -1019,6 +1019,7 @@
             text-transform: uppercase;
             flex-shrink: 0;
             text-shadow: none;
+            z-index: 10001;
         }
 
         .user-circle:hover {
@@ -2309,7 +2310,7 @@
             display: none;
             align-items: center;
             justify-content: center;
-            z-index: 10001;
+            z-index: 10003;
         }
 
         button.hamburger-menu::before,
@@ -3614,26 +3615,36 @@
             function updateFeatures() {
                 // Get position of feature scroll section
                 const rect = featureScroll.getBoundingClientRect();
-                const scrollStart = window.innerHeight;
-                const scrollEnd = rect.height;
+                const windowHeight = window.innerHeight;
 
-                // Calculate scroll progress (0 to 1)
-                let progress = (scrollStart - rect.top) / scrollEnd;
-                progress = Math.max(0, Math.min(progress, 1));
+                // Improved trigger: Only animate when section is mostly visible
+                // Section enters when top is at window height, leaves when bottom is at 0
+                // We want animation to start when section is centered (60% visible)
+                const sectionVisibility = Math.min(
+                    Math.max((windowHeight - rect.top) / (windowHeight + rect.height), 0),
+                    1
+                );
 
-                // STAGED SCROLL: Hold zone before animation starts
-                const holdStart = 0.15;  // First 15% of scroll = read time
-                const holdEnd = 0.85;    // Complete by 85%
-                
+                // Only begin animation when section is substantially visible (> 60%)
+                const triggerThreshold = 0.6;
                 let moveProgress = 0;
-                
-                if (progress > holdStart) {
-                    // Calculate movement progress only after hold zone
-                    moveProgress = (progress - holdStart) / (holdEnd - holdStart);
-                    moveProgress = Math.min(moveProgress, 1);
+
+                if (sectionVisibility > triggerThreshold) {
+                    // Calculate normalized progress from trigger point onwards
+                    let animProgress = (sectionVisibility - triggerThreshold) / (1 - triggerThreshold);
                     
-                    // Apply easing for smooth panel arrival
-                    moveProgress = easeOutCubic(moveProgress);
+                    // STAGED SCROLL: Hold zone before animation starts
+                    const holdStart = 0.15;  // First 15% of visible scroll = read time
+                    const holdEnd = 0.85;    // Complete by 85%
+                    
+                    if (animProgress > holdStart) {
+                        // Calculate movement progress only after hold zone
+                        moveProgress = (animProgress - holdStart) / (holdEnd - holdStart);
+                        moveProgress = Math.min(moveProgress, 1);
+                        
+                        // Apply easing for smooth panel arrival
+                        moveProgress = easeOutCubic(moveProgress);
+                    }
                 }
 
                 // Update horizontal scroll with staged movement
