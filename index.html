@@ -1051,86 +1051,105 @@
             font-weight: 400;
         }
 
-        .features {
+        .feature-steps {
             display: flex;
-            justify-content: center;
-            gap: 16px;
-            flex-wrap: wrap;
-            margin: 40px 0;
+            gap: clamp(20px, 5vw, 60px);
+            margin: 60px 0;
+            align-items: flex-start;
             animation: fadeInUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.8s both;
         }
 
-        .feature-card {
-            background: var(--bg-soft);
-            border: 1px solid var(--border-soft);
-            border-radius: 12px;
-            padding: 24px;
-            width: 160px;
-            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        .steps-left {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(12px, 2vw, 20px);
+            min-width: clamp(150px, 30vw, 300px);
+            flex-shrink: 0;
         }
 
-        .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(124, 92, 255, 0.15);
-            border-color: rgba(124, 92, 255, 0.3);
+        .step {
+            opacity: 0.4;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            font-size: clamp(16px, 2.5vw, 20px);
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: clamp(12px, 2vw, 16px);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.4s ease;
         }
 
-        .feature-icon {
-            font-size: 36px;
-            margin-bottom: 12px;
+        .step-icon {
+            font-size: clamp(24px, 4vw, 32px);
+            font-weight: 700;
+            min-width: 40px;
+            text-align: center;
         }
 
-        .feature-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #ffffff;
+        .step-title {
+            font-size: clamp(14px, 2vw, 18px);
         }
 
-        .feature-panel {
-            flex: 1;
-            padding: 24px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            opacity: 0;
-            transform: translateX(40px);
-            transition: all 0.5s ease;
-        }
-
-        .feature-card.active .feature-panel {
+        .step.active {
             opacity: 1;
-            transform: translateX(0);
+            color: #ffd700;
+            transform: translateX(6px);
+            background: rgba(255, 215, 0, 0.1);
         }
 
-        .feature-panel h4 {
-            font-size: 20px;
-            font-weight: 600;
+        .steps-right {
+            flex: 1;
+            min-height: clamp(200px, 50vh, 400px);
+            position: relative;
+        }
+
+        .step-content {
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            pointer-events: none;
+        }
+
+        .step-content h3 {
+            font-size: clamp(18px, 3vw, 26px);
             color: #ffd700;
             margin-bottom: 16px;
+            font-weight: 600;
         }
 
-        .feature-panel ul {
+        .step-content ul {
             list-style: none;
             padding: 0;
-            margin: 0;
         }
 
-        .feature-panel li {
-            font-size: 15px;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.8;
-            padding-left: 20px;
+        .step-content li {
+            font-size: clamp(14px, 2vw, 16px);
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            padding-left: 24px;
             position: relative;
-            margin-bottom: 8px;
         }
 
-        .feature-panel li::before {
-            content: '•';
+        .step-content li:before {
+            content: "•";
             position: absolute;
             left: 0;
             color: #ffd700;
             font-weight: bold;
+        }
+
+        .step-content.active {
+            opacity: 1;
+            transform: translateX(0);
+            position: relative;
+            pointer-events: auto;
         }
 
         .feature-text {
@@ -1907,23 +1926,32 @@
             .tagline {
                 font-size: clamp(16px, 4vw, 20px);
             }
-            .features {
-                gap: 20px;
-                padding: 0 clamp(12px, 3vw, 16px);
-            }
-            .feature-card {
+            .feature-steps {
                 flex-direction: column;
-                padding: clamp(16px, 4vw, 24px);
+                gap: 24px;
+                margin: 40px 0;
             }
-            .feature-main {
+            .steps-left {
                 width: 100%;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 12px;
+                min-width: auto;
             }
-            .feature-panel {
+            .step {
+                flex: 1;
+                min-width: 100px;
+                justify-content: center;
+                flex-direction: column;
+                text-align: center;
+                gap: 8px;
+            }
+            .step-icon {
+                font-size: clamp(20px, 3vw, 28px);
+            }
+            .steps-right {
                 width: 100%;
-                transform: translateY(20px);
-            }
-            .feature-card.active .feature-panel {
-                transform: translateY(0);
+                min-height: 250px;
             }
             .nav-links {
                 gap: 15px;
@@ -2566,45 +2594,43 @@
             Explore this app 24/7 to support your learning journey!
         </p>
 
-        <div class="features" id="featuresSection">
-            <div class="feature-card">
-                <div class="feature-main">
-                    <div class="feature-icon">AI</div>
-                    <div class="feature-title">Smart Answers</div>
-                    <div class="feature-text">AI-powered responses to your technical questions</div>
+        <div class="feature-steps" id="featuresSection">
+            <div class="steps-left">
+                <div class="step active" data-step="1">
+                    <div class="step-icon">AI</div>
+                    <div class="step-title">Smart Answers</div>
                 </div>
-                <div class="feature-panel">
-                    <h4>AI that actually understands engineering</h4>
+                <div class="step" data-step="2">
+                    <div class="step-icon">24/7</div>
+                    <div class="step-title">Fast Response</div>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-icon">FIX</div>
+                    <div class="step-title">Debug Help</div>
+                </div>
+            </div>
+
+            <div class="steps-right">
+                <div class="step-content active" data-step="1">
+                    <h3>AI that actually understands engineering</h3>
                     <ul>
                         <li>Explains complex concepts step-by-step</li>
                         <li>Adapts answers to your knowledge level</li>
                         <li>Gives formulas, logic, and real examples</li>
                     </ul>
                 </div>
-            </div>
-            <div class="feature-card">
-                <div class="feature-main">
-                    <div class="feature-icon">24/7</div>
-                    <div class="feature-title">Fast Response</div>
-                    <div class="feature-text">Get help instantly, anytime you need it</div>
-                </div>
-                <div class="feature-panel">
-                    <h4>Help in seconds, not hours</h4>
+
+                <div class="step-content" data-step="2">
+                    <h3>Help in seconds, not hours</h3>
                     <ul>
                         <li>Instant replies to technical questions</li>
                         <li>Available 24/7 without waiting</li>
                         <li>Perfect for homework and exam prep</li>
                     </ul>
                 </div>
-            </div>
-            <div class="feature-card">
-                <div class="feature-main">
-                    <div class="feature-icon">FIX</div>
-                    <div class="feature-title">Debug Help</div>
-                    <div class="feature-text">Solve coding issues with expert guidance</div>
-                </div>
-                <div class="feature-panel">
-                    <h4>Fix your code with expert guidance</h4>
+
+                <div class="step-content" data-step="3">
+                    <h3>Fix your code with expert guidance</h3>
                     <ul>
                         <li>Detects logic and syntax errors</li>
                         <li>Explains why the issue happens</li>
@@ -3353,33 +3379,43 @@
             }
         }
 
-        // Feature Cards Scroll Animation
-        (function initFeatureAnimation() {
-            const featuresSection = document.getElementById('featuresSection');
-            if (!featuresSection) return;
+        // Feature Steps Scroll Animation
+        (function initFeatureStepsAnimation() {
+            const steps = document.querySelectorAll('.step');
+            const contents = document.querySelectorAll('.step-content');
+            
+            if (!steps.length || !contents.length) return;
 
-            const featureCards = featuresSection.querySelectorAll('.feature-card');
-            let hasAnimated = false;
+            // Scroll-based activation
+            window.addEventListener('scroll', () => {
+                let triggerPoint = window.innerHeight * 0.5;
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    // Trigger when 40% of section is visible and hasn't animated yet
-                    if (entry.isIntersecting && entry.intersectionRatio >= 0.4 && !hasAnimated) {
-                        hasAnimated = true;
-                        
-                        // Activate cards sequentially with delays
-                        featureCards.forEach((card, index) => {
-                            setTimeout(() => {
-                                card.classList.add('active');
-                            }, index * 250); // 0ms, 250ms, 500ms
-                        });
+                steps.forEach((step, index) => {
+                    const rect = step.getBoundingClientRect();
+
+                    // Check if step is in viewport
+                    if (rect.top < triggerPoint && rect.bottom > 0) {
+                        // Remove active from all
+                        steps.forEach(s => s.classList.remove('active'));
+                        contents.forEach(c => c.classList.remove('active'));
+
+                        // Add active to current
+                        step.classList.add('active');
+                        contents[index].classList.add('active');
                     }
                 });
-            }, {
-                threshold: [0.4] // Trigger at 40% visibility
             });
 
-            observer.observe(featuresSection);
+            // Make steps clickable
+            steps.forEach((step, index) => {
+                step.addEventListener('click', () => {
+                    steps.forEach(s => s.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+
+                    step.classList.add('active');
+                    contents[index].classList.add('active');
+                });
+            });
         })();
     </script>
 
