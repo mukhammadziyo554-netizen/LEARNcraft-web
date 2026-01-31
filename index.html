@@ -523,44 +523,102 @@
             color: var(--text-primary);
         }
 
-        /* Hamburger Menu Styles */
-        .hamburger-menu {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
+        /* Menu Button (Hamburger/X) */
+        .menu-btn {
+            position: fixed;
+            top: 24px;
+            right: 24px;
             background: none;
             border: none;
             cursor: pointer;
-            padding: 4px;
-            z-index: 10001;
-            margin-left: auto;
-            transition: all 0.3s ease;
-            pointer-events: auto !important;
+            z-index: 10003;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
             touch-action: manipulation;
         }
 
-        .hamburger-menu span {
-            width: 18px;
-            height: 2.5px;
-            background: #ffffff;
-            border-radius: 2px;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
+        .menu-btn span {
+            width: 26px;
+            height: 2px;
+            background: var(--text-primary);
             display: block;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            border-radius: 1px;
         }
 
-        .hamburger-menu.active span:nth-child(1) {
-            transform: rotate(45deg) translate(6px, 8px);
+        .menu-btn.open span:first-child {
+            transform: translateY(4px) rotate(45deg);
         }
 
-        .hamburger-menu.active span:nth-child(2) {
+        .menu-btn.open span:last-child {
+            transform: translateY(-4px) rotate(-45deg);
+        }
+
+        /* Fullscreen Menu Overlay */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-main);
+            z-index: 10001;
             opacity: 0;
-            transform: translateX(-10px);
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding-top: 120px;
+            padding-left: 40px;
+            overflow-y: auto;
         }
 
-        .hamburger-menu.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -8px);
+        .menu-overlay.open {
+            opacity: 1;
+            visibility: visible;
         }
+
+        /* Menu Container */
+        .menu-items-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Menu Items */
+        .menu-item {
+            font-size: 36px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            opacity: 0;
+            transform: translateY(20px);
+            letter-spacing: -0.5px;
+        }
+
+        .menu-overlay.open .menu-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .menu-item:hover {
+            color: var(--text-primary);
+        }
+
+        /* Staggered animation delays */
+        .menu-overlay.open .menu-item:nth-child(1) { transition-delay: 0.1s; }
+        .menu-overlay.open .menu-item:nth-child(2) { transition-delay: 0.18s; }
+        .menu-overlay.open .menu-item:nth-child(3) { transition-delay: 0.26s; }
+        .menu-overlay.open .menu-item:nth-child(4) { transition-delay: 0.34s; }
+        .menu-overlay.open .menu-item:nth-child(5) { transition-delay: 0.42s; }
+        .menu-overlay.open .menu-item:nth-child(6) { transition-delay: 0.50s; }
+        .menu-overlay.open .menu-item:nth-child(7) { transition-delay: 0.58s; }
+        .menu-overlay.open .menu-item:nth-child(8) { transition-delay: 0.66s; }
 
         /* Sidebar Overlay */
         .sidebar-overlay {
@@ -2337,6 +2395,26 @@
     </style>
 </head>
 <body>
+    <!-- Fullscreen Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay">
+        <div class="menu-items-container">
+            <a href="#" class="menu-item" onclick="closeMenu(); return false;">Product</a>
+            <a href="#" class="menu-item" onclick="closeMenu(); return false;">Teams</a>
+            <a href="#" class="menu-item" onclick="closeMenu(); return false;">Resources</a>
+            <a href="#" class="menu-item" onclick="closeMenu(); return false;">Community</a>
+            <a href="#" class="menu-item" onclick="closeMenu(); return false;">Support</a>
+            <a href="#" class="menu-item" onclick="closeMenu(); return false;">Enterprise</a>
+            <a href="#" class="menu-item" onclick="closeMenu(); return false;">Pricing</a>
+            <a href="#" class="menu-item" onclick="closeMenu(); return false;">Dashboard</a>
+        </div>
+    </div>
+
+    <!-- Menu Button -->
+    <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+    </button>
+
     <!-- Startup Animation Overlay -->
     <div class="startup-overlay" id="startupOverlay">
         <div class="startup-content">
@@ -2651,6 +2729,37 @@
                 setTimeout(callback, text.length * speed + 200);
             }
         }
+
+        // Menu Toggle Functions
+        function toggleMenu() {
+            const menuBtn = document.getElementById('menuBtn');
+            const menuOverlay = document.getElementById('menuOverlay');
+            
+            menuBtn.classList.toggle('open');
+            menuOverlay.classList.toggle('open');
+            
+            if (menuOverlay.classList.contains('open')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function closeMenu() {
+            const menuBtn = document.getElementById('menuBtn');
+            const menuOverlay = document.getElementById('menuOverlay');
+            
+            menuBtn.classList.remove('open');
+            menuOverlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        // Close menu when pressing Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeMenu();
+            }
+        });
 
         // Startup animation function
         function startExperience() {
