@@ -3605,6 +3605,9 @@
             
             if (!featureScroll || !track || !items.length) return;
 
+            // Guard against micro-scroll flipping
+            let currentSection = null;
+
             // Easing function for smooth panel arrival
             function easeOutCubic(t) {
                 return 1 - Math.pow(1 - t, 3);
@@ -3619,8 +3622,8 @@
                     }
                 });
             }, {
-                threshold: 0.6,  // 60% of section must be visible to trigger
-                rootMargin: '0px'
+                threshold: 0.75,  // 75% of section must be visible to trigger (more stable)
+                rootMargin: '-10% 0px -10% 0px'  // Shrink active zone vertically
             });
 
             // Observe each feature item
@@ -3630,6 +3633,10 @@
 
             // Activate panel and animate to it
             function activatePanel(panelIndex) {
+                // Guard against micro-scroll flipping
+                if (currentSection === panelIndex) return;
+                currentSection = panelIndex;
+
                 // Update active item indicator
                 items.forEach((el, i) => {
                     el.classList.toggle('active', i === panelIndex);
