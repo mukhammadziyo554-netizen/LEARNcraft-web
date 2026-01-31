@@ -2800,15 +2800,15 @@
             <div class="feature-sticky">
 
                 <div class="feature-left">
-                    <div class="feature-item active" data-panel="0">
+                    <div class="feature-item active" data-panel="0" data-section="ai">
                         <div class="feature-item-icon">AI</div>
                         <div class="feature-item-title">Smart Answers</div>
                     </div>
-                    <div class="feature-item" data-panel="1">
+                    <div class="feature-item" data-panel="1" data-section="fast">
                         <div class="feature-item-icon">24/7</div>
                         <div class="feature-item-title">Fast Response</div>
                     </div>
-                    <div class="feature-item" data-panel="2">
+                    <div class="feature-item" data-panel="2" data-section="fix">
                         <div class="feature-item-icon">FIX</div>
                         <div class="feature-item-title">Debug Help</div>
                     </div>
@@ -3597,7 +3597,7 @@
             }
         }
 
-        // Scroll-Driven Horizontal Feature Section Animation
+        // Intersection Observer-based Feature Section Animation
         (function initFeatureScrollAnimation() {
             const featureScroll = document.querySelector('.feature-scroll');
             const track = document.querySelector('.feature-right-track');
@@ -3605,79 +3605,55 @@
             
             if (!featureScroll || !track || !items.length) return;
 
-            let ticking = false;
-
             // Easing function for smooth panel arrival
             function easeOutCubic(t) {
                 return 1 - Math.pow(1 - t, 3);
             }
 
-            function updateFeatures() {
-                // Get position of feature scroll section
-                const rect = featureScroll.getBoundingClientRect();
-                const windowHeight = window.innerHeight;
-
-                // Improved trigger: Only animate when section is mostly visible
-                // Section enters when top is at window height, leaves when bottom is at 0
-                // We want animation to start when section is centered (60% visible)
-                const sectionVisibility = Math.min(
-                    Math.max((windowHeight - rect.top) / (windowHeight + rect.height), 0),
-                    1
-                );
-
-                // Only begin animation when section is substantially visible (> 60%)
-                const triggerThreshold = 0.6;
-                let moveProgress = 0;
-
-                if (sectionVisibility > triggerThreshold) {
-                    // Calculate normalized progress from trigger point onwards
-                    let animProgress = (sectionVisibility - triggerThreshold) / (1 - triggerThreshold);
-                    
-                    // STAGED SCROLL: Hold zone before animation starts
-                    const holdStart = 0.15;  // First 15% of visible scroll = read time
-                    const holdEnd = 0.85;    // Complete by 85%
-                    
-                    if (animProgress > holdStart) {
-                        // Calculate movement progress only after hold zone
-                        moveProgress = (animProgress - holdStart) / (holdEnd - holdStart);
-                        moveProgress = Math.min(moveProgress, 1);
-                        
-                        // Apply easing for smooth panel arrival
-                        moveProgress = easeOutCubic(moveProgress);
+            // Create Intersection Observer for each feature item
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const index = Array.from(items).indexOf(entry.target);
+                        activatePanel(index);
                     }
-                }
-
-                // Update horizontal scroll with staged movement
-                // Converts smooth progress to percentage translation (0 to 66.666%)
-                const translatePercent = moveProgress * 66.666;
-                track.style.transform = `translateX(-${translatePercent}%)`;
-
-                // Update active item indicator based on staged progress
-                const panelCount = items.length;
-                const index = Math.min(
-                    panelCount - 1,
-                    Math.floor(moveProgress * panelCount)
-                );
-
-                items.forEach((el, i) => {
-                    el.classList.toggle('active', i === index);
                 });
-
-                ticking = false;
-            }
-
-            // Use requestAnimationFrame for smooth performance
-            window.addEventListener('scroll', () => {
-                if (!ticking) {
-                    requestAnimationFrame(updateFeatures);
-                    ticking = true;
-                }
+            }, {
+                threshold: 0.6,  // 60% of section must be visible to trigger
+                rootMargin: '0px'
             });
 
-            // Make feature items clickable for smooth scroll
+            // Observe each feature item
+            items.forEach(item => {
+                observer.observe(item);
+            });
+
+            // Activate panel and animate to it
+            function activatePanel(panelIndex) {
+                // Update active item indicator
+                items.forEach((el, i) => {
+                    el.classList.toggle('active', i === panelIndex);
+                });
+
+                // Calculate animation progress based on panel index
+                const panelCount = items.length;
+                let moveProgress = panelIndex / (panelCount - 1);  // 0, 0.5, 1 for 3 panels
+                
+                // Apply easing for smooth arrival
+                moveProgress = easeOutCubic(moveProgress);
+
+                // Update horizontal scroll with animated movement
+                // Converts progress to percentage translation (0 to 66.666%)
+                const translatePercent = moveProgress * 66.666;
+                track.style.transform = `translateX(-${translatePercent}%)`;
+            }
+
+            // Make feature items clickable for smooth scroll to that panel
             items.forEach((item, index) => {
                 item.addEventListener('click', () => {
-                    // Calculate scroll position for this panel
+                    activatePanel(index);
+                    
+                    // Also scroll to that panel position
                     const sectionTop = featureScroll.getBoundingClientRect().top + window.scrollY;
                     const scrollTo = sectionTop + (featureScroll.offsetHeight / items.length) * index;
                     
@@ -3688,8 +3664,8 @@
                 });
             });
 
-            // Initialize on load
-            updateFeatures();
+            // Initialize with first panel active
+            activatePanel(0);
         })();
     </script>
 
