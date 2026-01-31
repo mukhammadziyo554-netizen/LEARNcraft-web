@@ -3597,7 +3597,8 @@
             }
         }
 
-        // Intersection Observer-based Feature Section Animation
+        // Center-Distance-Based Feature Section Animation
+        // Activates the section whose center is closest to viewport center
         (function initFeatureScrollAnimation() {
             const featureScroll = document.querySelector('.feature-scroll');
             const track = document.querySelector('.feature-right-track');
@@ -3607,29 +3608,37 @@
 
             // Guard against micro-scroll flipping
             let currentSection = null;
+            let ticking = false;
 
             // Easing function for smooth panel arrival
             function easeOutCubic(t) {
                 return 1 - Math.pow(1 - t, 3);
             }
 
-            // Create Intersection Observer for each feature item
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const index = Array.from(items).indexOf(entry.target);
-                        activatePanel(index);
+            // Calculate which section center is closest to viewport center
+            function updateActiveSection() {
+                const viewportCenter = window.innerHeight / 2;
+                let closestIndex = null;
+                let closestDistance = Infinity;
+
+                items.forEach((item, index) => {
+                    const rect = item.getBoundingClientRect();
+                    const sectionCenter = rect.top + rect.height / 2;
+                    const distance = Math.abs(viewportCenter - sectionCenter);
+
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestIndex = index;
                     }
                 });
-            }, {
-                threshold: 0.75,  // 75% of section must be visible to trigger (more stable)
-                rootMargin: '-10% 0px -10% 0px'  // Shrink active zone vertically
-            });
 
-            // Observe each feature item
-            items.forEach(item => {
-                observer.observe(item);
-            });
+                // Activate panel if it's different from current
+                if (closestIndex !== null && closestIndex !== currentSection) {
+                    activatePanel(closestIndex);
+                }
+
+                ticking = false;
+            }
 
             // Activate panel and animate to it
             function activatePanel(panelIndex) {
@@ -3655,6 +3664,18 @@
                 track.style.transform = `translateX(-${translatePercent}%)`;
             }
 
+            // Use requestAnimationFrame for smooth scroll handling
+            function onScroll() {
+                if (!ticking) {
+                    requestAnimationFrame(updateActiveSection);
+                    ticking = true;
+                }
+            }
+
+            // Listen for scroll and resize events
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', onScroll);
+
             // Make feature items clickable for smooth scroll to that panel
             items.forEach((item, index) => {
                 item.addEventListener('click', () => {
@@ -3671,8 +3692,8 @@
                 });
             });
 
-            // Initialize with first panel active
-            activatePanel(0);
+            // Initialize on load
+            updateActiveSection();
         })();
     </script>
 
