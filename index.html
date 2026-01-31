@@ -939,7 +939,7 @@
             .feature-scroll {
                 padding-top: 80px;
                 margin-bottom: 40px;
-                height: 280dvh;
+                height: 320dvh;
             }
 
             .feature-sticky {
@@ -1127,7 +1127,7 @@
 
         /* Scroll-Driven Horizontal Feature Section */
         .feature-scroll {
-            height: 300dvh;
+            height: 360dvh;
             position: relative;
             padding-top: 120px;
             margin-bottom: 60px;
@@ -1212,6 +1212,7 @@
             justify-content: center;
             overflow-y: auto;
             scrollbar-width: none;
+            scroll-snap-align: center;
         }
 
         .feature-panel::-webkit-scrollbar {
@@ -3605,6 +3606,11 @@
 
             let ticking = false;
 
+            // Easing function for smooth panel arrival
+            function easeOutCubic(t) {
+                return 1 - Math.pow(1 - t, 3);
+            }
+
             function updateFeatures() {
                 // Get position of feature scroll section
                 const rect = featureScroll.getBoundingClientRect();
@@ -3615,16 +3621,31 @@
                 let progress = (scrollStart - rect.top) / scrollEnd;
                 progress = Math.max(0, Math.min(progress, 1));
 
-                // Update horizontal scroll based on vertical scroll progress
-                // Convert progress to percentage translation (0 to 66.666%)
-                const translatePercent = progress * 66.666;
+                // STAGED SCROLL: Hold zone before animation starts
+                const holdStart = 0.15;  // First 15% of scroll = read time
+                const holdEnd = 0.85;    // Complete by 85%
+                
+                let moveProgress = 0;
+                
+                if (progress > holdStart) {
+                    // Calculate movement progress only after hold zone
+                    moveProgress = (progress - holdStart) / (holdEnd - holdStart);
+                    moveProgress = Math.min(moveProgress, 1);
+                    
+                    // Apply easing for smooth panel arrival
+                    moveProgress = easeOutCubic(moveProgress);
+                }
+
+                // Update horizontal scroll with staged movement
+                // Converts smooth progress to percentage translation (0 to 66.666%)
+                const translatePercent = moveProgress * 66.666;
                 track.style.transform = `translateX(-${translatePercent}%)`;
 
-                // Update active item indicator based on progress
+                // Update active item indicator based on staged progress
                 const panelCount = items.length;
                 const index = Math.min(
                     panelCount - 1,
-                    Math.floor(progress * panelCount)
+                    Math.floor(moveProgress * panelCount)
                 );
 
                 items.forEach((el, i) => {
