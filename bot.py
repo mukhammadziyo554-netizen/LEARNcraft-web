@@ -136,7 +136,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         )]
     ])
     
-    await update.message.reply_html(welcome_text, reply_markup=keyboard)
+    await update.message.reply_text(welcome_text, parse_mode='Markdown', reply_markup=keyboard)
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Send a message when the command /help is issued."""
@@ -247,6 +247,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
         "• /start - Welcome message\n"
         "• /help - Full help guide\n"
         "• /custom - Advanced features",
+        parse_mode='Markdown',
         reply_markup=keyboard
     )
 
