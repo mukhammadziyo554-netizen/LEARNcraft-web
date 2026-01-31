@@ -1065,21 +1065,21 @@
             gap: clamp(12px, 2vw, 20px);
             min-width: clamp(150px, 30vw, 300px);
             flex-shrink: 0;
+            position: sticky;
+            top: clamp(60px, 10vh, 100px);
         }
 
         .step {
             opacity: 0.4;
-            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
             font-size: clamp(16px, 2.5vw, 20px);
             font-weight: 500;
             color: var(--text-secondary);
-            cursor: pointer;
             padding: clamp(12px, 2vw, 16px);
             border-radius: 8px;
             display: flex;
             align-items: center;
             gap: 12px;
-            transition: all 0.4s ease;
+            transition: opacity 0.3s ease, background 0.3s ease, color 0.3s ease;
         }
 
         .step-icon {
@@ -1096,7 +1096,6 @@
         .step.active {
             opacity: 1;
             color: #ffd700;
-            transform: translateX(6px);
             background: rgba(255, 215, 0, 0.1);
         }
 
@@ -1108,8 +1107,8 @@
 
         .step-content {
             opacity: 0;
-            transform: translateX(20px);
-            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
             position: absolute;
             top: 0;
             left: 0;
@@ -1147,7 +1146,7 @@
 
         .step-content.active {
             opacity: 1;
-            transform: translateX(0);
+            transform: translateY(0);
             position: relative;
             pointer-events: auto;
         }
@@ -3379,34 +3378,42 @@
             }
         }
 
-        // Feature Steps Scroll Animation
+        // Feature Steps Scroll Animation with Intersection Observer
         (function initFeatureStepsAnimation() {
             const steps = document.querySelectorAll('.step');
             const contents = document.querySelectorAll('.step-content');
             
             if (!steps.length || !contents.length) return;
 
-            // Scroll-based activation
-            window.addEventListener('scroll', () => {
-                let triggerPoint = window.innerHeight * 0.5;
-
-                steps.forEach((step, index) => {
-                    const rect = step.getBoundingClientRect();
-
-                    // Check if step is in viewport
-                    if (rect.top < triggerPoint && rect.bottom > 0) {
+            // Create observer for premium scroll-driven animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const stepNum = entry.target.dataset.step;
+                        
                         // Remove active from all
                         steps.forEach(s => s.classList.remove('active'));
                         contents.forEach(c => c.classList.remove('active'));
-
-                        // Add active to current
-                        step.classList.add('active');
-                        contents[index].classList.add('active');
+                        
+                        // Add active to current panel and matching step
+                        entry.target.classList.add('active');
+                        const matchingStep = document.querySelector(`.step[data-step="${stepNum}"]`);
+                        if (matchingStep) {
+                            matchingStep.classList.add('active');
+                        }
                     }
                 });
+            }, {
+                threshold: 0.5, // Trigger when 50% of content is visible
+                rootMargin: '0px'
             });
 
-            // Make steps clickable
+            // Observe all content panels for scroll-driven activation
+            contents.forEach(content => {
+                observer.observe(content);
+            });
+
+            // Make steps clickable for manual navigation
             steps.forEach((step, index) => {
                 step.addEventListener('click', () => {
                     steps.forEach(s => s.classList.remove('active'));
@@ -3414,6 +3421,9 @@
 
                     step.classList.add('active');
                     contents[index].classList.add('active');
+                    
+                    // Smooth scroll to content
+                    contents[index].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 });
             });
         })();
