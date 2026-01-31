@@ -1067,15 +1067,61 @@
         }
 
         .feature-icon {
-            font-size: 28px;
-            margin-bottom: 8px;
+            font-size: 36px;
+            margin-bottom: 12px;
         }
 
         .feature-title {
-            font-size: 14px;
+            font-size: 18px;
             font-weight: 600;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             color: #ffffff;
+        }
+
+        .feature-panel {
+            flex: 1;
+            padding: 24px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            opacity: 0;
+            transform: translateX(40px);
+            transition: all 0.5s ease;
+        }
+
+        .feature-card.active .feature-panel {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .feature-panel h4 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffd700;
+            margin-bottom: 16px;
+        }
+
+        .feature-panel ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .feature-panel li {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            padding-left: 20px;
+            position: relative;
+            margin-bottom: 8px;
+        }
+
+        .feature-panel li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #ffd700;
+            font-weight: bold;
         }
 
         .feature-text {
@@ -1855,9 +1901,22 @@
             .features {
                 gap: 20px;
             }
+            .features {
+                padding: 0 16px;
+            }
             .feature-card {
-                width: 160px;
-                padding: 20px;
+                flex-direction: column;
+                padding: 24px;
+            }
+            .feature-main {
+                width: 100%;
+            }
+            .feature-panel {
+                width: 100%;
+                transform: translateY(20px);
+            }
+            .feature-card.active .feature-panel {
+                transform: translateY(0);
             }
             .nav-links {
                 gap: 15px;
@@ -2500,21 +2559,51 @@
             Explore this app 24/7 to support your learning journey!
         </p>
 
-        <div class="features">
+        <div class="features" id="featuresSection">
             <div class="feature-card">
-                <div class="feature-icon">💡</div>
-                <div class="feature-title" data-en="Smart Answers" data-ru="Умные Ответы" data-uz="Aqlli Javoblar">Smart Answers</div>
-                <div class="feature-text" data-en="AI-powered responses to your technical questions" data-ru="AI-ответы на ваши технические вопросы" data-uz="Texnik savollaringizga AI javoblari">AI-powered responses to your technical questions</div>
+                <div class="feature-main">
+                    <div class="feature-icon">AI</div>
+                    <div class="feature-title">Smart Answers</div>
+                    <div class="feature-text">AI-powered responses to your technical questions</div>
+                </div>
+                <div class="feature-panel">
+                    <h4>AI that actually understands engineering</h4>
+                    <ul>
+                        <li>Explains complex concepts step-by-step</li>
+                        <li>Adapts answers to your knowledge level</li>
+                        <li>Gives formulas, logic, and real examples</li>
+                    </ul>
+                </div>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <div class="feature-title" data-en="Fast Response" data-ru="Быстрый Ответ" data-uz="Tez Javob">Fast Response</div>
-                <div class="feature-text" data-en="Get help instantly, anytime you need it" data-ru="Получите помощь мгновенно, когда вам нужно" data-uz="Kerak bo'lganda darhol yordam oling">Get help instantly, anytime you need it</div>
+                <div class="feature-main">
+                    <div class="feature-icon">24/7</div>
+                    <div class="feature-title">Fast Response</div>
+                    <div class="feature-text">Get help instantly, anytime you need it</div>
+                </div>
+                <div class="feature-panel">
+                    <h4>Help in seconds, not hours</h4>
+                    <ul>
+                        <li>Instant replies to technical questions</li>
+                        <li>Available 24/7 without waiting</li>
+                        <li>Perfect for homework and exam prep</li>
+                    </ul>
+                </div>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">🔧</div>
-                <div class="feature-title" data-en="Debug Help" data-ru="Помощь в Отладке" data-uz="Xatolarni Tuzatish">Debug Help</div>
-                <div class="feature-text" data-en="Solve coding issues with expert guidance" data-ru="Решайте проблемы кода с экспертной помощью" data-uz="Mutaxassis yo'riqnomasi bilan kodlash muammolarini yeching">Solve coding issues with expert guidance</div>
+                <div class="feature-main">
+                    <div class="feature-icon">FIX</div>
+                    <div class="feature-title">Debug Help</div>
+                    <div class="feature-text">Solve coding issues with expert guidance</div>
+                </div>
+                <div class="feature-panel">
+                    <h4>Fix your code with expert guidance</h4>
+                    <ul>
+                        <li>Detects logic and syntax errors</li>
+                        <li>Explains why the issue happens</li>
+                        <li>Suggests clean, correct solutions</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -3256,6 +3345,35 @@
                 localStorage.setItem('learncraft_users', JSON.stringify(users));
             }
         }
+
+        // Feature Cards Scroll Animation
+        (function initFeatureAnimation() {
+            const featuresSection = document.getElementById('featuresSection');
+            if (!featuresSection) return;
+
+            const featureCards = featuresSection.querySelectorAll('.feature-card');
+            let hasAnimated = false;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    // Trigger when 40% of section is visible and hasn't animated yet
+                    if (entry.isIntersecting && entry.intersectionRatio >= 0.4 && !hasAnimated) {
+                        hasAnimated = true;
+                        
+                        // Activate cards sequentially with delays
+                        featureCards.forEach((card, index) => {
+                            setTimeout(() => {
+                                card.classList.add('active');
+                            }, index * 250); // 0ms, 250ms, 500ms
+                        });
+                    }
+                });
+            }, {
+                threshold: [0.4] // Trigger at 40% visibility
+            });
+
+            observer.observe(featuresSection);
+        })();
     </script>
 
     </div><!-- Close page-content -->
