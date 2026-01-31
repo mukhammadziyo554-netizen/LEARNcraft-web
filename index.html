@@ -914,6 +914,29 @@
         @media (max-width: 768px) {
             .hamburger-menu {
                 display: flex;
+                background: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 8px !important;
+                cursor: pointer;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .hamburger-menu::before,
+            .hamburger-menu::after {
+                display: none !important;
+            }
+
+            .hamburger-menu span {
+                display: block;
+                width: 24px;
+                height: 3px;
+                background: #FFD700 !important;
+                margin: 5px 0;
+                border-radius: 3px;
+                transition: all 0.3s ease;
+                box-shadow: 0 0 6px rgba(255, 215, 0, 0.7) !important;
             }
 
             .nav-center {
@@ -2214,6 +2237,25 @@
         .hamburger-menu span {
             background: #FFD700 !important;
             box-shadow: 0 0 6px rgba(255, 215, 0, 0.7) !important;
+        }
+
+        /* Hamburger button - remove all background styles */
+        button.hamburger-menu {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 8px !important;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10001;
+        }
+
+        button.hamburger-menu::before,
+        button.hamburger-menu::after {
+            display: none !important;
+            content: none !important;
         }
 
         .sidebar-login {
