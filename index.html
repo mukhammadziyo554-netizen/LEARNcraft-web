@@ -1028,7 +1028,7 @@
         }
 
         header {
-            padding: 120px 20px 80px;
+            padding: 100px 20px 50px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -1086,54 +1086,56 @@
             height: 100dvh;
             display: flex;
             align-items: center;
+            justify-content: center;
             overflow: hidden;
             background: var(--bg-primary);
             z-index: 10;
         }
 
         .feature-left {
-            width: 35%;
+            width: 40%;
             display: flex;
             flex-direction: column;
-            gap: clamp(12px, 2vw, 20px);
-            padding: clamp(20px, 4vw, 40px);
+            gap: 12px;
+            padding: clamp(16px, 3vw, 32px);
             z-index: 2;
             position: relative;
         }
 
         .feature-item {
-            opacity: 0.4;
-            font-size: clamp(16px, 2.5vw, 20px);
+            opacity: 0.5;
+            font-size: clamp(14px, 2vw, 18px);
             font-weight: 500;
             color: var(--text-secondary);
-            padding: clamp(12px, 2vw, 16px);
+            padding: 10px 14px;
             border-radius: 8px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            transition: opacity 0.3s ease, background 0.3s ease, color 0.3s ease;
+            gap: 10px;
+            transition: opacity 0.2s ease, background 0.2s ease, color 0.2s ease;
             cursor: pointer;
+            user-select: none;
         }
 
         .feature-item-icon {
-            font-size: clamp(24px, 4vw, 32px);
+            font-size: clamp(20px, 3.5vw, 28px);
             font-weight: 700;
-            min-width: 40px;
+            min-width: 36px;
             text-align: center;
         }
 
         .feature-item-title {
-            font-size: clamp(14px, 2vw, 18px);
+            font-size: clamp(13px, 1.8vw, 16px);
         }
 
         .feature-item.active {
             opacity: 1;
             color: #ffd700;
-            background: rgba(255, 215, 0, 0.1);
+            background: rgba(255, 215, 0, 0.08);
         }
 
         .feature-right-wrapper {
-            width: 65%;
+            width: 60%;
             overflow: hidden;
             position: relative;
             height: 100%;
@@ -1144,14 +1146,14 @@
             width: 300%;
             transform: translateX(0);
             will-change: transform;
-            transition: transform 0.05s linear;
+            transition: none;
             height: 100%;
         }
 
         .feature-panel {
             width: calc(100% / 3);
             flex-shrink: 0;
-            padding: clamp(20px, 4vw, 40px);
+            padding: clamp(16px, 3vw, 32px);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -1164,23 +1166,27 @@
         }
 
         .feature-panel h3 {
-            font-size: clamp(18px, 3vw, 26px);
+            font-size: clamp(17px, 2.8vw, 22px);
             color: #ffd700;
-            margin-bottom: 16px;
+            margin-bottom: 10px;
             font-weight: 600;
+            line-height: 1.3;
         }
 
         .feature-panel ul {
             list-style: none;
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
         .feature-panel li {
-            font-size: clamp(14px, 2vw, 16px);
+            font-size: clamp(13px, 1.8vw, 15px);
             color: var(--text-secondary);
-            margin-bottom: 12px;
-            padding-left: 24px;
+            padding-left: 20px;
             position: relative;
+            line-height: 1.4;
         }
 
         .feature-panel li:before {
@@ -1200,16 +1206,16 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin-top: 24px;
-            margin-right: 12px;
-            padding: 14px 24px;
+            margin-top: 12px;
+            margin-right: 10px;
+            padding: 12px 18px;
             background: transparent;
             color: var(--text-primary);
             font-weight: 600;
-            font-size: 15px;
+            font-size: 14px;
             text-decoration: none;
             border: 1.5px solid var(--border-soft);
-            border-radius: 14px;
+            border-radius: 12px;
             transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
             box-shadow: none;
             animation: fadeInUp 1s cubic-bezier(0.22, 1, 0.36, 1) 1s both;
@@ -3557,11 +3563,11 @@
                 progress = Math.max(0, Math.min(progress, 1));
 
                 // Update horizontal scroll based on vertical scroll progress
-                const maxMove = track.scrollWidth - track.clientWidth;
-                const moveX = progress * maxMove;
-                track.style.transform = `translateX(-${moveX}px)`;
+                // Convert progress to percentage translation (0 to 66.666%)
+                const translatePercent = progress * 66.666;
+                track.style.transform = `translateX(-${translatePercent}%)`;
 
-                // Update active item indicator
+                // Update active item indicator based on progress
                 const panelCount = items.length;
                 const index = Math.min(
                     panelCount - 1,
@@ -3583,7 +3589,7 @@
                 }
             });
 
-            // Make feature items clickable
+            // Make feature items clickable for smooth scroll
             items.forEach((item, index) => {
                 item.addEventListener('click', () => {
                     // Calculate scroll position for this panel
