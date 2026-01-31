@@ -4,10 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#000000">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Learning Roadmap - LEARNcraft</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <title>Your Engineering Roadmap - LEARNcraft</title>
     <style>
         * {
             margin: 0;
@@ -16,88 +13,379 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-            color: #C9A961;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(180deg, #0a0a0f 0%, #0f0f15 100%);
+            color: #ffffff;
             min-height: 100vh;
         }
 
-        .page-container {
-            max-width: 100%;
-            padding: 60px 20px 40px;
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 24px 60px;
         }
 
-        .back-button {
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 80px;
+            padding: 60px 0;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ffffff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 32px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-primary {
             display: inline-block;
-            padding: 12px 24px;
-            background: rgba(201, 169, 97, 0.2);
-            border: 2px solid #C9A961;
-            border-radius: 8px;
-            color: #C9A961;
+            padding: 16px 48px;
+            background: #ffd700;
+            color: #000;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 30px;
             text-decoration: none;
-            font-weight: bold;
-            margin-bottom: 40px;
-            transition: 0.3s;
-            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
         }
 
-        .back-button:hover {
-            background: rgba(201, 169, 97, 0.3);
-            transform: translateX(-5px);
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
         }
 
-        .page-header {
+        /* Roadmap Section */
+        .section-title {
+            font-size: 32px;
+            font-weight: 600;
             text-align: center;
             margin-bottom: 60px;
-            animation: fadeInDown 1s ease-out;
         }
 
-        .page-title {
-            font-size: 64px;
-            font-weight: bold;
-            color: #D4AF37;
-            text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
-            margin-bottom: 20px;
+        /* Progress Tracker */
+        .progress-tracker {
+            margin-bottom: 60px;
+            padding: 24px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
         }
 
-        .page-subtitle {
-            font-size: 24px;
-            color: #C9A961;
+        .progress-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 12px;
+            text-align: center;
         }
 
-        .roadmap-container {
-            max-width: 900px;
-            margin: 0 auto;
+        .progress-bar-container {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
         }
 
-        .roadmap-vertical {
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ffd700, #ffed4e);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-markers {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+        }
+
+        .progress-marker {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .progress-marker.active {
+            background: #ffd700;
+            border-color: #ffd700;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Roadmap Steps */
+        .roadmap-steps {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 24px;
         }
 
-        .roadmap-button {
+        .step-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+            padding: 32px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 215, 0, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(255, 215, 0, 0.1);
+        }
+
+        .step-card:hover .step-number {
+            background: rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #ffd700;
             display: flex;
             align-items: center;
-            gap: 20px;
-            padding: 25px;
-            background: rgba(255, 215, 0, 0.05);
-            border: 2px solid #C9A961;
-            border-radius: 12px;
-            cursor: pointer;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffd700;
             transition: all 0.3s ease;
-            text-decoration: none;
-            color: inherit;
         }
 
-        .roadmap-button:hover {
+        .step-content {
+            flex: 1;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .step-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .step-tag {
+            padding: 4px 12px;
             background: rgba(255, 215, 0, 0.15);
-            border-color: #FFD700;
-            transform: translateX(10px);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 12px;
+            font-size: 12px;
+            color: #ffd700;
+            font-weight: 500;
+            text-transform: uppercase;
         }
 
-        .button-number {
+        .step-description {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .step-action {
+            display: inline-block;
+            padding: 10px 24px;
+            background: transparent;
+            color: #ffd700;
+            font-size: 14px;
+            font-weight: 500;
+            border: 2px solid #ffd700;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .step-action:hover {
+            background: #ffd700;
+            color: #000;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #ffd700;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .step-card {
+                flex-direction: column;
+                padding: 24px;
+            }
+
+            .step-number {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+
+            .step-title {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn">← Back</a>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Your Engineering Roadmap</h1>
+            <p>A step-by-step path to master your field with structured guidance and milestones.</p>
+            <a href="#" class="btn-primary">Start My Roadmap</a>
+        </section>
+
+        <!-- Progress Tracker -->
+        <div class="progress-tracker">
+            <div class="progress-label">Your Progress</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 33%;"></div>
+            </div>
+            <div class="progress-markers">
+                <div class="progress-marker active"></div>
+                <div class="progress-marker active"></div>
+                <div class="progress-marker"></div>
+                <div class="progress-marker"></div>
+                <div class="progress-marker"></div>
+                <div class="progress-marker"></div>
+            </div>
+        </div>
+
+        <!-- Roadmap Steps -->
+        <section>
+            <h2 class="section-title">Roadmap Stages</h2>
+            <div class="roadmap-steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-header">
+                            <h3 class="step-title">Foundations</h3>
+                            <span class="step-tag">Beginner</span>
+                        </div>
+                        <p class="step-description">Build strong fundamentals in mathematics, physics, and core engineering principles.</p>
+                        <button class="step-action">Mark as Completed</button>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-header">
+                            <h3 class="step-title">Core Engineering Skills</h3>
+                            <span class="step-tag">Beginner</span>
+                        </div>
+                        <p class="step-description">Learn mechanics, materials, and analytical problem-solving used across engineering fields.</p>
+                        <button class="step-action">Mark as Completed</button>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-header">
+                            <h3 class="step-title">Field Specialization</h3>
+                            <span class="step-tag">Intermediate</span>
+                        </div>
+                        <p class="step-description">Choose your discipline and focus on domain-specific tools, theories, and systems.</p>
+                        <button class="step-action">Mark as Completed</button>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <div class="step-header">
+                            <h3 class="step-title">Practical Application</h3>
+                            <span class="step-tag">Intermediate</span>
+                        </div>
+                        <p class="step-description">Work on real-world style problems, case studies, and design challenges.</p>
+                        <button class="step-action">Mark as Completed</button>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <div class="step-header">
+                            <h3 class="step-title">Professional Skills</h3>
+                            <span class="step-tag">Advanced</span>
+                        </div>
+                        <p class="step-description">Develop communication, teamwork, project management, and technical documentation skills.</p>
+                        <button class="step-action">Mark as Completed</button>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <div class="step-header">
+                            <h3 class="step-title">Advanced & Career Prep</h3>
+                            <span class="step-tag">Advanced</span>
+                        </div>
+                        <p class="step-description">Prepare for internships, research, industry roles, or advanced study paths.</p>
+                        <button class="step-action">Mark as Completed</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
             width: 60px;
             height: 60px;
             border-radius: 50%;
