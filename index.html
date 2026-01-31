@@ -2121,67 +2121,61 @@
         }
 
         .enter-button {
-            padding: 18px 70px;
-            font-size: 18px;
-            font-weight: 600;
-            background: rgba(10, 10, 20, 0.9);
-            color: #00eaff;
-            border: 2px solid rgba(0, 234, 255, 0.3);
-            border-radius: 40px;
-            cursor: pointer;
             position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
+            padding: 18px 48px;
+            border-radius: 999px;
+            background: #0b0f14;
+            color: #7df9ff;
+            font-weight: 600;
             letter-spacing: 2px;
+            border: none;
+            cursor: pointer;
+            overflow: hidden;
             text-transform: uppercase;
-            box-shadow: 
-                0 0 20px rgba(0, 234, 255, 0.4),
-                0 0 40px rgba(0, 234, 255, 0.2);
+            font-size: 16px;
+            transition: all 0.3s ease;
             z-index: 10001;
         }
 
         .enter-button::before {
-            content: '';
+            content: "";
             position: absolute;
-            inset: -3px;
-            border-radius: 40px;
-            background: conic-gradient(
-                transparent 0deg,
-                transparent 300deg,
-                #00eaff 330deg,
-                transparent 360deg
-            );
-            animation: rotateBorder 2.5s linear infinite;
-            filter: blur(8px);
-            opacity: 0.9;
-            z-index: -1;
+            inset: 0;
+            border-radius: inherit;
+            padding: 2px;
+            background: linear-gradient(90deg, transparent, #00f7ff, transparent);
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            animation: scanBorder 3s linear infinite;
+            filter: drop-shadow(0 0 6px #00f7ff) drop-shadow(0 0 12px #00f7ff);
         }
 
-        @keyframes rotateBorder {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        @keyframes scanBorder {
+            0%   { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .enter-button span {
             position: relative;
             z-index: 1;
             display: block;
-            text-shadow: 0 0 10px rgba(0, 234, 255, 0.8);
+            text-shadow: 0 0 10px rgba(125, 249, 255, 0.6);
             font-weight: 700;
         }
 
         .enter-button:hover {
-            background: rgba(0, 234, 255, 0.15);
-            color: #00eaff;
-            border-color: rgba(0, 234, 255, 0.6);
-            box-shadow: 
-                0 0 30px rgba(0, 234, 255, 0.8),
-                0 0 60px rgba(0, 234, 255, 0.5);
+            background: rgba(125, 249, 255, 0.1);
             transform: translateY(-2px);
         }
 
         .enter-button:hover::before {
-            animation-duration: 1.5s;
+            animation-duration: 2s;
         }
 
         .enter-button:active {
