@@ -2700,6 +2700,13 @@
             <div class="nav-brand" onclick="document.getElementById('header-section').scrollIntoView();" style="cursor: pointer;">LEARNcraft</div>
         </div>
         
+        <div class="nav-center">
+            <button onclick="window.location.href='ask-ai.html'" data-en="🤖 AI" data-ru="🤖 ИИ" data-uz="🤖 AI">🤖 AI</button>
+            <button onclick="window.location.href='roadmap.html'" data-en="🗺️ Roadmap" data-ru="🗺️ Дорожная карта" data-uz="🗺️ Xarita">🗺️ Roadmap</button>
+            <button onclick="window.location.href='support.html'" data-en="💬 Support" data-ru="💬 Поддержка" data-uz="💬 Yordam">💬 Support</button>
+            <button id="adminBtnNav" onclick="window.location.href='admin.html'" data-en="⚙️ Admin" data-ru="⚙️ Админ" data-uz="⚙️ Admin" style="display: none;">⚙️ Admin</button>
+        </div>
+        
         <div class="nav-right">
             <div class="user-account" id="userAccount" style="display: none;">
                 <div class="user-circle" id="userCircle"></div>
@@ -3484,6 +3491,12 @@
             const adminEmail = 'mukhammadziyo554@gmail.com';
             
             if (email.toLowerCase() === adminEmail.toLowerCase()) {
+                // Show admin button in nav bar
+                const adminBtnNav = document.getElementById('adminBtnNav');
+                if (adminBtnNav) {
+                    adminBtnNav.style.display = 'inline-block';
+                }
+                // Show admin button in menu
                 const adminMenuItem = document.getElementById('adminBtnMenu');
                 if (adminMenuItem) {
                     adminMenuItem.style.display = 'block';
