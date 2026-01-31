@@ -1974,10 +1974,10 @@
             padding: 18px 70px;
             font-size: 18px;
             font-weight: 600;
-            background: rgba(10, 10, 20, 0.8);
-            color: #00d4ff;
-            border: 2px solid #00d4ff;
-            border-radius: 999px;
+            background: rgba(10, 10, 20, 0.9);
+            color: #00eaff;
+            border: 2px solid rgba(0, 234, 255, 0.3);
+            border-radius: 40px;
             cursor: pointer;
             position: relative;
             overflow: hidden;
@@ -1985,65 +1985,57 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             box-shadow: 
-                0 0 20px rgba(0, 212, 255, 0.6),
-                0 0 40px rgba(0, 212, 255, 0.4),
-                inset 0 0 20px rgba(0, 212, 255, 0.15);
+                0 0 20px rgba(0, 234, 255, 0.4),
+                0 0 40px rgba(0, 234, 255, 0.2);
             z-index: 10001;
         }
 
         .enter-button::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.4), transparent);
-            transition: left 0.5s ease;
-            z-index: 1;
+            inset: -3px;
+            border-radius: 40px;
+            background: conic-gradient(
+                transparent 0deg,
+                transparent 300deg,
+                #00eaff 330deg,
+                transparent 360deg
+            );
+            animation: rotateBorder 2.5s linear infinite;
+            filter: blur(8px);
+            opacity: 0.9;
+            z-index: -1;
+        }
+
+        @keyframes rotateBorder {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .enter-button span {
             position: relative;
-            z-index: 2;
+            z-index: 1;
             display: block;
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+            text-shadow: 0 0 10px rgba(0, 234, 255, 0.8);
             font-weight: 700;
         }
 
         .enter-button:hover {
-            background: rgba(0, 212, 255, 0.15);
-            color: #00d4ff;
-            border-color: #00d4ff;
+            background: rgba(0, 234, 255, 0.15);
+            color: #00eaff;
+            border-color: rgba(0, 234, 255, 0.6);
             box-shadow: 
-                0 0 30px rgba(0, 212, 255, 1),
-                0 0 60px rgba(0, 212, 255, 0.7),
-                inset 0 0 30px rgba(0, 212, 255, 0.3);
-            text-shadow: 0 0 20px rgba(0, 212, 255, 1);
+                0 0 30px rgba(0, 234, 255, 0.8),
+                0 0 60px rgba(0, 234, 255, 0.5);
             transform: translateY(-2px);
         }
 
         .enter-button:hover::before {
-            left: 100%;
+            animation-duration: 1.5s;
         }
 
         .enter-button:active {
             transform: translateY(0);
-        }
-
-        /* Presentation Animations */
-
-        /* Smooth hover glow effect */
-        .enter-button:hover {
-            background: #0d0d14;
-            box-shadow:
-                inset 0 0 22px rgba(255, 255, 255, 0.06),
-                0 0 40px rgba(255, 215, 0, 0.5);
-            border-color: rgba(255, 215, 0, 0.45);
-        }
-
-        .enter-button:active {
-            opacity: 0.98;
         }
 
         /* Welcome message - just text, no animation container */
@@ -2577,42 +2569,42 @@
                 enterButton.style.transform = 'scale(0.8)';
                 enterButton.style.pointerEvents = 'none';
                 
-                // Show welcome message immediately after button starts hiding
-                welcomeMessage.style.display = 'flex';
-                // Trigger animation with show class
+                // Show welcome message earlier - reduced delay
                 setTimeout(() => {
+                    welcomeMessage.style.display = 'flex';
                     welcomeMessage.classList.add('show');
-                }, 10);
+                }, 200);
                 
                 welcomeText.style.opacity = '1';
                 welcomeText.style.visibility = 'visible';
                 welcomeText.classList.remove('fade-out');
                 
-                // Start typing animation immediately
-                const textToType = 'Welcome';
-                typeWriterHandwritten(welcomeText, textToType, 150, () => {
-                    // Keep message visible for 1.5 seconds
-                    setTimeout(() => {
-                        welcomeText.classList.add('fade-out');
+                // Start typing animation with reduced delay
+                setTimeout(() => {
+                    const textToType = 'Welcome';
+                    typeWriterHandwritten(welcomeText, textToType, 120, () => {
+                        // Keep message visible for shorter time
+                        setTimeout(() => {
+                            welcomeText.classList.add('fade-out');
                         
-                        // Fade in page content
+                        // Fade in page content faster
                         setTimeout(() => {
                             pageContent.classList.remove('hidden');
-                        }, 150);
+                        }, 100);
                         
                         // Fade out overlay
                         setTimeout(() => {
                             overlay.classList.add('fade-out');
-                        }, 250);
+                        }, 200);
                         
                         // Hide overlay completely
                         setTimeout(() => {
                             overlay.style.display = 'none';
                             welcomeMessage.style.display = 'none';
                             document.body.style.overflow = '';
-                        }, 1100);
-                    }, 1500);
-                });
+                        }, 900);
+                    }, 1200);
+                }, 300);
             };
         }
 
