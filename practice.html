@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <title>Practice Engineering Skills - LEARNcraft</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(180deg, #0a0a0f 0%, #0f0f15 100%);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 24px 60px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 80px;
+            padding: 60px 0;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ffffff, #a0d8f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 32px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 16px 48px;
+            background: transparent;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            border-color: #60c5f1;
+            box-shadow: 0 0 20px rgba(96, 197, 241, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Practice Modes Section */
+        .section-title {
+            font-size: 32px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .practice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .practice-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .practice-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(96, 197, 241, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(96, 197, 241, 0.15);
+        }
+
+        .practice-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 24px;
+            background: rgba(96, 197, 241, 0.1);
+            border: 2px solid rgba(96, 197, 241, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #60c5f1;
+            transition: all 0.3s ease;
+        }
+
+        .practice-card:hover .practice-icon {
+            background: rgba(96, 197, 241, 0.15);
+            box-shadow: 0 0 20px rgba(96, 197, 241, 0.3);
+        }
+
+        .practice-card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+
+        .practice-card p {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            padding: 12px 32px;
+            background: transparent;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 24px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            border-color: #60c5f1;
+            box-shadow: 0 0 15px rgba(96, 197, 241, 0.3);
+            background: rgba(96, 197, 241, 0.05);
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-family: inherit;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #60c5f1;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .practice-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button onclick="history.back()" class="back-btn">← Back</button>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Practice Engineering Skills</h1>
+            <p>Solve structured problems, apply concepts, and strengthen real-world thinking.</p>
+            <button class="btn-primary">Start Practice</button>
+        </section>
+
+        <!-- Practice Modes -->
+        <section>
+            <h2 class="section-title">Practice Modes</h2>
+            <div class="practice-grid">
+                <div class="practice-card">
+                    <div class="practice-icon">PS</div>
+                    <h3>Problem Sets</h3>
+                    <p>Short structured exercises by topic to build foundational understanding.</p>
+                    <button class="btn-secondary">Start</button>
+                </div>
+
+                <div class="practice-card">
+                    <div class="practice-icon">TC</div>
+                    <h3>Timed Challenges</h3>
+                    <p>Problems with time pressure to improve speed and accuracy under constraints.</p>
+                    <button class="btn-secondary">Start</button>
+                </div>
+
+                <div class="practice-card">
+                    <div class="practice-icon">CS</div>
+                    <h3>Case Studies</h3>
+                    <p>Real-world engineering scenarios requiring critical thinking and decision-making.</p>
+                    <button class="btn-secondary">Start</button>
+                </div>
+
+                <div class="practice-card">
+                    <div class="practice-icon">CD</div>
+                    <h3>Concept Drills</h3>
+                    <p>Quick repetition of formulas, principles, and fundamentals for mastery.</p>
+                    <button class="btn-secondary">Start</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <title>Debug & Solve Problems - LEARNcraft</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(180deg, #0a0a0f 0%, #0f0f15 100%);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 24px 60px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 60px 0 40px;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ffffff, #a0d8f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 32px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 16px 48px;
+            background: transparent;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            border-color: #60c5f1;
+            box-shadow: 0 0 20px rgba(96, 197, 241, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Input Sections */
+        .input-section {
+            margin-bottom: 40px;
+        }
+
+        .input-label {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .input-area {
+            width: 100%;
+            min-height: 150px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 16px;
+            resize: vertical;
+            transition: all 0.3s ease;
+        }
+
+        .input-area:focus {
+            outline: none;
+            border-color: rgba(96, 197, 241, 0.5);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 15px rgba(96, 197, 241, 0.2);
+        }
+
+        .input-area::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Assistance Modes */
+        .section-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .modes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .mode-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .mode-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(96, 197, 241, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(96, 197, 241, 0.15);
+        }
+
+        .mode-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background: rgba(96, 197, 241, 0.1);
+            border: 2px solid rgba(96, 197, 241, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #60c5f1;
+            transition: all 0.3s ease;
+        }
+
+        .mode-card:hover .mode-icon {
+            background: rgba(96, 197, 241, 0.15);
+            box-shadow: 0 0 20px rgba(96, 197, 241, 0.3);
+        }
+
+        .mode-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+
+        .mode-card p {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .btn-mode {
+            display: inline-block;
+            padding: 10px 28px;
+            background: transparent;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-mode:hover {
+            border-color: #60c5f1;
+            box-shadow: 0 0 15px rgba(96, 197, 241, 0.3);
+            background: rgba(96, 197, 241, 0.05);
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-family: inherit;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #60c5f1;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .modes-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button onclick="history.back()" class="back-btn">← Back</button>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Debug and Solve Engineering Problems</h1>
+            <p>Get guided help to understand mistakes, fix logic, and improve solutions.</p>
+            <button class="btn-primary">Get Help Now</button>
+        </section>
+
+        <!-- Describe Problem Section -->
+        <section class="input-section">
+            <label class="input-label">Describe Your Problem</label>
+            <textarea 
+                class="input-area" 
+                placeholder="Describe your issue, confusion, or problem step..."
+            ></textarea>
+        </section>
+
+        <!-- Upload Work Section -->
+        <section class="input-section">
+            <label class="input-label">Paste or Upload Work (Optional)</label>
+            <textarea 
+                class="input-area" 
+                placeholder="Paste your solution steps, code, or calculations here..."
+            ></textarea>
+        </section>
+
+        <!-- Assistance Modes -->
+        <section>
+            <h2 class="section-title">Assistance Modes</h2>
+            <div class="modes-grid">
+                <div class="mode-card">
+                    <div class="mode-icon">SS</div>
+                    <h3>Step-by-Step Explanation</h3>
+                    <p>Breaks the solution into logical steps with clear reasoning at each stage.</p>
+                    <button class="btn-mode">Use Mode</button>
+                </div>
+
+                <div class="mode-card">
+                    <div class="mode-icon">EA</div>
+                    <h3>Error Analysis</h3>
+                    <p>Identifies where the mistake happened and explains why it occurred.</p>
+                    <button class="btn-mode">Use Mode</button>
+                </div>
+
+                <div class="mode-card">
+                    <div class="mode-icon">CC</div>
+                    <h3>Concept Clarification</h3>
+                    <p>Explains the theory behind the issue to deepen understanding.</p>
+                    <button class="btn-mode">Use Mode</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
