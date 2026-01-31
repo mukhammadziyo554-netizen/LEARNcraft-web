@@ -426,11 +426,18 @@
             line-height: 1.5;
         }
 
-        .language-switcher {
+        /* Top Controls Group */
+        .top-controls {
             position: fixed;
-            top: 26px;
-            right: 80px;
+            top: 22px;
+            right: 28px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
             z-index: 2000;
+        }
+
+        .language-switcher {
             display: flex;
             align-items: center;
         }
@@ -460,11 +467,6 @@
             background: rgba(255, 255, 255, 0.08);
             color: var(--text-primary);
             border-color: rgba(255, 255, 255, 0.12);
-        }
-
-        .lang-btn::after {
-            content: '▾';
-            font-size: 10px;
         }
 
         .lang-menu {
@@ -509,22 +511,20 @@
 
         /* Menu Button (Hamburger/X) */
         .menu-btn {
-            position: fixed;
-            top: 24px;
-            right: 24px;
+            width: 26px;
+            height: 18px;
             background: none;
             border: none;
             cursor: pointer;
-            z-index: 10003;
-            padding: 8px;
+            padding: 0;
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            justify-content: space-between;
             touch-action: manipulation;
         }
 
         .menu-btn span {
-            width: 26px;
+            width: 100%;
             height: 2px;
             background: var(--text-primary);
             display: block;
@@ -533,11 +533,11 @@
         }
 
         .menu-btn.open span:first-child {
-            transform: translateY(4px) rotate(45deg);
+            transform: translateY(8px) rotate(45deg);
         }
 
         .menu-btn.open span:last-child {
-            transform: translateY(-4px) rotate(-45deg);
+            transform: translateY(-8px) rotate(-45deg);
         }
 
         /* Language Selector */
@@ -1533,12 +1533,20 @@
 
         @media (max-width: 480px) {
             /* Menu Mobile */
-            .menu-btn {
+            .top-controls {
+                top: 18px;
                 right: 16px;
+                gap: 10px;
             }
 
-            .lang-selector {
-                right: 16px;
+            .lang-btn {
+                padding: 5px 10px;
+                font-size: 13px;
+            }
+
+            .menu-btn {
+                width: 24px;
+                height: 16px;
             }
 
             .menu-overlay {
@@ -2646,11 +2654,26 @@
         </div>
     </div>
 
-    <!-- Menu Button -->
-    <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
-    </button>
+    <!-- Top Controls Group -->
+    <div class="top-controls">
+        <div class="language-switcher">
+            <div class="lang-dropdown">
+                <button class="lang-btn" onclick="toggleLanguageMenu()">
+                    <span id="current-lang">🌐 EN ▾</span>
+                </button>
+                <div class="lang-menu" id="lang-menu">
+                    <div class="lang-option active" onclick="changeLanguage('en', '🌐 EN')">🇬🇧&nbsp;English</div>
+                    <div class="lang-option" onclick="changeLanguage('ru', '🌐 RU')">🇷🇺&nbsp;Русский</div>
+                    <div class="lang-option" onclick="changeLanguage('uz', '🌐 UZ')">🇺🇿&nbsp;O'zbek</div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+        </button>
+    </div>
 
     <!-- Startup Animation Overlay -->
     <div class="startup-overlay" id="startupOverlay">
@@ -2718,19 +2741,6 @@
         <div class="sidebar-footer">
             <button class="sidebar-login" onclick="window.location.href='registration.html'; closeSidebar();" data-en="Log in" data-ru="Войти" data-uz="Kirish">Log in</button>
             <button class="sidebar-signup" onclick="window.location.href='registration.html'; closeSidebar();" data-en="Sign up" data-ru="Зарегистрироваться" data-uz="Ro'yxatdan o'tish">Sign up</button>
-        </div>
-    </div>
-
-    <div class="language-switcher">
-        <div class="lang-dropdown">
-            <button class="lang-btn" onclick="toggleLanguageMenu()">
-                <span id="current-lang">🌐 EN</span>
-            </button>
-            <div class="lang-menu" id="lang-menu">
-                <div class="lang-option active" onclick="changeLanguage('en', '🌐 EN')">🇬🇧&nbsp;English</div>
-                <div class="lang-option" onclick="changeLanguage('ru', '🌐 RU')">🇷🇺&nbsp;Русский</div>
-                <div class="lang-option" onclick="changeLanguage('uz', '🌐 UZ')">🇺🇿&nbsp;O'zbek</div>
-            </div>
         </div>
     </div>
 
