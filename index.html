@@ -21,6 +21,7 @@
             --accent: linear-gradient(90deg, #7C5CFF, #00D4FF);
             --accent-start: #7C5CFF;
             --accent-end: #00D4FF;
+            --app-height: 100vh;
         }
 
         * {
@@ -39,7 +40,14 @@
             background: var(--bg-main);
             color: var(--text-primary);
             text-align: center;
-            min-height: 100vh;
+            min-height: var(--app-height);
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        img, video {
+            max-width: 100%;
+            height: auto;
         }
 
         .light-bloom {
@@ -51,10 +59,11 @@
             top: 0;
             left: 0;
             right: 0;
+            width: 100%;
             background: rgba(11, 11, 15, 0.95);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-soft);
-            padding: 16px 24px;
+            padding: clamp(12px, 3vw, 16px) clamp(16px, 4vw, 24px);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -71,7 +80,7 @@
         }
 
         .nav-brand {
-            font-size: 18px;
+            font-size: clamp(16px, 3.5vw, 18px);
             font-weight: 700;
             color: var(--text-primary);
             white-space: nowrap;
@@ -311,23 +320,23 @@
         .roadmap-content {
             background: rgba(255, 255, 255, 0.03);
             border-radius: 16px;
-            padding: 40px;
+            padding: clamp(20px, 5vw, 40px);
             animation: fadeInUp 1s ease-out;
-            max-width: 1200px;
+            max-width: min(1200px, 95vw);
             margin: 0 auto;
             width: 100%;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .roadmap-title {
-            font-size: 36px;
+            font-size: clamp(24px, 5vw, 36px);
             color: #ffffff;
             margin-bottom: 10px;
             font-weight: 700;
         }
 
         .roadmap-subtitle {
-            font-size: 18px;
+            font-size: clamp(14px, 2.5vw, 18px);
             color: #b0b0b0;
             margin-bottom: 40px;
         }
@@ -568,13 +577,13 @@
 
         /* Menu Container with Flex Layout */
         .menu-container {
-            max-width: 1200px;
+            max-width: min(1200px, 90vw);
             width: 100%;
             display: flex;
             justify-content: space-between;
-            gap: 100px;
+            gap: clamp(40px, 8vw, 100px);
             align-items: flex-start;
-            padding: 0 40px;
+            padding: 0 clamp(20px, 4vw, 40px);
         }
 
         /* Left Brand Section */
@@ -587,7 +596,7 @@
         }
 
         .menu-brand-logo {
-            font-size: 32px;
+            font-size: clamp(24px, 5vw, 32px);
             font-weight: 700;
             color: var(--text-primary);
             letter-spacing: 0.5px;
@@ -1889,24 +1898,22 @@
 
         @media (max-width: 768px) {
             h1 {
-                font-size: 40px;
+                font-size: clamp(32px, 8vw, 40px);
             }
             .logo {
-                font-size: 60px;
+                font-size: clamp(48px, 12vw, 60px);
                 color: #FFD700;
             }
             .tagline {
-                font-size: 20px;
+                font-size: clamp(16px, 4vw, 20px);
             }
             .features {
                 gap: 20px;
-            }
-            .features {
-                padding: 0 16px;
+                padding: 0 clamp(12px, 3vw, 16px);
             }
             .feature-card {
                 flex-direction: column;
-                padding: 24px;
+                padding: clamp(16px, 4vw, 24px);
             }
             .feature-main {
                 width: 100%;
@@ -1923,13 +1930,13 @@
                 margin-left: 10px;
             }
             .nav-links button {
-                font-size: 14px;
+                font-size: clamp(13px, 2.5vw, 14px);
             }
             .section-title {
-                font-size: 32px;
+                font-size: clamp(26px, 6vw, 32px);
             }
             .section-subtitle {
-                font-size: 16px;
+                font-size: clamp(14px, 3vw, 16px);
             }
             .fields-grid {
                 grid-template-columns: 1fr;
@@ -3582,6 +3589,16 @@
             overlay.style.display = 'flex';
             pageContent.classList.add('hidden');
         });
+
+        // Telegram Mini App Viewport Support
+        function setAppHeight() {
+            const vh = window.innerHeight;
+            document.documentElement.style.setProperty('--app-height', `${vh}px`);
+        }
+        
+        window.addEventListener('resize', setAppHeight);
+        window.addEventListener('orientationchange', setAppHeight);
+        setAppHeight();
     </script>
 
     </body>
