@@ -1051,28 +1051,34 @@
             font-weight: 400;
         }
 
-        .feature-steps {
-            display: flex;
-            gap: clamp(20px, 5vw, 60px);
-            margin: 60px 0;
-            align-items: flex-start;
-            animation: fadeInUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.8s both;
+        /* Scroll-Driven Horizontal Feature Section */
+        .feature-scroll {
+            height: 300dvh;
+            position: relative;
         }
 
-        .steps-left {
+        .feature-sticky {
+            position: sticky;
+            top: 0;
+            height: 100dvh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: var(--bg-primary);
+            z-index: 10;
+        }
+
+        .feature-left {
+            width: 35%;
             display: flex;
             flex-direction: column;
             gap: clamp(12px, 2vw, 20px);
-            min-width: clamp(150px, 30vw, 300px);
-            flex-shrink: 0;
-            position: sticky;
-            top: clamp(60px, 10dvh, 100px);
-            max-height: 100dvh;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
+            padding: clamp(20px, 4vw, 40px);
+            z-index: 2;
+            position: relative;
         }
 
-        .step {
+        .feature-item {
             opacity: 0.4;
             font-size: clamp(16px, 2.5vw, 20px);
             font-weight: 500;
@@ -1083,55 +1089,70 @@
             align-items: center;
             gap: 12px;
             transition: opacity 0.3s ease, background 0.3s ease, color 0.3s ease;
+            cursor: pointer;
         }
 
-        .step-icon {
+        .feature-item-icon {
             font-size: clamp(24px, 4vw, 32px);
             font-weight: 700;
             min-width: 40px;
             text-align: center;
         }
 
-        .step-title {
+        .feature-item-title {
             font-size: clamp(14px, 2vw, 18px);
         }
 
-        .step.active {
+        .feature-item.active {
             opacity: 1;
             color: #ffd700;
             background: rgba(255, 215, 0, 0.1);
         }
 
-        .steps-right {
-            flex: 1;
-            min-height: clamp(200px, 50dvh, 400px);
+        .feature-right-wrapper {
+            width: 65%;
+            overflow: hidden;
             position: relative;
+            height: 100%;
         }
 
-        .step-content {
-            opacity: 0.35;
-            transform: scale(0.96);
-            transition: opacity 0.35s ease, transform 0.35s ease;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            pointer-events: none;
+        .feature-right-track {
+            display: flex;
+            width: 300%;
+            transform: translateX(0);
+            will-change: transform;
+            transition: transform 0.05s linear;
+            height: 100%;
         }
 
-        .step-content h3 {
+        .feature-panel {
+            width: calc(100% / 3);
+            flex-shrink: 0;
+            padding: clamp(20px, 4vw, 40px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+
+        .feature-panel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .feature-panel h3 {
             font-size: clamp(18px, 3vw, 26px);
             color: #ffd700;
             margin-bottom: 16px;
             font-weight: 600;
         }
 
-        .step-content ul {
+        .feature-panel ul {
             list-style: none;
             padding: 0;
         }
 
-        .step-content li {
+        .feature-panel li {
             font-size: clamp(14px, 2vw, 16px);
             color: var(--text-secondary);
             margin-bottom: 12px;
@@ -1139,19 +1160,12 @@
             position: relative;
         }
 
-        .step-content li:before {
+        .feature-panel li:before {
             content: "•";
             position: absolute;
             left: 0;
             color: #ffd700;
             font-weight: bold;
-        }
-
-        .step-content.active {
-            opacity: 1;
-            transform: scale(1);
-            position: relative;
-            pointer-events: auto;
         }
 
         .feature-text {
@@ -1993,22 +2007,25 @@
             .tagline {
                 font-size: clamp(16px, 4vw, 20px);
             }
-            .feature-steps {
-                flex-direction: column;
-                gap: 24px;
-                margin: 40px 0;
+            .feature-scroll {
+                height: 280dvh;
             }
-            .steps-left {
+
+            .feature-sticky {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .feature-left {
                 width: 100%;
                 flex-direction: row;
                 flex-wrap: wrap;
                 gap: 12px;
-                min-width: auto;
-                position: static;
-                max-height: auto;
-                overflow: visible;
+                padding: 20px 16px;
+                margin-bottom: 20px;
             }
-            .step {
+
+            .feature-item {
                 flex: 1;
                 min-width: 80px;
                 justify-content: center;
@@ -2017,13 +2034,25 @@
                 gap: 8px;
                 padding: clamp(10px, 1.5vw, 14px);
             }
-            .step-icon {
+
+            .feature-item-icon {
                 font-size: clamp(20px, 3vw, 28px);
             }
-            .steps-right {
+
+            .feature-right-wrapper {
                 width: 100%;
-                min-height: 260dvh;
-                position: relative;
+                height: auto;
+                min-height: 300px;
+            }
+
+            .feature-right-track {
+                width: 300%;
+                height: auto;
+            }
+
+            .feature-panel {
+                width: calc(100% / 3);
+                padding: 20px 16px;
             }
             .nav-links {
                 gap: 15px;
@@ -2664,49 +2693,55 @@
             Explore this app 24/7 to support your learning journey!
         </p>
 
-        <div class="feature-steps" id="featuresSection">
-            <div class="steps-left">
-                <div class="step active" data-step="1">
-                    <div class="step-icon">AI</div>
-                    <div class="step-title">Smart Answers</div>
-                </div>
-                <div class="step" data-step="2">
-                    <div class="step-icon">24/7</div>
-                    <div class="step-title">Fast Response</div>
-                </div>
-                <div class="step" data-step="3">
-                    <div class="step-icon">FIX</div>
-                    <div class="step-title">Debug Help</div>
-                </div>
-            </div>
+        <div class="feature-scroll" id="featureScroll">
+            <div class="feature-sticky">
 
-            <div class="steps-right">
-                <div class="step-content active" data-step="1">
-                    <h3>AI that actually understands engineering</h3>
-                    <ul>
-                        <li>Explains complex concepts step-by-step</li>
-                        <li>Adapts answers to your knowledge level</li>
-                        <li>Gives formulas, logic, and real examples</li>
-                    </ul>
+                <div class="feature-left">
+                    <div class="feature-item active" data-panel="0">
+                        <div class="feature-item-icon">AI</div>
+                        <div class="feature-item-title">Smart Answers</div>
+                    </div>
+                    <div class="feature-item" data-panel="1">
+                        <div class="feature-item-icon">24/7</div>
+                        <div class="feature-item-title">Fast Response</div>
+                    </div>
+                    <div class="feature-item" data-panel="2">
+                        <div class="feature-item-icon">FIX</div>
+                        <div class="feature-item-title">Debug Help</div>
+                    </div>
                 </div>
 
-                <div class="step-content" data-step="2">
-                    <h3>Help in seconds, not hours</h3>
-                    <ul>
-                        <li>Instant replies to technical questions</li>
-                        <li>Available 24/7 without waiting</li>
-                        <li>Perfect for homework and exam prep</li>
-                    </ul>
+                <div class="feature-right-wrapper">
+                    <div class="feature-right-track">
+                        <div class="feature-panel">
+                            <h3>AI that actually understands engineering</h3>
+                            <ul>
+                                <li>Explains complex concepts step-by-step</li>
+                                <li>Adapts answers to your knowledge level</li>
+                                <li>Gives formulas, logic, and real examples</li>
+                            </ul>
+                        </div>
+
+                        <div class="feature-panel">
+                            <h3>Help in seconds, not hours</h3>
+                            <ul>
+                                <li>Instant replies to technical questions</li>
+                                <li>Available 24/7 without waiting</li>
+                                <li>Perfect for homework and exam prep</li>
+                            </ul>
+                        </div>
+
+                        <div class="feature-panel">
+                            <h3>Fix your code with expert guidance</h3>
+                            <ul>
+                                <li>Detects logic and syntax errors</li>
+                                <li>Explains why the issue happens</li>
+                                <li>Suggests clean, correct solutions</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="step-content" data-step="3">
-                    <h3>Fix your code with expert guidance</h3>
-                    <ul>
-                        <li>Detects logic and syntax errors</li>
-                        <li>Explains why the issue happens</li>
-                        <li>Suggests clean, correct solutions</li>
-                    </ul>
-                </div>
             </div>
         </div>
 
@@ -3459,70 +3494,69 @@
             }
         }
 
-        // Feature Steps Scroll Animation with Intersection Observer
-        (function initFeatureStepsAnimation() {
-            const steps = document.querySelectorAll('.step');
-            const contents = document.querySelectorAll('.step-content');
+        // Scroll-Driven Horizontal Feature Section Animation
+        (function initFeatureScrollAnimation() {
+            const featureScroll = document.querySelector('.feature-scroll');
+            const track = document.querySelector('.feature-right-track');
+            const items = document.querySelectorAll('.feature-item');
             
-            if (!steps.length || !contents.length) return;
+            if (!featureScroll || !track || !items.length) return;
 
             let ticking = false;
-            
-            // Create observer for premium scroll-driven animations
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        if (!ticking) {
-                            requestAnimationFrame(() => {
-                                const stepNum = entry.target.dataset.step;
-                                
-                                // Remove active from all
-                                steps.forEach(s => s.classList.remove('active'));
-                                contents.forEach(c => c.classList.remove('active'));
-                                
-                                // Add active to current panel and matching step
-                                entry.target.classList.add('active');
-                                const matchingStep = document.querySelector(`.step[data-step="${stepNum}"]`);
-                                if (matchingStep) {
-                                    matchingStep.classList.add('active');
-                                }
-                                ticking = false;
-                            });
-                            ticking = true;
-                        }
-                    }
+
+            function updateFeatures() {
+                // Get position of feature scroll section
+                const rect = featureScroll.getBoundingClientRect();
+                const scrollStart = window.innerHeight;
+                const scrollEnd = rect.height;
+
+                // Calculate scroll progress (0 to 1)
+                let progress = (scrollStart - rect.top) / scrollEnd;
+                progress = Math.max(0, Math.min(progress, 1));
+
+                // Update horizontal scroll based on vertical scroll progress
+                const maxMove = track.scrollWidth - track.clientWidth;
+                const moveX = progress * maxMove;
+                track.style.transform = `translateX(-${moveX}px)`;
+
+                // Update active item indicator
+                const panelCount = items.length;
+                const index = Math.min(
+                    panelCount - 1,
+                    Math.floor(progress * panelCount)
+                );
+
+                items.forEach((el, i) => {
+                    el.classList.toggle('active', i === index);
                 });
-            }, {
-                threshold: 0.5, // Trigger when 50% of content is visible
-                rootMargin: '0px'
+
+                ticking = false;
+            }
+
+            // Use requestAnimationFrame for smooth performance
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    requestAnimationFrame(updateFeatures);
+                    ticking = true;
+                }
             });
 
-            // Observe all content panels for scroll-driven activation
-            contents.forEach(content => {
-                observer.observe(content);
-            });
-
-            // Make steps clickable for manual navigation
-            steps.forEach((step, index) => {
-                step.addEventListener('click', () => {
-                    if (!ticking) {
-                        requestAnimationFrame(() => {
-                            steps.forEach(s => s.classList.remove('active'));
-                            contents.forEach(c => c.classList.remove('active'));
-
-                            step.classList.add('active');
-                            contents[index].classList.add('active');
-                            
-                            // Smooth scroll to content (mobile-optimized)
-                            if (window.innerWidth <= 768) {
-                                contents[index].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                            }
-                            ticking = false;
-                        });
-                        ticking = true;
-                    }
+            // Make feature items clickable
+            items.forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    // Calculate scroll position for this panel
+                    const sectionTop = featureScroll.getBoundingClientRect().top + window.scrollY;
+                    const scrollTo = sectionTop + (featureScroll.offsetHeight / items.length) * index;
+                    
+                    window.scrollTo({
+                        top: scrollTo,
+                        behavior: 'smooth'
+                    });
                 });
             });
+
+            // Initialize on load
+            updateFeatures();
         })();
     </script>
 
