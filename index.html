@@ -2217,58 +2217,56 @@
             position: relative;
             padding: 18px 48px;
             border-radius: 999px;
-            background: #0b0f14;
-            color: #7df9ff;
+            background: #0b0f12;
+            color: #7ef9ff;
             font-weight: 600;
             letter-spacing: 2px;
-            border: none;
+            border: 1px solid rgba(126, 249, 255, 0.4);
+            box-shadow: 0 0 8px rgba(126, 249, 255, 0.15);
             cursor: pointer;
-            overflow: hidden;
             text-transform: uppercase;
             font-size: 16px;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             z-index: 10001;
         }
 
-        .enter-button::before {
+        .enter-button::after {
             content: "";
             position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            padding: 2px;
-            background: linear-gradient(90deg, transparent, #00f7ff, transparent);
-            -webkit-mask: 
-                linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask: 
-                linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-            animation: scanBorder 3s linear infinite;
-            filter: drop-shadow(0 0 6px #00f7ff) drop-shadow(0 0 12px #00f7ff);
+            inset: -2px;
+            border-radius: 999px;
+            border: 1px solid rgba(126, 249, 255, 0.25);
+            box-shadow: 0 0 12px rgba(126, 249, 255, 0.25);
+            animation: glowPulse 3s ease-in-out infinite;
+            pointer-events: none;
         }
 
-        @keyframes scanBorder {
-            0%   { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes glowPulse {
+            0% {
+                opacity: 0.4;
+                box-shadow: 0 0 6px rgba(126, 249, 255, 0.15);
+            }
+            50% {
+                opacity: 1;
+                box-shadow: 0 0 18px rgba(126, 249, 255, 0.45);
+            }
+            100% {
+                opacity: 0.4;
+                box-shadow: 0 0 6px rgba(126, 249, 255, 0.15);
+            }
         }
 
         .enter-button span {
             position: relative;
             z-index: 1;
             display: block;
-            text-shadow: 0 0 10px rgba(125, 249, 255, 0.6);
+            color: #7ef9ff;
             font-weight: 700;
         }
 
         .enter-button:hover {
-            background: rgba(125, 249, 255, 0.1);
             transform: translateY(-2px);
-        }
-
-        .enter-button:hover::before {
-            animation-duration: 2s;
+            box-shadow: 0 0 18px rgba(126, 249, 255, 0.35);
         }
 
         .enter-button:active {
