@@ -167,7 +167,9 @@
             z-index: 10002;
             position: relative;
             text-shadow: none;
-            display: none;
+            display: inline-flex;
+            align-items: center;
+            margin-left: 12px;
         }
 
         #signInBtn:hover {
@@ -2998,10 +3000,10 @@
                     <div class="user-menu-item" id="logoutBtn">Logout</div>
                 </div>
             </div>
+            <button id="signInBtn" onclick="window.location.href='registration.html'" data-en="Sign In" data-ru="Войти" data-uz="Kirish">Sign In</button>
         </div>
         
         <div class="nav-right">
-            <button id="signInBtn" onclick="window.location.href='registration.html'" data-en="Sign In" data-ru="Войти" data-uz="Kirish">Sign In</button>
         </div>
         
         <!-- Hamburger Menu -->
