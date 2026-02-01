@@ -1295,8 +1295,8 @@
         /* Right sticky content viewport */
         .features-sticky {
             position: sticky;
-            top: 0;
-            height: 100vh;
+            top: 120px;
+            height: 420px;
             display: flex;
             align-items: center;
             overflow: hidden;
@@ -1306,7 +1306,7 @@
         .features-content {
             position: relative;
             width: 100%;
-            min-height: 500px;
+            height: 100%;
         }
 
         @keyframes titleSlideUp {
@@ -1342,11 +1342,11 @@
 
         .feature-panel {
             position: absolute;
-            width: 100%;
+            inset: 0;
             padding: 0 40px;
             opacity: 0;
-            transform: translateX(60px);
-            transition: all 0.6s ease;
+            transform: translateX(80px);
+            transition: transform 0.65s cubic-bezier(.22,.61,.36,1), opacity 0.45s ease;
             pointer-events: none;
         }
 
@@ -1354,6 +1354,13 @@
             opacity: 1;
             transform: translateX(0);
             pointer-events: auto;
+            z-index: 2;
+        }
+
+        .feature-panel.exit {
+            opacity: 0;
+            transform: translateX(-80px);
+            z-index: 1;
         }
 
         .feature-title {
@@ -1370,6 +1377,11 @@
             animation: titleSlideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
         }
 
+        .feature-panel.exit .feature-title {
+            animation: none;
+            opacity: 0;
+        }
+
         .feature-points {
             display: flex;
             flex-direction: column;
@@ -1381,6 +1393,11 @@
 
         .feature-panel.active .feature-points {
             animation: pointsContainerFadeIn 0.4s ease 0.35s forwards;
+        }
+
+        .feature-panel.exit .feature-points {
+            animation: none;
+            opacity: 0;
         }
 
         .point {
@@ -1396,6 +1413,11 @@
 
         .feature-panel.active .point {
             animation: bulletFadeSlideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        .feature-panel.exit .point {
+            animation: none;
+            opacity: 0;
         }
 
         .feature-panel.active .point:nth-child(1) {
@@ -3842,7 +3864,7 @@
         })();
 
         // Smooth Scroll-Triggered Feature Section
-        // Panels fade in/out based on scroll progress with overlapping effect
+        // Panels slide horizontally with exit-left and enter-right animation
         (function initFeatureScrollReveal() {
             const section = document.querySelector('.features-section');
             const steps = document.querySelectorAll('.step');
@@ -3851,6 +3873,28 @@
             if (!section || !steps.length || !panels.length) return;
 
             let currentIndex = 0;
+
+            function activatePanel(index) {
+                if (index === currentIndex) return;
+
+                const currentPanel = panels[currentIndex];
+                const nextPanel = panels[index];
+
+                // Old panel exits left
+                currentPanel.classList.remove('active');
+                currentPanel.classList.add('exit');
+
+                // Reset next panel before activating
+                nextPanel.classList.remove('exit');
+                nextPanel.classList.add('active');
+
+                // Update steps
+                steps.forEach((step, i) => {
+                    step.classList.toggle('active', i === index);
+                });
+
+                currentIndex = index;
+            }
 
             function updateActivePanel() {
                 const rect = section.getBoundingClientRect();
@@ -3862,19 +3906,7 @@
                 // Determine which panel should be active with reduced scroll sensitivity (0.85x multiplier)
                 const index = Math.min(Math.floor(progress * panels.length * 0.85), panels.length - 1);
 
-                if (index !== currentIndex) {
-                    currentIndex = index;
-                    
-                    // Update steps
-                    steps.forEach((step, i) => {
-                        step.classList.toggle('active', i === index);
-                    });
-                    
-                    // Update panels with fade in/out
-                    panels.forEach((panel, i) => {
-                        panel.classList.toggle('active', i === index);
-                    });
-                }
+                activatePanel(index);
             }
 
             // Throttle scroll event for performance
@@ -3895,6 +3927,8 @@
             // Make steps clickable for manual navigation
             steps.forEach((step, index) => {
                 step.addEventListener('click', () => {
+                    activatePanel(index);
+                    
                     const sectionTop = section.getBoundingClientRect().top + window.scrollY;
                     const sectionHeight = section.offsetHeight;
                     const targetProgress = (index + 0.5) / panels.length;
