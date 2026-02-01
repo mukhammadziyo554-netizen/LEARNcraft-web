@@ -1263,9 +1263,10 @@
             position: relative;
             padding: 0 5vw;
             margin: 60px 0;
+            gap: 40px;
         }
 
-        /* Left step list */
+        /* Left step list - STICKY */
         .features-steps {
             position: sticky;
             top: 120px;
@@ -1275,6 +1276,8 @@
             gap: 24px;
             padding-left: 40px;
             padding-right: 40px;
+            padding-top: 20px;
+            padding-bottom: 20px;
         }
 
         .step {
@@ -1315,25 +1318,27 @@
             color: #ffd400;
         }
 
-        /* Right sticky content viewport */
+        /* Right content area - scrolls naturally */
         .features-sticky {
-            position: sticky;
-            top: 120px;
-            height: 520px;
+            position: relative;
+            height: auto;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            overflow: hidden;
+            justify-content: flex-start;
+            gap: 200px;
+            padding-top: 100px;
+            padding-bottom: 100px;
         }
 
-        /* Panels stacked on top of each other */
+        /* Panels appear one by one as user scrolls */
         .features-content {
             position: relative;
             width: 100%;
-            height: 100%;
+            height: auto;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-direction: column;
+            gap: 300px;
         }
 
         @keyframes titleSlideUp {
@@ -1368,13 +1373,14 @@
         }
 
         .feature-panel {
-            position: absolute;
-            inset: 0;
-            padding: 40px 50px;
+            position: relative;
+            width: 100%;
+            min-height: 400px;
+            padding: 60px 40px;
             opacity: 0;
-            transform: translateX(80px);
-            transition: transform 0.65s cubic-bezier(.22,.61,.36,1), opacity 0.45s ease;
-            pointer-events: none;
+            transform: translateY(40px);
+            transition: transform 0.8s cubic-bezier(.22,.61,.36,1), opacity 0.6s ease;
+            pointer-events: auto;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -1382,14 +1388,14 @@
 
         .feature-panel.active {
             opacity: 1;
-            transform: translateX(0);
+            transform: translateY(0);
             pointer-events: auto;
             z-index: 2;
         }
 
         .feature-panel.exit {
             opacity: 0;
-            transform: translateX(-80px);
+            transform: translateY(40px);
             z-index: 1;
         }
 
@@ -3903,7 +3909,7 @@
         })();
 
         // Smooth Scroll-Triggered Feature Section
-        // Panels slide horizontally with exit-left and enter-right animation
+        // Left steps stay sticky, right panels appear as user scrolls down
         (function initFeatureScrollReveal() {
             const section = document.querySelector('.features-section');
             const steps = document.querySelectorAll('.step');
@@ -3911,78 +3917,46 @@
             
             if (!section || !steps.length || !panels.length) return;
 
-            let currentIndex = 0;
+            // Use IntersectionObserver for better performance
+            const observerOptions = {
+                threshold: [0.2, 0.5, 0.8],
+                rootMargin: '-30% 0px -30% 0px'
+            };
 
-            function activatePanel(index) {
-                if (index === currentIndex) return;
-
-                const currentPanel = panels[currentIndex];
-                const nextPanel = panels[index];
-
-                // Old panel exits left
-                currentPanel.classList.remove('active');
-                currentPanel.classList.add('exit');
-
-                // Reset next panel before activating
-                nextPanel.classList.remove('exit');
-                nextPanel.classList.add('active');
-
-                // Update steps
-                steps.forEach((step, i) => {
-                    step.classList.toggle('active', i === index);
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    const panelIndex = panels.length - 1 - ([...panels].reverse().indexOf(entry.target));
+                    
+                    if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
+                        entry.target.classList.add('active');
+                        entry.target.classList.remove('exit');
+                        
+                        // Update steps
+                        steps.forEach((step, i) => {
+                            step.classList.toggle('active', i === panelIndex);
+                        });
+                    } else {
+                        entry.target.classList.remove('active');
+                        entry.target.classList.add('exit');
+                    }
                 });
+            }, observerOptions);
 
-                currentIndex = index;
-            }
-
-            function updateActivePanel() {
-                const rect = section.getBoundingClientRect();
-                const sectionHeight = section.offsetHeight;
-                
-                // Calculate scroll progress (0 to 1)
-                const progress = Math.min(Math.max(-rect.top / (sectionHeight - window.innerHeight), 0), 1);
-                
-                // Presentation-style scrolling: divide section into equal parts for each panel
-                // Each panel gets roughly equal scroll distance, making transitions smooth and predictable
-                const index = Math.min(Math.floor(progress * panels.length), panels.length - 1);
-
-                activatePanel(index);
-            }
-
-            // Throttle scroll event for performance
-            let ticking = false;
-            function onScroll() {
-                if (!ticking) {
-                    window.requestAnimationFrame(() => {
-                        updateActivePanel();
-                        ticking = false;
-                    });
-                    ticking = true;
-                }
-            }
-
-            window.addEventListener('scroll', onScroll, { passive: true });
-            window.addEventListener('resize', onScroll);
+            // Observe each panel
+            panels.forEach((panel) => {
+                observer.observe(panel);
+            });
 
             // Make steps clickable for manual navigation
             steps.forEach((step, index) => {
                 step.addEventListener('click', () => {
-                    activatePanel(index);
-                    
-                    const sectionTop = section.getBoundingClientRect().top + window.scrollY;
-                    const sectionHeight = section.offsetHeight;
-                    const targetProgress = (index + 0.5) / panels.length;
-                    const scrollTo = sectionTop + (sectionHeight - window.innerHeight) * targetProgress;
-                    
-                    window.scrollTo({
-                        top: scrollTo,
-                        behavior: 'smooth'
+                    const targetPanel = panels[index];
+                    targetPanel.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
                     });
                 });
             });
-
-            // Initialize
-            updateActivePanel();
         })();
     </script>
 
