@@ -1328,15 +1328,18 @@
 
         /* Right content area - scrolls naturally */
         .features-sticky {
-            position: relative;
-            height: auto;
+            position: sticky;
+            top: 320px;
+            height: fit-content;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            gap: 200px;
-            padding-top: 100px;
-            padding-bottom: 100px;
+        }
+        
+        .features-content {
+            position: relative;
+            width: 100%;
         }
 
         /* Panels appear one by one as user scrolls */
