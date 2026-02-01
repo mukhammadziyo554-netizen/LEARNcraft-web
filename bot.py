@@ -1,4 +1,5 @@
 import logging
+import re
 from telegram import Update, BotCommand, WebAppInfo, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, MessageHandler, ContextTypes, filters
 
@@ -8,6 +9,60 @@ logging.basicConfig(
     level=logging.INFO
 )
 logger = logging.getLogger(__name__)
+
+# Engineering knowledge base
+ENGINEERING_KNOWLEDGE = {
+    'civil': {
+        'topics': ['structures', 'concrete', 'steel', 'soil mechanics', 'hydraulics', 'transportation', 'surveying'],
+        'formulas': {
+            'stress': 'σ = F/A (Force divided by Area)',
+            'strain': 'ε = ΔL/L (Change in length divided by original length)',
+            'moment': 'M = F × d (Force multiplied by distance)'
+        }
+    },
+    'mechanical': {
+        'topics': ['thermodynamics', 'fluid mechanics', 'mechanics', 'heat transfer', 'machine design', 'dynamics'],
+        'formulas': {
+            'force': 'F = ma (Force equals mass times acceleration)',
+            'power': 'P = W/t (Power equals work divided by time)',
+            'efficiency': 'η = (Output/Input) × 100%'
+        }
+    },
+    'electrical': {
+        'topics': ['circuits', 'power systems', 'electronics', 'signals', 'control systems', 'electromagnetics'],
+        'formulas': {
+            'ohms law': 'V = IR (Voltage equals current times resistance)',
+            'power': 'P = VI (Power equals voltage times current)',
+            'resistance': 'R = ρL/A (Resistance based on resistivity, length, area)'
+        }
+    },
+    'chemical': {
+        'topics': ['reactions', 'thermodynamics', 'mass transfer', 'process design', 'kinetics', 'separation'],
+        'formulas': {
+            'ideal gas': 'PV = nRT',
+            'reaction rate': 'rate = k[A]^n',
+            'mass balance': 'Input - Output + Generation - Consumption = Accumulation'
+        }
+    }
+}
+
+STUDY_GUIDANCE = {
+    'beginner': {
+        'advice': 'Start with fundamentals: mathematics (calculus, algebra), physics, and basic engineering principles.',
+        'resources': ['Khan Academy', 'MIT OpenCourseWare', 'Coursera Engineering courses'],
+        'timeline': '6-12 months for foundational knowledge'
+    },
+    'intermediate': {
+        'advice': 'Focus on core engineering courses, hands-on projects, and practical applications.',
+        'resources': ['Engineering textbooks', 'Online labs', 'Industry case studies'],
+        'timeline': '1-2 years for specialization'
+    },
+    'advanced': {
+        'advice': 'Pursue specialized topics, research papers, and real-world projects.',
+        'resources': ['Research journals', 'Advanced courses', 'Industry collaborations'],
+        'timeline': '2+ years for mastery'
+    }
+}
 
 # Replace with your Telegram Bot Token
 # Get it from @BotFather on Telegram
@@ -43,11 +98,27 @@ def build_help_text() -> str:
            "  • Command descriptions\n" \
            "  • Support information\n" \
            "  • Contact details\n\n" \
+           "*/ask* - Ask AI engineering questions\n" \
+           "  • Get instant answers to engineering questions\n" \
+           "  • Learn formulas and concepts\n" \
+           "  • Study guidance and career advice\n\n" \
            "*/custom* - Access advanced features\n" \
            "  • View engineering courses\n" \
-           "  • Ask AI for help\n" \
+           "  • Access specialized tools\n" \
            "  • Submit feedback\n" \
            "  • Check system status\n\n" \
+           "━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" \
+           "🤖 *AI Assistant Features:*\n\n" \
+           "Just type your question naturally and I'll help with:\n" \
+           "• 📐 Engineering formulas (stress, power, Ohm's law, etc.)\n" \
+           "• 📚 Study plans and learning paths\n" \
+           "• 🎓 Career guidance in engineering\n" \
+           "• 🔧 Specific topics in Civil, Mechanical, Electrical, Chemical Engineering\n\n" \
+           "Examples:\n" \
+           "• 'How do I calculate stress?'\n" \
+           "• 'What should I study to become an engineer?'\n" \
+           "• 'Explain Ohm's law'\n" \
+           "• 'Tell me about mechanical engineering'\n\n" \
            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n" \
            "🌐 *LEARNcraft Web App Features:*\n\n" \
            "• 6 Engineering Fields (Civil, Aerospace, Mechanical, Electrical, Nuclear, Chemical)\n" \
@@ -225,14 +296,17 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
         await update.message.reply_text(FEEDBACK_THANKS)
         return
 
-    # Otherwise, respond to regular messages
+    # AI-powered question answering
+    message_text = update.message.text.lower()
+    response = generate_ai_response(message_text)
+    
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton(
             text="🚀 Open LEARNcraft App",
             web_app=WebAppInfo(url=MINI_APP_URL)
         )],
         [InlineKeyboardButton(
-            text="📚 Get Help",
+            text="📚 Get More Help",
             callback_data="show_help"
         )],
         [InlineKeyboardButton(
@@ -241,19 +315,186 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
         )]
     ])
     
-    await update.message.reply_text(
-        "👋 Hi! I'm LEARNcraft Bot.\n\n"
-        "Use the buttons below or type:\n"
-        "• /start - Welcome message\n"
-        "• /help - Full help guide\n"
-        "• /custom - Advanced features",
-        parse_mode='Markdown',
-        reply_markup=keyboard
+    await update.message.reply_text(response, parse_mode='Markdown', reply_markup=keyboard)
+
+def generate_ai_response(message: str) -> str:
+    """Generate intelligent responses based on message content."""
+    
+    # Check if asking about studying or learning
+    if any(word in message for word in ['how to study', 'what to study', 'where to start', 'learning path', 'roadmap']):
+        return generate_study_guidance(message)
+    
+    # Check if asking about specific engineering field
+    for field in ENGINEERING_KNOWLEDGE.keys():
+        if field in message:
+            return generate_engineering_answer(field, message)
+    
+    # Check if asking about formulas
+    if any(word in message for word in ['formula', 'equation', 'calculate', 'computation']):
+        return generate_formula_help(message)
+    
+    # Check if asking about career or education
+    if any(word in message for word in ['career', 'job', 'salary', 'university', 'degree']):
+        return generate_career_guidance(message)
+    
+    # Check if greeting
+    if any(word in message for word in ['hello', 'hi', 'hey', 'greetings']):
+        return (
+            "👋 Hello! I'm your AI engineering assistant.\n\n"
+            "I can help you with:\n"
+            "• Engineering concepts and formulas\n"
+            "• Study guidance and learning paths\n"
+            "• Career advice in engineering\n"
+            "• Specific questions about Civil, Mechanical, Electrical, or Chemical Engineering\n\n"
+            "What would you like to know?"
+        )
+    
+    # Default intelligent response
+    return (
+        "🤖 *AI Assistant*\n\n"
+        "I'm here to help with engineering questions!\n\n"
+        "You can ask me about:\n"
+        "• 📐 Engineering formulas and calculations\n"
+        "• 📚 Study plans and learning paths\n"
+        "• 🎓 Career guidance in engineering\n"
+        "• 🔧 Specific topics in Civil, Mechanical, Electrical, or Chemical Engineering\n\n"
+        "Examples:\n"
+        "• 'How do I calculate stress in a beam?'\n"
+        "• 'What should I study to become a mechanical engineer?'\n"
+        "• 'Explain Ohm's law'\n\n"
+        "Or use /help to see all available commands!"
+    )
+
+def generate_study_guidance(message: str) -> str:
+    """Generate personalized study guidance."""
+    
+    level = 'beginner'
+    if 'advanced' in message or 'expert' in message:
+        level = 'advanced'
+    elif 'intermediate' in message or 'some experience' in message:
+        level = 'intermediate'
+    
+    guidance = STUDY_GUIDANCE[level]
+    
+    return (
+        f"📚 *Study Guidance - {level.capitalize()} Level*\n\n"
+        f"💡 *Recommendation:*\n{guidance['advice']}\n\n"
+        f"📖 *Suggested Resources:*\n"
+        + "\n".join([f"• {resource}" for resource in guidance['resources']]) +
+        f"\n\n⏱ *Typical Timeline:*\n{guidance['timeline']}\n\n"
+        f"🎯 *Next Steps:*\n"
+        f"1. Start with foundational mathematics\n"
+        f"2. Learn core engineering principles\n"
+        f"3. Practice with real problems\n"
+        f"4. Work on hands-on projects\n\n"
+        f"Need specific guidance for a field? Ask about Civil, Mechanical, Electrical, or Chemical Engineering!"
+    )
+
+def generate_engineering_answer(field: str, message: str) -> str:
+    """Generate engineering-specific answers."""
+    
+    field_data = ENGINEERING_KNOWLEDGE[field]
+    field_name = field.capitalize()
+    
+    # Check if asking about specific formula
+    for formula_name, formula_text in field_data['formulas'].items():
+        if formula_name in message:
+            return (
+                f"📐 *{field_name} Engineering Formula*\n\n"
+                f"**{formula_name.title()}:**\n"
+                f"`{formula_text}`\n\n"
+                f"💡 *Application:*\n"
+                f"This formula is fundamental in {field_name} Engineering calculations.\n\n"
+                f"Need more examples or explanations? Just ask!"
+            )
+    
+    # General field information
+    return (
+        f"🔧 *{field_name} Engineering*\n\n"
+        f"📚 *Key Topics:*\n"
+        + "\n".join([f"• {topic.title()}" for topic in field_data['topics']]) +
+        f"\n\n📐 *Important Formulas:*\n"
+        + "\n".join([f"• **{name.title()}:** `{formula}`" for name, formula in field_data['formulas'].items()]) +
+        f"\n\n💡 Want to learn more about a specific topic? Ask me about it!"
+    )
+
+def generate_formula_help(message: str) -> str:
+    """Generate help for formula-related questions."""
+    
+    # Check common formulas across fields
+    formulas_found = []
+    
+    for field, data in ENGINEERING_KNOWLEDGE.items():
+        for formula_name, formula_text in data['formulas'].items():
+            if any(word in message for word in formula_name.split()):
+                formulas_found.append((field, formula_name, formula_text))
+    
+    if formulas_found:
+        response = "📐 *Engineering Formulas*\n\n"
+        for field, name, formula in formulas_found:
+            response += f"**{name.title()}** ({field.capitalize()}):\n`{formula}`\n\n"
+        response += "Need step-by-step explanation? Just ask!"
+        return response
+    
+    return (
+        "📐 *Formula Help*\n\n"
+        "I can help you with engineering formulas!\n\n"
+        "Available formulas by field:\n"
+        "• **Civil:** Stress, Strain, Moment\n"
+        "• **Mechanical:** Force, Power, Efficiency\n"
+        "• **Electrical:** Ohm's Law, Power, Resistance\n"
+        "• **Chemical:** Ideal Gas, Reaction Rate, Mass Balance\n\n"
+        "Ask me about a specific formula!"
+    )
+
+def generate_career_guidance(message: str) -> str:
+    """Generate career-related guidance."""
+    
+    return (
+        "💼 *Engineering Career Guidance*\n\n"
+        "🎓 *Education Path:*\n"
+        "1. Bachelor's degree (4 years)\n"
+        "2. Internships and co-ops\n"
+        "3. Professional Engineer (PE) license (optional)\n"
+        "4. Master's/PhD for advanced roles (optional)\n\n"
+        "💰 *Career Prospects:*\n"
+        "• Strong job growth in most engineering fields\n"
+        "• Competitive salaries ($60k-$120k+ depending on experience)\n"
+        "• Opportunities in various industries\n\n"
+        "🏢 *Common Sectors:*\n"
+        "• Manufacturing & Production\n"
+        "• Energy & Utilities\n"
+        "• Consulting & Design\n"
+        "• Research & Development\n"
+        "• Technology & Software\n\n"
+        "Want specific advice about a field? Ask me about Civil, Mechanical, Electrical, or Chemical Engineering careers!"
     )
 
 async def chatid_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     chat = update.effective_chat
     await update.message.reply_text(f"Chat ID: {chat.id}")
+
+async def ask_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Handle /ask command for direct AI questions."""
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton(
+            text="🚀 Open LEARNcraft App",
+            web_app=WebAppInfo(url=MINI_APP_URL)
+        )]
+    ])
+    
+    await update.message.reply_text(
+        "🤖 *Ask AI Assistant*\n\n"
+        "I'm ready to answer your engineering questions!\n\n"
+        "You can ask me:\n"
+        "• Engineering formulas and calculations\n"
+        "• Study guidance and learning paths\n"
+        "• Career advice\n"
+        "• Specific topics in Civil, Mechanical, Electrical, or Chemical Engineering\n\n"
+        "Just type your question and I'll help you! 💡",
+        parse_mode='Markdown',
+        reply_markup=keyboard
+    )
 
 def main() -> None:
     """Start the bot."""
@@ -265,6 +506,7 @@ def main() -> None:
     application.add_handler(CommandHandler("help", help_command))
     application.add_handler(CommandHandler("custom", custom_command))
     application.add_handler(CommandHandler("feedback", feedback_command))
+    application.add_handler(CommandHandler("ask", ask_command))
     application.add_handler(CommandHandler("chatid", chatid_command))
     application.add_handler(CallbackQueryHandler(button_callback))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
