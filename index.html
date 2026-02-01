@@ -1237,40 +1237,56 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            opacity: 0.4;
+            transform: translateX(40px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
-        .feature-panel h3 {
-            font-size: clamp(20px, 3vw, 28px);
-            color: #ffd700;
-            margin-bottom: 24px;
+        .feature-panel.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .feature-title {
+            font-size: clamp(24px, 3.5vw, 32px);
+            color: #ffd400;
+            margin-bottom: 25px;
             font-weight: 600;
-            line-height: 1.3;
+            line-height: 1.2;
         }
 
-        .feature-panel ul {
-            list-style: none;
-            padding: 0;
+        .feature-points {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 18px;
+            max-width: 520px;
         }
 
-        .feature-panel li {
-            font-size: clamp(14px, 2vw, 18px);
-            color: var(--text-secondary);
-            padding-left: 28px;
-            position: relative;
-            line-height: 1.6;
+        .point {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: #cfcfcf;
+            font-size: clamp(14px, 1.8vw, 16px);
+            line-height: 1.5;
         }
 
-        .feature-panel li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #7ef9ff;
-            font-size: 20px;
-            font-weight: bold;
-            line-height: 1.6;
+        .point strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .point p {
+            margin: 0;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: #ffd400;
+            border-radius: 50%;
+            margin-top: 8px;
+            flex-shrink: 0;
         }
 
         .feature-text {
@@ -2840,31 +2856,62 @@
             <div class="features-sticky">
                 <div class="features-content">
 
-                    <div class="feature-panel">
-                        <h3>AI that actually understands engineering</h3>
-                        <ul>
-                            <li>Explains complex concepts step-by-step</li>
-                            <li>Adapts answers to your knowledge level</li>
-                            <li>Gives formulas, logic, and real examples</li>
-                        </ul>
+                    <div class="feature-panel active" data-panel="0">
+                        <h2 class="feature-title">AI that thinks like an engineer</h2>
+                        <div class="feature-points">
+                            <div class="point">
+                                <span class="dot"></span>
+                                <p><strong>Step-by-step explanations</strong> for formulas, theories, and problem solving</p>
+                            </div>
+                            <div class="point">
+                                <span class="dot"></span>
+                                <p><strong>Adapts to your level</strong> — from beginner concepts to advanced topics</p>
+                            </div>
+                            <div class="point">
+                                <span class="dot"></span>
+                                <p><strong>Real engineering logic</strong>, not generic AI guesses</p>
+                            </div>
+                            <div class="point">
+                                <span class="dot"></span>
+                                <p><strong>Clear examples</strong> that connect theory to practice</p>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="feature-panel">
-                        <h3>Help in seconds, not hours</h3>
-                        <ul>
-                            <li>Instant replies to technical questions</li>
-                            <li>Available 24/7 without waiting</li>
-                            <li>Perfect for homework and exam prep</li>
-                        </ul>
+                    <div class="feature-panel" data-panel="1">
+                        <h2 class="feature-title">Help in seconds, not hours</h2>
+                        <div class="feature-points">
+                            <div class="point">
+                                <span class="dot"></span>
+                                <p><strong>Instant replies</strong> to technical questions</p>
+                            </div>
+                            <div class="point">
+                                <span class="dot"></span>
+                                <p><strong>Available 24/7</strong> without waiting</p>
+                            </div>
+                            <div class="point">
+                                <span class="dot"></span>
+                                <p><strong>Perfect for homework</strong> and exam prep</p>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="feature-panel">
-                        <h3>Fix your code with expert guidance</h3>
-                        <ul>
-                            <li>Detects logic and syntax errors</li>
-                            <li>Explains why the issue happens</li>
-                            <li>Suggests clean, correct solutions</li>
-                        </ul>
+                    <div class="feature-panel" data-panel="2">
+                        <h2 class="feature-title">Fix your code with expert guidance</h2>
+                        <div class="feature-points">
+                            <div class="point">
+                                <span class="dot"></span>
+                                <p><strong>Detects logic and syntax errors</strong> in your code</p>
+                            </div>
+                            <div class="point">
+                                <span class="dot"></span>
+                                <p><strong>Explains why</strong> the issue happens</p>
+                            </div>
+                            <div class="point">
+                                <span class="dot"></span>
+                                <p><strong>Suggests clean, correct solutions</strong> that follow best practices</p>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -3639,6 +3686,12 @@
 
                 steps.forEach((step, i) => {
                     step.classList.toggle('active', i === index);
+                });
+
+                // Toggle active class on panels for fade-in animation
+                const panels = document.querySelectorAll('.feature-panel');
+                panels.forEach((panel, i) => {
+                    panel.classList.toggle('active', i === index);
                 });
             }
 
