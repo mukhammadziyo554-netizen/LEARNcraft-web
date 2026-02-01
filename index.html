@@ -1267,6 +1267,7 @@
             padding: 0 5vw;
             margin: 60px 0;
             gap: 40px;
+            scroll-snap-type: y proximity;
         }
 
         /* Left step list - STICKY */
@@ -1386,11 +1387,13 @@
             padding: 60px 40px;
             opacity: 0;
             transform: translateY(40px);
-            transition: transform 0.8s cubic-bezier(.22,.61,.36,1), opacity 0.6s ease;
+            transition: transform 1s cubic-bezier(.22,.61,.36,1), opacity 0.8s ease;
             pointer-events: auto;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            scroll-snap-align: center;
+            scroll-snap-stop: always;
         }
 
         .feature-panel.active {
@@ -1456,7 +1459,7 @@
         }
 
         .feature-panel.active .point {
-            animation: bulletFadeSlideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation: bulletFadeSlideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
         .feature-panel.exit .point {
@@ -1465,19 +1468,19 @@
         }
 
         .feature-panel.active .point:nth-child(1) {
-            animation-delay: 0.4s;
+            animation-delay: 0.5s;
         }
 
         .feature-panel.active .point:nth-child(2) {
-            animation-delay: 0.55s;
+            animation-delay: 0.75s;
         }
 
         .feature-panel.active .point:nth-child(3) {
-            animation-delay: 0.7s;
+            animation-delay: 1s;
         }
 
         .feature-panel.active .point:nth-child(4) {
-            animation-delay: 0.85s;
+            animation-delay: 1.25s;
         }
 
         .point strong {
@@ -3938,23 +3941,31 @@
             if (!section || !steps.length || !panels.length) return;
 
             // Use IntersectionObserver for better performance
+            let lastActivationTime = 0;
+            const MINIMUM_DISPLAY_TIME = 2000; // Minimum 2 seconds to see animation
+            
             const observerOptions = {
-                threshold: [0.2, 0.5, 0.8],
-                rootMargin: '-30% 0px -30% 0px'
+                threshold: [0.3, 0.6, 0.9],
+                rootMargin: '-20% 0px -20% 0px'
             };
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach((entry, index) => {
                     const panelIndex = panels.length - 1 - ([...panels].reverse().indexOf(entry.target));
+                    const currentTime = Date.now();
                     
-                    if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
-                        entry.target.classList.add('active');
-                        entry.target.classList.remove('exit');
-                        
-                        // Update steps
-                        steps.forEach((step, i) => {
-                            step.classList.toggle('active', i === panelIndex);
-                        });
+                    if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+                        // Only activate if enough time has passed since last activation
+                        if (currentTime - lastActivationTime >= MINIMUM_DISPLAY_TIME) {
+                            entry.target.classList.add('active');
+                            entry.target.classList.remove('exit');
+                            lastActivationTime = currentTime;
+                            
+                            // Update steps
+                            steps.forEach((step, i) => {
+                                step.classList.toggle('active', i === panelIndex);
+                            });
+                        }
                     } else {
                         entry.target.classList.remove('active');
                         entry.target.classList.add('exit');
