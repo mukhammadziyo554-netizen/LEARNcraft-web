@@ -948,18 +948,19 @@
             }
 
             .features-section {
-                height: auto;
+                display: flex;
                 flex-direction: column;
+                min-height: auto;
                 padding: 40px 20px;
                 margin: 40px 0;
             }
 
             .features-steps {
-                width: 100%;
                 position: relative;
+                top: 0;
                 height: auto;
                 gap: 16px;
-                padding-right: 0;
+                padding: 0;
                 margin-bottom: 30px;
             }
 
@@ -977,19 +978,22 @@
             }
 
             .features-sticky {
-                width: 100%;
                 position: relative;
                 height: auto;
-                min-height: 300px;
+                min-height: 400px;
             }
 
             .features-content {
-                width: 100%;
+                min-height: 400px;
             }
 
             .feature-panel {
-                width: 100%;
+                position: relative;
                 padding: 0 20px;
+            }
+
+            .feature-panel.active {
+                position: relative;
             }
 
             .button {
@@ -1184,30 +1188,30 @@
 
         /* Step-Based Feature Section */
         .features-section {
-            height: 220vh;
+            display: grid;
+            grid-template-columns: 35% 65%;
+            min-height: 300vh;
             position: relative;
-            display: flex;
             padding: 0 5vw;
             margin: 60px 0;
         }
 
         /* Left step list */
         .features-steps {
-            width: 35%;
+            position: sticky;
+            top: 120px;
+            height: fit-content;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            gap: 30px;
-            position: sticky;
-            top: 0;
-            height: 100vh;
+            gap: 24px;
+            padding-left: 40px;
             padding-right: 40px;
         }
 
         .step {
             opacity: 0.3;
             font-weight: 600;
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: all 0.4s ease;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -1219,18 +1223,18 @@
 
         .step-icon {
             font-size: 32px;
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
         }
 
         .step-title {
             font-size: clamp(16px, 2vw, 20px);
             color: var(--text-secondary);
-            transition: color 0.3s ease;
+            transition: color 0.4s ease;
         }
 
         .step.active {
             opacity: 1;
-            transform: translateX(10px);
+            transform: translateX(8px);
             background: rgba(255, 212, 0, 0.08);
         }
 
@@ -1244,7 +1248,6 @@
 
         /* Right sticky content viewport */
         .features-sticky {
-            width: 65%;
             position: sticky;
             top: 0;
             height: 100vh;
@@ -1253,41 +1256,27 @@
             overflow: hidden;
         }
 
-        /* Horizontal sliding container */
+        /* Panels stacked on top of each other */
         .features-content {
-            display: flex;
-            width: 300%;
-            transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-            will-change: transform;
+            position: relative;
+            width: 100%;
+            min-height: 500px;
         }
 
         .feature-panel {
-            width: 33.333%;
-            flex-shrink: 0;
+            position: absolute;
+            width: 100%;
             padding: 0 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
             opacity: 0;
-            transform: translateX(0);
-            transition: opacity 0.3s ease, transform 0.4s ease;
+            transform: translateX(60px);
+            transition: all 0.6s ease;
+            pointer-events: none;
         }
 
         .feature-panel.active {
             opacity: 1;
             transform: translateX(0);
-            animation: subtleSlideIn 0.4s ease-out forwards;
-        }
-
-        @keyframes subtleSlideIn {
-            0% {
-                opacity: 0;
-                transform: translateX(-60px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            pointer-events: auto;
         }
 
         .feature-title {
@@ -3741,57 +3730,74 @@
             });
         })();
 
-        // Step-Based Feature Section Animation
-        // Uses IntersectionObserver for controlled, readable transitions
-        (function initFeatureStepAnimation() {
+        // Smooth Scroll-Triggered Feature Section
+        // Panels fade in/out based on scroll progress with overlapping effect
+        (function initFeatureScrollReveal() {
+            const section = document.querySelector('.features-section');
             const steps = document.querySelectorAll('.step');
-            const content = document.querySelector('.features-content');
+            const panels = document.querySelectorAll('.feature-panel');
             
-            if (!steps.length || !content) return;
+            if (!section || !steps.length || !panels.length) return;
 
             let currentIndex = 0;
 
-            function setActiveStep(index) {
-                if (index === currentIndex) return;
+            function updateActivePanel() {
+                const rect = section.getBoundingClientRect();
+                const sectionHeight = section.offsetHeight;
+                
+                // Calculate scroll progress (0 to 1)
+                const progress = Math.min(Math.max(-rect.top / (sectionHeight - window.innerHeight), 0), 1);
+                
+                // Determine which panel should be active
+                const index = Math.min(Math.floor(progress * panels.length), panels.length - 1);
 
-                currentIndex = index;
-                content.style.transform = `translateX(-${index * 33.333}%)`;
-
-                steps.forEach((step, i) => {
-                    step.classList.toggle('active', i === index);
-                });
-
-                // Toggle active class on panels for fade-in animation
-                const panels = document.querySelectorAll('.feature-panel');
-                panels.forEach((panel, i) => {
-                    panel.classList.toggle('active', i === index);
-                });
+                if (index !== currentIndex) {
+                    currentIndex = index;
+                    
+                    // Update steps
+                    steps.forEach((step, i) => {
+                        step.classList.toggle('active', i === index);
+                    });
+                    
+                    // Update panels with fade in/out
+                    panels.forEach((panel, i) => {
+                        panel.classList.toggle('active', i === index);
+                    });
+                }
             }
 
-            // Use IntersectionObserver with threshold to wait until step is clearly visible
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const index = Number(entry.target.dataset.step);
-                        setActiveStep(index);
-                    }
-                });
-            }, {
-                threshold: 0.6,
-                rootMargin: '0px'
-            });
+            // Throttle scroll event for performance
+            let ticking = false;
+            function onScroll() {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        updateActivePanel();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
 
-            steps.forEach(step => observer.observe(step));
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', onScroll);
 
             // Make steps clickable for manual navigation
             steps.forEach((step, index) => {
                 step.addEventListener('click', () => {
-                    step.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+                    const sectionHeight = section.offsetHeight;
+                    const targetProgress = (index + 0.5) / panels.length;
+                    const scrollTo = sectionTop + (sectionHeight - window.innerHeight) * targetProgress;
+                    
+                    window.scrollTo({
+                        top: scrollTo,
+                        behavior: 'smooth'
+                    });
                 });
             });
 
-            // Initialize first step as active
-            setActiveStep(0);
+            // Initialize
+            updateActivePanel();
         })();
     </script>
 
