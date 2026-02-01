@@ -3793,17 +3793,26 @@
             // Only this email can see the Admin button
             const adminEmail = 'mukhammadziyo554@gmail.com';
             
+            console.log('Checking admin access for email:', email);
+            console.log('Admin email expected:', adminEmail);
+            console.log('Match:', email.toLowerCase() === adminEmail.toLowerCase());
+            
             if (email.toLowerCase() === adminEmail.toLowerCase()) {
+                console.log('Admin access granted!');
                 // Show admin button in nav menu
                 const adminMenuItem = document.getElementById('adminBtnMenu');
                 if (adminMenuItem) {
                     adminMenuItem.style.display = 'block';
+                    console.log('Admin button shown in sidebar');
                 }
                 // Show admin button in sidebar footer
                 const adminBtnFooter = document.getElementById('adminBtnFooter');
                 if (adminBtnFooter) {
                     adminBtnFooter.style.display = 'inline-flex';
+                    console.log('Admin button shown in footer');
                 }
+            } else {
+                console.log('Admin access denied for:', email);
             }
         }
 
