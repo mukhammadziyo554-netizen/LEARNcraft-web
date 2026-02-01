@@ -3032,12 +3032,12 @@
             <a href="support.html" class="sidebar-item" onclick="closeSidebar();" data-en="Support" data-ru="Поддержка" data-uz="Yordam">Support</a>
             <a href="#" class="sidebar-item" onclick="closeSidebar();" data-en="Enterprise" data-ru="Предприятие" data-uz="Biznes">Enterprise</a>
             <a href="#" class="sidebar-item" onclick="closeSidebar();" data-en="Pricing" data-ru="Цены" data-uz="Narxlar">Pricing</a>
-            <a href="admin.html" class="sidebar-item" onclick="closeSidebar();" data-en="Admin" data-ru="Администратор" data-uz="Admin">Admin</a>
+            <a href="admin.html" class="sidebar-item" id="adminBtnMenu" style="display: none;" onclick="closeSidebar();" data-en="Admin" data-ru="Администратор" data-uz="Admin">Admin</a>
         </nav>
         <div class="sidebar-footer">
             <button class="sidebar-login" onclick="window.location.href='registration.html'; closeSidebar();" data-en="Log in" data-ru="Войти" data-uz="Kirish">Log in</button>
             <button class="sidebar-signup" onclick="window.location.href='registration.html'; closeSidebar();" data-en="Sign up" data-ru="Зарегистрироваться" data-uz="Ro'yxatdan o'tish">Sign up</button>
-            <button class="sidebar-admin" onclick="window.location.href='admin.html'; closeSidebar();" data-en="Admin" data-ru="Администратор" data-uz="Admin">Admin</button>
+            <button class="sidebar-admin" id="adminBtnFooter" style="display: none;" onclick="window.location.href='admin.html'; closeSidebar();" data-en="Admin" data-ru="Администратор" data-uz="Admin">Admin</button>
         </div>
     </div>
 
@@ -3793,15 +3793,15 @@
             const adminEmail = 'mukhammadziyo554@gmail.com';
             
             if (email.toLowerCase() === adminEmail.toLowerCase()) {
-                // Show admin button in nav bar
-                const adminBtnNav = document.getElementById('adminBtnNav');
-                if (adminBtnNav) {
-                    adminBtnNav.style.display = 'inline-block';
-                }
-                // Show admin button in menu
+                // Show admin button in nav menu
                 const adminMenuItem = document.getElementById('adminBtnMenu');
                 if (adminMenuItem) {
                     adminMenuItem.style.display = 'block';
+                }
+                // Show admin button in sidebar footer
+                const adminBtnFooter = document.getElementById('adminBtnFooter');
+                if (adminBtnFooter) {
+                    adminBtnFooter.style.display = 'inline-flex';
                 }
             }
         }
