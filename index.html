@@ -460,6 +460,58 @@
             transform: translateY(-2px);
         }
 
+        /* 3 Core Benefits Features Section */
+        .features {
+            padding: 100px 20px;
+            background: #000;
+        }
+
+        .features-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: linear-gradient(145deg, #111, #0a0a0a);
+            border: 1px solid #1f1f1f;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: #ffd84d;
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(255, 216, 77, 0.15);
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            font-size: 16px;
+            color: #a6a6a6;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 900px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card {
+                padding: 30px;
+            }
+        }
+
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 38px;
@@ -2963,6 +3015,37 @@
           <button class="btn-primary" onclick="window.location.href='learn.html'">Start Learning</button>
           <button class="btn-secondary" onclick="window.location.href='learn.html'">Explore Fields</button>
         </div>
+      </div>
+    </section>
+
+    <!-- 3 Core Benefits Section -->
+    <section class="features">
+      <div class="features-grid">
+
+        <div class="feature-card">
+          <h3>Structured Roadmaps</h3>
+          <p>
+            Follow step-by-step learning paths designed by engineering logic,
+            so you always know what to study next.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>AI Study Support</h3>
+          <p>
+            Get instant explanations, problem-solving help, and concept breakdowns
+            whenever you get stuck.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>Track Your Progress</h3>
+          <p>
+            Stay consistent with smart progress tracking, weekly goals,
+            and stage completion milestones.
+          </p>
+        </div>
+
       </div>
     </section>
 
