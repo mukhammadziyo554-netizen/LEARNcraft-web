@@ -16,288 +16,249 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-            color: #C9A961;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #000000;
+            color: #EAEAEA;
             min-height: 100vh;
         }
 
         .page-container {
-            max-width: 100%;
-            padding: 60px 20px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px 60px;
         }
 
         .back-button {
             display: inline-block;
-            padding: 12px 24px;
-            background: rgba(201, 169, 97, 0.2);
-            border: 2px solid #C9A961;
-            border-radius: 8px;
-            color: #C9A961;
+            padding: 10px 16px;
+            background: transparent;
+            border: none;
+            color: #888;
             text-decoration: none;
-            font-weight: bold;
-            margin-bottom: 40px;
-            transition: 0.3s;
+            font-weight: 500;
+            font-size: 14px;
             cursor: pointer;
+            transition: color 0.3s;
+            margin-bottom: 40px;
         }
 
         .back-button:hover {
-            background: rgba(201, 169, 97, 0.3);
-            transform: translateX(-5px);
+            color: #EAEAEA;
         }
 
-        .field-header {
-            text-align: center;
-            margin-bottom: 60px;
-            animation: fadeInDown 1s ease-out;
+        .article-header {
+            margin-bottom: 50px;
         }
 
-        .field-title {
-            font-size: 64px;
-            font-weight: bold;
-            color: #D4AF37;
-            text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+        .article-title {
+            font-size: 56px;
+            font-weight: 700;
+            color: #EAEAEA;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .article-subtitle {
+            font-size: 20px;
+            color: #888;
+            font-weight: 400;
+        }
+
+        .intro-paragraph {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #EAEAEA;
+            margin: 40px 0 30px 0;
+        }
+
+        .explore-button {
+            display: inline-block;
+            margin: 30px 0;
+            padding: 12px 28px;
+            background: transparent;
+            border: 2px solid #FFD84D;
+            color: #FFD84D;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .explore-button:hover {
+            background: #FFD84D;
+            color: #000000;
+            transform: translateY(-2px);
+        }
+
+        .article-content {
+            margin-top: 50px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #EAEAEA;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #222;
+        }
+
+        .section-content {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #EAEAEA;
+        }
+
+        .section-content p {
+            margin-bottom: 18px;
+        }
+
+        .subsection {
+            margin-top: 28px;
             margin-bottom: 20px;
         }
 
-        .field-subtitle {
-            font-size: 24px;
-            color: #C9A961;
-        }
-
-        .roadmap-section {
-            max-width: 900px;
-            margin: 0 auto;
-            animation: fadeInUp 1s ease-out 0.2s both;
-        }
-
-        .roadmap-title {
-            font-size: 32px;
-            color: #D4AF37;
-            text-align: center;
-            margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-        }
-
-        .roadmap-subtitle {
+        .subsection-title {
             font-size: 18px;
-            color: #C9A961;
-            text-align: center;
-            margin-bottom: 40px;
+            font-weight: 600;
+            color: #FFD84D;
+            margin-bottom: 10px;
         }
 
-        .roadmap-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .roadmap-step {
-            display: flex;
-            gap: 20px;
-            padding: 20px;
-            background: rgba(201, 169, 97, 0.1);
-            border-left: 4px solid #FFD700;
-            border-radius: 8px;
-            transition: all 0.3s;
-            animation: slideInLeft 0.6s ease-out;
-        }
-
-        .roadmap-step:hover {
-            background: rgba(201, 169, 97, 0.15);
-            transform: translateX(10px);
-            box-shadow: 0 5px 20px rgba(201, 169, 97, 0.2);
-        }
-
-        .step-number {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #C9A961 0%, #D4AF37 100%);
-            color: black;
-            font-weight: bold;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .step-text {
-            color: #C9A961;
+        .subsection-text {
             font-size: 16px;
-            line-height: 1.6;
-            display: flex;
-            align-items: center;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            line-height: 1.7;
+            color: #EAEAEA;
         }
 
         @media (max-width: 768px) {
             .page-container {
-                padding: 40px 12px;
+                padding: 70px 16px 40px;
             }
 
-            .field-title {
-                font-size: 42px;
+            .article-title {
+                font-size: 40px;
             }
 
-            .field-subtitle {
+            .article-subtitle {
                 font-size: 18px;
             }
 
-            .roadmap-step {
-                padding: 16px;
-                gap: 15px;
+            .section-title {
+                font-size: 24px;
             }
-
-            .step-number {
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
-            }
-
-            .step-text {
-                font-size: 14px;
-            }
-        }
-        /* Minimal matte theme overrides */
-        :root {
-            --bg: #0f1115;
-            --surface: #151a21;
-            --surface-2: #1b222c;
-            --text: #e5e7eb;
-            --muted: #9aa3af;
-            --accent: #94a3b8;
-            --accent-strong: #cbd5e1;
-            --border: rgba(148, 163, 184, 0.25);
-        }
-
-        body {
-            background: var(--bg) !important;
-            color: var(--text) !important;
-            font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            letter-spacing: 0.2px;
-        }
-
-        .page-title,
-        h1, h2, h3 {
-            color: var(--text) !important;
-            font-weight: 600 !important;
-        }
-
-        .page-subtitle,
-        p {
-            color: var(--muted) !important;
-        }
-
-        .back-button,
-        .field-btn {
-            background: transparent !important;
-            border: 1px solid var(--border) !important;
-            color: var(--text) !important;
         }
     </style>
 </head>
 <body>
     <div class="page-container">
-        <button onclick="if (document.referrer && document.referrer !== window.location.href) { window.history.back(); } else { window.location.href = 'index.html'; }" class="back-button">← Back</button>
+        <button onclick="if (document.referrer && document.referrer !== '') { window.history.back(); } else { window.location.href = 'learn.html'; }" class="back-button">← Back</button>
         
-        <div class="field-header">
-            <h1 class="field-title">⚡ Electrical Engineering</h1>
-            <p class="field-subtitle">Powering the future with innovation</p>
+        <div class="article-header">
+            <h1 class="article-title">Electrical Engineering</h1>
+            <p class="article-subtitle">The study, design, and application of electricity, electronics, and electromagnetism</p>
         </div>
 
-        <div style="max-width: 900px; margin: 60px auto; text-align: center; padding: 40px; background: rgba(201, 169, 97, 0.1); border-radius: 12px;">
-            <h2 style="font-size: 32px; color: #D4AF37; margin-bottom: 20px;">📚 Articles Coming Soon</h2>
-            <p style="font-size: 18px; color: #C9A961; line-height: 1.8;">We're preparing comprehensive articles and resources about Electrical Engineering. Stay tuned for exciting content!</p>
+        <p class="intro-paragraph">
+            Electrical engineering is an engineering discipline concerned with the study, design, and application of equipment, devices, and systems that use electricity, electronics, and electromagnetism. It emerged as an identifiable occupation in the latter half of the 19th century after the commercialization of the electric telegraph, the telephone, and electrical power generation, distribution, and use.
+        </p>
+
+        <button class="explore-button" onclick="window.location.href='learn.html'">Explore More Topics</button>
+
+        <div class="article-content">
+            <div class="section">
+                <h2 class="section-title">Scope and Fields</h2>
+                <div class="section-content">
+                    <p>Electrical engineering is divided into a wide range of different fields, including computer engineering, systems engineering, power engineering, telecommunications, radio-frequency engineering, signal processing, instrumentation, control engineering, photovoltaic cells, electronics, and optics and photonics. Many of these disciplines overlap with other engineering branches, spanning a huge number of specializations.</p>
+                    <p>Electrical engineers typically hold a degree in electrical engineering, electronic or electrical and electronic engineering. They work in a very wide range of industries and the skills required are likewise variable, ranging from circuit theory to project management skills.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">History</h2>
+                <div class="section-content">
+                    <p>Electricity has been a subject of scientific interest since at least the early 17th century. William Gilbert was a prominent early electrical scientist and is credited with establishing the term "electricity." In the 19th century, research intensified with notable developments including the work of Hans Christian Ørsted, who discovered in 1820 that an electric current produces a magnetic field, and Michael Faraday, the discoverer of electromagnetic induction in 1831.</p>
+                    <p>Electrical telegraphy may be considered the first example of electrical engineering. The profession emerged in the later 19th century as practitioners created a global electric telegraph network. The first professional electrical engineering institutions were founded in the UK and US. By the end of the 19th century, the world had been forever changed by rapid communication made possible through land-lines, submarine cables, and wireless telegraphy.</p>
+                    <p>The 20th century saw revolutionary developments including the transistor invented at Bell Telephone Laboratories in 1947, the integrated circuit in 1959, and the MOSFET (metal-oxide-semiconductor field-effect transistor) in 1959, which became the basic building block of modern electronics and enabled the microprocessor revolution.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Education and Professional Practice</h2>
+                <div class="section-content">
+                    <p>Electrical engineers typically possess an academic degree with a major in electrical engineering or electronics engineering. The length of study is usually four or five years, resulting in a Bachelor of Engineering or Bachelor of Science degree. The program includes units covering physics, mathematics, computer science, project management, and various topics in electrical engineering.</p>
+                    <p>After completing a certified degree program, engineers must satisfy a range of requirements including work experience before professional certification. Once certified, engineers are designated titles such as Professional Engineer, Chartered Engineer, or European Engineer depending on the country. Professional bodies include the Institute of Electrical and Electronics Engineers (IEEE) and the Institution of Engineering and Technology (IET).</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Key Subdisciplines</h2>
+                <div class="section-content">
+                    <div class="subsection">
+                        <h3 class="subsection-title">Power and Energy Engineering</h3>
+                        <p class="subsection-text">Deals with the generation, transmission, and distribution of electricity as well as the design of transformers, electric generators, electric motors, and power electronics. Engineers work on power grids and both on-grid and off-grid power systems.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Telecommunications Engineering</h3>
+                        <p class="subsection-text">Focuses on the transmission of information across communication channels such as coax cable, optical fiber or free space. Engineers design transmitters and receivers for communication systems and must balance cost and performance considerations.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Control Engineering</h3>
+                        <p class="subsection-text">Focuses on modeling dynamic systems and designing controllers using feedback mechanisms. Applications range from flight and propulsion systems of commercial airliners to cruise control in automobiles and industrial automation.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Electronics Engineering</h3>
+                        <p class="subsection-text">Involves the design and testing of electronic circuits using components such as resistors, capacitors, inductors, diodes, and transistors. Modern integrated circuits pack millions of tiny electrical components into chips the size of a coin.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Signal Processing</h3>
+                        <p class="subsection-text">Deals with the analysis and manipulation of analog and digital signals. Applications include audio equipment, telecommunications, radar systems, and digital media compression. DSP processors are found in devices from smartphones to missile guidance systems.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Computer Engineering</h3>
+                        <p class="subsection-text">Deals with the design of computers and computer systems, including both hardware and software aspects. Computer-like architectures are now found in embedded devices including video game consoles, DVD players, and robots.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Modern Applications and Tools</h2>
+                <div class="section-content">
+                    <p>From the Global Positioning System to electric power generation, electrical engineers have contributed to the development of a wide range of technologies. They design telecommunications systems, operate electric power stations, design lighting and wiring of buildings, create household appliances, and develop electrical control systems for industrial machinery.</p>
+                    <p>Fundamental to the discipline are physics and mathematics. Today most engineering work involves computers, with computer-aided design programs being commonplace. Engineers use various instruments including multimeters, oscilloscopes, spectrum analyzers, and network analyzers depending on their specialization.</p>
+                    <p>Recent developments include electrical engineering's integration with machine learning and artificial intelligence, particularly in fields such as signal processing, image processing, control engineering, electronic design automation, and smart grids.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Career and Workforce</h2>
+                <div class="section-content">
+                    <p>In Australia, Canada, and the United States, electrical engineers make up around 0.25% of the labor force. The workplaces of engineers are varied, from pristine lab environments of fabrication plants to naval ships, consulting firm offices, or mining sites. Engineers may supervise scientists, electricians, computer programmers, and other engineers throughout their careers.</p>
+                    <p>Technical work often accounts for only a fraction of an engineer's responsibilities, with significant time spent on proposals, budgets, project schedules, and team management. Strong written communication and project management skills are therefore essential for career advancement.</p>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // Initialize Telegram Web App
         if (typeof TelegramWebApp !== 'undefined') {
             const tg = window.Telegram.WebApp;
             tg.ready();
-            tg.setHeaderColor('#1a1a1a');
+            tg.setHeaderColor('#000000');
             tg.setBackgroundColor('#000000');
             tg.MainButton.hide();
         }
-
-        const roadmapSteps = {
-            en: [
-                "Build strong foundations in mathematics and physics.",
-                "Learn circuit theory, electromagnetism, and AC/DC systems.",
-                "Study power systems, control systems, and signal processing.",
-                "Master electronics, microcontrollers, and digital systems.",
-                "Complete projects in power, control, or telecommunications."
-            ],
-            ru: [
-                "Создайте прочную базу в математике и физике.",
-                "Изучите теорию цепей, электромагнетизм и системы AC/DC.",
-                "Изучите системы электроснабжения, управления и обработку сигналов.",
-                "Освойте электронику, микроконтроллеры и цифровые системы.",
-                "Выполняйте проекты в области энергосистем, управления или телекоммуникаций."
-            ],
-            uz: [
-                "Matematika va fizika bo'yicha mustahkam asos yarating.",
-                "Zanjir nazariyasi, elektromagnitizm va AC/DC tizimlari o'rganing.",
-                "Elektr tizimi, boshqaruv tizimlari va signal qayta ishlashni o'rganing.",
-                "Elektronika, mikrokontrollerlar va raqamli tizimlari o'zlashtiring.",
-                "Quvvat, boshqaruv yoki telekommunikatsiya sohasida loyihalar bajaring."
-            ]
-        };
-
-        const lang = localStorage.getItem("preferredLanguage") || "en";
-        const stepsContainer = document.getElementById("roadmap-steps");
-
-        roadmapSteps[lang].forEach((step, index) => {
-            const stepEl = document.createElement("div");
-            stepEl.className = "roadmap-step";
-            
-            const numberEl = document.createElement("div");
-            numberEl.className = "step-number";
-            numberEl.textContent = index + 1;
-            
-            const textEl = document.createElement("div");
-            textEl.className = "step-text";
-            textEl.textContent = step;
-            
-            stepEl.appendChild(numberEl);
-            stepEl.appendChild(textEl);
-            stepsContainer.appendChild(stepEl);
-        });
     </script>
 </body>
 </html>
