@@ -1,0 +1,196 @@
+/* ===== GLOBAL STYLES ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #ffffff;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+body.dark {
+    background: radial-gradient(circle at top, #0a0a0a 0%, #000000 60%, #000000 100%);
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background: rgba(0, 0, 0, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: #FFD84D;
+}
+
+/* ===== ROADMAP HERO ===== */
+.roadmap-hero {
+    text-align: center;
+    padding: 100px 20px 50px;
+    margin-top: 50px;
+}
+
+.roadmap-hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+}
+
+.roadmap-hero p {
+    font-size: 18px;
+    color: #bdbdbd;
+    font-weight: 400;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ===== STAGES SECTION ===== */
+.stages {
+    max-width: 800px;
+    margin: 60px auto 0;
+    padding: 0 20px 100px;
+}
+
+.stage-card {
+    background: #111111;
+    border: 1px solid #222222;
+    padding: 30px 25px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.stage-card:hover {
+    border-color: #FFD84D;
+    box-shadow: 0 0 30px rgba(255, 216, 77, 0.2);
+}
+
+.stage-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 12px;
+}
+
+.stage-card p {
+    font-size: 14px;
+    color: #999999;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.stage-card button {
+    margin-top: 15px;
+    padding: 12px 28px;
+    background: #FFD84D;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    color: #000000;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(255, 216, 77, 0.2);
+}
+
+.stage-card button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 35px rgba(255, 216, 77, 0.4);
+}
+
+.stage-card button:active {
+    transform: scale(0.98);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .roadmap-hero h1 {
+        font-size: 36px;
+    }
+
+    .roadmap-hero p {
+        font-size: 16px;
+    }
+
+    .stage-card {
+        padding: 20px;
+    }
+
+    .stage-card h3 {
+        font-size: 18px;
+    }
+
+    .stage-card button {
+        width: 100%;
+        padding: 14px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        height: 60px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .roadmap-hero {
+        padding: 80px 20px 30px;
+        margin-top: 30px;
+    }
+
+    .roadmap-hero h1 {
+        font-size: 28px;
+        margin-bottom: 12px;
+    }
+
+    .roadmap-hero p {
+        font-size: 14px;
+    }
+
+    .stages {
+        margin: 40px auto 0;
+        padding: 0 20px 80px;
+    }
+
+    .stage-card {
+        padding: 18px;
+        margin-bottom: 15px;
+    }
+
+    .stage-card h3 {
+        font-size: 16px;
+    }
+
+    .stage-card p {
+        font-size: 13px;
+    }
+
+    .stage-card button {
+        font-size: 13px;
+        padding: 12px 18px;
+    }
+}

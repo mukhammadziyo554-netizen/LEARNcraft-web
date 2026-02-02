@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Civil Engineering Roadmap | LEARNcraft</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dark">
+
+<header class="navbar">
+  <h2 class="logo">LEARNcraft</h2>
+</header>
+
+<section class="roadmap-hero">
+  <h1>Civil Engineering Roadmap</h1>
+  <p>Your step-by-step path to mastering Civil Engineering.</p>
+</section>
+
+<section class="stages">
+
+  <div class="stage-card">
+    <h3>Stage 1 — Foundations</h3>
+    <p>Math, physics, and engineering basics required for civil studies.</p>
+    <button onclick="openStage('foundations')">OPEN STAGE</button>
+  </div>
+
+  <div class="stage-card">
+    <h3>Stage 2 — Core Civil Concepts</h3>
+    <p>Statics, mechanics of materials, and structural principles.</p>
+    <button onclick="openStage('core-engineering-skills')">OPEN STAGE</button>
+  </div>
+
+  <div class="stage-card">
+    <h3>Stage 3 — Field Specialization</h3>
+    <p>Structural, geotechnical, transportation, or environmental focus.</p>
+    <button onclick="openStage('field-specialization')">OPEN STAGE</button>
+  </div>
+
+  <div class="stage-card">
+    <h3>Stage 4 — Practical Application</h3>
+    <p>Real-world projects, case studies, and hands-on problem solving.</p>
+    <button onclick="openStage('practical-application')">OPEN STAGE</button>
+  </div>
+
+  <div class="stage-card">
+    <h3>Stage 5 — Professional Skills</h3>
+    <p>Communication, teamwork, and professional development.</p>
+    <button onclick="openStage('professional-skills')">OPEN STAGE</button>
+  </div>
+
+  <div class="stage-card">
+    <h3>Stage 6 — Advanced & Career Prep</h3>
+    <p>Advanced topics, certifications, and career pathways.</p>
+    <button onclick="openStage('advanced-career-prep')">OPEN STAGE</button>
+  </div>
+
+</section>
+
+<script>
+  if (typeof TelegramWebApp !== 'undefined') {
+    const tg = window.Telegram.WebApp;
+    tg.ready();
+    tg.setHeaderColor('#000000');
+    tg.setBackgroundColor('#000000');
+    tg.MainButton.hide();
+  }
+
+  function openStage(stageName) {
+    // Save the selected stage to localStorage
+    localStorage.setItem('selectedStage', stageName);
+    
+    // Navigate to field selection
+    window.location.href = 'choose-field.html';
+  }
+</script>
+
+</body>
+</html>

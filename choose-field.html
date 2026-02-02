@@ -336,22 +336,19 @@
         ];
 
         function selectField(fieldName) {
-            // Get the selected stage from localStorage
-            const selectedStage = localStorage.getItem('selectedStage');
-            
             // Check if roadmap is available for this field
             if (activeRoadmapFields.includes(fieldName)) {
                 // Save selected field to localStorage
                 localStorage.setItem('selectedEngineeringField', fieldName);
                 localStorage.setItem('fieldSelectionTime', new Date().toISOString());
                 
-                // Navigate to study guide page
-                if (selectedStage) {
-                    const fieldSlug = fieldName.toLowerCase().replace(' engineering', '');
-                    window.location.href = `study/${fieldSlug}-${selectedStage}.html`;
-                } else {
-                    // If no stage selected, go to roadmap
-                    window.location.href = 'roadmap.html';
+                // Route to field-specific roadmap page
+                if (fieldName === 'Civil Engineering') {
+                    window.location.href = 'civil-roadmap.html';
+                } else if (fieldName === 'Mechanical Engineering') {
+                    alert('Mechanical roadmap coming soon.');
+                } else if (fieldName === 'Electrical Engineering') {
+                    alert('Electrical roadmap coming soon.');
                 }
             } else {
                 // Show message for unavailable fields
