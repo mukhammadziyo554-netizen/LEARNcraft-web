@@ -16,138 +16,220 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-            color: #C9A961;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #000000;
+            color: #EAEAEA;
             min-height: 100vh;
         }
 
         .page-container {
-            max-width: 100%;
-            padding: 60px 20px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px 60px;
         }
 
         .back-button {
             display: inline-block;
-            padding: 12px 24px;
-            background: rgba(201, 169, 97, 0.2);
-            border: 2px solid #C9A961;
-            border-radius: 8px;
-            color: #C9A961;
+            padding: 10px 16px;
+            background: transparent;
+            border: none;
+            color: #888;
             text-decoration: none;
-            font-weight: bold;
-            margin-bottom: 40px;
-            transition: 0.3s;
+            font-weight: 500;
+            font-size: 14px;
             cursor: pointer;
+            transition: color 0.3s;
+            margin-bottom: 40px;
         }
 
         .back-button:hover {
-            background: rgba(201, 169, 97, 0.3);
-            transform: translateX(-5px);
+            color: #EAEAEA;
         }
 
-        .field-header {
-            text-align: center;
-            margin-bottom: 60px;
-            animation: fadeInDown 1s ease-out;
+        .article-header {
+            margin-bottom: 50px;
         }
 
-        .field-title {
-            font-size: 64px;
-            font-weight: bold;
-            color: #D4AF37;
-            text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+        .article-title {
+            font-size: 56px;
+            font-weight: 700;
+            color: #EAEAEA;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .article-subtitle {
+            font-size: 20px;
+            color: #888;
+            font-weight: 400;
+        }
+
+        .intro-paragraph {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #EAEAEA;
+            margin: 40px 0 30px 0;
+        }
+
+        .explore-button {
+            display: inline-block;
+            margin: 30px 0;
+            padding: 12px 28px;
+            background: transparent;
+            border: 2px solid #FFD84D;
+            color: #FFD84D;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .explore-button:hover {
+            background: #FFD84D;
+            color: #000000;
+            transform: translateY(-2px);
+        }
+
+        .article-content {
+            margin-top: 50px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #EAEAEA;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #222;
+        }
+
+        .section-content {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #EAEAEA;
+        }
+
+        .section-content p {
+            margin-bottom: 18px;
+        }
+
+        .subsection {
+            margin-top: 28px;
             margin-bottom: 20px;
         }
 
-        .field-subtitle {
-            font-size: 24px;
-            color: #C9A961;
-        }
-
-        .roadmap-section {
-            max-width: 900px;
-            margin: 0 auto;
-            animation: fadeInUp 1s ease-out 0.2s both;
-        }
-
-        .roadmap-title {
-            font-size: 32px;
-            color: #D4AF37;
-            text-align: center;
-            margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-        }
-
-        .roadmap-subtitle {
+        .subsection-title {
             font-size: 18px;
-            color: #C9A961;
-            text-align: center;
-            margin-bottom: 40px;
+            font-weight: 600;
+            color: #FFD84D;
+            margin-bottom: 10px;
         }
 
-        .roadmap-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .roadmap-step {
-            display: flex;
-            gap: 20px;
-            padding: 20px;
-            background: rgba(201, 169, 97, 0.1);
-            border-left: 4px solid #FFD700;
-            border-radius: 8px;
-            transition: all 0.3s;
-            animation: slideInLeft 0.6s ease-out;
-        }
-
-        .roadmap-step:hover {
-            background: rgba(201, 169, 97, 0.15);
-            transform: translateX(10px);
-            box-shadow: 0 5px 20px rgba(201, 169, 97, 0.2);
-        }
-
-        .step-number {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #C9A961 0%, #D4AF37 100%);
-            color: black;
-            font-weight: bold;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .step-text {
-            color: #C9A961;
+        .subsection-text {
             font-size: 16px;
-            line-height: 1.6;
-            display: flex;
-            align-items: center;
+            line-height: 1.7;
+            color: #EAEAEA;
         }
 
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
+        @media (max-width: 768px) {
+            .page-container {
+                padding: 70px 16px 40px;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+
+            .article-title {
+                font-size: 40px;
+            }
+
+            .article-subtitle {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 24px;
             }
         }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <button onclick="if (document.referrer && document.referrer !== '') { window.history.back(); } else { window.location.href = 'learn.html'; }" class="back-button">← Back</button>
+        
+        <div class="article-header">
+            <h1 class="article-title">Civil Engineering</h1>
+            <p class="article-subtitle">Designing and building the infrastructure of the modern world</p>
+        </div>
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
+        <p class="intro-paragraph">
+            Civil engineering is a professional engineering discipline focused on the design, construction, and maintenance of the built environment. This includes infrastructure such as roads, bridges, dams, airports, pipelines, and buildings. It is one of the oldest engineering disciplines and plays a crucial role in shaping modern society. Civil engineers apply scientific principles, mathematics, and practical problem-solving to create safe, efficient, and sustainable infrastructure that supports communities.
+        </p>
+
+        <button class="explore-button" onclick="window.location.href='learn.html'">Explore More Topics</button>
+
+        <div class="article-content">
+            <div class="section">
+                <h2 class="section-title">History of Civil Engineering</h2>
+                <div class="section-content">
+                    <p>Civil engineering dates back to ancient civilizations. Early examples include irrigation systems in Mesopotamia, pyramids in Egypt, and Roman aqueducts. These structures demonstrated advanced knowledge of materials, construction methods, and large-scale planning.</p>
+                    <p>During the 18th century, civil engineering became recognized as a formal profession, distinct from military engineering. Institutions dedicated to engineering education were established, laying the foundation for modern civil engineering practice.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Major Sub-Disciplines</h2>
+                <div class="section-content">
+                    <div class="subsection">
+                        <h3 class="subsection-title">Structural Engineering</h3>
+                        <p class="subsection-text">Focuses on designing buildings, bridges, and towers that safely resist loads such as weight, wind, and earthquakes.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Geotechnical Engineering</h3>
+                        <p class="subsection-text">Studies soil and rock behavior to design stable foundations, retaining walls, and underground structures.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Transportation Engineering</h3>
+                        <p class="subsection-text">Deals with planning and designing transportation systems such as roads, railways, airports, and traffic networks.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Environmental Engineering</h3>
+                        <p class="subsection-text">Concentrates on water treatment, waste management, pollution control, and sustainable environmental systems.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Water Resources Engineering</h3>
+                        <p class="subsection-text">Involves managing water supply, flood control, dams, canals, and drainage systems.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">The Role of Civil Engineers</h2>
+                <div class="section-content">
+                    <p>Civil engineers work on projects that improve quality of life, support economic development, and ensure public safety. They combine technical expertise with planning, project management, and sustainability principles to design infrastructure that lasts for generations.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        if (typeof TelegramWebApp !== 'undefined') {
+            const tg = window.Telegram.WebApp;
+            tg.ready();
+            tg.setHeaderColor('#000000');
+            tg.setBackgroundColor('#000000');
+            tg.MainButton.hide();
+        }
+    </script>
+</body>
+</html>
                 opacity: 1;
                 transform: translateY(0);
             }
