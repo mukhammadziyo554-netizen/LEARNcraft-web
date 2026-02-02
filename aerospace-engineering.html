@@ -16,288 +16,290 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-            color: #C9A961;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #000000;
+            color: #EAEAEA;
             min-height: 100vh;
         }
 
         .page-container {
-            max-width: 100%;
-            padding: 60px 20px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px 60px;
         }
 
         .back-button {
             display: inline-block;
-            padding: 12px 24px;
-            background: rgba(201, 169, 97, 0.2);
-            border: 2px solid #C9A961;
-            border-radius: 8px;
-            color: #C9A961;
+            padding: 10px 16px;
+            background: transparent;
+            border: none;
+            color: #888;
             text-decoration: none;
-            font-weight: bold;
-            margin-bottom: 40px;
-            transition: 0.3s;
+            font-weight: 500;
+            font-size: 14px;
             cursor: pointer;
+            transition: color 0.3s;
+            margin-bottom: 40px;
         }
 
         .back-button:hover {
-            background: rgba(201, 169, 97, 0.3);
-            transform: translateX(-5px);
+            color: #EAEAEA;
         }
 
-        .field-header {
-            text-align: center;
-            margin-bottom: 60px;
-            animation: fadeInDown 1s ease-out;
+        .article-header {
+            margin-bottom: 50px;
         }
 
-        .field-title {
-            font-size: 64px;
-            font-weight: bold;
-            color: #D4AF37;
-            text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+        .article-title {
+            font-size: 56px;
+            font-weight: 700;
+            color: #EAEAEA;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .article-subtitle {
+            font-size: 20px;
+            color: #888;
+            font-weight: 400;
+        }
+
+        .intro-paragraph {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #EAEAEA;
+            margin: 40px 0 30px 0;
+        }
+
+        .explore-button {
+            display: inline-block;
+            margin: 30px 0;
+            padding: 12px 28px;
+            background: transparent;
+            border: 2px solid #FFD84D;
+            color: #FFD84D;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .explore-button:hover {
+            background: #FFD84D;
+            color: #000000;
+            transform: translateY(-2px);
+        }
+
+        .article-content {
+            margin-top: 50px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #EAEAEA;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #222;
+        }
+
+        .section-content {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #EAEAEA;
+        }
+
+        .section-content p {
+            margin-bottom: 18px;
+        }
+
+        .subsection {
+            margin-top: 28px;
             margin-bottom: 20px;
         }
 
-        .field-subtitle {
-            font-size: 24px;
-            color: #C9A961;
-        }
-
-        .roadmap-section {
-            max-width: 900px;
-            margin: 0 auto;
-            animation: fadeInUp 1s ease-out 0.2s both;
-        }
-
-        .roadmap-title {
-            font-size: 32px;
-            color: #D4AF37;
-            text-align: center;
-            margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-        }
-
-        .roadmap-subtitle {
+        .subsection-title {
             font-size: 18px;
-            color: #C9A961;
-            text-align: center;
-            margin-bottom: 40px;
+            font-weight: 600;
+            color: #FFD84D;
+            margin-bottom: 10px;
         }
 
-        .roadmap-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .roadmap-step {
-            display: flex;
-            gap: 20px;
-            padding: 20px;
-            background: rgba(201, 169, 97, 0.1);
-            border-left: 4px solid #FFD700;
-            border-radius: 8px;
-            transition: all 0.3s;
-            animation: slideInLeft 0.6s ease-out;
-        }
-
-        .roadmap-step:hover {
-            background: rgba(201, 169, 97, 0.15);
-            transform: translateX(10px);
-            box-shadow: 0 5px 20px rgba(201, 169, 97, 0.2);
-        }
-
-        .step-number {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #C9A961 0%, #D4AF37 100%);
-            color: black;
-            font-weight: bold;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .step-text {
-            color: #C9A961;
+        .subsection-text {
             font-size: 16px;
-            line-height: 1.6;
-            display: flex;
-            align-items: center;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            line-height: 1.7;
+            color: #EAEAEA;
         }
 
         @media (max-width: 768px) {
             .page-container {
-                padding: 40px 12px;
+                padding: 70px 16px 40px;
             }
 
-            .field-title {
-                font-size: 42px;
+            .article-title {
+                font-size: 40px;
             }
 
-            .field-subtitle {
+            .article-subtitle {
                 font-size: 18px;
             }
 
-            .roadmap-step {
-                padding: 16px;
-                gap: 15px;
+            .section-title {
+                font-size: 24px;
             }
-
-            .step-number {
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
-            }
-
-            .step-text {
-                font-size: 14px;
-            }
-        }
-        /* Minimal matte theme overrides */
-        :root {
-            --bg: #0f1115;
-            --surface: #151a21;
-            --surface-2: #1b222c;
-            --text: #e5e7eb;
-            --muted: #9aa3af;
-            --accent: #94a3b8;
-            --accent-strong: #cbd5e1;
-            --border: rgba(148, 163, 184, 0.25);
-        }
-
-        body {
-            background: var(--bg) !important;
-            color: var(--text) !important;
-            font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            letter-spacing: 0.2px;
-        }
-
-        .page-title,
-        h1, h2, h3 {
-            color: var(--text) !important;
-            font-weight: 600 !important;
-        }
-
-        .page-subtitle,
-        p {
-            color: var(--muted) !important;
-        }
-
-        .back-button,
-        .field-btn {
-            background: transparent !important;
-            border: 1px solid var(--border) !important;
-            color: var(--text) !important;
         }
     </style>
 </head>
 <body>
     <div class="page-container">
-        <button onclick="if (document.referrer && document.referrer !== window.location.href) { window.history.back(); } else { window.location.href = 'index.html'; }" class="back-button">← Back</button>
+        <button onclick="if (document.referrer && document.referrer !== '') { window.history.back(); } else { window.location.href = 'learn.html'; }" class="back-button">← Back</button>
         
-        <div class="field-header">
-            <h1 class="field-title">✈️ Aerospace Engineering</h1>
-            <p class="field-subtitle">Reaching for the stars</p>
+        <div class="article-header">
+            <h1 class="article-title">Aerospace Engineering</h1>
+            <p class="article-subtitle">The development of aircraft and spacecraft through advanced engineering</p>
         </div>
 
-        <div style="max-width: 900px; margin: 60px auto; text-align: center; padding: 40px; background: rgba(201, 169, 97, 0.1); border-radius: 12px;">
-            <h2 style="font-size: 32px; color: #D4AF37; margin-bottom: 20px;">📚 Articles Coming Soon</h2>
-            <p style="font-size: 18px; color: #C9A961; line-height: 1.8;">We're preparing comprehensive articles and resources about Aerospace Engineering. Stay tuned for exciting content!</p>
+        <p class="intro-paragraph">
+            Aerospace engineering is the primary field of engineering concerned with the development of aircraft and spacecraft. It has two major and overlapping branches: aeronautical engineering and astronautical engineering. Avionics engineering is similar but deals with the electronics side of aerospace engineering. Flight vehicles are subjected to demanding conditions such as those caused by changes in atmospheric pressure and temperature, with structural loads applied upon vehicle components.
+        </p>
+
+        <button class="explore-button" onclick="window.location.href='learn.html'">Explore More Topics</button>
+
+        <div class="article-content">
+            <div class="section">
+                <h2 class="section-title">Overview and Disciplines</h2>
+                <div class="section-content">
+                    <p>Aerospace engineering is the product of various technological and engineering disciplines including aerodynamics, air propulsion, avionics, materials science, structural analysis and manufacturing. The interaction between these technologies is known as aerospace engineering. Because of the complexity and number of disciplines involved, aerospace engineering is carried out by teams of engineers, each having their own specialized area of expertise.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">History</h2>
+                <div class="section-content">
+                    <p>The origin of aerospace engineering can be traced back to the aviation pioneers around the late 19th to early 20th centuries. Sir George Cayley, dating from the last decade of the 18th to the mid-19th century, is credited as the first person to separate the forces of lift and drag, which affect any atmospheric flight vehicle and is recognized as one of the most important people in the history of aeronautics.</p>
+                    <p>Early knowledge of aeronautical engineering was largely empirical, with some concepts and skills imported from other branches of engineering. Some key elements, like fluid dynamics, were understood by 18th-century scientists. In December 1903, the Wright Brothers performed the first sustained, controlled flight of a powered, heavier-than-air aircraft, lasting 12 seconds. The 1910s saw the development of aeronautical engineering through the design of World War I military aircraft.</p>
+                    <p>In 1914, Robert Goddard was granted two U.S. patents for rockets using solid fuel, liquid fuel, multiple propellant charges, and multi-stage designs, setting the stage for future applications in multi-stage propulsion systems for outer space. On March 3, 1915, the U.S. Congress established the first aeronautical research administration, known as the National Advisory Committee for Aeronautics (NACA), the first government-sponsored organization to support aviation research.</p>
+                    <p>Between World Wars I and II, great leaps were made in the field, accelerated by the advent of mainstream civil aviation. A significant development came with the first operational jet engine-powered airplane, the Messerschmitt Me 262, which entered service in 1944 towards the end of the Second World War. The first definition of aerospace engineering appeared in February 1958, considering the Earth's atmosphere and outer space as a single realm.</p>
+                    <p>In response to the USSR launching Sputnik, U.S. aerospace engineers launched the first American satellite on January 31, 1958. The National Aeronautics and Space Administration was founded in 1958 after the Sputnik crisis. In 1969, Apollo 11, the first human space mission to land on the Moon, took place with Neil Armstrong and Buzz Aldrin visiting the lunar surface.</p>
+                    <p>On January 30, 1970, the Boeing 747 made its first commercial flight from New York to London, becoming known as the "Jumbo Jet" or "Queen of the Skies" due to its ability to hold up to 480 passengers. In 1976, the first passenger supersonic aircraft, the Concorde, was developed. On December 21, 1988, the Antonov An-225 Mriya cargo aircraft commenced its first flight, holding records for the world's heaviest aircraft. On October 25, 2007, the Airbus A380 made its maiden commercial flight, becoming the first passenger plane to surpass the Boeing 747 in passenger capacity with a maximum of 853.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Key Elements and Disciplines</h2>
+                <div class="section-content">
+                    <div class="subsection">
+                        <h3 class="subsection-title">Aerodynamics</h3>
+                        <p class="subsection-text">The study of fluid flow around objects, specifically concerning the flow of air over bodies such as wings or through objects such as wind tunnels. Also includes the study of lift and drag forces on flight vehicles.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Propulsion Systems</h3>
+                        <p class="subsection-text">The energy to move a vehicle through the air or in outer space is provided by internal combustion engines, jet engines and turbomachinery, or rockets. Modern additions include electric propulsion and ion propulsion.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Astrodynamics</h3>
+                        <p class="subsection-text">The study of orbital mechanics including prediction of orbital elements when given a select few variables. Usually taught at graduate level in conjunction with physics departments.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Statics and Dynamics</h3>
+                        <p class="subsection-text">The study of movement, forces, and moments in mechanical systems. Essential for understanding how aerospace vehicles respond to forces during flight.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Aircraft Structures</h3>
+                        <p class="subsection-text">Design of the physical configuration of the craft to withstand the forces encountered during flight. Aerospace engineering aims to keep structures lightweight and low-cost while maintaining structural integrity.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Materials Science</h3>
+                        <p class="subsection-text">Related to structures, aerospace engineering studies the materials of which aerospace structures are built. New materials with specific properties are invented or existing ones are modified to improve performance.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Solid Mechanics</h3>
+                        <p class="subsection-text">Closely related to material science, dealing with stress and strain analysis of vehicle components. Programs like MSC Patran/Nastran aid engineers in the analytical process through finite element analysis.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Avionics</h3>
+                        <p class="subsection-text">The design and programming of computer systems on board an aircraft or spacecraft and the simulation of systems. Critical for modern flight operations.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Control Engineering</h3>
+                        <p class="subsection-text">Mathematical modeling of dynamic behavior of systems and designing them using feedback signals so their behavior is desirable and stable. Applies to aircraft, spacecraft, propulsion systems, and subsystems.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Aeroelasticity</h3>
+                        <p class="subsection-text">The interaction of aerodynamic forces and structural flexibility, potentially causing flutter, divergence, and other phenomena.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Software Development</h3>
+                        <p class="subsection-text">Specification, design, development, test, and implementation of computer software for aerospace applications, including flight software, ground control software, and test & evaluation software.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Risk and Reliability</h3>
+                        <p class="subsection-text">Study of risk and reliability assessment techniques and the mathematics involved in quantitative methods for aerospace systems.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Noise Control and Aeroacoustics</h3>
+                        <p class="subsection-text">Study of the mechanics of sound transfer and noise generation via turbulent fluid motion or aerodynamic forces interacting with surfaces.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Flight Testing</h3>
+                        <p class="subsection-text">Designing and executing flight test programs to gather and analyze performance and handling qualities data to determine if an aircraft meets design and certification requirements.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Theoretical and Computational Foundations</h2>
+                <div class="section-content">
+                    <p>The basis of most aerospace elements lies in theoretical physics, such as fluid dynamics for aerodynamics or the equations of motion for flight dynamics. There is also a large empirical component. Historically, this empirical component was derived from testing of scale models and prototypes, either in wind tunnels or in the free atmosphere.</p>
+                    <p>More recently, advances in computing have enabled the use of computational fluid dynamics to simulate the behavior of the fluid, reducing time and expense spent on wind-tunnel testing. Those studying hydrodynamics or hydroacoustics often obtain degrees in aerospace engineering.</p>
+                    <p>Additionally, aerospace engineering addresses the integration of all components that constitute an aerospace vehicle (subsystems including power, aerospace bearings, communications, thermal control, life support system, etc.) and its life cycle (design, temperature, pressure, radiation, velocity, lifetime).</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Education and Career</h2>
+                <div class="section-content">
+                    <p>Aerospace engineering may be studied at the advanced diploma, bachelor's, master's, and Ph.D. levels in aerospace engineering departments at many universities, and in mechanical engineering departments at others. A few departments offer degrees in space-focused astronautical engineering. Some institutions differentiate between aeronautical and astronautical engineering. Graduate degrees are offered in advanced or specialty areas for the aerospace industry.</p>
+                    <p>A background in chemistry, physics, computer science and mathematics is important for students pursuing an aerospace engineering degree. The term "rocket scientist" is sometimes used to describe a person of great intelligence since rocket science is seen as requiring great mental ability, especially technically and mathematically.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Science vs. Engineering</h2>
+                <div class="section-content">
+                    <p>The term "rocket scientist" is sometimes used ironically in the expression "It's not rocket science" to indicate that a task is simple. Strictly speaking, the use of "science" in "rocket science" is a misnomer since science is about understanding the origins, nature, and behavior of the universe; engineering is about using scientific and engineering principles to solve problems and develop new technology. The more etymologically correct version would be "rocket engineer." However, "science" and "engineering" are often misused as synonyms in popular usage.</p>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // Initialize Telegram Web App
         if (typeof TelegramWebApp !== 'undefined') {
             const tg = window.Telegram.WebApp;
             tg.ready();
-            tg.setHeaderColor('#1a1a1a');
+            tg.setHeaderColor('#000000');
             tg.setBackgroundColor('#000000');
             tg.MainButton.hide();
         }
-
-        const roadmapSteps = {
-            en: [
-                "Build fundamentals in calculus, physics, and programming.",
-                "Learn aerodynamics, flight mechanics, and propulsion.",
-                "Study aerospace structures, materials, and fatigue.",
-                "Master control systems, avionics, and navigation.",
-                "Complete design projects, simulations, and testing workflows."
-            ],
-            ru: [
-                "Освойте основы математики, физики и программирования.",
-                "Изучите аэродинамику, динамику полёта и двигатели.",
-                "Изучите конструкции, материалы и усталость в авиации.",
-                "Освойте системы управления, авионику и навигацию.",
-                "Выполняйте проекты, моделирование и испытания."
-            ],
-            uz: [
-                "Matematika, fizika va dasturlash asoslarini o'zlashtiring.",
-                "Aerodinamika, parvoz mexanikasi va dvigatellarni o'rganing.",
-                "Aviatsion konstruksiyalar, materiallar va charchashni o'rganing.",
-                "Boshqaruv tizimlari, avionika va navigatsiyani o'zlashtiring.",
-                "Loyihalar, modellashtirish va sinov jarayonlarini bajaring."
-            ]
-        };
-
-        const lang = localStorage.getItem("preferredLanguage") || "en";
-        const stepsContainer = document.getElementById("roadmap-steps");
-
-        roadmapSteps[lang].forEach((step, index) => {
-            const stepEl = document.createElement("div");
-            stepEl.className = "roadmap-step";
-            
-            const numberEl = document.createElement("div");
-            numberEl.className = "step-number";
-            numberEl.textContent = index + 1;
-            
-            const textEl = document.createElement("div");
-            textEl.className = "step-text";
-            textEl.textContent = step;
-            
-            stepEl.appendChild(numberEl);
-            stepEl.appendChild(textEl);
-            stepsContainer.appendChild(stepEl);
-        });
     </script>
 </body>
 </html>
