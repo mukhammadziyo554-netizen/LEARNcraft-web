@@ -152,10 +152,9 @@
             padding-top: 12px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
-            .fields-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 24px;
-            }
+        .fields-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
         }
 
         @media (max-width: 768px) {
@@ -337,14 +336,23 @@
         ];
 
         function selectField(fieldName) {
+            // Get the selected stage from localStorage
+            const selectedStage = localStorage.getItem('selectedStage');
+            
             // Check if roadmap is available for this field
             if (activeRoadmapFields.includes(fieldName)) {
                 // Save selected field to localStorage
                 localStorage.setItem('selectedEngineeringField', fieldName);
                 localStorage.setItem('fieldSelectionTime', new Date().toISOString());
                 
-                // Navigate to roadmap
-                window.location.href = 'roadmap.html';
+                // Navigate to study guide page
+                if (selectedStage) {
+                    const fieldSlug = fieldName.toLowerCase().replace(' engineering', '');
+                    window.location.href = `study/${fieldSlug}-${selectedStage}.html`;
+                } else {
+                    // If no stage selected, go to roadmap
+                    window.location.href = 'roadmap.html';
+                }
             } else {
                 // Show message for unavailable fields
                 alert('Roadmap coming soon for this field.');

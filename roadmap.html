@@ -290,35 +290,27 @@
             align-items: center;
         }
 
-        .complete-button {
-            padding: 11px 24px;
-            background: transparent;
-            border: 2px solid #FFD84D;
-            color: #FFD84D;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
+        .open-stage-btn {
+            background: linear-gradient(90deg, #ffd84d, #ffcc00);
+            color: #000000;
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-weight: 700;
+            border: none;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            white-space: nowrap;
+            font-size: 14px;
         }
 
-        .complete-button:hover {
-            background: #FFD84D;
-            color: #000000;
+        .open-stage-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 216, 77, 0.4);
         }
 
-        .complete-button.completed {
-            background: #FFD84D;
-            color: #000000;
-            cursor: default;
-        }
-
-        .complete-button.completed:hover {
-            background: #FFD84D;
-            color: #000000;
+        .open-stage-btn:active {
+            transform: scale(0.98);
         }
 
         @media (max-width: 1024px) {
@@ -555,27 +547,13 @@
             }
         ];
 
-        let completedStages = new Set();
-
-        function loadProgressFromStorage() {
-            const saved = localStorage.getItem('completedStages');
-            if (saved) {
-                completedStages = new Set(JSON.parse(saved));
-            }
-        }
-
-        function saveProgressToStorage() {
-            localStorage.setItem('completedStages', JSON.stringify(Array.from(completedStages)));
-        }
-
         function renderStages() {
             const container = document.getElementById('stagesContainer');
             container.innerHTML = '';
 
             stages.forEach(stage => {
-                const isCompleted = completedStages.has(stage.number);
                 const stageCard = document.createElement('div');
-                stageCard.className = `stage-card ${isCompleted ? 'completed' : ''}`;
+                stageCard.className = 'stage-card';
 
                 const difficultyLabel = stage.difficulty.charAt(0).toUpperCase() + stage.difficulty.slice(1);
                 const stageSlug = stage.title.toLowerCase().replace(/\s+/g, '-');
@@ -590,78 +568,41 @@
                         <p class="stage-description">${stage.description}</p>
                     </div>
                     <div class="stage-action">
-                        <button class="complete-button ${isCompleted ? 'completed' : ''}" 
-                                onclick="event.stopPropagation(); toggleStageCompletion(${stage.number})"
-                                ${isCompleted ? 'disabled' : ''}>
-                            ${isCompleted ? 'Completed ✓' : 'Mark as Completed'}
+                        <button class="open-stage-btn" 
+                                onclick="event.stopPropagation(); openStage('${stageSlug}')">
+                            Open Stage
                         </button>
                     </div>
                 `;
 
                 // Add click handler to the card
-                stageCard.addEventListener('click', () => handleStageClick(stageSlug));
+                stageCard.addEventListener('click', () => openStage(stageSlug));
                 container.appendChild(stageCard);
             });
         }
 
-        function handleStageClick(stageSlug) {
-            const selectedField = localStorage.getItem('selectedEngineeringField');
+        function openStage(stage) {
+            // Save the selected stage
+            localStorage.setItem('selectedStage', stage);
             
-            // Define active fields with roadmap content
-            const activeFields = [
-                'Civil Engineering',
-                'Mechanical Engineering',
-                'Electrical Engineering'
-            ];
-
-            if (activeFields.includes(selectedField)) {
-                // Convert field name to slug (e.g., "Civil Engineering" -> "civil")
-                const fieldSlug = selectedField.toLowerCase().replace(' engineering', '');
-                
-                // Navigate to stage detail page
-                window.location.href = `roadmap-stage.html?field=${fieldSlug}&stage=${stageSlug}`;
-            } else {
-                alert('Roadmap content coming soon for this field.');
-            }
+            // Navigate to field selection
+            window.location.href = 'choose-field.html';
         }
 
         function updateProgress() {
-            const progressPercentage = (completedStages.size / 6) * 100;
-            document.getElementById('progressFill').style.width = progressPercentage + '%';
+            // Progress bar starts at 1/6 (one stage active)
+            document.getElementById('progressFill').style.width = '16.67%';
 
             const milestoneBadges = document.querySelectorAll('.milestone');
-            milestoneBadges.forEach(badge => {
-                const stageNum = parseInt(badge.dataset.stage);
-                badge.classList.remove('active', 'completed');
-
-                if (completedStages.has(stageNum)) {
-                    badge.classList.add('completed');
-                } else if (stageNum <= completedStages.size + 1) {
+            milestoneBadges.forEach((badge, index) => {
+                badge.classList.remove('active');
+                if (index === 0) {
                     badge.classList.add('active');
                 }
             });
         }
 
-        function toggleStageCompletion(stageNumber) {
-            if (completedStages.has(stageNumber)) {
-                completedStages.delete(stageNumber);
-            } else {
-                completedStages.add(stageNumber);
-            }
-
-            saveProgressToStorage();
-            renderStages();
-            updateProgress();
-        }
-
         function startRoadmap() {
-            if (completedStages.size === 0) {
-                completedStages.add(1);
-                saveProgressToStorage();
-                renderStages();
-                updateProgress();
-            }
-            
             // Scroll smoothly to the roadmap stages section
             const stagesSection = document.querySelector('.stages-section');
             if (stagesSection) {
@@ -677,7 +618,6 @@
 
         // Initialize on page load
         window.addEventListener('DOMContentLoaded', function() {
-            loadProgressFromStorage();
             renderStages();
             updateProgress();
         });
