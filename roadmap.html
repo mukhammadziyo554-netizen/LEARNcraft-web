@@ -637,6 +637,14 @@
                 renderStages();
                 updateProgress();
             }
+            
+            // Scroll smoothly to the roadmap stages section
+            const stagesSection = document.querySelector('.stages-section');
+            if (stagesSection) {
+                setTimeout(() => {
+                    stagesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
         }
 
         function goBack() {
