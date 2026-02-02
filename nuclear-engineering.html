@@ -21,14 +21,6 @@
             color: #EAEAEA;
             min-height: 100vh;
         }
-</body>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-</html>
-            color: #C9A961;
-            min-height: 100vh;
-        }
 
         .page-container {
             max-width: 100%;
@@ -57,13 +49,12 @@
         .field-header {
             text-align: center;
             margin-bottom: 60px;
-            animation: fadeInDown 1s ease-out;
         }
 
         .field-title {
             font-size: 64px;
             font-weight: bold;
-            color: #D4AF37;
+            color: #FFD700;
             text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
             margin-bottom: 20px;
         }
@@ -73,103 +64,76 @@
             color: #C9A961;
         }
 
-        .roadmap-section {
+        .content-container {
             max-width: 900px;
             margin: 0 auto;
-            animation: fadeInUp 1s ease-out 0.2s both;
         }
 
-        .roadmap-title {
-            font-size: 32px;
-            color: #D4AF37;
+        .intro-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #EAEAEA;
+            margin-bottom: 40px;
             text-align: center;
-            margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
         }
 
-        .roadmap-subtitle {
+        .explore-btn {
+            display: block;
+            max-width: 300px;
+            margin: 40px auto;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #000000;
+            text-decoration: none;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+        }
+
+        .explore-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            color: #FFD700;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .section-content {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #EAEAEA;
+        }
+
+        .subsection {
+            margin-top: 25px;
+            padding-left: 20px;
+            border-left: 3px solid #C9A961;
+        }
+
+        .subsection-title {
             font-size: 18px;
             color: #C9A961;
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .roadmap-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .roadmap-step {
-            display: flex;
-            gap: 20px;
-            padding: 20px;
-            background: rgba(201, 169, 97, 0.1);
-            border-left: 4px solid #FFD700;
-            border-radius: 8px;
-            transition: all 0.3s;
-            animation: slideInLeft 0.6s ease-out;
-        }
-
-        .roadmap-step:hover {
-            background: rgba(201, 169, 97, 0.15);
-            transform: translateX(10px);
-            box-shadow: 0 5px 20px rgba(201, 169, 97, 0.2);
-        }
-
-        .step-number {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #C9A961 0%, #D4AF37 100%);
-            color: black;
+            margin-bottom: 10px;
             font-weight: bold;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
         }
 
-        .step-text {
-            color: #C9A961;
-            font-size: 16px;
-            line-height: 1.6;
-            display: flex;
-            align-items: center;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+        .subsection-content {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #EAEAEA;
         }
 
         @media (max-width: 768px) {
@@ -185,127 +149,189 @@
                 font-size: 18px;
             }
 
-            .roadmap-step {
-                padding: 16px;
-                gap: 15px;
+            .section-title {
+                font-size: 22px;
             }
 
-            .step-number {
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
+            .intro-text {
+                font-size: 16px;
             }
-
-            .step-text {
-                font-size: 14px;
-            }
-        }
-        /* Minimal matte theme overrides */
-        :root {
-            --bg: #0f1115;
-            --surface: #151a21;
-            --surface-2: #1b222c;
-            --text: #e5e7eb;
-            --muted: #9aa3af;
-            --accent: #94a3b8;
-            --accent-strong: #cbd5e1;
-            --border: rgba(148, 163, 184, 0.25);
-        }
-
-        body {
-            background: var(--bg) !important;
-            color: var(--text) !important;
-            font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            letter-spacing: 0.2px;
-        }
-
-        .page-title,
-        h1, h2, h3 {
-            color: var(--text) !important;
-            font-weight: 600 !important;
-        }
-
-        .page-subtitle,
-        p {
-            color: var(--muted) !important;
-        }
-
-        .back-button,
-        .field-btn {
-            background: transparent !important;
-            border: 1px solid var(--border) !important;
-            color: var(--text) !important;
         }
     </style>
 </head>
 <body>
     <div class="page-container">
-        <button onclick="if (document.referrer && document.referrer !== window.location.href) { window.history.back(); } else { window.location.href = 'index.html'; }" class="back-button">← Back</button>
+        <button onclick="if (document.referrer && document.referrer !== window.location.href) { window.history.back(); } else { window.location.href = 'learn.html'; }" class="back-button">← Back</button>
         
         <div class="field-header">
             <h1 class="field-title">☢️ Nuclear Engineering</h1>
             <p class="field-subtitle">Harnessing the power of the atom</p>
         </div>
 
-        <div style="max-width: 900px; margin: 60px auto; text-align: center; padding: 40px; background: rgba(201, 169, 97, 0.1); border-radius: 12px;">
-            <h2 style="font-size: 32px; color: #D4AF37; margin-bottom: 20px;">📚 Articles Coming Soon</h2>
-            <p style="font-size: 18px; color: #C9A961; line-height: 1.8;">We're preparing comprehensive articles and resources about Nuclear Engineering. Stay tuned for exciting content!</p>
+        <div class="content-container">
+            <p class="intro-text">
+                Nuclear Engineering is the practical application of nuclear physics and radiation science to design, build, and operate nuclear reactors for power generation, propulsion, medical applications, and industrial purposes. Nuclear engineers develop the systems that harness nuclear energy safely and efficiently while managing radiation, waste, and security concerns.
+            </p>
+
+            <a href="#" class="explore-btn">Explore Nuclear Engineering 🔬</a>
+
+            <div class="section">
+                <h2 class="section-title">Energy Fundamentals</h2>
+                <div class="section-content">
+                    <p>Nuclear energy arises from the binding energy of atomic nuclei. When uranium-235 or plutonium-239 nuclei undergo fission (splitting), they release tremendous amounts of energy. In a controlled chain reaction, this energy heats water into steam to turn turbines for electricity generation. Key principles include:</p>
+                    
+                    <div class="subsection">
+                        <div class="subsection-title">Fission Process</div>
+                        <div class="subsection-content">
+                            A neutron strikes a heavy nucleus, splitting it into two lighter nuclei and releasing energy and 2-3 additional neutrons. These neutrons strike other nuclei, sustaining a chain reaction. In reactors, control rods absorb excess neutrons to maintain a steady state.
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Energy Release</div>
+                        <div class="subsection-content">
+                            One kilogram of uranium-235 releases energy equivalent to burning 3 million kilograms of coal. This extreme energy density makes nuclear power compact and efficient for both centralized plants and distributed applications like naval propulsion.
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Radiation & Shielding</div>
+                        <div class="subsection-content">
+                            Fission products emit alpha, beta, and gamma radiation. Nuclear engineers design shielding systems using steel, concrete, lead, and water to protect workers and the public while managing heat removal and neutron absorption.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Historical Development</h2>
+                <div class="section-content">
+                    <p>Nuclear engineering emerged from theoretical physics discoveries of the early 20th century:</p>
+                    
+                    <div class="subsection">
+                        <div class="subsection-title">1938-1942: Fission Discovery & First Reactor</div>
+                        <div class="subsection-content">
+                            Scientists Otto Hahn and Lise Meitner explained nuclear fission. Enrico Fermi led the construction of Chicago Pile-1, the first human-made nuclear reactor, demonstrating controlled fission in 1942 as part of the Manhattan Project.
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">1942-1945: Military Applications</div>
+                        <div class="subsection-content">
+                            Enriched uranium and plutonium production for nuclear weapons drove massive engineering advances in reactor design, fuel production, and materials science during the Manhattan Project.
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">1945-1970: Power Generation Era</div>
+                        <div class="subsection-content">
+                            After WWII, nuclear technology transitioned to civilian power. The first commercial nuclear power plant, Obninsk in the Soviet Union (1954), demonstrated feasibility. By 1970, hundreds of plants operated worldwide generating electricity at industrial scale.
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">1970-Present: Advanced Designs & Challenges</div>
+                        <div class="subsection-content">
+                            Development of advanced reactor types (PWRs, BWRs, fast breeder reactors), waste disposal solutions, and proliferation concerns shaped modern nuclear engineering. Post-Fukushima, emphasis on passive safety systems and resilience increased.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Core Sub-Disciplines</h2>
+                <div class="section-content">
+                    <p>Nuclear engineering encompasses multiple specialized areas:</p>
+                    
+                    <div class="subsection">
+                        <div class="subsection-title">Reactor Physics & Design</div>
+                        <div class="subsection-content">
+                            Calculating neutron transport, multiplication factors, and power distribution. Optimizing core geometry, fuel enrichment, and control rod positioning for safe, efficient operation.
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Thermal-Hydraulics</div>
+                        <div class="subsection-content">
+                            Engineering the heat removal systems that transfer fission heat to coolant (water, liquid metal, gas), prevent core damage, and drive turbines for electricity.
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Materials Science</div>
+                        <div class="subsection-content">
+                            Developing materials that withstand extreme radiation, high temperature, and corrosive environments (stainless steels, zirconium alloys, specialized ceramics for fuel).
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Radiation Protection & Safety</div>
+                        <div class="subsection-content">
+                            Designing containment systems, emergency protocols, and safety analysis to prevent accidents and protect public health. Includes dose assessment and remediation strategies.
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Nuclear Fuel Cycle</div>
+                        <div class="subsection-content">
+                            Mining and refining uranium, enrichment processes, fabrication of fuel assemblies, spent fuel storage, reprocessing, and final waste disposition. Managing nuclear material security.
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Decommissioning & Waste Management</div>
+                        <div class="subsection-content">
+                            Safe dismantling of reactors at end-of-life, decontamination, waste classification, storage in repositories, and long-term isolation of radioactive materials from the environment.
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Non-Power Applications</div>
+                        <div class="subsection-content">
+                            Medical isotope production, sterilization, industrial gauges, naval propulsion, research reactors, space propulsion, and desalination plants using nuclear heat.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Industry & Career Outlook</h2>
+                <div class="section-content">
+                    <p>Nuclear engineering offers diverse career paths across utilities, national labs, equipment manufacturers, regulators, and consultancies:</p>
+                    
+                    <div class="subsection">
+                        <div class="subsection-title">Employment Distribution</div>
+                        <div class="subsection-content">
+                            Major employers include power plant operators (50%), engineering/consulting firms (25%), national laboratories like Argonne and Oak Ridge (15%), equipment manufacturers (7%), and regulatory agencies like the NRC (3%).
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Global Workforce Trends</div>
+                        <div class="subsection-content">
+                            The IAEA projects increasing demand for nuclear engineers through 2050 due to climate change mitigation goals, grid modernization, small modular reactors (SMRs), and countries building first-time nuclear programs.
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Competitive Advantages</div>
+                        <div class="subsection-content">
+                            Skills in reactor thermal-hydraulics simulation, radiation transport modeling, systems engineering, and project management command premium salaries. Expertise in emerging areas like molten salt or advanced reactors offers additional opportunities.
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // Initialize Telegram Web App
         if (typeof TelegramWebApp !== 'undefined') {
             const tg = window.Telegram.WebApp;
             tg.ready();
-            tg.setHeaderColor('#1a1a1a');
+            tg.setHeaderColor('#000000');
             tg.setBackgroundColor('#000000');
             tg.MainButton.hide();
         }
-
-        const roadmapSteps = {
-            en: [
-                "Build foundations in nuclear physics and quantum mechanics.",
-                "Learn nuclear reactor theory and neutron transport.",
-                "Study reactor design, fuel cycles, and radiation protection.",
-                "Master nuclear thermal hydraulics and safety systems.",
-                "Focus on reactor operations, waste management, and security."
-            ],
-            ru: [
-                "Создайте основы ядерной физики и квантовой механики.",
-                "Изучите теорию ядерного реактора и транспорт нейтронов.",
-                "Изучите проектирование реакторов, ядерный топливный цикл и защиту от радиации.",
-                "Освойте ядерную теплогидравлику и системы безопасности.",
-                "Сосредоточьтесь на работе реакторов, управлении отходами и безопасности."
-            ],
-            uz: [
-                "Yadro fizikasi va kvant mexanikasi bo'yicha asos yarating.",
-                "Yadro reaktori nazariyasi va neytron transportini o'rganing.",
-                "Reaktor dizayni, yoqilg'i sikli va radiatsiyadan himoya qilishni o'rganing.",
-                "Yadro issiqlik gidrodinamikasi va xavfsizlik tizimlarini o'zlashtiring.",
-                "Reaktor ishlashi, chiqindi boshqaruvi va xavfsizlikka e'tibor bering."
-            ]
-        };
-
-        const lang = localStorage.getItem("preferredLanguage") || "en";
-        const stepsContainer = document.getElementById("roadmap-steps");
-
-        roadmapSteps[lang].forEach((step, index) => {
-            const stepEl = document.createElement("div");
-            stepEl.className = "roadmap-step";
-            
-            const numberEl = document.createElement("div");
-            numberEl.className = "step-number";
-            numberEl.textContent = index + 1;
-            
-            const textEl = document.createElement("div");
-            textEl.className = "step-text";
-            textEl.textContent = step;
-            
-            stepEl.appendChild(numberEl);
-            stepEl.appendChild(textEl);
-            stepsContainer.appendChild(stepEl);
-        });
     </script>
 </body>
 </html>
