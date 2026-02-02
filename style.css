@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
 
 html, body {
     width: 100%;
@@ -397,6 +398,70 @@ body.dark {
     margin: 0;
 }
 
+/* ===== STUDY ROADMAP ===== */
+.study-roadmap {
+    margin: 60px auto 40px;
+    max-width: 1000px;
+}
+
+.study-roadmap h2 {
+    color: #FFD84D;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.roadmap-sub {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.week-card {
+    background: linear-gradient(145deg, #111, #0a0a0a);
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.week-card:hover {
+    border-color: #FFD84D;
+    background: linear-gradient(145deg, #141414, #0a0a0a);
+    box-shadow: 0 0 20px rgba(255, 216, 77, 0.15);
+}
+
+.week-card h3 {
+    color: #FFD84D;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.week-card ul {
+    color: #ddd;
+    padding-left: 20px;
+    line-height: 1.8;
+    margin-bottom: 16px;
+}
+
+.week-card li {
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.week-goal {
+    color: #888;
+    font-size: 13px;
+    font-style: italic;
+    margin: 12px 0 0 0;
+    padding-top: 12px;
+    border-top: 1px solid #1a1a1a;
+}
+
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
     .topbar {
@@ -475,6 +540,38 @@ body.dark {
 
     .tip-section p {
         font-size: 13px;
+    }
+
+    .study-roadmap {
+        margin: 40px auto 30px;
+    }
+
+    .study-roadmap h2 {
+        font-size: 20px;
+    }
+
+    .roadmap-sub {
+        font-size: 13px;
+        margin-bottom: 24px;
+    }
+
+    .week-card {
+        padding: 20px 22px;
+        margin-bottom: 16px;
+    }
+
+    .week-card h3 {
+        font-size: 16px;
+        margin-bottom: 14px;
+    }
+
+    .week-card li {
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+
+    .week-goal {
+        font-size: 12px;
     }
 }
 
@@ -616,5 +713,43 @@ body.dark {
         font-size: 14px;
         padding: 12px 28px;
         width: 100%;
+    }
+
+    .study-roadmap {
+        margin: 30px auto 20px;
+    }
+
+    .study-roadmap h2 {
+        font-size: 18px;
+    }
+
+    .roadmap-sub {
+        font-size: 12px;
+        margin-bottom: 20px;
+    }
+
+    .week-card {
+        padding: 16px 18px;
+        margin-bottom: 12px;
+    }
+
+    .week-card h3 {
+        font-size: 15px;
+        margin-bottom: 12px;
+    }
+
+    .week-card ul {
+        padding-left: 18px;
+        line-height: 1.7;
+    }
+
+    .week-card li {
+        font-size: 12px;
+        margin-bottom: 6px;
+    }
+
+    .week-goal {
+        font-size: 11px;
+        padding-top: 10px;
     }
 }
