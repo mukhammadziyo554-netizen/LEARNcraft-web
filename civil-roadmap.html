@@ -32,31 +32,31 @@
   <div class="stage-card">
     <h3>Stage 2 — Core Civil Concepts</h3>
     <p>Statics, mechanics of materials, and structural principles.</p>
-    <button onclick="openStage('core-engineering-skills')">OPEN STAGE</button>
+    <a href="civil-stage2.html" class="open-stage-btn">OPEN STAGE</a>
   </div>
 
   <div class="stage-card">
     <h3>Stage 3 — Field Specialization</h3>
     <p>Structural, geotechnical, transportation, or environmental focus.</p>
-    <button onclick="openStage('field-specialization')">OPEN STAGE</button>
+    <a href="civil-stage3.html" class="open-stage-btn">OPEN STAGE</a>
   </div>
 
   <div class="stage-card">
     <h3>Stage 4 — Practical Application</h3>
     <p>Real-world projects, case studies, and hands-on problem solving.</p>
-    <button onclick="openStage('practical-application')">OPEN STAGE</button>
+    <a href="civil-stage4.html" class="open-stage-btn">OPEN STAGE</a>
   </div>
 
   <div class="stage-card">
     <h3>Stage 5 — Professional Skills</h3>
     <p>Communication, teamwork, and professional development.</p>
-    <button onclick="openStage('professional-skills')">OPEN STAGE</button>
+    <a href="civil-stage5.html" class="open-stage-btn">OPEN STAGE</a>
   </div>
 
   <div class="stage-card">
     <h3>Stage 6 — Advanced & Career Prep</h3>
     <p>Advanced topics, certifications, and career pathways.</p>
-    <button onclick="openStage('advanced-career-prep')">OPEN STAGE</button>
+    <a href="civil-stage6.html" class="open-stage-btn">OPEN STAGE</a>
   </div>
 
 </section>
@@ -68,14 +68,6 @@
     tg.setHeaderColor('#000000');
     tg.setBackgroundColor('#000000');
     tg.MainButton.hide();
-  }
-
-  function openStage(stageName) {
-    // Save the selected stage to localStorage
-    localStorage.setItem('selectedStage', stageName);
-    
-    // Navigate to field selection
-    window.location.href = 'choose-field.html';
   }
 </script>
 
