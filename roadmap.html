@@ -214,7 +214,7 @@
         .stage-card:hover {
             transform: translateY(-6px);
             border-color: rgba(255, 215, 0, 0.4);
-            box-shadow: 0 12px 40px rgba(255, 215, 0, 0.08);
+            box-shadow: 0 12px 40px rgba(255, 215, 0, 0.12), 0 0 18px rgba(255, 215, 0, 0.1);
         }
 
         .stage-card.completed {
@@ -578,6 +578,7 @@
                 stageCard.className = `stage-card ${isCompleted ? 'completed' : ''}`;
 
                 const difficultyLabel = stage.difficulty.charAt(0).toUpperCase() + stage.difficulty.slice(1);
+                const stageSlug = stage.title.toLowerCase().replace(/\s+/g, '-');
 
                 stageCard.innerHTML = `
                     <div class="stage-number">${stage.number}</div>
@@ -590,15 +591,38 @@
                     </div>
                     <div class="stage-action">
                         <button class="complete-button ${isCompleted ? 'completed' : ''}" 
-                                onclick="toggleStageCompletion(${stage.number})"
+                                onclick="event.stopPropagation(); toggleStageCompletion(${stage.number})"
                                 ${isCompleted ? 'disabled' : ''}>
                             ${isCompleted ? 'Completed ✓' : 'Mark as Completed'}
                         </button>
                     </div>
                 `;
 
+                // Add click handler to the card
+                stageCard.addEventListener('click', () => handleStageClick(stageSlug));
                 container.appendChild(stageCard);
             });
+        }
+
+        function handleStageClick(stageSlug) {
+            const selectedField = localStorage.getItem('selectedEngineeringField');
+            
+            // Define active fields with roadmap content
+            const activeFields = [
+                'Civil Engineering',
+                'Mechanical Engineering',
+                'Electrical Engineering'
+            ];
+
+            if (activeFields.includes(selectedField)) {
+                // Convert field name to slug (e.g., "Civil Engineering" -> "civil")
+                const fieldSlug = selectedField.toLowerCase().replace(' engineering', '');
+                
+                // Navigate to stage detail page
+                window.location.href = `roadmap-stage.html?field=${fieldSlug}&stage=${stageSlug}`;
+            } else {
+                alert('Roadmap content coming soon for this field.');
+            }
         }
 
         function updateProgress() {
