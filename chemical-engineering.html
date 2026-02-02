@@ -16,288 +16,265 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-            color: #C9A961;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #000000;
+            color: #EAEAEA;
             min-height: 100vh;
         }
 
         .page-container {
-            max-width: 100%;
-            padding: 60px 20px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px 60px;
         }
 
         .back-button {
             display: inline-block;
-            padding: 12px 24px;
-            background: rgba(201, 169, 97, 0.2);
-            border: 2px solid #C9A961;
-            border-radius: 8px;
-            color: #C9A961;
+            padding: 10px 16px;
+            background: transparent;
+            border: none;
+            color: #888;
             text-decoration: none;
-            font-weight: bold;
-            margin-bottom: 40px;
-            transition: 0.3s;
+            font-weight: 500;
+            font-size: 14px;
             cursor: pointer;
+            transition: color 0.3s;
+            margin-bottom: 40px;
         }
 
         .back-button:hover {
-            background: rgba(201, 169, 97, 0.3);
-            transform: translateX(-5px);
+            color: #EAEAEA;
         }
 
-        .field-header {
-            text-align: center;
-            margin-bottom: 60px;
-            animation: fadeInDown 1s ease-out;
+        .article-header {
+            margin-bottom: 50px;
         }
 
-        .field-title {
-            font-size: 64px;
-            font-weight: bold;
-            color: #D4AF37;
-            text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+        .article-title {
+            font-size: 56px;
+            font-weight: 700;
+            color: #EAEAEA;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .article-subtitle {
+            font-size: 20px;
+            color: #888;
+            font-weight: 400;
+        }
+
+        .intro-paragraph {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #EAEAEA;
+            margin: 40px 0 30px 0;
+        }
+
+        .explore-button {
+            display: inline-block;
+            margin: 30px 0;
+            padding: 12px 28px;
+            background: transparent;
+            border: 2px solid #FFD84D;
+            color: #FFD84D;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .explore-button:hover {
+            background: #FFD84D;
+            color: #000000;
+            transform: translateY(-2px);
+        }
+
+        .article-content {
+            margin-top: 50px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #EAEAEA;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #222;
+        }
+
+        .section-content {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #EAEAEA;
+        }
+
+        .section-content p {
+            margin-bottom: 18px;
+        }
+
+        .subsection {
+            margin-top: 28px;
             margin-bottom: 20px;
         }
 
-        .field-subtitle {
-            font-size: 24px;
-            color: #C9A961;
-        }
-
-        .roadmap-section {
-            max-width: 900px;
-            margin: 0 auto;
-            animation: fadeInUp 1s ease-out 0.2s both;
-        }
-
-        .roadmap-title {
-            font-size: 32px;
-            color: #D4AF37;
-            text-align: center;
-            margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-        }
-
-        .roadmap-subtitle {
+        .subsection-title {
             font-size: 18px;
-            color: #C9A961;
-            text-align: center;
-            margin-bottom: 40px;
+            font-weight: 600;
+            color: #FFD84D;
+            margin-bottom: 10px;
         }
 
-        .roadmap-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .roadmap-step {
-            display: flex;
-            gap: 20px;
-            padding: 20px;
-            background: rgba(201, 169, 97, 0.1);
-            border-left: 4px solid #FFD700;
-            border-radius: 8px;
-            transition: all 0.3s;
-            animation: slideInLeft 0.6s ease-out;
-        }
-
-        .roadmap-step:hover {
-            background: rgba(201, 169, 97, 0.15);
-            transform: translateX(10px);
-            box-shadow: 0 5px 20px rgba(201, 169, 97, 0.2);
-        }
-
-        .step-number {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #C9A961 0%, #D4AF37 100%);
-            color: black;
-            font-weight: bold;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .step-text {
-            color: #C9A961;
+        .subsection-text {
             font-size: 16px;
-            line-height: 1.6;
-            display: flex;
-            align-items: center;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            line-height: 1.7;
+            color: #EAEAEA;
         }
 
         @media (max-width: 768px) {
             .page-container {
-                padding: 40px 12px;
+                padding: 70px 16px 40px;
             }
 
-            .field-title {
-                font-size: 42px;
+            .article-title {
+                font-size: 40px;
             }
 
-            .field-subtitle {
+            .article-subtitle {
                 font-size: 18px;
             }
 
-            .roadmap-step {
-                padding: 16px;
-                gap: 15px;
+            .section-title {
+                font-size: 24px;
             }
-
-            .step-number {
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
-            }
-
-            .step-text {
-                font-size: 14px;
-            }
-        }
-        /* Minimal matte theme overrides */
-        :root {
-            --bg: #0f1115;
-            --surface: #151a21;
-            --surface-2: #1b222c;
-            --text: #e5e7eb;
-            --muted: #9aa3af;
-            --accent: #94a3b8;
-            --accent-strong: #cbd5e1;
-            --border: rgba(148, 163, 184, 0.25);
-        }
-
-        body {
-            background: var(--bg) !important;
-            color: var(--text) !important;
-            font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            letter-spacing: 0.2px;
-        }
-
-        .page-title,
-        h1, h2, h3 {
-            color: var(--text) !important;
-            font-weight: 600 !important;
-        }
-
-        .page-subtitle,
-        p {
-            color: var(--muted) !important;
-        }
-
-        .back-button,
-        .field-btn {
-            background: transparent !important;
-            border: 1px solid var(--border) !important;
-            color: var(--text) !important;
         }
     </style>
 </head>
 <body>
     <div class="page-container">
-        <button onclick="if (document.referrer && document.referrer !== window.location.href) { window.history.back(); } else { window.location.href = 'index.html'; }" class="back-button">← Back</button>
+        <button onclick="if (document.referrer && document.referrer !== '') { window.history.back(); } else { window.location.href = 'learn.html'; }" class="back-button">← Back</button>
         
-        <div class="field-header">
-            <h1 class="field-title">🧪 Chemical Engineering</h1>
-            <p class="field-subtitle">Transforming matter into innovation</p>
+        <div class="article-header">
+            <h1 class="article-title">Chemical Engineering</h1>
+            <p class="article-subtitle">Converting raw materials into useful products through chemical processes</p>
         </div>
 
-        <div style="max-width: 900px; margin: 60px auto; text-align: center; padding: 40px; background: rgba(201, 169, 97, 0.1); border-radius: 12px;">
-            <h2 style="font-size: 32px; color: #D4AF37; margin-bottom: 20px;">📚 Articles Coming Soon</h2>
-            <p style="font-size: 18px; color: #C9A961; line-height: 1.8;">We're preparing comprehensive articles and resources about Chemical Engineering. Stay tuned for exciting content!</p>
+        <p class="intro-paragraph">
+            Chemical engineering is an engineering field which deals with the study of the operation and design of chemical plants as well as methods of improving production. Chemical engineers develop economical commercial processes to convert raw materials into useful products. Chemical engineering uses principles of chemistry, physics, mathematics, biology, and economics to efficiently use, produce, design, transport and transform energy and materials.
+        </p>
+
+        <button class="explore-button" onclick="window.location.href='learn.html'">Explore More Topics</button>
+
+        <div class="article-content">
+            <div class="section">
+                <h2 class="section-title">Overview and Scope</h2>
+                <div class="section-content">
+                    <p>The work of chemical engineers can range from the utilization of nanotechnology and nanomaterials in the laboratory to large-scale industrial processes that convert chemicals, raw materials, living cells, microorganisms, and energy into useful forms and products. Chemical engineers are involved in many aspects of plant design and operation, including safety and hazard assessments, process design and analysis, modeling, control engineering, chemical reaction engineering, nuclear engineering, biological engineering, construction specification, and operating instructions.</p>
+                    <p>Chemical engineers typically hold a degree in Chemical Engineering or Process Engineering. Practicing engineers may have professional certification and be accredited members of a professional body. Such bodies include the Institution of Chemical Engineers (IChemE) or the American Institute of Chemical Engineers (AIChE) and respective states in the U.S., which ultimately confer licensure and title of Professional Engineer.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">History</h2>
+                <div class="section-content">
+                    <p>A 1996 article cites James F. Donnelly for mentioning an 1839 reference to chemical engineering in relation to the production of sulfuric acid. In the same paper, George E. Davis, an English consultant, was credited with having coined the term. Davis also tried to found a Society of Chemical Engineering, but instead, it was named the Society of Chemical Industry in 1881, with Davis as its first secretary.</p>
+                    <p>The History of Science in United States: An Encyclopedia puts the use of the term around 1890. "Chemical engineering," describing the use of mechanical equipment in the chemical industry, became common vocabulary in England after 1850. By 1910, the profession of "chemical engineer" was already in common use in Britain and the United States.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">New Concepts and Innovations</h2>
+                <div class="section-content">
+                    <p>In the 1940s, it became clear that unit operations alone were insufficient in developing chemical reactors. While the predominance of unit operations in chemical engineering courses in Britain and the United States continued until the 1960s, transport phenomena started to receive greater focus. Along with other novel concepts, such as process systems engineering (PSE), a "second paradigm" was defined.</p>
+                    <p>Transport phenomena gave an analytical approach to chemical engineering while PSE focused on its synthetic elements, such as those of a control system and process design. Developments in chemical engineering before and after World War II were mainly incited by the petrochemical industry; however, advances in other fields were made as well.</p>
+                    <p>Advancements in biochemical engineering in the 1940s found application in the pharmaceutical industry, and allowed for the mass production of various antibiotics, including penicillin and streptomycin. Meanwhile, progress in polymer science in the 1950s paved the way for the "age of plastics."</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Safety and Hazard Development</h2>
+                <div class="section-content">
+                    <p>Concerns regarding large-scale chemical manufacturing facilities' safety and environmental impact were raised during this period. Silent Spring, published in 1962, alerted readers to the harmful effects of DDT, a potent insecticide. The 1974 Flixborough disaster in the United Kingdom resulted in 28 deaths, as well as damage to a chemical plant and three nearby villages. The 1984 Bhopal disaster in India resulted in at least 4,000 deaths. These incidents, along with other incidents, affected the reputation of the trade as industrial safety and environmental protection were given more focus.</p>
+                    <p>In response, the IChemE required safety to be part of every degree course that it accredited after 1982. By the 1970s, legislation and monitoring agencies were instituted in various countries, such as France, Germany, and the United States. In time, the systematic application of safety principles to chemical and other process plants began to be considered a specific discipline, known as process safety.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Recent Progress and Technology</h2>
+                <div class="section-content">
+                    <p>Advancements in computer science found applications for designing and managing plants, simplifying calculations and drawings that previously had to be done manually. Programs such as Aspen HYSYS were developed to complete multiple chemical engineering calculations.</p>
+                    <p>The completion of the Human Genome Project is seen as a major development, not only advancing chemical engineering but genetic engineering and genomics as well. Chemical engineering principles were used to produce DNA sequences in large quantities. These developments have opened new possibilities in biotechnology and biopharmaceutical production.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Key Areas of Chemical Engineering</h2>
+                <div class="section-content">
+                    <div class="subsection">
+                        <h3 class="subsection-title">Plant Design and Construction</h3>
+                        <p class="subsection-text">Chemical engineering design concerns the creation of plans, specifications, and economic analyses for pilot plants, new plants, or plant modifications. Design engineers often work in a consulting role, designing plants to meet clients' needs. Design is limited by several factors, including funding, government regulations, and safety standards. Plant construction is coordinated by project engineers and project managers depending on the size of the investment.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Unit Operations</h3>
+                        <p class="subsection-text">A unit operation is a physical step in an individual chemical engineering process. Unit operations such as crystallization, filtration, drying and evaporation are used to prepare reactants, purifying and separating products, recycling unspent reactants, and controlling energy transfer in reactors.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Unit Processes</h3>
+                        <p class="subsection-text">A unit process is the chemical equivalent of a unit operation. Unit processes such as nitration, hydrogenation, and oxidation involve the conversion of materials by biochemical, thermochemical and other means. Chemical engineers responsible for these are called process engineers.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Process Design and Analysis</h3>
+                        <p class="subsection-text">Process design requires the definition of equipment types and sizes as well as how they are connected and the materials of construction. Details are often printed on a Process Flow Diagram which is used to control the capacity and reliability of a new or existing chemical factory. Education for chemical engineers in the first college degree stresses the principles and practices of process design.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Transport Phenomena</h3>
+                        <p class="subsection-text">Modeling and analysis of transport phenomena is essential for many industrial applications. Transport phenomena involve fluid dynamics, heat transfer and mass transfer, which are governed mainly by momentum transfer, energy transfer and transport of chemical species. Models often involve separate considerations for macroscopic, microscopic and molecular level phenomena.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Project Engineering</h3>
+                        <p class="subsection-text">A chemical engineer may do the job of project engineer full-time or part of the time, which requires additional training and job skills or act as a consultant to the project group. Project engineering jobs are some of the largest employers for chemical engineers. Chemical engineers serving as project engineers use their knowledge in selecting optimal production methods and plant equipment to minimize costs and maximize safety and profitability.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Research and Development</h3>
+                        <p class="subsection-text">Chemical engineers may be involved in industry or university research where they are tasked with designing and performing experiments, by scaling up theoretical chemical reactions, to create better and safer methods for production, pollution control, and resource conservation. Both applied and research facets make extensive use of computers.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Plant Operations and Management</h3>
+                        <p class="subsection-text">After plant construction, chemical engineering project managers may be involved in equipment upgrades, troubleshooting, and daily operations in either full-time or consulting roles. Chemical engineers develop economic ways of using materials and energy and are involved in waste management and resource conservation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Interdisciplinary Nature</h2>
+                <div class="section-content">
+                    <p>A degree in chemical engineering is directly linked with all of the other engineering disciplines, to various extents. Chemical engineers use chemistry and engineering to turn raw materials into usable products, such as medicine, petrochemicals, and plastics on a large-scale, industrial setting. They apply knowledge from mechanical engineering for equipment design, electrical engineering for control systems, and environmental engineering for sustainability and waste management.</p>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // Initialize Telegram Web App
         if (typeof TelegramWebApp !== 'undefined') {
             const tg = window.Telegram.WebApp;
             tg.ready();
-            tg.setHeaderColor('#1a1a1a');
+            tg.setHeaderColor('#000000');
             tg.setBackgroundColor('#000000');
             tg.MainButton.hide();
         }
-
-        const roadmapSteps = {
-            en: [
-                "Study chemistry, physics, and stoichiometric calculations.",
-                "Learn thermodynamics and transport phenomena.",
-                "Master reaction engineering and process control.",
-                "Use process simulation and plant design tools.",
-                "Focus on safety, scale-up, and industrial operations."
-            ],
-            ru: [
-                "Изучите химию, физику и расчёты процессов.",
-                "Освойте термодинамику и переносные процессы.",
-                "Изучите кинетику реакций и управление процессами.",
-                "Используйте моделирование процессов и проектирование установок.",
-                "Сфокусируйтесь на безопасности, масштабировании и эксплуатации."
-            ],
-            uz: [
-                "Kimyo, fizika va jarayon hisob-kitoblarini o'rganing.",
-                "Termodinamika va transport hodisalarini o'zlashtiring.",
-                "Reaksiya injiniringi va jarayon boshqaruvini o'rganing.",
-                "Jarayon simulyatsiyasi va zavod dizaynini qo'llang.",
-                "Xavfsizlik, masshtablashtirish va ishlab chiqarishga e'tibor bering."
-            ]
-        };
-
-        const lang = localStorage.getItem("preferredLanguage") || "en";
-        const stepsContainer = document.getElementById("roadmap-steps");
-
-        roadmapSteps[lang].forEach((step, index) => {
-            const stepEl = document.createElement("div");
-            stepEl.className = "roadmap-step";
-            
-            const numberEl = document.createElement("div");
-            numberEl.className = "step-number";
-            numberEl.textContent = index + 1;
-            
-            const textEl = document.createElement("div");
-            textEl.className = "step-text";
-            textEl.textContent = step;
-            
-            stepEl.appendChild(numberEl);
-            stepEl.appendChild(textEl);
-            stepsContainer.appendChild(stepEl);
-        });
     </script>
 </body>
 </html>
