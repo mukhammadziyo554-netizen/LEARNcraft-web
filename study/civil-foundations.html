@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Foundations - Civil Engineering - LEARNcraft</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: radial-gradient(circle at top, #0a0a0a 0%, #000000 60%, #000000 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .page-wrapper {
+            width: 100%;
+            min-height: 100vh;
+            padding: 80px 20px 60px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: transparent;
+            border: none;
+            color: #888;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.3s;
+            margin-bottom: 50px;
+        }
+
+        .back-button:hover {
+            color: #ffffff;
+        }
+
+        .page-header {
+            margin-bottom: 60px;
+        }
+
+        .stage-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #FFD84D;
+            margin-bottom: 8px;
+        }
+
+        .stage-subtitle {
+            font-size: 24px;
+            font-weight: 400;
+            color: #bdbdbd;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .section-content {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #EAEAEA;
+        }
+
+        .section-content p {
+            margin-bottom: 16px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .table th,
+        .table td {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 16px;
+            text-align: left;
+        }
+
+        .table th {
+            background: rgba(255, 216, 77, 0.1);
+            color: #FFD84D;
+            font-weight: 600;
+        }
+
+        .table tr:hover {
+            background: rgba(255, 216, 77, 0.05);
+        }
+
+        .list-item {
+            margin: 12px 0 12px 20px;
+            color: #EAEAEA;
+            line-height: 1.7;
+        }
+
+        .list-item::before {
+            content: "▸ ";
+            color: #FFD84D;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .week-plan {
+            background: rgba(255, 216, 77, 0.05);
+            border-left: 4px solid #FFD84D;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+
+        .week-title {
+            color: #FFD84D;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .week-content {
+            color: #EAEAEA;
+            line-height: 1.6;
+        }
+
+        .ask-ai-section {
+            margin-top: 80px;
+            padding: 40px;
+            background: rgba(255, 216, 77, 0.08);
+            border: 2px solid rgba(255, 216, 77, 0.3);
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .ask-ai-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #FFD84D;
+            margin-bottom: 16px;
+        }
+
+        .ask-ai-button {
+            display: inline-block;
+            padding: 16px 48px;
+            background: #FFD84D;
+            color: #000000;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 40px rgba(255, 216, 77, 0.3);
+        }
+
+        .ask-ai-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 50px rgba(255, 216, 77, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .page-wrapper {
+                padding: 60px 16px 50px;
+            }
+
+            .stage-title {
+                font-size: 36px;
+            }
+
+            .stage-subtitle {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 22px;
+            }
+
+            .section-content {
+                font-size: 15px;
+            }
+
+            .ask-ai-section {
+                padding: 30px 20px;
+            }
+
+            .ask-ai-button {
+                padding: 14px 40px;
+                font-size: 15px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="container">
+            <button onclick="window.history.back()" class="back-button">← Back</button>
+
+            <div class="page-header">
+                <h1 class="stage-title">Foundations</h1>
+                <p class="stage-subtitle">Civil Engineering</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">What You Will Learn</h2>
+                <div class="section-content">
+                    <p>In this foundational stage, you'll build the mathematical and physical knowledge required for civil engineering. You'll develop strong skills in algebra, geometry, and physics that form the backbone of all engineering disciplines.</p>
+                    <p>By the end of this stage, you'll be able to:</p>
+                    <div class="list-item">Solve complex algebraic equations and systems</div>
+                    <div class="list-item">Understand geometric concepts and spatial reasoning</div>
+                    <div class="list-item">Apply Newton's laws and basic physics principles</div>
+                    <div class="list-item">Perform accurate measurements and unit conversions</div>
+                    <div class="list-item">Analyze forces and motion in engineering contexts</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Prerequisites (Grade Level)</h2>
+                <div class="section-content">
+                    <p>The following table shows the recommended grade level and prior knowledge for each topic:</p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Topic</th>
+                                <th>Recommended Grade</th>
+                                <th>Prior Knowledge</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Algebra Fundamentals</td>
+                                <td>Grade 8–9</td>
+                                <td>Basic arithmetic, exponents</td>
+                            </tr>
+                            <tr>
+                                <td>Geometry & Trigonometry</td>
+                                <td>Grade 9–10</td>
+                                <td>Algebra basics, area/volume</td>
+                            </tr>
+                            <tr>
+                                <td>Basic Physics</td>
+                                <td>Grade 9–10</td>
+                                <td>Force, motion, energy concepts</td>
+                            </tr>
+                            <tr>
+                                <td>Units & Measurement</td>
+                                <td>Grade 10</td>
+                                <td>Metric system, conversions</td>
+                            </tr>
+                            <tr>
+                                <td>Engineering Math</td>
+                                <td>Grade 10–11</td>
+                                <td>Calculus foundations</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">How to Study</h2>
+                <div class="section-content">
+                    <p>Follow this proven learning methodology to maximize retention and understanding:</p>
+                    <div style="margin: 20px 0;">
+                        <div class="list-item"><strong>Step 1: Learn Theory</strong> — Watch video lectures and read textbooks on each topic. Take notes on key concepts and formulas.</div>
+                        <div class="list-item"><strong>Step 2: Practice Problems</strong> — Solve 20-30 practice problems for each topic. Start with easier problems and progress to harder ones.</div>
+                        <div class="list-item"><strong>Step 3: Apply to Engineering</strong> — Connect each concept to real civil engineering applications (bridges, buildings, etc.).</div>
+                        <div class="list-item"><strong>Step 4: Ask AI Questions</strong> — Use the LEARNcraft AI chat to clarify confusing topics, get problem hints, or discuss real-world examples.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Weekly Study Plan</h2>
+                <div class="section-content">
+                    <p>Dedicate 5-8 hours per week to complete this stage in 4 weeks. Here's a recommended schedule:</p>
+
+                    <div class="week-plan">
+                        <div class="week-title">Week 1: Algebra Review & Equations</div>
+                        <div class="week-content">
+                            Master linear and quadratic equations. Topics: solving for unknowns, systems of equations, graphing linear functions. Practice: 25 problems.
+                        </div>
+                    </div>
+
+                    <div class="week-plan">
+                        <div class="week-title">Week 2: Geometry, Trigonometry & Units</div>
+                        <div class="week-content">
+                            Learn properties of shapes, triangles, and trigonometric functions. Understand unit systems and conversions. Practice: 30 problems.
+                        </div>
+                    </div>
+
+                    <div class="week-plan">
+                        <div class="week-title">Week 3: Physics Fundamentals</div>
+                        <div class="week-content">
+                            Newton's laws, forces, motion, energy, and work. Apply concepts to real structures and systems. Practice: 30 problems.
+                        </div>
+                    </div>
+
+                    <div class="week-plan">
+                        <div class="week-title">Week 4: Engineering Applications & Review</div>
+                        <div class="week-content">
+                            Real-world civil engineering problems combining all previous topics. Complete comprehensive practice exam and review weak areas.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ask-ai-section">
+                <h2 class="ask-ai-title">Questions About This Stage?</h2>
+                <p style="font-size: 16px; color: #bdbdbd; margin-bottom: 24px;">
+                    Get personalized help from LEARNcraft's AI tutor. Ask anything about the material, request problem solutions, or discuss concepts.
+                </p>
+                <button class="ask-ai-button">Ask AI About This Stage</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        if (typeof TelegramWebApp !== 'undefined') {
+            const tg = window.Telegram.WebApp;
+            tg.ready();
+            tg.setHeaderColor('#000000');
+            tg.setBackgroundColor('#000000');
+            tg.MainButton.hide();
+        }
+    </script>
+</body>
+</html>
