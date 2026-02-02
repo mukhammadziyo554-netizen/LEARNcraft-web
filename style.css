@@ -21,8 +21,8 @@ body.dark {
     background: radial-gradient(circle at top, #0a0a0a 0%, #000000 60%, #000000 100%);
 }
 
-/* ===== NAVBAR ===== */
-.navbar {
+/* ===== TOPBAR HEADER ===== */
+.topbar {
     position: fixed;
     top: 0;
     left: 0;
@@ -32,25 +32,27 @@ body.dark {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 30px;
     z-index: 1000;
     backdrop-filter: blur(10px);
-}
-
-.logo {
-    font-size: 24px;
     font-weight: 700;
+    font-size: 24px;
     color: #FFD84D;
 }
 
-/* ===== ROADMAP HERO ===== */
-.roadmap-hero {
+/* ===== HERO SECTION ===== */
+.hero {
     text-align: center;
-    padding: 100px 20px 50px;
+    padding: 100px 20px 60px;
     margin-top: 50px;
 }
 
-.roadmap-hero h1 {
+.hero.small {
+    padding: 80px 20px 40px;
+    margin-top: 50px;
+}
+
+.hero h1 {
     font-size: 48px;
     font-weight: 700;
     color: #ffffff;
@@ -58,27 +60,28 @@ body.dark {
     letter-spacing: -0.5px;
 }
 
-.roadmap-hero p {
+.hero p {
     font-size: 18px;
     color: #bdbdbd;
     font-weight: 400;
     max-width: 600px;
-    margin: 0 auto;
+    margin: 0 auto 24px;
 }
 
-/* ===== STAGES SECTION ===== */
-.stages {
+/* ===== ROADMAP CONTAINER ===== */
+.roadmap-container {
     max-width: 800px;
-    margin: 60px auto 0;
+    margin: 0 auto;
     padding: 0 20px 100px;
 }
 
+/* ===== STAGE CARDS ===== */
 .stage-card {
     background: #111111;
     border: 1px solid #222222;
+    border-radius: 12px;
     padding: 30px 25px;
     margin-bottom: 25px;
-    border-radius: 12px;
     transition: all 0.3s ease;
 }
 
@@ -87,7 +90,7 @@ body.dark {
     box-shadow: 0 0 30px rgba(255, 216, 77, 0.2);
 }
 
-.stage-card h3 {
+.stage-card h2 {
     font-size: 20px;
     font-weight: 600;
     color: #ffffff;
@@ -101,45 +104,21 @@ body.dark {
     line-height: 1.5;
 }
 
-.stage-card button {
-    margin-top: 15px;
-    padding: 12px 28px;
-    background: #FFD84D;
-    border: none;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 14px;
-    cursor: pointer;
-    color: #000000;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 20px rgba(255, 216, 77, 0.2);
-}
-
-.stage-card button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 35px rgba(255, 216, 77, 0.4);
-}
-
-.stage-card button:active {
-    transform: scale(0.98);
-}
-
-/* ===== OPEN STAGE BUTTON/LINK ===== */
+/* ===== BUTTONS & LINKS ===== */
 .open-stage-btn {
     display: inline-block;
-    margin-top: 15px;
     padding: 12px 28px;
     background: linear-gradient(90deg, #ffd84d, #ffb700);
+    color: #000000;
     border: none;
     border-radius: 8px;
     font-weight: 700;
     font-size: 14px;
     cursor: pointer;
-    color: #000000;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 20px rgba(255, 216, 77, 0.2);
     text-decoration: none;
     text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(255, 216, 77, 0.2);
 }
 
 .open-stage-btn:hover {
@@ -151,78 +130,292 @@ body.dark {
     transform: scale(0.98);
 }
 
-/* ===== UTILITY CLASSES ===== */
+.start-stage-btn {
+    padding: 14px 32px;
+    background: linear-gradient(90deg, #ffd84d, #ffb700);
+    color: #000000;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(255, 216, 77, 0.2);
+    margin-bottom: 30px;
+}
+
+.start-stage-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 35px rgba(255, 216, 77, 0.4);
+}
+
+.start-stage-btn:active {
+    transform: scale(0.98);
+}
+
+/* ===== PROGRESS TRACKING ===== */
 .hidden {
     display: none !important;
 }
 
-/* ===== RESPONSIVE DESIGN ===== */
-@media (max-width: 768px) {
-    .roadmap-hero h1 {
-        font-size: 36px;
-    }
+#progressSection {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px 100px;
+    animation: slideDown 0.3s ease;
+}
 
-    .roadmap-hero p {
-        font-size: 16px;
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
     }
-
-    .stage-card {
-        padding: 20px;
-    }
-
-    .stage-card h3 {
-        font-size: 18px;
-    }
-
-    .stage-card button {
-        width: 100%;
-        padding: 14px 20px;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-@media (max-width: 480px) {
-    .navbar {
-        height: 60px;
-    }
+.progress-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 40px 0;
+    font-weight: 600;
+    font-size: 16px;
+}
 
-    .logo {
+.progress-stats div {
+    background: rgba(255, 216, 77, 0.08);
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 3px solid #FFD84D;
+    color: #EAEAEA;
+}
+
+.progress-stats span {
+    color: #FFD84D;
+    font-weight: 700;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 14px;
+    background: #222;
+    border-radius: 8px;
+    margin: 30px 0;
+    overflow: hidden;
+}
+
+#progressFill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #ffd84d, #ffb700);
+    transition: width 0.4s ease;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(255, 216, 77, 0.4);
+}
+
+/* ===== TRACKER TABLE ===== */
+.tracker-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: white;
+    margin: 30px 0;
+    font-size: 14px;
+}
+
+.tracker-table th,
+.tracker-table td {
+    border: 1px solid #333;
+    padding: 12px 8px;
+    text-align: center;
+}
+
+.tracker-table th {
+    background: rgba(255, 216, 77, 0.1);
+    color: #FFD84D;
+    font-weight: 700;
+}
+
+.tracker-table td:first-child {
+    text-align: left;
+    padding-left: 16px;
+}
+
+.tracker-table tr:hover {
+    background: rgba(255, 216, 77, 0.05);
+}
+
+.tracker-table input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #FFD84D;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .topbar {
+        padding: 0 20px;
         font-size: 20px;
     }
 
-    .roadmap-hero {
-        padding: 80px 20px 30px;
-        margin-top: 30px;
+    .hero {
+        padding: 80px 20px 40px;
+        margin-top: 40px;
     }
 
-    .roadmap-hero h1 {
-        font-size: 28px;
-        margin-bottom: 12px;
+    .hero.small {
+        padding: 60px 20px 30px;
     }
 
-    .roadmap-hero p {
-        font-size: 14px;
+    .hero h1 {
+        font-size: 36px;
     }
 
-    .stages {
-        margin: 40px auto 0;
+    .hero p {
+        font-size: 16px;
+    }
+
+    .roadmap-container {
+        padding: 0 20px 80px;
+    }
+
+    #progressSection {
         padding: 0 20px 80px;
     }
 
     .stage-card {
-        padding: 18px;
+        padding: 20px;
         margin-bottom: 15px;
     }
 
-    .stage-card h3 {
-        font-size: 16px;
+    .progress-stats {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        font-size: 14px;
+        margin: 20px 0;
+    }
+
+    .progress-stats div {
+        padding: 16px;
+    }
+
+    .tracker-table {
+        font-size: 12px;
+        margin: 20px 0;
+    }
+
+    .tracker-table th,
+    .tracker-table td {
+        padding: 8px 4px;
+    }
+
+    .tracker-table input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+    }
+
+    .start-stage-btn {
+        padding: 12px 28px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .topbar {
+        height: 60px;
+        padding: 0 16px;
+        font-size: 18px;
+    }
+
+    .hero {
+        padding: 60px 16px 30px;
+        margin-top: 30px;
+    }
+
+    .hero.small {
+        padding: 50px 16px 25px;
+    }
+
+    .hero h1 {
+        font-size: 28px;
+        margin-bottom: 12px;
+    }
+
+    .hero p {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .roadmap-container {
+        padding: 0 16px 60px;
+    }
+
+    #progressSection {
+        padding: 0 16px 60px;
+    }
+
+    .stage-card {
+        padding: 18px;
+        margin-bottom: 12px;
+    }
+
+    .stage-card h2 {
+        font-size: 18px;
     }
 
     .stage-card p {
         font-size: 13px;
+        margin-bottom: 16px;
     }
 
-    .stage-card button {
+    .open-stage-btn {
         font-size: 13px;
-        padding: 12px 18px;
+        padding: 10px 20px;
+    }
+
+    .progress-stats {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        font-size: 13px;
+        margin: 16px 0;
+    }
+
+    .progress-stats div {
+        padding: 12px;
+        border-left-width: 2px;
+    }
+
+    .progress-bar {
+        height: 12px;
+        margin: 16px 0;
+    }
+
+    .tracker-table {
+        font-size: 11px;
+        margin: 16px 0;
+    }
+
+    .tracker-table th,
+    .tracker-table td {
+        padding: 6px 3px;
+    }
+
+    .tracker-table td:first-child {
+        font-size: 10px;
+    }
+
+    .tracker-table input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+    }
+
+    .start-stage-btn {
+        padding: 11px 24px;
+        font-size: 14px;
+        margin-bottom: 20px;
+        width: 100%;
     }
 }
