@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Choose Your Engineering Field - LEARNcraft</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: radial-gradient(circle at top, #0a0a0a 0%, #000000 60%, #000000 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .page-wrapper {
+            width: 100%;
+            min-height: 100vh;
+            padding: 80px 20px 60px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .page-title {
+            font-size: 56px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .page-subtitle {
+            font-size: 18px;
+            color: #bdbdbd;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .fields-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin-bottom: 60px;
+        }
+
+        .field-card {
+            background: #111111;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 32px 24px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 280px;
+        }
+
+        .field-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 215, 0, 0.6);
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.1), 0 0 1px rgba(255, 215, 0, 0.2);
+        }
+
+        .field-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: #FFD84D;
+            margin-bottom: 12px;
+        }
+
+        .field-description {
+            font-size: 15px;
+            color: #bdbdbd;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            flex-grow: 1;
+        }
+
+        .select-button {
+            background: transparent;
+            border: 2px solid #FFD84D;
+            color: #FFD84D;
+            padding: 11px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .select-button:hover {
+            background: #FFD84D;
+            color: #000000;
+            transform: scale(1.02);
+        }
+
+        .select-button:active {
+            transform: scale(0.98);
+        }
+
+        @media (max-width: 1024px) {
+            .fields-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-wrapper {
+                padding: 60px 16px 50px;
+            }
+
+            .page-header {
+                margin-bottom: 50px;
+            }
+
+            .page-title {
+                font-size: 42px;
+                margin-bottom: 12px;
+            }
+
+            .page-subtitle {
+                font-size: 16px;
+            }
+
+            .fields-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .field-card {
+                padding: 28px 20px;
+                min-height: 260px;
+            }
+
+            .field-name {
+                font-size: 20px;
+            }
+
+            .field-description {
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-wrapper {
+                padding: 50px 12px 40px;
+            }
+
+            .page-title {
+                font-size: 32px;
+            }
+
+            .page-subtitle {
+                font-size: 15px;
+            }
+
+            .fields-grid {
+                gap: 16px;
+            }
+
+            .field-card {
+                padding: 24px 16px;
+                min-height: auto;
+            }
+
+            .field-name {
+                font-size: 18px;
+            }
+
+            .field-description {
+                font-size: 13px;
+                margin-bottom: 16px;
+            }
+
+            .select-button {
+                padding: 10px 20px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">Choose Your Engineering Field</h1>
+                <p class="page-subtitle">Select the field you want a personalized step-by-step roadmap for.</p>
+            </div>
+
+            <div class="fields-grid">
+                <!-- Core Fields -->
+                <div class="field-card" onclick="selectField('Civil Engineering')">
+                    <div class="field-name">Civil Engineering</div>
+                    <p class="field-description">Design and build infrastructure, structures, and transportation systems.</p>
+                    <button class="select-button">Select Field</button>
+                </div>
+
+                <div class="field-card" onclick="selectField('Mechanical Engineering')">
+                    <div class="field-name">Mechanical Engineering</div>
+                    <p class="field-description">Study machines, thermodynamics, mechanics, and system design.</p>
+                    <button class="select-button">Select Field</button>
+                </div>
+
+                <div class="field-card" onclick="selectField('Electrical Engineering')">
+                    <div class="field-name">Electrical Engineering</div>
+                    <p class="field-description">Work with circuits, power systems, electronics, and signals.</p>
+                    <button class="select-button">Select Field</button>
+                </div>
+
+                <div class="field-card" onclick="selectField('Computer Science')">
+                    <div class="field-name">Computer Science</div>
+                    <p class="field-description">Programming, algorithms, artificial intelligence, and software systems.</p>
+                    <button class="select-button">Select Field</button>
+                </div>
+
+                <div class="field-card" onclick="selectField('Aerospace Engineering')">
+                    <div class="field-name">Aerospace Engineering</div>
+                    <p class="field-description">Aircraft, spacecraft, aerodynamics, and propulsion systems.</p>
+                    <button class="select-button">Select Field</button>
+                </div>
+
+                <div class="field-card" onclick="selectField('Chemical Engineering')">
+                    <div class="field-name">Chemical Engineering</div>
+                    <p class="field-description">Chemical processes, materials, reactions, and energy systems.</p>
+                    <button class="select-button">Select Field</button>
+                </div>
+
+                <!-- Newly Added Fields -->
+                <div class="field-card" onclick="selectField('Biomedical Engineering')">
+                    <div class="field-name">Biomedical Engineering</div>
+                    <p class="field-description">Combine engineering and medicine to develop healthcare innovations.</p>
+                    <button class="select-button">Select Field</button>
+                </div>
+
+                <div class="field-card" onclick="selectField('Environmental Engineering')">
+                    <div class="field-name">Environmental Engineering</div>
+                    <p class="field-description">Design solutions for water treatment, pollution control, and sustainability.</p>
+                    <button class="select-button">Select Field</button>
+                </div>
+
+                <div class="field-card" onclick="selectField('Industrial Engineering')">
+                    <div class="field-name">Industrial Engineering</div>
+                    <p class="field-description">Optimize systems, logistics, and manufacturing efficiency.</p>
+                    <button class="select-button">Select Field</button>
+                </div>
+
+                <div class="field-card" onclick="selectField('Materials Science')">
+                    <div class="field-name">Materials Science</div>
+                    <p class="field-description">Study material properties and develop advanced engineering materials.</p>
+                    <button class="select-button">Select Field</button>
+                </div>
+
+                <div class="field-card" onclick="selectField('Mechatronics')">
+                    <div class="field-name">Mechatronics</div>
+                    <p class="field-description">Integrate mechanical systems with electronics, robotics, and automation.</p>
+                    <button class="select-button">Select Field</button>
+                </div>
+
+                <div class="field-card" onclick="selectField('Nuclear Engineering')">
+                    <div class="field-name">Nuclear Engineering</div>
+                    <p class="field-description">Understand nuclear reactions, safety systems, and power generation.</p>
+                    <button class="select-button">Select Field</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        if (typeof TelegramWebApp !== 'undefined') {
+            const tg = window.Telegram.WebApp;
+            tg.ready();
+            tg.setHeaderColor('#000000');
+            tg.setBackgroundColor('#000000');
+            tg.MainButton.hide();
+        }
+
+        function selectField(fieldName) {
+            // Save selected field to localStorage
+            localStorage.setItem('selectedEngineeringField', fieldName);
+            
+            // Save timestamp for tracking
+            localStorage.setItem('fieldSelectionTime', new Date().toISOString());
+            
+            // Redirect to next onboarding step
+            window.location.href = 'choose-level.html';
+        }
+
+        // Optional: Display previously selected field on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            const previousField = localStorage.getItem('selectedEngineeringField');
+            if (previousField) {
+                console.log('Previously selected field:', previousField);
+            }
+        });
+    </script>
+</body>
+</html>
