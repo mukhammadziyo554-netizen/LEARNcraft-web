@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Architectural Engineering - LEARNcraft</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #000000;
+            color: #EAEAEA;
+            min-height: 100vh;
+        }
+
+        .page-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px 60px;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 16px;
+            background: transparent;
+            border: none;
+            color: #888;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.3s;
+            margin-bottom: 40px;
+        }
+
+        .back-button:hover {
+            color: #EAEAEA;
+        }
+
+        .article-header {
+            margin-bottom: 50px;
+        }
+
+        .article-title {
+            font-size: 56px;
+            font-weight: 700;
+            color: #EAEAEA;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .article-subtitle {
+            font-size: 20px;
+            color: #888;
+            font-weight: 400;
+        }
+
+        .intro-paragraph {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #EAEAEA;
+            margin: 40px 0 30px 0;
+        }
+
+        .explore-button {
+            display: inline-block;
+            margin: 30px 0;
+            padding: 12px 28px;
+            background: transparent;
+            border: 2px solid #FFD84D;
+            color: #FFD84D;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .explore-button:hover {
+            background: #FFD84D;
+            color: #000000;
+            transform: translateY(-2px);
+        }
+
+        .article-content {
+            margin-top: 50px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #EAEAEA;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #222;
+        }
+
+        .section-content {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #EAEAEA;
+        }
+
+        .section-content p {
+            margin-bottom: 18px;
+        }
+
+        .subsection {
+            margin-top: 28px;
+            margin-bottom: 20px;
+        }
+
+        .subsection-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #FFD84D;
+            margin-bottom: 10px;
+        }
+
+        .subsection-text {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #EAEAEA;
+            margin-bottom: 12px;
+        }
+
+        .highlight-box {
+            background: rgba(255, 216, 77, 0.08);
+            border-left: 3px solid #FFD84D;
+            padding: 16px 20px;
+            margin: 24px 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            color: #EAEAEA;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .page-container {
+                padding: 70px 16px 40px;
+            }
+
+            .article-title {
+                font-size: 40px;
+            }
+
+            .article-subtitle {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <button onclick="if (document.referrer && document.referrer !== '') { window.history.back(); } else { window.location.href = 'learn.html'; }" class="back-button">← Back</button>
+        
+        <div class="article-header">
+            <h1 class="article-title">Architectural Engineering</h1>
+            <p class="article-subtitle">Bridging design and engineering for sustainable, efficient buildings</p>
+        </div>
+
+        <p class="intro-paragraph">
+            Architectural engineering or architecture engineering, also known as building engineering, is a discipline that deals with the engineering and construction of buildings, such as environmental, structural, mechanical, electrical, computational, embeddable, and other research domains. It is related to Architecture, Mechatronics Engineering, Computer Engineering, Aerospace Engineering, and Civil Engineering, but distinguished from Interior Design and Architectural Design as an art and science of designing infrastructure through these various engineering disciplines, from which properly align with many related surrounding engineering advancements.
+        </p>
+
+        <p class="intro-paragraph">
+            From reduction of greenhouse gas emissions to the construction of resilient buildings, architectural engineers are at the forefront of addressing several major challenges of the 21st century. They apply the latest scientific knowledge and technologies to the design of buildings. Architectural engineering as a relatively new licensed profession emerged in the 20th century as a result of the rapid technological developments. Architectural engineers are at the forefront of two major historical opportunities that today's world is immersed in: (1) that of rapidly advancing computer-technology, and (2) the parallel revolution of environmental sustainability.
+        </p>
+
+        <button class="explore-button" onclick="window.location.href='learn.html'">Explore More Topics</button>
+
+        <div class="article-content">
+            <div class="section">
+                <h2 class="section-title">Architects vs. Architectural Engineers</h2>
+                <div class="section-content">
+                    <p>Architects and architectural engineers both play crucial roles in building design and construction, but they focus on different aspects. Architectural engineers specialize in the technical and structural aspects, ensuring buildings are safe, efficient, and sustainable. Their education blends architecture with engineering, focusing on structural integrity, mechanical systems, and energy efficiency. They design and analyze building systems, conduct feasibility studies, and collaborate with architects to integrate technical requirements into the overall design.</p>
+                    
+                    <p>Architects, on the other hand, emphasize the aesthetic, functional, and spatial elements, developing design concepts and detailed plans to meet client needs and comply with regulations. Their education focuses on design theory, history, and artistic aspects, and they oversee the construction process to ensure the design is correctly implemented.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Subdisciplines of Architectural Engineering</h2>
+                <div class="section-content">
+                    
+                    <div class="subsection">
+                        <h3 class="subsection-title">Mechanical, Electrical, and Plumbing (MEP)</h3>
+                        <p class="subsection-text">Mechanical engineering and electrical engineering engineers are specialists when engaged in the building design fields. This is known as mechanical, electrical, and plumbing (MEP) throughout the United States, or building services engineering in the United Kingdom, Canada, and Australia.</p>
+                        <p class="subsection-text">Mechanical engineers often design and oversee the heating, ventilation and air conditioning (HVAC), plumbing, and rainwater systems. Plumbing designers often include design specifications for simple active fire protection systems, but for more complicated projects, fire protection engineers are often separately retained. Electrical engineers are responsible for the building's electric power distribution, telecommunication, fire alarm, signalization, lightning protection and control systems, as well as lighting systems.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Structural Engineering</h3>
+                        <p class="subsection-text">Structural engineering involves the analysis and design of the built environment (buildings, bridges, equipment supports, towers and walls). Those concentrating on buildings are sometimes informally referred to as "building engineers". Structural engineers require expertise in strength of materials, structural analysis, and in predicting structural load such as from weight of the building, occupants and contents, and extreme events such as wind, rain, ice, and seismic design of structures which is referred to as earthquake engineering.</p>
+                        <p class="subsection-text">Architectural engineers sometimes incorporate structural as one aspect of their designs; the structural discipline when practiced as a specialty works closely with architects and other engineering specialists.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Sustainable Engineering</h3>
+                        <p class="subsection-text">Sustainable engineering involves designing or operating systems to use energy and resources in a way that maintains environmental balance and ensures that future generations can meet their own needs without compromising the natural environment. Architectural engineers are influenced by sustainable engineering principles in their education, training, and practice, integrating sustainable design strategies to create buildings and structures that minimize environmental impact and enhance energy efficiency.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Building Envelope Engineering</h3>
+                        <p class="subsection-text">Building enclosure and façade engineering involves the design and management of the outer shell of a building, which acts as a barrier between the interior and exterior environments. This includes walls, roofs, windows, doors, and other components that collectively ensure the building is protected from external elements such as air, water, heat, light, and noise.</p>
+                        <p class="subsection-text">The building envelope plays a crucial role in maintaining indoor comfort by controlling temperature, humidity, and airflow. It also contributes to the building's energy efficiency by minimizing heat loss in the winter and heat gain in the summer. Engineers in this field work on making sure the envelope is structurally sound, aesthetically pleasing, and performs effectively to meet various functional requirements.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Fire Protection Engineering</h3>
+                        <p class="subsection-text">Fire protection engineering is a subfield of building engineering focused on the design and application of systems and practices that prevent, control, and mitigate the impact of fires. This discipline aims to protect people, property, and the environment from the destructive effects of fire through a combination of preventive measures, detection systems, and response strategies.</p>
+                        <p class="subsection-text">Fire protection engineers use their expertise to analyze potential fire scenarios, model the spread of fire and smoke, and design systems that effectively protect lives and property. They collaborate with architects, builders, and safety officials to integrate fire protection measures into the overall design and operation of buildings and facilities.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Acoustical Engineering</h3>
+                        <p class="subsection-text">Acoustical or acoustics engineering in building design focuses on controlling sound within and around buildings to create a comfortable and functional auditory environment. This discipline involves the study and application of principles to manage noise levels, improve sound quality, and ensure effective sound insulation.</p>
+                        <p class="subsection-text">Acoustical engineers work closely with architects, builders, and other engineers to integrate sound control measures into the overall design of a building. They use advanced modeling and simulation tools to predict how sound will behave in different spaces and employ various materials and techniques to achieve the desired acoustic performance. Their goal is to create environments that are acoustically comfortable, meeting the specific needs of the building's occupants and its intended use.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">The Architectural Engineer (PE) in the United States</h2>
+                <div class="section-content">
+                    <p>In many jurisdictions of the United States, the architectural engineer is a licensed engineering professional. Usually a graduate of an EAC/ABET-accredited architectural engineering university program preparing students to perform whole-building design in competition with architect-engineer teams; or for practice in one of structural, mechanical or electrical fields of building design, but with an appreciation of integrated architectural requirements.</p>
+                    
+                    <p>Although some states require a BS degree from an EAC/ABET-accredited engineering program, with no exceptions, about two thirds of the states accept BS degrees from ETAC/ABET-accredited architectural engineering technology programs to become licensed engineering professionals. Architectural engineering technology graduates, with applied engineering skills, often gain further learning with an MS degree in engineering and/or NAAB-accredited Masters of Architecture to become licensed as both an engineer and architect.</p>
+
+                    <div class="highlight-box">
+                        <p>This path requires the individual to pass state licensing exams in both disciplines. States handle this situation differently on experienced gained working under a licensed engineer and/or registered architect prior to taking the examinations.</p>
+                    </div>
+
+                    <p>This education model is more in line with the educational system in the United Kingdom where an accredited MEng or MS degree in engineering for further learning is required by the Engineering Council to be registered as a Chartered Engineer. The National Council of Architectural Registration Boards (NCARB) facilitate the licensure and credentialing of architects but requirements for registration often vary between states. In the state of New Jersey, a registered architect is allowed to sit for the PE exam and a professional engineer is allowed to take the design portions of the Architectural Registration Exam (ARE), to become a registered architect.</p>
+
+                    <p>Formal architectural engineering education, following the engineering model of earlier disciplines, developed in the late 19th century, and became widespread in the United States by the mid-20th century. With the establishment of a specific "architectural engineering" NCEES Professional Engineering registration examination in the 1990s, and first offering in April 2003, architectural engineering became recognized as a distinct engineering discipline in the United States. Up to date NCEES account allows engineers to apply to other states PE license "by comity".</p>
+
+                    <p>In most license-regulated jurisdictions, architectural engineers are not entitled to practice architecture unless they are also licensed as architects. Practice of structural engineering in high-risk locations, e.g., due to strong earthquakes, or on specific types of higher importance buildings such as hospitals, may require separate licensing as well. Regulations and customary practice vary widely by state or city.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">The Architect as Architectural Engineer</h2>
+                <div class="section-content">
+                    <p>In some countries, the practice of architecture includes planning, designing and overseeing the building's construction, and architecture, as a profession providing architectural services, is referred to as "architectural engineering". In Japan, a "first-class architect" plays the dual role of architect and building engineer, although the services of a licensed "structural design first-class architect" (構造設計一級建築士) are required for buildings over a certain scale.</p>
+                    
+                    <p>In some languages, such as Korean and Arabic, "architect" is literally translated as "architectural engineer". In some countries, an "architectural engineer" (such as the ingegnere edile in Italy) is entitled to practice architecture and is often referred to as an architect. These individuals are often also structural engineers. In other countries, such as Germany, Austria, Iran, and most of the Arab countries, architecture graduates receive an engineering degree (Dipl.-Ing. – Diplom-Ingenieur).</p>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Spain</h3>
+                        <p class="subsection-text">In Spain, an "architect" has a technical university education and legal powers to carry out building structure and facility projects.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Brazil</h3>
+                        <p class="subsection-text">In Brazil, architects and engineers used to share the same accreditation process (Conselho Federal de Engenheiros, Arquitetos e Agrônomos (CONFEA) – Federal Council of Engineering, Architecture and Agronomy). Now the Brazilian architects and urbanists have their own accreditation process (CAU – Architecture and Urbanism Council).</p>
+                        <p class="subsection-text">Besides traditional architecture design training, Brazilian architecture courses also offer complementary training in engineering disciplines such as structural, electrical, hydraulic and mechanical engineering. After graduation, architects focus in architectural planning, yet they can be responsible to the whole building, when it concerns to small buildings (except in electric wiring, where the architect autonomy is limited to systems up to 30kVA, and it has to be done by an Electrical Engineer), applied to buildings, urban environment, built cultural heritage, landscape planning, interiorscape planning and regional planning.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Greece</h3>
+                        <p class="subsection-text">In Greece licensed architectural engineers are graduates from architecture faculties that belong to the Polytechnic University, obtaining an "Engineering Diploma". They graduate after 5 years of studies and are fully entitled architects once they become members of the Technical Chamber of Greece (TEE – Τεχνικό Επιμελητήριο Ελλάδος).</p>
+                        <p class="subsection-text">The Technical Chamber of Greece has more than 100,000 members encompassing all the engineering disciplines as well as architecture. A prerequisite for being a member is to be licensed as a qualified engineer or architect and to be a graduate of an engineering and architecture schools of a Greek university, or of an equivalent school from abroad. The Technical Chamber of Greece is the authorized body to provide work licenses to engineers of all disciplines as well as architects, graduated in Greece or abroad. The license is awarded after examinations. The examinations take place three to four times a year. The Engineering Diploma equals a master's degree in ECTS units (300) according to the Bologna Accords.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Education and Academic Requirements</h2>
+                <div class="section-content">
+                    <p>The architectural, structural, mechanical and electrical engineering branches each have well established educational requirements that are usually fulfilled by completion of a university program.</p>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Canada</h3>
+                        <p class="subsection-text">In Canada, a CEAB-accredited engineer degree is the minimum academic requirement for registration as a P.Eng (professional engineer) anywhere in Canada and the standard against which all other engineering academic qualifications are measured. A graduate of a non-CEAB-accredited program must demonstrate that his or her education is at least equivalent to that of a graduate of a CEAB-accredited program.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Vietnam</h3>
+                        <p class="subsection-text">In Vietnam, the engineer's degree is called Bằng kỹ sư, the first degree after five years of study. The Ministry of Education of Vietnam has also issued separate regulations for the naming of degrees not in accordance with international regulation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Multi-Disciplinary Nature</h2>
+                <div class="section-content">
+                    <div class="highlight-box">
+                        <p>Its multi-disciplinary engineering approach is what differentiates architectural engineering from architecture (the field of the architect): which is an integrated, separate and single, field of study when compared to other engineering disciplines.</p>
+                    </div>
+
+                    <p>Through training in and appreciation of architecture, the field seeks integration of building systems within its overall building design. Architectural engineering includes the design of building systems including heating, ventilation and air conditioning (HVAC), plumbing, fire protection, electrical, lighting, architectural acoustics, and structural systems.</p>
+                    
+                    <p>In some university programs, students are required to concentrate on one of the systems; in others, they can receive a generalist architectural or building engineering degree. Bringing together knowledge of acoustic engineering and HVAC is one example of the multi-disciplined nature of architectural engineering.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Key Responsibilities</h2>
+                <div class="section-content">
+                    <p>Architectural engineers are responsible for a wide range of critical tasks in building design and construction:</p>
+                    
+                    <div class="subsection">
+                        <h3 class="subsection-title">Design and Analysis</h3>
+                        <p class="subsection-text">Design and analyze building systems to ensure they meet safety, efficiency, and sustainability standards. This includes structural calculations, energy modeling, and system integration planning.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Feasibility Studies</h3>
+                        <p class="subsection-text">Conduct feasibility studies to evaluate the technical and economic viability of building projects, considering factors such as cost, materials, construction methods, and environmental impact.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Collaboration</h3>
+                        <p class="subsection-text">Collaborate with architects, contractors, and other engineers to integrate technical requirements into the overall design, ensuring that all building systems work together harmoniously.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Compliance and Standards</h3>
+                        <p class="subsection-text">Ensure that all designs comply with building codes, regulations, and industry standards, including accessibility requirements, fire safety codes, and energy efficiency standards.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Sustainability Integration</h3>
+                        <p class="subsection-text">Implement sustainable design strategies to minimize environmental impact, reduce energy consumption, and enhance the long-term performance and resilience of buildings.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Career Opportunities</h2>
+                <div class="section-content">
+                    <p>Architectural engineers work in various settings and roles, including:</p>
+                    
+                    <div class="subsection">
+                        <h3 class="subsection-title">Design Firms</h3>
+                        <p class="subsection-text">Working in architectural and engineering design firms to develop integrated building designs that combine aesthetic vision with technical excellence.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Construction Companies</h3>
+                        <p class="subsection-text">Collaborating with construction teams to ensure that building systems are properly implemented and meet design specifications during the construction phase.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Consulting Engineering</h3>
+                        <p class="subsection-text">Providing specialized consulting services in areas such as structural analysis, MEP systems design, energy efficiency, or sustainability assessment.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Government and Regulatory Agencies</h3>
+                        <p class="subsection-text">Working with government agencies to develop building codes, conduct plan reviews, perform inspections, and ensure compliance with regulations.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Research and Development</h3>
+                        <p class="subsection-text">Conducting research in academic institutions or private research centers to advance building technologies, develop new materials, and improve construction methods.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        if (typeof TelegramWebApp !== 'undefined') {
+            const tg = window.Telegram.WebApp;
+            tg.ready();
+            tg.setHeaderColor('#000000');
+            tg.setBackgroundColor('#000000');
+            tg.MainButton.hide();
+        }
+    </script>
+</body>
+</html>
