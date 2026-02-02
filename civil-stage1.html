@@ -12,63 +12,103 @@
 </head>
 <body class="dark">
 
-<header class="topbar">LEARNcraft</header>
+<header class="topbar">
+  <div class="topbar-container">
+    <button onclick="window.history.back()" class="back-nav">← Back</button>
+    <span class="topbar-title">LEARNcraft</span>
+    <div style="width: 50px;"></div>
+  </div>
+</header>
 
 <section class="hero small">
-  <h1>Stage 1 — Foundations</h1>
-  <p>Math, physics, and engineering basics required for civil studies.</p>
-  <button class="start-stage-btn" onclick="startStage()">START STAGE & TRACK PROGRESS</button>
+  <div class="hero-content">
+    <div class="breadcrumb">Civil Engineering</div>
+    <h1>Stage 1 — Foundations</h1>
+    <p>Master the mathematical and physical fundamentals required for advanced civil engineering study.</p>
+    <button class="start-stage-btn" onclick="startStage()">START STAGE & TRACK PROGRESS</button>
+  </div>
 </section>
 
 <section id="progressSection" class="hidden">
 
-  <div class="progress-stats">
-    <div>Weekly Completion: <span id="weeklyPercent">0%</span></div>
-    <div>Stage Progress: <span id="stagePercent">0%</span></div>
-    <div>Study Streak: <span id="streakCount">0</span> days</div>
+  <div class="progress-dashboard">
+    <div class="stat-card">
+      <h3>Weekly Completion</h3>
+      <p id="weeklyPercent" class="stat-value">0%</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>Stage Progress</h3>
+      <p id="stagePercent" class="stat-value">0%</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>Study Streak</h3>
+      <p class="stat-value"><span id="streakCount">0</span> days</p>
+    </div>
   </div>
 
-  <div class="progress-bar">
-    <div id="progressFill"></div>
+  <div class="progress-bar-container">
+    <div class="progress-bar-track">
+      <div id="progressFill" class="progress-bar-fill"></div>
+    </div>
+    <div class="progress-label">
+      <span id="progressPercent">0%</span> Complete
+    </div>
   </div>
 
-  <table class="tracker-table">
-    <tr>
-      <th>Task</th>
-      <th>Mon</th><th>Tue</th><th>Wed</th>
-      <th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
-    </tr>
+  <div class="tracker-wrapper">
+    <div class="tracker-header">
+      <h2>Weekly Learning Schedule</h2>
+      <p>Check off tasks as you complete them each day</p>
+    </div>
 
-    <tr>
-      <td>Study Algebra</td>
-      <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
-      <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
-    </tr>
+    <table class="tracker-table">
+      <thead>
+        <tr>
+          <th>Task</th>
+          <th>Mon</th><th>Tue</th><th>Wed</th>
+          <th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="task-name">Study Algebra</td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+        </tr>
 
-    <tr>
-      <td>Physics Basics</td>
-      <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
-      <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
-    </tr>
+        <tr>
+          <td class="task-name">Physics Basics</td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+        </tr>
 
-    <tr>
-      <td>Watch Lesson</td>
-      <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
-      <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
-    </tr>
+        <tr>
+          <td class="task-name">Watch Lesson</td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+        </tr>
 
-    <tr>
-      <td>Solve Problems</td>
-      <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
-      <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
-    </tr>
+        <tr>
+          <td class="task-name">Solve Problems</td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+        </tr>
 
-    <tr>
-      <td>Ask AI Questions</td>
-      <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
-      <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
-    </tr>
-  </table>
+        <tr>
+          <td class="task-name">Ask AI Questions</td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tip-section">
+    <h3>Study Tip</h3>
+    <p>Consistency is key. Aim to complete at least 3 tasks per day to maintain your learning momentum and build a strong foundation.</p>
+  </div>
 
 </section>
 
@@ -83,6 +123,7 @@
 
   function startStage() {
     document.getElementById("progressSection").classList.remove("hidden");
+    document.querySelector("section.hero").style.paddingBottom = "20px";
   }
 
   const checkboxes = document.querySelectorAll("input[type='checkbox']");
@@ -97,6 +138,7 @@
 
     document.getElementById("stagePercent").textContent = percent + "%";
     document.getElementById("weeklyPercent").textContent = percent + "%";
+    document.getElementById("progressPercent").textContent = percent + "%";
     document.getElementById("progressFill").style.width = percent + "%";
   }
 </script>

@@ -29,14 +29,41 @@ body.dark {
     right: 0;
     height: 70px;
     background: rgba(0, 0, 0, 0.95);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
     align-items: center;
-    padding: 0 30px;
+    padding: 0 20px;
     z-index: 1000;
     backdrop-filter: blur(10px);
+}
+
+.topbar-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.back-nav {
+    background: transparent;
+    border: none;
+    color: #888;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 8px 12px;
+    transition: color 0.3s ease;
+    font-weight: 600;
+}
+
+.back-nav:hover {
+    color: #FFD84D;
+}
+
+.topbar-title {
     font-weight: 700;
-    font-size: 24px;
+    font-size: 20px;
     color: #FFD84D;
 }
 
@@ -50,6 +77,20 @@ body.dark {
 .hero.small {
     padding: 80px 20px 40px;
     margin-top: 50px;
+}
+
+.hero-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.breadcrumb {
+    font-size: 12px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    font-weight: 600;
 }
 
 .hero h1 {
@@ -66,6 +107,7 @@ body.dark {
     font-weight: 400;
     max-width: 600px;
     margin: 0 auto 24px;
+    line-height: 1.6;
 }
 
 /* ===== ROADMAP CONTAINER ===== */
@@ -159,8 +201,8 @@ body.dark {
 }
 
 #progressSection {
-    max-width: 900px;
-    margin: 40px auto;
+    max-width: 1000px;
+    margin: 0 auto;
     padding: 0 20px 100px;
     animation: slideDown 0.3s ease;
 }
@@ -176,89 +218,200 @@ body.dark {
     }
 }
 
-.progress-stats {
+/* ===== PROGRESS DASHBOARD ===== */
+.progress-dashboard {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
     margin: 40px 0;
+}
+
+.stat-card {
+    background: linear-gradient(145deg, #111, #0a0a0a);
+    border: 1px solid #222;
+    padding: 28px 24px;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    border-color: #FFD84D;
+    background: linear-gradient(145deg, #141414, #0a0a0a);
+    box-shadow: 0 0 20px rgba(255, 216, 77, 0.15);
+}
+
+.stat-card h3 {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
     font-weight: 600;
-    font-size: 16px;
 }
 
-.progress-stats div {
-    background: rgba(255, 216, 77, 0.08);
-    padding: 20px;
-    border-radius: 8px;
-    border-left: 3px solid #FFD84D;
-    color: #EAEAEA;
-}
-
-.progress-stats span {
-    color: #FFD84D;
+.stat-value {
+    font-size: 32px;
     font-weight: 700;
+    color: #FFD84D;
+    margin: 0;
 }
 
-.progress-bar {
+/* ===== PROGRESS BAR ===== */
+.progress-bar-container {
+    margin: 40px 0;
+}
+
+.progress-bar-track {
     width: 100%;
-    height: 14px;
-    background: #222;
+    height: 12px;
+    background: #1a1a1a;
     border-radius: 8px;
-    margin: 30px 0;
     overflow: hidden;
+    border: 1px solid #222;
 }
 
-#progressFill {
+.progress-bar-fill {
     height: 100%;
     width: 0%;
     background: linear-gradient(90deg, #ffd84d, #ffb700);
-    transition: width 0.4s ease;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(255, 216, 77, 0.4);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: inset 0 0 10px rgba(255, 216, 77, 0.3);
+}
+
+.progress-label {
+    display: flex;
+    justify-content: center;
+    margin-top: 12px;
+    font-size: 14px;
+    color: #888;
+}
+
+.progress-label span {
+    color: #FFD84D;
+    font-weight: 700;
+    margin-right: 4px;
+}
+
+/* ===== TRACKER WRAPPER ===== */
+.tracker-wrapper {
+    width: 100%;
+    background: #0f0f0f;
+    padding: 32px;
+    border-radius: 14px;
+    border: 1px solid #1a1a1a;
+    margin: 40px 0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.tracker-header {
+    margin-bottom: 24px;
+}
+
+.tracker-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+.tracker-header p {
+    font-size: 13px;
+    color: #888;
 }
 
 /* ===== TRACKER TABLE ===== */
 .tracker-table {
     width: 100%;
     border-collapse: collapse;
-    color: white;
-    margin: 30px 0;
-    font-size: 14px;
 }
 
-.tracker-table th,
-.tracker-table td {
-    border: 1px solid #333;
-    padding: 12px 8px;
-    text-align: center;
-}
-
-.tracker-table th {
-    background: rgba(255, 216, 77, 0.1);
-    color: #FFD84D;
-    font-weight: 700;
-}
-
-.tracker-table td:first-child {
-    text-align: left;
-    padding-left: 16px;
-}
-
-.tracker-table tr:hover {
+.tracker-table thead {
     background: rgba(255, 216, 77, 0.05);
 }
 
+.tracker-table th {
+    color: #FFD84D;
+    padding: 14px 12px;
+    border-bottom: 2px solid #222;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tracker-table td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #1a1a1a;
+    text-align: center;
+    font-size: 13px;
+}
+
+.tracker-table tbody tr:hover {
+    background: rgba(255, 216, 77, 0.03);
+}
+
+.task-name {
+    text-align: left;
+    color: #ddd;
+    font-weight: 600;
+}
+
 .tracker-table input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
+    width: 18px;
+    height: 18px;
     accent-color: #FFD84D;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tracker-table input[type="checkbox"]:hover {
+    transform: scale(1.15);
+}
+
+.tracker-table input[type="checkbox"]:checked {
+    filter: drop-shadow(0 0 4px rgba(255, 216, 77, 0.4));
+}
+
+/* ===== TIP SECTION ===== */
+.tip-section {
+    background: linear-gradient(145deg, rgba(255, 216, 77, 0.08), rgba(255, 216, 77, 0.02));
+    border: 1px solid rgba(255, 216, 77, 0.2);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 40px 0;
+}
+
+.tip-section h3 {
+    color: #FFD84D;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tip-section p {
+    color: #bdbdbd;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
     .topbar {
-        padding: 0 20px;
-        font-size: 20px;
+        padding: 0 16px;
+        height: 60px;
+    }
+
+    .topbar-title {
+        font-size: 18px;
+    }
+
+    .back-nav {
+        font-size: 14px;
+        padding: 6px 10px;
     }
 
     .hero {
@@ -273,6 +426,199 @@ body.dark {
     .hero h1 {
         font-size: 36px;
     }
+
+    .hero p {
+        font-size: 15px;
+    }
+
+    #progressSection {
+        padding: 0 16px 80px;
+    }
+
+    .progress-dashboard {
+        gap: 16px;
+    }
+
+    .stat-card {
+        padding: 20px 16px;
+    }
+
+    .stat-value {
+        font-size: 28px;
+    }
+
+    .progress-bar-track {
+        height: 10px;
+    }
+
+    .tracker-wrapper {
+        padding: 20px;
+    }
+
+    .tracker-table th,
+    .tracker-table td {
+        padding: 10px 6px;
+        font-size: 12px;
+    }
+
+    .tracker-table input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+    }
+
+    .tip-section {
+        padding: 20px;
+    }
+
+    .tip-section h3 {
+        font-size: 12px;
+    }
+
+    .tip-section p {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .topbar {
+        height: 56px;
+        padding: 0 12px;
+    }
+
+    .topbar-title {
+        font-size: 16px;
+    }
+
+    .back-nav {
+        font-size: 13px;
+        padding: 4px 8px;
+    }
+
+    .hero {
+        padding: 60px 16px 30px;
+        margin-top: 30px;
+    }
+
+    .hero.small {
+        padding: 50px 16px 25px;
+    }
+
+    .hero h1 {
+        font-size: 28px;
+        margin-bottom: 12px;
+    }
+
+    .hero p {
+        font-size: 14px;
+        margin-bottom: 16px;
+    }
+
+    .breadcrumb {
+        font-size: 11px;
+    }
+
+    .roadmap-container {
+        padding: 0 16px 60px;
+    }
+
+    #progressSection {
+        padding: 0 12px 60px;
+    }
+
+    .progress-dashboard {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .stat-card {
+        padding: 16px 12px;
+    }
+
+    .stat-value {
+        font-size: 24px;
+    }
+
+    .stat-card h3 {
+        font-size: 11px;
+    }
+
+    .progress-bar-container {
+        margin: 20px 0;
+    }
+
+    .progress-bar-track {
+        height: 10px;
+    }
+
+    .progress-label {
+        font-size: 12px;
+    }
+
+    .tracker-wrapper {
+        padding: 16px;
+        border-radius: 10px;
+    }
+
+    .tracker-header h2 {
+        font-size: 16px;
+    }
+
+    .tracker-header p {
+        font-size: 12px;
+    }
+
+    .tracker-table th,
+    .tracker-table td {
+        padding: 8px 4px;
+        font-size: 11px;
+    }
+
+    .tracker-table th {
+        font-size: 10px;
+    }
+
+    .tracker-table input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+    }
+
+    .tip-section {
+        padding: 16px;
+        margin: 30px 0;
+    }
+
+    .tip-section h3 {
+        font-size: 11px;
+        margin-bottom: 10px;
+    }
+
+    .tip-section p {
+        font-size: 12px;
+    }
+
+    .stage-card {
+        padding: 16px;
+    }
+
+    .stage-card h2 {
+        font-size: 16px;
+    }
+
+    .stage-card p {
+        font-size: 12px;
+    }
+
+    .open-stage-btn {
+        font-size: 12px;
+        padding: 10px 20px;
+    }
+
+    .start-stage-btn {
+        font-size: 14px;
+        padding: 12px 28px;
+        width: 100%;
+    }
+}
 
     .hero p {
         font-size: 16px;
