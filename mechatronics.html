@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Mechatronics - LEARNcraft</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #000000;
+            color: #EAEAEA;
+            min-height: 100vh;
+        }
+
+        .page-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px 60px;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 16px;
+            background: transparent;
+            border: none;
+            color: #888;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.3s;
+            margin-bottom: 40px;
+        }
+
+        .back-button:hover {
+            color: #EAEAEA;
+        }
+
+        .article-header {
+            margin-bottom: 50px;
+        }
+
+        .article-title {
+            font-size: 56px;
+            font-weight: 700;
+            color: #EAEAEA;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .article-subtitle {
+            font-size: 20px;
+            color: #888;
+            font-weight: 400;
+        }
+
+        .intro-paragraph {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #EAEAEA;
+            margin: 40px 0 30px 0;
+        }
+
+        .explore-button {
+            display: inline-block;
+            margin: 30px 0;
+            padding: 12px 28px;
+            background: transparent;
+            border: 2px solid #FFD84D;
+            color: #FFD84D;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .explore-button:hover {
+            background: #FFD84D;
+            color: #000000;
+            transform: translateY(-2px);
+        }
+
+        .article-content {
+            margin-top: 50px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #EAEAEA;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #222;
+        }
+
+        .section-content {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #EAEAEA;
+        }
+
+        .section-content p {
+            margin-bottom: 18px;
+        }
+
+        .subsection {
+            margin-top: 28px;
+            margin-bottom: 20px;
+        }
+
+        .subsection-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #FFD84D;
+            margin-bottom: 10px;
+        }
+
+        .subsection-text {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #EAEAEA;
+        }
+
+        .list-item {
+            margin: 12px 0 12px 20px;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #EAEAEA;
+        }
+
+        @media (max-width: 768px) {
+            .page-container {
+                padding: 70px 16px 40px;
+            }
+
+            .article-title {
+                font-size: 40px;
+            }
+
+            .article-subtitle {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <button onclick="if (document.referrer && document.referrer !== '') { window.history.back(); } else { window.location.href = 'learn.html'; }" class="back-button">← Back</button>
+        
+        <div class="article-header">
+            <h1 class="article-title">Mechatronics</h1>
+            <p class="article-subtitle">Synergistic integration of mechanical, electrical, and computing systems</p>
+        </div>
+
+        <p class="intro-paragraph">
+            Mechatronics engineering is the synergistic integration of mechanical, electrical, and computer systems employing mechanical engineering, electrical engineering, electronic engineering and computer science. It includes a combination of robotics, computer science, telecommunications, systems, control, automation and product engineering. The field produces design solutions that unify these subfields into simpler, more economical, and reliable systems.
+        </p>
+
+        <button class="explore-button" onclick="window.location.href='learn.html'">Explore More Topics</button>
+
+        <div class="article-content">
+            <div class="section">
+                <h2 class="section-title">Definition and Scope</h2>
+                <div class="section-content">
+                    <p>As technology advances, various subfields of engineering adapt and multiply. The intention of mechatronics is to produce a design solution that unifies these fields. Originally, mechatronics was intended to be a combination of mechanics, electrical and electronics, hence the portmanteau of "mechanics" and "electronics." As the complexity of technical systems evolved, the definition broadened to include more technical areas.</p>
+                    <p>Many people treat mechatronics as a modern buzzword synonymous with automation, robotics and electromechanical engineering. French standard NF E 01-010 defines it as an approach aiming at the synergistic integration of mechanics, electronics, control theory, and computer science within product design and manufacturing, in order to improve or optimize functionality.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">History</h2>
+                <div class="section-content">
+                    <p>No later than 1951, the word mechatronics was used in an advertisement by Servomechanisms, Inc. The term originated in Japanese-English and was created by Tetsuro Mori of Yaskawa Electric Corporation. The company registered the word as a trademark in Japan in 1971 and later released the right to use it publicly, leading to global adoption.</p>
+                    <p>With the advent of information technology in the 1980s, microprocessors were introduced into mechanical systems, improving performance significantly. By the 1990s, advances in computational intelligence were applied to mechatronics in ways that revolutionized the field.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Systems and Control</h2>
+                <div class="section-content">
+                    <p>A mechatronics engineer unites the principles of mechanics, electrical, electronics, and computing to generate a simpler, more economical and reliable system. Engineering cybernetics deals with control engineering of mechatronic systems, using control theory to regulate these systems.</p>
+                    <p>Modern production equipment consists of mechatronic modules integrated according to a control architecture. Common architectures include hierarchy, polyarchy, heterarchy, and hybrid. The methods for achieving technical effects are described by control algorithms, which may use formal methods in their design.</p>
+                    <p>Hybrid systems important to mechatronics include production systems, synergy drives, exploration rovers, automotive subsystems such as anti-lock braking systems and spin-assist, and everyday equipment such as autofocus cameras, video, hard disks, CD players and phones.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Mechanical Foundations</h2>
+                <div class="section-content">
+                    <p>Mechanical engineering is a core part of mechatronics. It includes the study of mechanical nature of how an object works, including structure, mechanisms, thermo-fluid, and hydraulic aspects. Key topics include thermodynamics, dynamics, fluid mechanics, pneumatics and hydraulics.</p>
+                    <p>Mechatronics engineers who focus on mechanical systems can specialize in hydraulics and pneumatics and are often found in automobile industries. They can also design vehicles due to strong mechanical and electrical backgrounds.</p>
+                    <p>Knowledge of software applications such as computer-aided design and computer-aided manufacturing is essential for designing products. Mechatronics covers a part of the mechanical syllabus widely applied in the automobile industry.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Electronics and Telecommunications</h2>
+                <div class="section-content">
+                    <p>Electronics and telecommunication engineering specializes in electronic devices and telecom devices within mechatronics systems. The transmission of signals is a main application of this subfield, covering both digital and analog systems.</p>
+                    <p>Control engineering has applications from flight and propulsion systems of commercial airplanes to cruise control in modern cars. VLSI designing is important for creating integrated circuits. Mechatronics engineers develop deep knowledge of microprocessors, microcontrollers, microchips and semiconductors.</p>
+                    <p>Applications in electronics manufacturing include research and development on consumer devices such as mobile phones, computers, and cameras. Tools such as MATLAB and Simulink are commonly used for designing and developing electronic products.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Avionics</h2>
+                <div class="section-content">
+                    <p>Avionics is considered a variant of mechatronics, combining electronics, telecommunications and aerospace engineering. Avionics focuses on electronics systems of aircraft and includes communication, navigation, flight control, collision avoidance systems, flight recorders, weather radar, and lightning detectors. Systems range from searchlights for helicopters to complex tactical systems for airborne early warning platforms.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Industrial Applications</h2>
+                <div class="section-content">
+                    <p>Mechatronic systems represent a large part of automobile functions. The control loop formed by sensor, information processing, actuator and mechanical change appears in many systems. Anti-lock braking systems, cruise control, engine systems, and speed measurement are all mechatronic systems.</p>
+                    <p>Mechatronics engineers working as industrial engineers design and develop the infrastructure of manufacturing plants and are often described as architects of machines. Roles include industrial design, layout planning, and technical oversight of production facilities.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Robotics</h2>
+                <div class="section-content">
+                    <p>Robotics is one of the newest emerging subfields of mechatronics. It studies robots and how they are manufactured and operated. Since 2000, robotics has attracted many engineers. Robots are widely used in factories, especially automobile assembly lines, performing drilling, installation and fitting.</p>
+                    <p>Programming skills are essential. Languages such as ROBOTC and general-purpose languages are used for robot programming. Industrial robots are prime examples of mechatronics systems, integrating electronics, mechanics, and computing.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Internet of Things</h2>
+                <div class="section-content">
+                    <p>The Internet of Things (IoT) is the inter-networking of physical devices with embedded electronics, software, sensors, actuators, and connectivity enabling data exchange. IoT and mechatronics are complementary; many smart components are inherently mechatronic.</p>
+                    <p>IoT development forces mechatronics engineers to research how systems are perceived, designed and manufactured, and raises issues such as data security, machine ethics, and the human-machine interface.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Programming and Skills</h2>
+                <div class="section-content">
+                    <p>Programming knowledge is crucial in mechatronics, including PLC programming, drone programming, hardware programming, and CNC programming. Important programming languages include Java, Python, C++, and C. These skills are applied across automation, robotics, embedded systems, and product development.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        if (typeof TelegramWebApp !== 'undefined') {
+            const tg = window.Telegram.WebApp;
+            tg.ready();
+            tg.setHeaderColor('#000000');
+            tg.setBackgroundColor('#000000');
+            tg.MainButton.hide();
+        }
+    </script>
+</body>
+</html>
