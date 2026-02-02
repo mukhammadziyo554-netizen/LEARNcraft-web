@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Materials Science - LEARNcraft</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #000000;
+            color: #EAEAEA;
+            min-height: 100vh;
+        }
+
+        .page-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px 60px;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 16px;
+            background: transparent;
+            border: none;
+            color: #888;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.3s;
+            margin-bottom: 40px;
+        }
+
+        .back-button:hover {
+            color: #EAEAEA;
+        }
+
+        .article-header {
+            margin-bottom: 50px;
+        }
+
+        .article-title {
+            font-size: 56px;
+            font-weight: 700;
+            color: #EAEAEA;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .article-subtitle {
+            font-size: 20px;
+            color: #888;
+            font-weight: 400;
+        }
+
+        .intro-paragraph {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #EAEAEA;
+            margin: 40px 0 30px 0;
+        }
+
+        .explore-button {
+            display: inline-block;
+            margin: 30px 0;
+            padding: 12px 28px;
+            background: transparent;
+            border: 2px solid #FFD84D;
+            color: #FFD84D;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .explore-button:hover {
+            background: #FFD84D;
+            color: #000000;
+            transform: translateY(-2px);
+        }
+
+        .article-content {
+            margin-top: 50px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #EAEAEA;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #222;
+        }
+
+        .section-content {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #EAEAEA;
+        }
+
+        .section-content p {
+            margin-bottom: 18px;
+        }
+
+        .subsection {
+            margin-top: 28px;
+            margin-bottom: 20px;
+        }
+
+        .subsection-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #FFD84D;
+            margin-bottom: 10px;
+        }
+
+        .subsection-text {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #EAEAEA;
+        }
+
+        .list-item {
+            margin: 12px 0 12px 20px;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #EAEAEA;
+        }
+
+        @media (max-width: 768px) {
+            .page-container {
+                padding: 70px 16px 40px;
+            }
+
+            .article-title {
+                font-size: 40px;
+            }
+
+            .article-subtitle {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <button onclick="if (document.referrer && document.referrer !== '') { window.history.back(); } else { window.location.href = 'learn.html'; }" class="back-button">← Back</button>
+        
+        <div class="article-header">
+            <h1 class="article-title">Materials Science</h1>
+            <p class="article-subtitle">Understanding materials from atomic structure to real-world performance</p>
+        </div>
+
+        <p class="intro-paragraph">
+            Materials science is an interdisciplinary field of researching and discovering materials. Materials engineering is an engineering field of finding uses for materials in other fields and industries. Materials science still incorporates elements of physics, chemistry, and engineering and was long considered a sub-field of these related disciplines. Beginning in the 1940s, materials science became widely recognized as a distinct field, and major technical universities created dedicated schools for its study.
+        </p>
+
+        <button class="explore-button" onclick="window.location.href='learn.html'">Explore More Topics</button>
+
+        <div class="article-content">
+            <div class="section">
+                <h2 class="section-title">Materials Paradigm</h2>
+                <div class="section-content">
+                    <p>Materials scientists emphasize understanding how the history of a material (processing) influences its structure, and thus the material's properties and performance. The understanding of processing–structure–properties relationships is called the materials paradigm. This paradigm is used to advance understanding in research areas including nanotechnology, biomaterials, and metallurgy.</p>
+                    <p>Materials science is also an important part of forensic engineering and failure analysis, investigating materials, products, structures or components that fail or do not function as intended, causing injury or damage. Such investigations help determine causes of incidents, including aviation accidents.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">History</h2>
+                <div class="section-content">
+                    <p>The material of choice of a given era is often a defining point. Phases such as Stone Age, Bronze Age, Iron Age, and Steel Age are historic examples. Originally deriving from the manufacture of ceramics and its derivative metallurgy, materials science is one of the oldest forms of engineering and applied science.</p>
+                    <p>Modern materials science evolved directly from metallurgy, which itself evolved from the use of fire. A major breakthrough in the understanding of materials occurred in the late 19th century, when the American scientist Josiah Willard Gibbs demonstrated that thermodynamic properties related to atomic structure in various phases are related to physical properties of materials.</p>
+                    <p>Important elements of modern materials science were products of the Space Race; the understanding and engineering of metallic alloys, and silica and carbon materials used in building space vehicles. Materials science has driven, and been driven by, revolutionary technologies such as rubbers, plastics, semiconductors, and biomaterials.</p>
+                    <p>Before the 1960s, many materials science departments were metallurgy or ceramics engineering departments, reflecting 19th and early 20th-century emphasis on metals and ceramics. Growth in the United States was catalyzed by ARPA, which funded university-hosted laboratories in the early 1960s to expand basic research and training in materials science.</p>
+                    <p>Compared with mechanical engineering, the nascent field focused on the macro-level and on designing materials based on knowledge of microscopic behavior. This led to deliberate materials design based on specific desired properties. The field now includes ceramics, polymers, semiconductors, magnetic materials, biomaterials, and nanomaterials, often classified into three groups: ceramics, metals, and polymers.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Fundamentals</h2>
+                <div class="section-content">
+                    <p>A material is defined as a substance intended to be used for certain applications. Materials range from traditional solids to new and advanced materials such as nanomaterials, biomaterials, and energy materials. The basis of materials science is the interplay between structure, processing, and properties, which together determine performance in specific applications.</p>
+                    <p>Materials scientists use thermodynamics and kinetics to understand and improve materials. Thermodynamics explains macroscopic variables and phase behavior; kinetics describes how materials change with time, including diffusion and microstructure evolution under heat.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Structure Across Length Scales</h2>
+                <div class="section-content">
+                    <div class="subsection">
+                        <h3 class="subsection-title">Atomic Structure and Bonding</h3>
+                        <p class="subsection-text">Atomic structure deals with how atoms are arranged to give rise to molecules, crystals, and materials behavior. Electrical, magnetic, and chemical properties arise from this level. Understanding bonding requires quantum chemistry, solid-state physics, and physical chemistry.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Crystallography and Defects</h3>
+                        <p class="subsection-text">Crystallography examines the arrangement of atoms in crystalline solids. The unit cell is the smallest repeating unit of a crystal lattice. Many materials are polycrystalline, making powder diffraction essential for structural determination. Defects such as dislocations, vacancies, and grain boundaries strongly affect properties.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Nanostructure</h3>
+                        <p class="subsection-text">Nanomaterials have structure in the 1–100 nm range, where unique electrical, magnetic, optical, and mechanical properties emerge. Nanotextured surfaces, nanotubes, and nanoparticles represent different dimensionalities at the nanoscale. The term nanostructure is often used, and nanoscale structures in biology are referred to as ultrastructure.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Microstructure and Macrostructure</h3>
+                        <p class="subsection-text">Microstructure spans 100 nm to a few centimeters and strongly influences strength, toughness, hardness, corrosion resistance, and wear behavior. Macrostructure describes the appearance of a material on the millimeter to meter scale, visible to the naked eye.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Properties and Processing</h2>
+                <div class="section-content">
+                    <p>Materials exhibit mechanical, chemical, electrical, thermal, optical, and magnetic properties that determine usability in engineering applications. Synthesis and processing create materials with desired micro- and nanostructures. Processing methods include casting, rolling, welding, ion implantation, crystal growth, thin-film deposition, sintering, and glassblowing.</p>
+                    <p>For metals, processing has defined historic eras such as the Bronze Age and Iron Age. For polymers, ceramics, semiconductors, and thin films, chemical and physical methods are used. New methods are continually developed to synthesize nanomaterials such as graphene.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Research Areas</h2>
+                <div class="section-content">
+                    <div class="subsection">
+                        <h3 class="subsection-title">Nanomaterials</h3>
+                        <p class="subsection-text">Nanomaterials research applies materials science to nanotechnology, using advances in metrology and synthesis. Materials with nanoscale structure have unique properties. Examples include fullerenes, carbon nanotubes, and nanocrystals.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Biomaterials</h3>
+                        <p class="subsection-text">Biomaterials interact with biological systems and include metallic components, polymers, bioceramics, and composites. Applications include heart valves, implants, drug delivery, and tissue engineering. Biomaterials can be natural or synthesized in laboratories.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Electronic, Optical, and Magnetic Materials</h3>
+                        <p class="subsection-text">Semiconductors, metals, and ceramics enable integrated circuits, optoelectronic devices, and magnetic storage. Semiconductors have properties between conductors and insulators and are tuned through doping. Silicon dominates the market, with gallium arsenide used for high-speed applications. The field includes superconductors, spintronics, and metamaterials.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Computational Materials Science</h3>
+                        <p class="subsection-text">Simulation methods such as density functional theory, molecular dynamics, Monte Carlo, phase field, and finite element modeling help predict materials behavior and accelerate discovery. Integrated computational materials engineering combines computation with experiments to optimize materials faster.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Materials Classes</h2>
+                <div class="section-content">
+                    <p>Solid materials are generally grouped into three basic classifications: ceramics, metals, and polymers. Each class offers different advantages depending on structure and properties.</p>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Ceramics and Glasses</h3>
+                        <p class="subsection-text">Ceramics are often crystalline and characterized by covalent or ionic bonding, with SiO2 as a fundamental building block. Glasses are disordered solids formed by cooling viscous liquids. Engineering ceramics such as alumina, silicon carbide, and tungsten carbide are produced by sintering and hot pressing, and can be strengthened by crack deflection. Applications include optical fibers, scratch-resistant glass, and high-temperature components.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Composites</h3>
+                        <p class="subsection-text">Composites combine two or more macroscopic phases to achieve superior performance. Examples include steel-reinforced concrete and thermal insulation tiles used in NASA's Space Shuttle. Reinforced Carbon-Carbon (RCC) is a laminated composite that withstands re-entry temperatures and protects wing leading edges.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Polymers</h3>
+                        <p class="subsection-text">Polymers are large-chain molecules that form plastics and rubber. Common plastics include polyethylene, polypropylene, PVC, polystyrene, nylons, polyesters, acrylics, polyurethanes, and polycarbonates. Rubbers include natural rubber, styrene-butadiene rubber, and chloroprene. Plastics are classified as commodity, specialty, and engineering plastics, depending on performance.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Metals and Alloys</h3>
+                        <p class="subsection-text">Iron alloys such as steel dominate by quantity and value. Carbon content determines hardness and strength in steel. Cast iron contains more than 2% carbon, and stainless steel contains over 10% chromium. Aluminum, titanium, copper, and magnesium alloys offer high strength-to-weight ratios and are critical in aerospace and automotive applications.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Semiconductors</h3>
+                        <p class="subsection-text">Semiconductors enable modern electronics, with silicon the most widely used. Gallium arsenide is used for high-speed electronics. Other materials include germanium, silicon carbide, and gallium nitride. Semiconductor devices include diodes, transistors, LEDs, and integrated circuits.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Industry and Applications</h2>
+                <div class="section-content">
+                    <p>Materials science drives new products and industries while also enabling incremental improvements and troubleshooting in established industries. Industrial applications include materials design, cost-benefit tradeoffs, processing methods, and characterization methods such as electron microscopy, X-ray diffraction, calorimetry, neutron diffraction, and small-angle X-ray scattering.</p>
+                    <p>Materials engineers also extract and purify materials, including blast furnace extraction and electrolytic processes. Minor alloying elements can greatly affect properties. For example, steel classification depends on fractional percentages of carbon and alloying elements.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Interdisciplinary Connections</h2>
+                <div class="section-content">
+                    <p>Materials science and engineering emerged by combining metallurgy and ceramics engineering, solid-state physics, polymer engineering, chemistry, mechanical engineering, and electrical engineering. Materials physics applies condensed matter concepts to materials of technological interest, including electronic, optical, and magnetic materials, quantum phenomena, nonequilibrium physics, and soft condensed matter.</p>
+                    <p>The field is inherently interdisciplinary. Materials scientists use methods from physics, chemistry, and engineering, while life sciences and archaeology also inspire new materials and processes in bioinspired and paleo-inspired approaches.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        if (typeof TelegramWebApp !== 'undefined') {
+            const tg = window.Telegram.WebApp;
+            tg.ready();
+            tg.setHeaderColor('#000000');
+            tg.setBackgroundColor('#000000');
+            tg.MainButton.hide();
+        }
+    </script>
+</body>
+</html>
