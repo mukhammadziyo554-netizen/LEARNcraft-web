@@ -16,232 +16,238 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-            color: #C9A961;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #000000;
+            color: #EAEAEA;
             min-height: 100vh;
         }
 
         .page-container {
-            max-width: 100%;
-            padding: 60px 20px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px 60px;
         }
 
         .back-button {
             display: inline-block;
-            padding: 12px 24px;
-            background: rgba(201, 169, 97, 0.2);
-            border: 2px solid #C9A961;
-            border-radius: 8px;
-            color: #C9A961;
+            padding: 10px 16px;
+            background: transparent;
+            border: none;
+            color: #888;
             text-decoration: none;
-            font-weight: bold;
-            margin-bottom: 40px;
-            transition: 0.3s;
+            font-weight: 500;
+            font-size: 14px;
             cursor: pointer;
+            transition: color 0.3s;
+            margin-bottom: 40px;
         }
 
         .back-button:hover {
-            background: rgba(201, 169, 97, 0.3);
-            transform: translateX(-5px);
+            color: #EAEAEA;
         }
 
-        .field-header {
-            text-align: center;
-            margin-bottom: 60px;
-            animation: fadeInDown 1s ease-out;
+        .article-header {
+            margin-bottom: 50px;
         }
 
-        .field-title {
-            font-size: 64px;
-            font-weight: bold;
-            color: #D4AF37;
-            text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+        .article-title {
+            font-size: 56px;
+            font-weight: 700;
+            color: #EAEAEA;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .article-subtitle {
+            font-size: 20px;
+            color: #888;
+            font-weight: 400;
+        }
+
+        .intro-paragraph {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #EAEAEA;
+            margin: 40px 0 30px 0;
+        }
+
+        .explore-button {
+            display: inline-block;
+            margin: 30px 0;
+            padding: 12px 28px;
+            background: transparent;
+            border: 2px solid #FFD84D;
+            color: #FFD84D;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .explore-button:hover {
+            background: #FFD84D;
+            color: #000000;
+            transform: translateY(-2px);
+        }
+
+        .article-content {
+            margin-top: 50px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #EAEAEA;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #222;
+        }
+
+        .section-content {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #EAEAEA;
+        }
+
+        .section-content p {
+            margin-bottom: 18px;
+        }
+
+        .subsection {
+            margin-top: 28px;
             margin-bottom: 20px;
         }
 
-        .field-subtitle {
-            font-size: 24px;
-            color: #C9A961;
-        }
-
-        .roadmap-section {
-            max-width: 900px;
-            margin: 0 auto;
-            animation: fadeInUp 1s ease-out 0.2s both;
-        }
-
-        .roadmap-title {
-            font-size: 32px;
-            color: #D4AF37;
-            text-align: center;
-            margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-        }
-
-        .roadmap-subtitle {
+        .subsection-title {
             font-size: 18px;
-            color: #C9A961;
-            text-align: center;
-            margin-bottom: 40px;
+            font-weight: 600;
+            color: #FFD84D;
+            margin-bottom: 10px;
         }
 
-        .roadmap-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .roadmap-step {
-            display: flex;
-            gap: 20px;
-            padding: 20px;
-            background: rgba(201, 169, 97, 0.1);
-            border-left: 4px solid #FFD700;
-            border-radius: 8px;
-            transition: all 0.3s;
-            animation: slideInLeft 0.6s ease-out;
-        }
-
-        .roadmap-step:hover {
-            background: rgba(201, 169, 97, 0.15);
-            transform: translateX(10px);
-            box-shadow: 0 5px 20px rgba(201, 169, 97, 0.2);
-        }
-
-        .step-number {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #C9A961 0%, #D4AF37 100%);
-            color: black;
-            font-weight: bold;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .step-text {
-            color: #C9A961;
+        .subsection-text {
             font-size: 16px;
-            line-height: 1.6;
-            display: flex;
-            align-items: center;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            line-height: 1.7;
+            color: #EAEAEA;
         }
 
         @media (max-width: 768px) {
             .page-container {
-                padding: 40px 12px;
+                padding: 70px 16px 40px;
             }
 
-            .field-title {
-                font-size: 42px;
+            .article-title {
+                font-size: 40px;
             }
 
-            .field-subtitle {
+            .article-subtitle {
                 font-size: 18px;
             }
 
-            .roadmap-step {
-                padding: 16px;
-                gap: 15px;
+            .section-title {
+                font-size: 24px;
             }
-
-            .step-number {
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
-            }
-
-            .step-text {
-                font-size: 14px;
-            }
-        }
-        /* Minimal matte theme overrides */
-        :root {
-            --bg: #0f1115;
-            --surface: #151a21;
-            --surface-2: #1b222c;
-            --text: #e5e7eb;
-            --muted: #9aa3af;
-            --accent: #94a3b8;
-            --accent-strong: #cbd5e1;
-            --border: rgba(148, 163, 184, 0.25);
-        }
-
-        body {
-            background: var(--bg) !important;
-            color: var(--text) !important;
-            font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            letter-spacing: 0.2px;
-        }
-
-        .page-title,
-        h1, h2, h3 {
-            color: var(--text) !important;
-            font-weight: 600 !important;
-        }
-
-        .page-subtitle,
-        p {
-            color: var(--muted) !important;
-        }
-
-        .back-button,
-        .field-btn {
-            background: transparent !important;
-            border: 1px solid var(--border) !important;
-            color: var(--text) !important;
         }
     </style>
 </head>
 <body>
     <div class="page-container">
-        <button onclick="if (document.referrer && document.referrer !== window.location.href) { window.history.back(); } else { window.location.href = 'index.html'; }" class="back-button">← Back</button>
+        <button onclick="if (document.referrer && document.referrer !== '') { window.history.back(); } else { window.location.href = 'learn.html'; }" class="back-button">← Back</button>
         
-        <div class="field-header">
-            <h1 class="field-title">⚙️ Mechanical Engineering</h1>
-            <p class="field-subtitle">Designing machines that change the world</p>
+        <div class="article-header">
+            <h1 class="article-title">Mechanical Engineering</h1>
+            <p class="article-subtitle">The study of physical machines and mechanisms involving force and movement</p>
         </div>
 
-        <div style="max-width: 900px; margin: 60px auto; text-align: center; padding: 40px; background: rgba(201, 169, 97, 0.1); border-radius: 12px;">
-            <h2 style="font-size: 32px; color: #D4AF37; margin-bottom: 20px;">📚 Articles Coming Soon</h2>
-            <p style="font-size: 18px; color: #C9A961; line-height: 1.8;">We're preparing comprehensive articles and resources about Mechanical Engineering. Stay tuned for exciting content!</p>
+        <p class="intro-paragraph">
+            Mechanical engineering is the study of physical machines and mechanisms that may involve force and movement. It is an engineering branch that combines engineering physics and mathematics principles with materials science to design, analyze, manufacture, and maintain mechanical systems. It is one of the oldest and broadest of the engineering branches.
+        </p>
+
+        <button class="explore-button" onclick="window.location.href='learn.html'">Explore More Topics</button>
+
+        <div class="article-content">
+            <div class="section">
+                <h2 class="section-title">Core Principles and Tools</h2>
+                <div class="section-content">
+                    <p>Mechanical engineering requires an understanding of core areas including mechanics, dynamics, thermodynamics, materials science, design, structural analysis, and electricity. In addition to these core principles, mechanical engineers use tools such as computer-aided design (CAD), computer-aided manufacturing (CAM), computer-aided engineering (CAE), and product lifecycle management to design and analyze manufacturing plants, industrial equipment and machinery, heating and cooling systems, transport systems, motor vehicles, aircraft, watercraft, robotics, medical devices, weapons, and others.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">History</h2>
+                <div class="section-content">
+                    <p>The application of mechanical engineering can be seen in the archives of various ancient and medieval societies. The six classic simple machines were known in the ancient Near East. Mesopotamian civilization is credited with the invention of the wheel, and the lever mechanism first appeared around 5,000 years ago in the Near East.</p>
+                    <p>Mechanical engineering emerged as a field during the Industrial Revolution in Europe in the 18th century. In the 17th century, important breakthroughs in the foundations of mechanical engineering occurred in England and the Continent. During the early 19th century Industrial Revolution, machine tools were developed in England, Germany, and Scotland. This allowed mechanical engineering to develop as a separate field within engineering.</p>
+                    <p>The first British professional society of mechanical engineers was formed in 1847 Institution of Mechanical Engineers. In the United States, the American Society of Mechanical Engineers (ASME) was formed in 1880.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Education</h2>
+                <div class="section-content">
+                    <p>Degrees in mechanical engineering are offered at various universities worldwide. Mechanical engineering programs typically take four to five years of study and result in a Bachelor of Engineering degree. In the United States, most undergraduate mechanical engineering programs are accredited by the Accreditation Board for Engineering and Technology (ABET) to ensure similar course requirements and standards among universities.</p>
+                    <p>The fundamental subjects required for mechanical engineering usually include mathematics, basic physical sciences, statics and dynamics, strength of materials, thermodynamics, fluid mechanics, mechanism and machine design, manufacturing engineering, and computer-aided design (CAD).</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Job Duties and License</h2>
+                <div class="section-content">
+                    <p>Mechanical engineers research, design, develop, build, and test mechanical and thermal devices, including tools, engines, and machines. They design and oversee the manufacturing of many products ranging from medical devices to new batteries. They also design power-producing machines such as electric generators, internal combustion engines, and steam and gas turbines.</p>
+                    <p>Engineers may seek license by a state, provincial, or national government. In the U.S., to become a licensed Professional Engineer (PE), an engineer must pass the comprehensive FE (Fundamentals of Engineering) exam, work a minimum of 4 years as an Engineering Intern, and pass the PE (Professional Engineer) exams.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Key Subdisciplines</h2>
+                <div class="section-content">
+                    <div class="subsection">
+                        <h3 class="subsection-title">Mechanics</h3>
+                        <p class="subsection-text">The study of forces and their effect upon matter, including statics, dynamics, kinematics, and fluid mechanics. Typically used to analyze and predict the acceleration and deformation of objects under known forces or stresses.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Mechatronics and Robotics</h3>
+                        <p class="subsection-text">A combination of mechanics and electronics to create hybrid automation systems. Robotics is the application of mechatronics to create robots used in industry to perform tasks that are dangerous, unpleasant, or repetitive.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Thermodynamics and Thermal Engineering</h3>
+                        <p class="subsection-text">Focuses on systems that change energy from one form to another. Used to design engines, power plants, heat exchangers, refrigerators, and HVAC systems.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Structural Analysis</h3>
+                        <p class="subsection-text">Devoted to examining why and how objects fail and to fix the objects and their performance. Used in design to prevent failure and after failure has occurred to determine causes.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Design and Drafting</h3>
+                        <p class="subsection-text">The means by which mechanical engineers design products and create instructions for manufacturing parts using CAD programs, technical drawings, and computer-aided manufacturing (CAM).</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Modern Tools and Research Areas</h2>
+                <div class="section-content">
+                    <p>Many mechanical engineering companies have incorporated computer-aided engineering (CAE) programs into their design processes, including CAD software, finite element analysis (FEA), computational fluid dynamics (CFD), and computer-aided manufacturing (CAM). These tools allow teams to quickly iterate the design process and evaluate hundreds or thousands of designs before creating physical prototypes.</p>
+                    <p>Cutting-edge research areas include micro electro-mechanical systems (MEMS), friction stir welding, composite materials, nanotechnology, biomechanics, and computational fluid dynamics. Mechanical engineers are constantly pushing boundaries to produce safer, cheaper, and more efficient machines and mechanical systems.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Career Outlook</h2>
+                <div class="section-content">
+                    <p>The total number of engineers employed in the U.S. in 2015 was roughly 1.6 million. Of these, 278,340 were mechanical engineers, making it the largest engineering discipline by size. Mechanical engineering jobs were projected to grow 5% over the decade following 2014. The field offers diverse opportunities across industries including automotive, aerospace, energy, manufacturing, robotics, and biomedical engineering.</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -249,54 +255,10 @@
         if (typeof TelegramWebApp !== 'undefined') {
             const tg = window.Telegram.WebApp;
             tg.ready();
-            tg.setHeaderColor('#1a1a1a');
+            tg.setHeaderColor('#000000');
             tg.setBackgroundColor('#000000');
             tg.MainButton.hide();
         }
-
-        const roadmapSteps = {
-            en: [
-                "Master physics, calculus, and engineering statics.",
-                "Learn CAD, materials science, and thermodynamics.",
-                "Study mechanics, machine design, and lubrication.",
-                "Explore manufacturing, control systems, and automation.",
-                "Develop problem-solving skills in real-world engineering projects."
-            ],
-            ru: [
-                "Овладейте физикой, математикой и инженерной статикой.",
-                "Изучите CAD, науку о материалах и термодинамику.",
-                "Изучите механику, проектирование машин и смазку.",
-                "Изучите производство, системы управления и автоматизацию.",
-                "Развивайте навыки решения проблем в инженерных проектах."
-            ],
-            uz: [
-                "Fizika, matematika va muhandislik statikasinni o'zlashtiring.",
-                "CAD, materiallar fanini va termodinamikani o'rganing.",
-                "Mexanika, mashinalar dizaynini va yog'layishni o'rganing.",
-                "Ishlab chiqarish, boshqaruv tizimlari va avtomatsiyani o'rganing.",
-                "Muhandislik loyihalarida muammolarni yechish ko'nikmalarini rivojlantiring."
-            ]
-        };
-
-        const lang = localStorage.getItem("preferredLanguage") || "en";
-        const stepsContainer = document.getElementById("roadmap-steps");
-
-        roadmapSteps[lang].forEach((step, index) => {
-            const stepEl = document.createElement("div");
-            stepEl.className = "roadmap-step";
-            
-            const numberEl = document.createElement("div");
-            numberEl.className = "step-number";
-            numberEl.textContent = index + 1;
-            
-            const textEl = document.createElement("div");
-            textEl.className = "step-text";
-            textEl.textContent = step;
-            
-            stepEl.appendChild(numberEl);
-            stepEl.appendChild(textEl);
-            stepsContainer.appendChild(stepEl);
-        });
     </script>
 </body>
 </html>
