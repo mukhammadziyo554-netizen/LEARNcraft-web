@@ -3354,8 +3354,8 @@
             enterButton.onclick = function() {
                 enterButton.disabled = true;
                 
-                // Save that user has entered the site
-                sessionStorage.setItem('enteredSite', 'true');
+                // Save that user has entered the site in this session
+                sessionStorage.setItem('learncraft-entered', 'true');
                 
                 // Hide enter button smoothly
                 enterButton.style.transition = 'all 0.4s ease-out';
@@ -4202,11 +4202,22 @@
                 sessionStorage.removeItem('learncraft-intro-shown-this-session');
             }
             
-            // Show the startup overlay with the enter button
-            const overlay = document.getElementById('startupOverlay');
-            const pageContent = document.getElementById('pageContent');
-            overlay.style.display = 'flex';
-            pageContent.classList.add('hidden');
+            // Check if user has already entered the site in this session
+            const hasEnteredBefore = sessionStorage.getItem('learncraft-entered');
+            
+            if (!hasEnteredBefore) {
+                // First visit in this session - show the startup overlay
+                const overlay = document.getElementById('startupOverlay');
+                const pageContent = document.getElementById('pageContent');
+                overlay.style.display = 'flex';
+                pageContent.classList.add('hidden');
+            } else {
+                // Already visited - skip overlay, show content immediately
+                const overlay = document.getElementById('startupOverlay');
+                const pageContent = document.getElementById('pageContent');
+                overlay.style.display = 'none';
+                pageContent.classList.remove('hidden');
+            }
         });
 
         // Telegram Mini App Viewport Support
