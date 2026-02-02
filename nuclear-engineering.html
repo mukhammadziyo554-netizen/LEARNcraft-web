@@ -23,80 +23,77 @@
         }
 
         .page-container {
-            max-width: 100%;
-            padding: 60px 20px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px 60px;
         }
 
         .back-button {
             display: inline-block;
-            padding: 12px 24px;
-            background: rgba(201, 169, 97, 0.2);
-            border: 2px solid #C9A961;
-            border-radius: 8px;
-            color: #C9A961;
+            padding: 10px 16px;
+            background: transparent;
+            border: none;
+            color: #888;
             text-decoration: none;
-            font-weight: bold;
-            margin-bottom: 40px;
-            transition: 0.3s;
+            font-weight: 500;
+            font-size: 14px;
             cursor: pointer;
+            transition: color 0.3s;
+            margin-bottom: 40px;
         }
 
         .back-button:hover {
-            background: rgba(201, 169, 97, 0.3);
-            transform: translateX(-5px);
-        }
-
-        .field-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .field-title {
-            font-size: 64px;
-            font-weight: bold;
-            color: #FFD700;
-            text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
-            margin-bottom: 20px;
-        }
-
-        .field-subtitle {
-            font-size: 24px;
-            color: #C9A961;
-        }
-
-        .content-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .intro-text {
-            font-size: 18px;
-            line-height: 1.8;
             color: #EAEAEA;
-            margin-bottom: 40px;
-            text-align: center;
         }
 
-        .explore-btn {
-            display: block;
-            max-width: 300px;
-            margin: 40px auto;
-            padding: 14px 28px;
-            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-            color: #000000;
+        .article-header {
+            margin-bottom: 50px;
+        }
+
+        .article-title {
+            font-size: 56px;
+            font-weight: 700;
+            color: #EAEAEA;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .article-subtitle {
+            font-size: 20px;
+            color: #888;
+            font-weight: 400;
+        }
+
+        .intro-paragraph {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #EAEAEA;
+            margin: 40px 0 30px 0;
+        }
+
+        .explore-button {
+            display: inline-block;
+            margin: 30px 0;
+            padding: 12px 28px;
+            background: transparent;
+            border: 2px solid #FFD84D;
+            color: #FFD84D;
+            border-radius: 30px;
             text-decoration: none;
-            text-align: center;
-            font-weight: bold;
-            border-radius: 8px;
-            transition: 0.3s;
+            font-weight: 600;
+            font-size: 15px;
             cursor: pointer;
-            border: none;
-            font-size: 16px;
+            transition: all 0.3s;
         }
 
-        .explore-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+        .explore-button:hover {
+            background: #FFD84D;
+            color: #000000;
+            transform: translateY(-2px);
+        }
+
+        .article-content {
+            margin-top: 50px;
         }
 
         .section {
@@ -105,56 +102,67 @@
 
         .section-title {
             font-size: 28px;
-            color: #FFD700;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+            font-weight: 700;
+            color: #EAEAEA;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #222;
         }
 
         .section-content {
             font-size: 16px;
-            line-height: 1.8;
+            line-height: 1.7;
             color: #EAEAEA;
         }
 
+        .section-content p {
+            margin-bottom: 18px;
+        }
+
         .subsection {
-            margin-top: 25px;
-            padding-left: 20px;
-            border-left: 3px solid #C9A961;
+            margin-top: 28px;
+            margin-bottom: 20px;
         }
 
         .subsection-title {
             font-size: 18px;
-            color: #C9A961;
+            font-weight: 600;
+            color: #FFD84D;
             margin-bottom: 10px;
-            font-weight: bold;
         }
 
-        .subsection-content {
-            font-size: 15px;
+        .subsection-text {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #EAEAEA;
+        }
+
+        .list-item {
+            margin: 12px 0 12px 20px;
+            font-size: 16px;
             line-height: 1.7;
             color: #EAEAEA;
         }
 
         @media (max-width: 768px) {
             .page-container {
-                padding: 40px 12px;
+                padding: 70px 16px 40px;
             }
 
-            .field-title {
-                font-size: 42px;
+            .article-title {
+                font-size: 38px;
             }
 
-            .field-subtitle {
-                font-size: 18px;
+            .article-subtitle {
+                font-size: 16px;
             }
 
             .section-title {
                 font-size: 22px;
             }
 
-            .intro-text {
-                font-size: 16px;
+            .intro-paragraph {
+                font-size: 15px;
             }
         }
     </style>
@@ -163,40 +171,41 @@
     <div class="page-container">
         <button onclick="if (document.referrer && document.referrer !== window.location.href) { window.history.back(); } else { window.location.href = 'learn.html'; }" class="back-button">← Back</button>
         
-        <div class="field-header">
-            <h1 class="field-title">☢️ Nuclear Engineering</h1>
-            <p class="field-subtitle">Harnessing the power of the atom</p>
+        <div class="article-header">
+            <h1 class="article-title">Nuclear Engineering</h1>
+            <p class="article-subtitle">Harnessing the power of the atom</p>
         </div>
 
-        <div class="content-container">
-            <p class="intro-text">
-                Nuclear Engineering is the practical application of nuclear physics and radiation science to design, build, and operate nuclear reactors for power generation, propulsion, medical applications, and industrial purposes. Nuclear engineers develop the systems that harness nuclear energy safely and efficiently while managing radiation, waste, and security concerns.
-            </p>
+        <p class="intro-paragraph">
+            Nuclear Engineering is the practical application of nuclear physics and radiation science to design, build, and operate nuclear reactors for power generation, propulsion, medical applications, and industrial purposes. Nuclear engineers develop the systems that harness nuclear energy safely and efficiently while managing radiation, waste, and security concerns.
+        </p>
 
-            <a href="#" class="explore-btn">Explore Nuclear Engineering 🔬</a>
+        <button class="explore-button">Explore More Topics</button>
+
+        <div class="article-content">
 
             <div class="section">
                 <h2 class="section-title">Energy Fundamentals</h2>
                 <div class="section-content">
-                    <p>Nuclear energy arises from the binding energy of atomic nuclei. When uranium-235 or plutonium-239 nuclei undergo fission (splitting), they release tremendous amounts of energy. In a controlled chain reaction, this energy heats water into steam to turn turbines for electricity generation. Key principles include:</p>
-                    
+                    <p>Nuclear energy arises from the binding energy of atomic nuclei. When uranium-235 or plutonium-239 nuclei undergo fission (splitting), they release tremendous amounts of energy. In a controlled chain reaction, this energy heats water into steam to turn turbines for electricity generation.</p>
+
                     <div class="subsection">
                         <div class="subsection-title">Fission Process</div>
-                        <div class="subsection-content">
+                        <div class="subsection-text">
                             A neutron strikes a heavy nucleus, splitting it into two lighter nuclei and releasing energy and 2-3 additional neutrons. These neutrons strike other nuclei, sustaining a chain reaction. In reactors, control rods absorb excess neutrons to maintain a steady state.
                         </div>
                     </div>
 
                     <div class="subsection">
                         <div class="subsection-title">Energy Release</div>
-                        <div class="subsection-content">
+                        <div class="subsection-text">
                             One kilogram of uranium-235 releases energy equivalent to burning 3 million kilograms of coal. This extreme energy density makes nuclear power compact and efficient for both centralized plants and distributed applications like naval propulsion.
                         </div>
                     </div>
 
                     <div class="subsection">
-                        <div class="subsection-title">Radiation & Shielding</div>
-                        <div class="subsection-content">
+                        <div class="subsection-title">Radiation and Shielding</div>
+                        <div class="subsection-text">
                             Fission products emit alpha, beta, and gamma radiation. Nuclear engineers design shielding systems using steel, concrete, lead, and water to protect workers and the public while managing heat removal and neutron absorption.
                         </div>
                     </div>
@@ -206,33 +215,33 @@
             <div class="section">
                 <h2 class="section-title">Historical Development</h2>
                 <div class="section-content">
-                    <p>Nuclear engineering emerged from theoretical physics discoveries of the early 20th century:</p>
-                    
+                    <p>Nuclear engineering emerged from theoretical physics discoveries of the early 20th century, evolving from fundamental research to practical industrial applications.</p>
+
                     <div class="subsection">
-                        <div class="subsection-title">1938-1942: Fission Discovery & First Reactor</div>
-                        <div class="subsection-content">
+                        <div class="subsection-title">Fission Discovery and First Reactor (1938-1942)</div>
+                        <div class="subsection-text">
                             Scientists Otto Hahn and Lise Meitner explained nuclear fission. Enrico Fermi led the construction of Chicago Pile-1, the first human-made nuclear reactor, demonstrating controlled fission in 1942 as part of the Manhattan Project.
                         </div>
                     </div>
 
                     <div class="subsection">
-                        <div class="subsection-title">1942-1945: Military Applications</div>
-                        <div class="subsection-content">
+                        <div class="subsection-title">Military Applications (1942-1945)</div>
+                        <div class="subsection-text">
                             Enriched uranium and plutonium production for nuclear weapons drove massive engineering advances in reactor design, fuel production, and materials science during the Manhattan Project.
                         </div>
                     </div>
 
                     <div class="subsection">
-                        <div class="subsection-title">1945-1970: Power Generation Era</div>
-                        <div class="subsection-content">
-                            After WWII, nuclear technology transitioned to civilian power. The first commercial nuclear power plant, Obninsk in the Soviet Union (1954), demonstrated feasibility. By 1970, hundreds of plants operated worldwide generating electricity at industrial scale.
+                        <div class="subsection-title">Power Generation Era (1945-1970)</div>
+                        <div class="subsection-text">
+                            After WWII, nuclear technology transitioned to civilian power. The first commercial nuclear power plant, Obninsk in the Soviet Union, operated in 1954. By 1970, hundreds of plants operated worldwide generating electricity at industrial scale.
                         </div>
                     </div>
 
                     <div class="subsection">
-                        <div class="subsection-title">1970-Present: Advanced Designs & Challenges</div>
-                        <div class="subsection-content">
-                            Development of advanced reactor types (PWRs, BWRs, fast breeder reactors), waste disposal solutions, and proliferation concerns shaped modern nuclear engineering. Post-Fukushima, emphasis on passive safety systems and resilience increased.
+                        <div class="subsection-title">Advanced Designs and Modern Challenges (1970-Present)</div>
+                        <div class="subsection-text">
+                            Development of advanced reactor types including pressurized water reactors (PWRs), boiling water reactors (BWRs), and fast breeder reactors shaped the industry. Post-Fukushima, emphasis on passive safety systems and resilience increased significantly.
                         </div>
                     </div>
                 </div>
@@ -241,82 +250,82 @@
             <div class="section">
                 <h2 class="section-title">Core Sub-Disciplines</h2>
                 <div class="section-content">
-                    <p>Nuclear engineering encompasses multiple specialized areas:</p>
-                    
+                    <p>Nuclear engineering encompasses multiple specialized areas working together to design and operate nuclear systems safely and efficiently:</p>
+
                     <div class="subsection">
-                        <div class="subsection-title">Reactor Physics & Design</div>
-                        <div class="subsection-content">
-                            Calculating neutron transport, multiplication factors, and power distribution. Optimizing core geometry, fuel enrichment, and control rod positioning for safe, efficient operation.
+                        <div class="subsection-title">Reactor Physics and Design</div>
+                        <div class="subsection-text">
+                            Calculating neutron transport, multiplication factors, and power distribution. Optimizing core geometry, fuel enrichment, and control rod positioning for safe, efficient operation. Involves advanced computational modeling and simulation.
                         </div>
                     </div>
 
                     <div class="subsection">
                         <div class="subsection-title">Thermal-Hydraulics</div>
-                        <div class="subsection-content">
-                            Engineering the heat removal systems that transfer fission heat to coolant (water, liquid metal, gas), prevent core damage, and drive turbines for electricity.
+                        <div class="subsection-text">
+                            Engineering the heat removal systems that transfer fission heat to coolant such as water, liquid metal, or gas. Prevents core damage and drives turbines for electricity generation. Critical for safety analysis and design basis events.
                         </div>
                     </div>
 
                     <div class="subsection">
                         <div class="subsection-title">Materials Science</div>
-                        <div class="subsection-content">
-                            Developing materials that withstand extreme radiation, high temperature, and corrosive environments (stainless steels, zirconium alloys, specialized ceramics for fuel).
+                        <div class="subsection-text">
+                            Developing materials that withstand extreme radiation, high temperature, and corrosive environments. Includes stainless steels, zirconium alloys, and specialized ceramics for fuel elements. Managing material degradation over decades of operation.
                         </div>
                     </div>
 
                     <div class="subsection">
-                        <div class="subsection-title">Radiation Protection & Safety</div>
-                        <div class="subsection-content">
-                            Designing containment systems, emergency protocols, and safety analysis to prevent accidents and protect public health. Includes dose assessment and remediation strategies.
+                        <div class="subsection-title">Radiation Protection and Safety</div>
+                        <div class="subsection-text">
+                            Designing containment systems, emergency protocols, and safety analysis to prevent accidents and protect public health. Includes dose assessment, remediation strategies, and long-term risk management.
                         </div>
                     </div>
 
                     <div class="subsection">
                         <div class="subsection-title">Nuclear Fuel Cycle</div>
-                        <div class="subsection-content">
-                            Mining and refining uranium, enrichment processes, fabrication of fuel assemblies, spent fuel storage, reprocessing, and final waste disposition. Managing nuclear material security.
+                        <div class="subsection-text">
+                            Mining and refining uranium, enrichment processes, fabrication of fuel assemblies, spent fuel storage, reprocessing, and final waste disposition. Managing nuclear material security and proliferation concerns throughout the cycle.
                         </div>
                     </div>
 
                     <div class="subsection">
-                        <div class="subsection-title">Decommissioning & Waste Management</div>
-                        <div class="subsection-content">
-                            Safe dismantling of reactors at end-of-life, decontamination, waste classification, storage in repositories, and long-term isolation of radioactive materials from the environment.
+                        <div class="subsection-title">Decommissioning and Waste Management</div>
+                        <div class="subsection-text">
+                            Safe dismantling of reactors at end-of-life, decontamination procedures, waste classification, storage in repositories, and long-term isolation of radioactive materials from the environment. Critical for sustainability and public confidence.
                         </div>
                     </div>
 
                     <div class="subsection">
                         <div class="subsection-title">Non-Power Applications</div>
-                        <div class="subsection-content">
-                            Medical isotope production, sterilization, industrial gauges, naval propulsion, research reactors, space propulsion, and desalination plants using nuclear heat.
+                        <div class="subsection-text">
+                            Medical isotope production for diagnostics and treatment, industrial sterilization, research reactors, naval propulsion systems, space propulsion, and desalination plants using nuclear heat. Expanding field of applications beyond electricity.
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="section">
-                <h2 class="section-title">Industry & Career Outlook</h2>
+                <h2 class="section-title">Industry and Career Outlook</h2>
                 <div class="section-content">
-                    <p>Nuclear engineering offers diverse career paths across utilities, national labs, equipment manufacturers, regulators, and consultancies:</p>
-                    
+                    <p>Nuclear engineering offers diverse career paths across utilities, national laboratories, equipment manufacturers, regulatory agencies, and consulting firms. The field continues evolving with new technologies and global energy demands.</p>
+
                     <div class="subsection">
                         <div class="subsection-title">Employment Distribution</div>
-                        <div class="subsection-content">
-                            Major employers include power plant operators (50%), engineering/consulting firms (25%), national laboratories like Argonne and Oak Ridge (15%), equipment manufacturers (7%), and regulatory agencies like the NRC (3%).
+                        <div class="subsection-text">
+                            Major employers include power plant operators, engineering and consulting firms, national laboratories like Argonne and Oak Ridge, equipment manufacturers, and regulatory agencies like the NRC. Career opportunities span design, operations, safety, and research.
                         </div>
                     </div>
 
                     <div class="subsection">
                         <div class="subsection-title">Global Workforce Trends</div>
-                        <div class="subsection-content">
-                            The IAEA projects increasing demand for nuclear engineers through 2050 due to climate change mitigation goals, grid modernization, small modular reactors (SMRs), and countries building first-time nuclear programs.
+                        <div class="subsection-text">
+                            The International Atomic Energy Agency projects increasing demand for nuclear engineers through 2050 due to climate change mitigation goals, grid modernization, small modular reactor development, and countries building first-time nuclear programs.
                         </div>
                     </div>
 
                     <div class="subsection">
                         <div class="subsection-title">Competitive Advantages</div>
-                        <div class="subsection-content">
-                            Skills in reactor thermal-hydraulics simulation, radiation transport modeling, systems engineering, and project management command premium salaries. Expertise in emerging areas like molten salt or advanced reactors offers additional opportunities.
+                        <div class="subsection-text">
+                            Skills in reactor thermal-hydraulics simulation, radiation transport modeling, systems engineering, and project management command premium salaries. Expertise in emerging areas like molten salt reactors or advanced materials offers additional opportunities in a growing field.
                         </div>
                     </div>
                 </div>
