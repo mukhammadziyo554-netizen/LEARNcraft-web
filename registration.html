@@ -416,7 +416,7 @@
             <p class="subtitle">Create your LEARNcraft account</p>
 
             <div id="success-message" class="success-message">
-                ✓ Account created successfully! Redirecting...
+                Verification email sent. Please check your inbox.
             </div>
 
             <div id="error-message" class="error-message"></div>
@@ -455,6 +455,7 @@
         </div>
     </div>
 
+    <script type="module" src="auth.js"></script>
     <script>
         // Test localStorage availability
         function testLocalStorage() {
@@ -500,7 +501,7 @@
             tg.MainButton.hide();
         }
 
-        function handleRegistration(event) {
+        async function handleRegistration(event) {
             event.preventDefault();
 
             const email = document.getElementById('email').value.trim();
@@ -533,62 +534,41 @@
                 return;
             }
 
-            // Get existing users from localStorage
-            let users = JSON.parse(localStorage.getItem('learncraft_users')) || [];
-            console.log('Current users before registration:', users.length);
-
-            // Check if email already exists
-            const existingUser = users.find(user => user.email === email);
-            if (existingUser) {
-                errorMsg.textContent = '⚠ This email is already registered. Please login.';
+            if (!window.learncraftAuth) {
+                errorMsg.textContent = 'Authentication is not ready. Please refresh and try again.';
                 errorMsg.classList.add('show');
                 return;
             }
 
-            // Create new user object
-            const newUser = {
-                email: email,
-                password: password,
-                registeredAt: new Date().toISOString(),
-                id: Date.now().toString(),
-                visitedFields: [],
-                preferredLanguage: 'en',
-                lastActive: new Date().toISOString()
-            };
-
-            // Add user to array and save to localStorage
-            users.push(newUser);
-            localStorage.setItem('learncraft_users', JSON.stringify(users));
-            console.log('User registered. Total users now:', users.length);
-            console.log('Saved to localStorage:', localStorage.getItem('learncraft_users'));
-
-            // Set current user session
-            localStorage.setItem('learncraft_current_user', JSON.stringify({
-                email: email,
-                id: newUser.id,
-                loggedInAt: new Date().toISOString()
-            }));
-
-            // Broadcast the registration event to other tabs/windows
             try {
-                const channel = new BroadcastChannel('learncraft_updates');
-                channel.postMessage({ 
-                    type: 'user_registered', 
-                    user: { email: email, id: newUser.id } 
-                });
-                channel.close();
-            } catch (e) {
-                console.log('BroadcastChannel not supported:', e);
+                await window.learncraftAuth.signUp(email, password);
+                await window.learncraftAuth.signOutUser();
+                successMsg.textContent = 'Verification email sent. Please verify, then log in.';
+                successMsg.classList.add('show');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1500);
+            } catch (error) {
+                if (error.code === 'auth/email-already-in-use') {
+                    errorMsg.textContent = 'This email is already registered. Please log in.';
+                } else if (error.code === 'auth/weak-password') {
+                    errorMsg.textContent = 'Password must be at least 6 characters.';
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMsg.textContent = 'Please enter a valid email address.';
+                } else {
+                    errorMsg.textContent = 'Registration failed. Please try again.';
+                }
+                errorMsg.classList.add('show');
             }
-
-            // Show success message
-            successMsg.classList.add('show');
-            
-            setTimeout(() => {
-                // Redirect to home page after successful registration
-                window.location.href = 'index.html';
-            }, 1500);
         }
+
+        window.addEventListener('learncraft-auth-ready', () => {
+            window.learncraftAuth.observeAuthState((user) => {
+                if (user && user.emailVerified) {
+                    window.location.href = 'index.html';
+                }
+            });
+        });
     </script>
 </body>
 </html>

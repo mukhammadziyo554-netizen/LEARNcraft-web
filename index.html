@@ -620,96 +620,170 @@
 
         .overlay.show { display: block; }
 
-        body.light-theme {
-            background: #ffffff;
-            color: #000000;
+        body,
+        header,
+        section,
+        footer,
+        .page-content,
+        .topbar,
+        .sidebar,
+        .feature-card,
+        .roadmap-card,
+        .pricing-card,
+        .hero-feature-box,
+        .stat-card,
+        .ask-ai-chat-container,
+        .plan-button,
+        .btn-outline,
+        .secondary-btn,
+        .signin-btn {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        body.light-theme .topbar {
-            background: #ffffff;
-            border-bottom: 1px solid #000000;
+        body.light-mode {
+            background: #F5F6F8;
+            color: #111111;
         }
 
-        body.light-theme .logo,
-        body.light-theme .nav-link,
-        body.light-theme .hero h1,
-        body.light-theme .hero h1 span,
-        body.light-theme .section-heading h2,
-        body.light-theme .feature-card h3,
-        body.light-theme .roadmap-card h3,
-        body.light-theme .ask-ai-box input {
-            color: #000000;
+        body.light-mode header,
+        body.light-mode section,
+        body.light-mode .page-content {
+            background: #F5F6F8;
         }
 
-        body.light-theme .nav-link:hover {
-            color: #000000;
+        body.light-mode .topbar {
+            background: #F5F6F8;
+            border-bottom: 1px solid #D7DCE5;
         }
 
-        body.light-theme .nav-link.active {
-            color: #000000;
+        body.light-mode .logo,
+        body.light-mode .nav-link,
+        body.light-mode .hero h1,
+        body.light-mode .hero h1 span,
+        body.light-mode .section-heading h2,
+        body.light-mode .feature-card h3,
+        body.light-mode .roadmap-card h3,
+        body.light-mode .pricing-header h2 {
+            color: #111111;
         }
 
-        body.light-theme .hero {
-            background: #ffffff;
+        body.light-mode .nav-link:hover,
+        body.light-mode .nav-link.active {
+            color: #111111;
         }
 
-        body.light-theme .hero p,
-        body.light-theme .section-heading p,
-        body.light-theme .feature-card p,
-        body.light-theme .roadmap-card p {
+        body.light-mode .hero {
+            background: #F5F6F8;
+        }
+
+        body.light-mode .hero p,
+        body.light-mode .section-heading p,
+        body.light-mode .feature-card p,
+        body.light-mode .roadmap-card p,
+        body.light-mode .stat-description,
+        body.light-mode .plan-period {
             color: #333333;
         }
 
-        body.light-theme .ask-ai-box,
-        body.light-theme .feature-card,
-        body.light-theme .roadmap-card {
-            background: #ffffff;
-            border-color: #000000;
-        }
-
-        body.light-theme .sidebar {
-            background: #ffffff;
-            border-right: 1px solid #000000;
-        }
-
-        body.light-theme .sidebar a {
-            color: #000000;
-        }
-
-        body.light-theme .sidebar a:hover {
-            background: #f5f5f5;
-            color: #000000;
-        }
-
-        body.light-theme .collapse-btn {
-            background: #ffffff;
-            border-color: #000000;
-            color: #000000;
-        }
-
-        body.light-theme .signin-btn {
-            background: transparent;
-            border-color: #000000;
-            color: #000000;
-        }
-
-        body.light-theme .primary-btn {
-            background: #ffd84d;
-            color: #000000;
-        }
-
-        body.light-theme .secondary-btn {
-            background: transparent;
-            border-color: #000000;
-            color: #000000;
-        }
-
-        body.light-theme .ask-ai-box input::placeholder {
+        body.light-mode .pricing-header p,
+        body.light-mode .plan-label,
+        body.light-mode .plan-savings,
+        body.light-mode .roadmap-subtitle {
             color: #666666;
         }
 
-        body.light-theme .overlay {
-            background: rgba(0, 0, 0, 0.3);
+        body.light-mode .hero-feature-box,
+        body.light-mode .feature-card,
+        body.light-mode .roadmap-card,
+        body.light-mode .pricing-card,
+        body.light-mode .ask-ai-chat-container,
+        body.light-mode .stat-card,
+        body.light-mode .roadmap-content {
+            background: #FFFFFF;
+            border-color: #E1E4EA;
+            box-shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
+        }
+
+        body.light-mode .stat-card {
+            border-color: rgba(245, 197, 24, 0.35);
+            background: #FFFFFF;
+        }
+
+        body.light-mode .pricing-card {
+            border-color: rgba(245, 197, 24, 0.25);
+        }
+
+        body.light-mode .pricing-card.popular {
+            border-color: rgba(245, 197, 24, 0.55);
+            box-shadow: 0 14px 40px rgba(17, 24, 39, 0.12);
+        }
+
+        body.light-mode .pricing-section,
+        body.light-mode .ask-ai,
+        body.light-mode .roadmap-preview,
+        body.light-mode footer {
+            background: #ECEEF2;
+        }
+
+        body.light-mode .sidebar {
+            background: #F5F6F8;
+            border-right: 1px solid #D7DCE5;
+        }
+
+        body.light-mode .sidebar a {
+            color: #111111;
+        }
+
+        body.light-mode .sidebar a:hover {
+            background: #E6E9EF;
+            color: #111111;
+        }
+
+        body.light-mode .collapse-btn {
+            background: #FFFFFF;
+            border-color: #D7DCE5;
+            color: #111111;
+        }
+
+        body.light-mode .signin-btn,
+        body.light-mode .btn-outline,
+        body.light-mode .secondary-btn,
+        body.light-mode .plan-button.outline {
+            background: #FFFFFF;
+            border-color: #D7DCE5;
+            color: #111111;
+        }
+
+        body.light-mode .plan-button.filled,
+        body.light-mode .primary-btn,
+        body.light-mode .btn-primary {
+            background: #f5c518;
+            color: #000000;
+        }
+
+        body.light-mode .theme-toggle {
+            background: #E6E9EF;
+            border-color: #D7DCE5;
+        }
+
+        body.light-mode .user-circle {
+            background: #FFFFFF;
+            border-color: #D7DCE5;
+            color: #111111;
+        }
+
+        body.light-mode .user-menu {
+            background: #FFFFFF;
+            border-color: #E1E4EA;
+        }
+
+        body.light-mode .user-menu-item,
+        body.light-mode .user-menu-header {
+            color: #333333;
+        }
+
+        body.light-mode .overlay {
+            background: rgba(17, 24, 39, 0.2);
         }
 
         .hero {
@@ -1086,6 +1160,134 @@
             }
         }
 
+        @media (max-width: 420px) {
+            .topbar {
+                height: 56px;
+                padding: 6px 12px;
+            }
+
+            .left-group {
+                gap: 12px;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .burger-btn {
+                font-size: 22px;
+            }
+
+            .right-group {
+                gap: 8px;
+            }
+
+            .theme-toggle {
+                display: none;
+            }
+
+            .signin-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+                border-radius: 6px;
+            }
+
+            .user-circle {
+                width: 30px;
+                height: 30px;
+                font-size: 11px;
+            }
+
+            .hero {
+                padding-top: 72px;
+                padding-left: 14px;
+                padding-right: 14px;
+                gap: 20px;
+            }
+
+            .hero h1 {
+                font-size: 22px;
+                line-height: 1.2;
+            }
+
+            .hero p {
+                font-size: 13px;
+            }
+
+            .hero-buttons {
+                gap: 10px;
+            }
+
+            .btn-primary,
+            .btn-outline {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+
+            .pricing-section {
+                padding: 40px 12px 50px;
+            }
+
+            .pricing-header {
+                margin-bottom: 18px;
+            }
+
+            .pricing-header h2 {
+                font-size: 22px;
+            }
+
+            .pricing-header p {
+                display: none;
+            }
+
+            .pricing-toggle {
+                display: none;
+            }
+
+            .pricing-cards {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 10px;
+            }
+
+            .pricing-card {
+                padding: 12px 10px;
+                border-radius: 12px;
+                min-height: 0;
+            }
+
+            .pricing-card.popular::before {
+                top: -10px;
+                font-size: 9px;
+                padding: 4px 10px;
+            }
+
+            .plan-label {
+                font-size: 10px;
+                margin-bottom: 6px;
+            }
+
+            .plan-price {
+                font-size: 20px;
+                margin-bottom: 4px;
+            }
+
+            .plan-period {
+                font-size: 10px;
+                margin-bottom: 6px;
+            }
+
+            .plan-savings,
+            .plan-features {
+                display: none;
+            }
+
+            .plan-button {
+                padding: 8px 10px;
+                font-size: 11px;
+                border-radius: 8px;
+            }
+        }
+
         .primary-btn,
         .btn-primary {
             background: #f4c542;
@@ -1213,11 +1415,11 @@
         .ask-ai-chat-container {
             max-width: 900px;
             margin: 0 auto;
-            background: linear-gradient(135deg, rgba(15, 15, 17, 0.95), rgba(20, 20, 22, 0.9));
-            border: 1px solid rgba(250, 204, 21, 0.2);
+            background: #0b0b0c;
+            border: 1.5px solid rgba(255, 255, 255, 0.65);
             border-radius: 20px;
             overflow: hidden;
-            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
         }
 
         .chat-messages {
@@ -1298,6 +1500,7 @@
             border-radius: 12px;
             color: #e5e7eb;
             line-height: 1.6;
+            text-align: left;
         }
 
         .ai-message .message-content {
@@ -1394,14 +1597,14 @@
             display: flex;
             gap: 12px;
             padding: 20px 24px;
-            border-top: 1px solid rgba(250, 204, 21, 0.2);
-            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.35);
+            background: #0b0b0c;
         }
 
         .chat-input-area input {
             flex: 1;
-            border: 1px solid rgba(250, 204, 21, 0.3);
-            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            background: #0b0b0c;
             color: #fff;
             font-size: 15px;
             padding: 14px 18px;
@@ -1411,8 +1614,8 @@
         }
 
         .chat-input-area input:focus {
-            border-color: rgba(250, 204, 21, 0.6);
-            background: rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.8);
+            background: #0b0b0c;
         }
 
         .chat-input-area input::placeholder {
@@ -4278,7 +4481,15 @@
 
         <div class="right-group">
             <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme"></button>
-            <button class="signin-btn" onclick="window.location.href='login.html'">Sign In</button>
+            <button id="signInBtn" class="signin-btn" onclick="window.location.href='login.html'">Sign In</button>
+            <div id="userAccount" class="user-account" style="display: none;">
+                <div id="userCircle" class="user-circle">U</div>
+                <div id="userMenu" class="user-menu">
+                    <div class="user-menu-header" id="userEmail">user@email.com</div>
+                    <a class="user-menu-item" href="settings.html">Account Settings</a>
+                    <div class="user-menu-item" id="logoutBtn">Logout</div>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -4376,7 +4587,7 @@
 
     <section class="ask-ai" id="ask-ai">
         <div class="section-heading">
-            <h2>Ask Your Civil Engineering AI Tutor</h2>
+            <h2>Ask AI</h2>
             <p>Stuck on a concept? Ask anything about structures, mechanics, materials, or site engineering.</p>
         </div>
         <div class="ask-ai-chat-container">
@@ -4836,14 +5047,14 @@
         const preferredTheme = localStorage.getItem('learncraft-theme');
 
         if (preferredTheme === 'light') {
-            document.body.classList.add('light-theme');
+            document.body.classList.add('light-mode');
             themeToggle?.classList.add('active');
         }
 
         themeToggle?.addEventListener('click', () => {
-            document.body.classList.toggle('light-theme');
+            document.body.classList.toggle('light-mode');
             themeToggle.classList.toggle('active');
-            const theme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
+            const theme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
             localStorage.setItem('learncraft-theme', theme);
         });
 
@@ -5262,20 +5473,18 @@
                 });
             }
 
-            // User Account Management
-            checkUserLogin();
+        });
+
+        window.addEventListener('learncraft-auth-ready', () => {
+            const { observeAuthState } = window.learncraftAuth;
+            observeAuthState((user) => {
+                checkUserLogin(user);
+            });
         });
 
         // Check if user is logged in
-        function checkUserLogin() {
-            const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
-            const allUsers = JSON.parse(localStorage.getItem('learncraft_users')) || [];
-            
-            console.log('Checking login status...');
-            console.log('Current user:', currentUser);
-            console.log('Total registered users:', allUsers.length);
-            
-            if (currentUser) {
+        function checkUserLogin(user) {
+            if (user) {
                 // User is logged in - show account circle, hide sign in button
                 const userAccount = document.getElementById('userAccount');
                 const signInBtn = document.getElementById('signInBtn');
@@ -5283,16 +5492,16 @@
                 const userEmail = document.getElementById('userEmail');
                 
                 // Get first letter of email for avatar
-                const initial = currentUser.email.charAt(0).toUpperCase();
+                const initial = user.email.charAt(0).toUpperCase();
                 userCircle.textContent = initial;
-                userEmail.textContent = currentUser.email;
+                userEmail.textContent = user.email;
                 
                 // Toggle visibility
                 userAccount.style.display = 'inline-block';
                 signInBtn.style.display = 'none';
                 
                 // Check if user is admin
-                checkAdminAccess(currentUser.email);
+                checkAdminAccess(user.email);
                 
                 // Add click event to toggle menu
                 userCircle.addEventListener('click', function(e) {
@@ -5351,14 +5560,16 @@
 
         // Logout function
         function logout() {
-            // Save any pending user data before logout
-            saveUserData();
-            
-            // Clear session
-            localStorage.removeItem('learncraft_current_user');
-            
-            // Reload page to update UI
-            window.location.reload();
+            if (!window.learncraftAuth) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            window.learncraftAuth.signOutUser().then(() => {
+                window.location.reload();
+            }).catch(() => {
+                window.location.href = 'login.html';
+            });
         }
 
         // Main Navigation Active State Handler
@@ -5680,6 +5891,8 @@
         window.addEventListener('orientationchange', setAppHeight);
         setAppHeight();
     </script>
+
+    <script type="module" src="auth.js"></script>
 
     </body>
 </html>
