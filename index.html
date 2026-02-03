@@ -812,12 +812,41 @@
             transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
             position: relative;
             overflow: hidden;
+            animation: floatCard 6s ease-in-out infinite;
+        }
+
+        .stat-card:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .stat-card:nth-child(2) {
+            animation-delay: 2s;
+        }
+
+        .stat-card:nth-child(3) {
+            animation-delay: 4s;
+        }
+
+        @keyframes floatCard {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px);
+            }
+            25% {
+                transform: translateY(-8px) translateX(2px);
+            }
+            50% {
+                transform: translateY(-4px) translateX(-2px);
+            }
+            75% {
+                transform: translateY(-6px) translateX(1px);
+            }
         }
 
         .stat-card:hover {
             border-color: rgba(250, 204, 21, 0.6);
-            transform: translateX(-6px) translateY(-2px);
+            transform: translateX(-6px) translateY(-2px) !important;
             box-shadow: 0 12px 32px rgba(250, 204, 21, 0.25), 0 0 60px rgba(250, 204, 21, 0.1);
+            animation-play-state: paused;
         }
 
         .stat-card::before {
@@ -848,6 +877,16 @@
             border: 1px solid rgba(250, 204, 21, 0.3);
             position: relative;
             z-index: 1;
+            animation: iconPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 20px 5px rgba(250, 204, 21, 0.2);
+            }
         }
 
         .stat-icon svg {
