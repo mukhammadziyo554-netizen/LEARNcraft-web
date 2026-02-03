@@ -694,31 +694,31 @@
         .hero {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 120px 24px 80px;
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
+            padding-top: 110px;
+            padding-bottom: 60px;
+            padding-left: 24px;
+            padding-right: 24px;
         }
 
         .hero-content {
-            max-width: 700px;
+            max-width: 820px;
         }
 
         .hero h1 {
-            font-size: 64px;
+            font-size: 56px;
             line-height: 1.1;
-            font-weight: 600;
+            font-weight: 700;
             color: white;
         }
 
-        .hero h1 span { color: #f4c542; }
+        .hero h1 span { color: #facc15; }
 
         .hero p {
-            margin-top: 20px;
-            color: #b5b5b5;
+            margin-top: 18px;
+            color: #9ca3af;
             font-size: 18px;
             line-height: 1.6;
-            max-width: 560px;
+            max-width: 640px;
         }
 
         .hero-buttons {
@@ -727,7 +727,8 @@
             gap: 14px;
         }
 
-        .primary-btn {
+        .primary-btn,
+        .btn-primary {
             background: #f4c542;
             color: #000;
             border: none;
@@ -737,13 +738,17 @@
             cursor: pointer;
             box-shadow: none;
             transition: background 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
         }
 
-        .primary-btn:hover {
+        .primary-btn:hover,
+        .btn-primary:hover {
             background: #f5d05e;
         }
 
-        .secondary-btn {
+        .secondary-btn,
+        .btn-outline {
             background: transparent;
             border: 1px solid #f4c542;
             color: #f4c542;
@@ -752,10 +757,59 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
         }
 
-        .secondary-btn:hover {
+        .secondary-btn:hover,
+        .btn-outline:hover {
             background: rgba(244, 197, 66, 0.1);
+        }   background: rgba(244, 197, 66, 0.1);
+        }
+
+        /* VALUE SECTION */
+        .value-section {
+            max-width: 1100px;
+            margin: 70px auto 60px;
+            padding: 0 24px;
+        }
+
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .value-card {
+            background: #111;
+            border: 1px solid #1f1f1f;
+            border-radius: 14px;
+            padding: 26px;
+            transition: 0.3s ease;
+        }
+
+        .value-card:hover {
+            border-color: #facc15;
+            transform: translateY(-4px);
+        }
+
+        .value-card h3 {
+            color: white;
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .value-card p {
+            color: #9ca3af;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 900px) {
+            .value-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .section-heading {
@@ -3400,9 +3454,30 @@
             </p>
 
             <div class="hero-buttons">
-                <button class="primary-btn" onclick="window.location.href='civil-engineering.html'">Start Learning Civil Engineering</button>
-                <button class="secondary-btn" onclick="document.getElementById('roadmap').scrollIntoView({ behavior: 'smooth' })">Explore Roadmap</button>
+                <a href="civil-engineering.html" class="btn-primary">Start Learning</a>
+                <a href="roadmap.html" class="btn-outline">Explore Roadmap</a>
             </div>
+        </div>
+    </section>
+
+    <section class="value-section">
+        <div class="value-grid">
+
+            <div class="value-card">
+                <h3>Structured Civil Roadmap</h3>
+                <p>Step-by-step learning path from fundamentals to advanced civil engineering topics.</p>
+            </div>
+
+            <div class="value-card">
+                <h3>AI-Guided Problem Solving</h3>
+                <p>Instant explanations, walkthroughs, and hints for real engineering problems.</p>
+            </div>
+
+            <div class="value-card">
+                <h3>Track Your Progress</h3>
+                <p>Monitor topic completion, study streaks, and mastery over time.</p>
+            </div>
+
         </div>
     </section>
 
