@@ -694,19 +694,19 @@
         .hero {
             max-width: 1100px;
             margin: 0 auto;
-            padding-top: 110px;
-            padding-bottom: 60px;
+            padding-top: 90px;
+            padding-bottom: 50px;
             padding-left: 24px;
             padding-right: 24px;
         }
 
         .hero-content {
-            max-width: 820px;
+            max-width: 780px;
         }
 
         .hero h1 {
-            font-size: 56px;
-            line-height: 1.1;
+            font-size: 48px;
+            line-height: 1.15;
             font-weight: 700;
             color: white;
         }
@@ -714,17 +714,59 @@
         .hero h1 span { color: #facc15; }
 
         .hero p {
-            margin-top: 18px;
+            margin-top: 14px;
             color: #9ca3af;
-            font-size: 18px;
-            line-height: 1.6;
-            max-width: 640px;
+            font-size: 17px;
+            line-height: 1.5;
+            max-width: 600px;
         }
 
         .hero-buttons {
-            margin-top: 28px;
+            margin-top: 24px;
             display: flex;
-            gap: 14px;
+            gap: 12px;
+        }
+
+        /* HERO FEATURE BOXES */
+        .hero-features {
+            margin-top: 42px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            max-width: 780px;
+        }
+
+        .hero-feature-box {
+            background: #0d0d0d;
+            border: 1px solid #1f1f1f;
+            border-radius: 10px;
+            padding: 18px;
+            transition: all 0.25s ease;
+        }
+
+        .hero-feature-box:hover {
+            border-color: #facc15;
+            transform: translateY(-2px);
+        }
+
+        .hero-feature-box h4 {
+            color: #facc15;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .hero-feature-box p {
+            color: #7d7d7d;
+            font-size: 13px;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero-features {
+                grid-template-columns: 1fr;
+            }
         }
 
         .primary-btn,
@@ -3456,6 +3498,23 @@
             <div class="hero-buttons">
                 <a href="civil-engineering.html" class="btn-primary">Start Learning</a>
                 <a href="roadmap.html" class="btn-outline">Explore Roadmap</a>
+            </div>
+
+            <div class="hero-features">
+                <div class="hero-feature-box">
+                    <h4>Structured Roadmaps</h4>
+                    <p>Step-by-step civil engineering learning paths from foundations to advanced topics.</p>
+                </div>
+
+                <div class="hero-feature-box">
+                    <h4>AI-Guided Problem Solving</h4>
+                    <p>Instant explanations, walkthroughs, and help with real engineering problems.</p>
+                </div>
+
+                <div class="hero-feature-box">
+                    <h4>Track Your Progress</h4>
+                    <p>Monitor completed topics, learning streaks, and mastery growth over time.</p>
+                </div>
             </div>
         </div>
     </section>
