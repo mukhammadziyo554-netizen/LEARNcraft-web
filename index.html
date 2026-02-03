@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, height=device-height">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
     <meta name="description" content="LEARNcraft - Your AI-powered Engineering Support App on Telegram">
     <meta name="theme-color" content="#000000">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -22,6 +22,13 @@
             --accent-start: #7C5CFF;
             --accent-end: #00D4FF;
             --app-height: 100vh;
+            --vh: 1vh;
+        }
+
+        @supports (height: 100dvh) {
+            :root {
+                --app-height: 100dvh;
+            }
         }
 
         * {
@@ -46,6 +53,9 @@
             min-height: var(--app-height);
             width: 100%;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            touch-action: pan-y;
         }
 
         /* Remove ugly default focus glow */
@@ -538,7 +548,7 @@
             padding-top: 80px;
             transform: translateX(-100%);
             transition: transform 0.3s ease;
-            z-index: 1000;
+            z-index: 10001;
         }
 
         .sidebar.active {
@@ -551,6 +561,17 @@
             font-size: 15px;
             color: #ddd;
             text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 260px;
+            }
+
+            .sidebar a {
+                padding: 16px 22px;
+                font-size: 16px;
+            }
         }
 
         .sidebar a:hover {
@@ -594,7 +615,7 @@
             inset: 0;
             background: rgba(0,0,0,0.5);
             display: none;
-            z-index: 1100;
+            z-index: 10000;
         }
 
         .overlay.show { display: block; }
@@ -696,8 +717,8 @@
             margin: 0 auto;
             padding-top: 90px;
             padding-bottom: 50px;
-            padding-left: 80px;
-            padding-right: 80px;
+            padding-left: clamp(20px, 5vw, 80px);
+            padding-right: clamp(20px, 5vw, 80px);
         }
 
         .hero-content {
@@ -705,8 +726,8 @@
         }
 
         .hero h1 {
-            font-size: 48px;
-            line-height: 1.15;
+            font-size: clamp(28px, 6vw, 48px);
+            line-height: 1.2;
             font-weight: 700;
             color: white;
         }
@@ -724,6 +745,7 @@
         .hero-buttons {
             margin-top: 24px;
             display: flex;
+            flex-wrap: wrap;
             gap: 12px;
         }
 
@@ -764,8 +786,93 @@
         }
 
         @media (max-width: 768px) {
+            .hero {
+                padding-top: 80px;
+                padding-bottom: 40px;
+            }
+
             .hero-features {
                 grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .hero-feature-box {
+                padding: 14px;
+            }
+
+            .hero-feature-box h4 {
+                font-size: 14px;
+            }
+
+            .hero-feature-box p {
+                font-size: 12px;
+            }
+
+            .topbar {
+                padding: 10px 16px;
+                height: auto;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .main-nav {
+                display: none;
+            }
+
+            .burger-btn {
+                display: block;
+                font-size: 24px;
+            }
+
+            .signin-btn {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+
+            .btn-primary,
+            .primary-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .btn-outline,
+            .secondary-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .hero p {
+                font-size: 14px;
+                margin-top: 12px;
+            }
+
+            .section-heading h2 {
+                font-size: 22px;
+            }
+
+            .section-heading p {
+                font-size: 14px;
             }
         }
 
@@ -813,7 +920,25 @@
         .value-section {
             max-width: 1100px;
             margin: 70px auto 60px;
-            padding: 0 24px;
+            padding: 0 clamp(16px, 5vw, 24px);
+        }
+
+        @media (max-width: 768px) {
+            .value-section {
+                margin: 40px auto 40px;
+            }
+
+            .value-card {
+                padding: 20px;
+            }
+
+            .value-card h3 {
+                font-size: 18px;
+            }
+
+            .value-card p {
+                font-size: 14px;
+            }
         }
 
         .value-grid {
@@ -872,11 +997,12 @@
         }
 
         .ask-ai {
-            padding: 40px 10% 80px;
+            padding: 40px clamp(16px, 5vw, 10%) 80px;
         }
 
         .ask-ai-box {
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
             gap: 12px;
             max-width: 760px;
@@ -885,6 +1011,22 @@
             border: 1px solid rgba(255, 216, 77, 0.2);
             border-radius: 16px;
             padding: 12px 14px;
+        }
+
+        @media (max-width: 600px) {
+            .ask-ai-box {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .ask-ai-box input {
+                font-size: 15px;
+                padding: 8px 0;
+            }
+
+            .ask-ai-box .btn-primary {
+                width: 100%;
+            }
         }
 
         .ask-ai-box input {
@@ -897,13 +1039,24 @@
         }
 
         .roadmap-preview {
-            padding: 60px 10% 120px;
+            padding: 60px clamp(16px, 5vw, 10%) 120px;
         }
 
         .roadmap-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .roadmap-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .roadmap-preview {
+                padding: 40px clamp(16px, 5vw, 10%) 60px;
+            }
         }
 
         .roadmap-card {
@@ -916,6 +1069,51 @@
             gap: 16px;
             align-items: flex-start;
             transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .roadmap-card {
+                padding: 20px;
+            }
+
+            .roadmap-card h3 {
+                font-size: 18px;
+            }
+
+            .roadmap-card .btn-secondary,
+            .roadmap-card a {
+                padding: 10px 20px;
+                font-size: 14px;
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        .roadmap-card h3 {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .roadmap-card .btn-secondary,
+        .roadmap-card a {
+            background: transparent;
+            border: 1px solid #4169e1;
+            color: #4169e1;
+            padding: 8px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+
+        .roadmap-card .btn-secondary:hover,
+        .roadmap-card a:hover {
+            background: rgba(65, 105, 225, 0.1);
+            border-color: #5a7fef;
         }
 
         .roadmap-card:hover {
@@ -3514,6 +3712,47 @@
     </section>
 
     <script>
+        // Telegram Web App initialization
+        (function initTelegramWebApp() {
+            if (window.Telegram && window.Telegram.WebApp) {
+                const tg = window.Telegram.WebApp;
+                
+                // Expand the web app to full height
+                tg.expand();
+                
+                // Enable closing confirmation
+                tg.enableClosingConfirmation();
+                
+                // Set header color to match dark theme
+                tg.setHeaderColor('#0b0b0c');
+                tg.setBackgroundColor('#0b0b0c');
+                
+                // Handle viewport height for mobile devices
+                const setVH = () => {
+                    const vh = window.innerHeight * 0.01;
+                    document.documentElement.style.setProperty('--vh', `${vh}px`);
+                };
+                
+                setVH();
+                window.addEventListener('resize', setVH);
+                
+                // Notify Telegram that the app is ready
+                tg.ready();
+                
+                console.log('Telegram Web App initialized');
+            } else {
+                // Handle viewport for non-Telegram browsers
+                const setVH = () => {
+                    const vh = window.innerHeight * 0.01;
+                    document.documentElement.style.setProperty('--vh', `${vh}px`);
+                };
+                
+                setVH();
+                window.addEventListener('resize', setVH);
+                window.addEventListener('orientationchange', setVH);
+            }
+        })();
+
         // Check if user has already entered the site OR if coming from internal navigation
         (function checkIntroStatus() {
             const intro = document.getElementById('startupOverlay');
