@@ -21,20 +21,22 @@
       overflow: hidden;
     }
 
+    .login-page,
     .login-container {
       display: flex;
-      height: 100vh;
+      min-height: 100vh;
+      background: #0b0b0b;
     }
 
     /* LEFT SIDE */
     .login-left {
-      width: 40%;
+      width: 45%;
       min-width: 400px;
-      padding: 60px 70px;
+      padding: 80px 100px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      background: linear-gradient(to bottom right, #0d0d0d, #111);
+      background: linear-gradient(135deg, #0b0b0b 0%, #111 100%);
     }
 
     .logo {
@@ -124,24 +126,28 @@
 
     /* SOCIAL BUTTONS */
     .google-btn,
-    .apple-btn {
+    .apple-btn,
+    .social {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      padding: 12px;
-      border-radius: 10px;
+      width: 100%;
+      padding: 14px;
+      border-radius: 8px;
       border: 1px solid #333;
-      background: #1a1a1a;
+      background: #111;
       color: white;
-      margin-bottom: 12px;
+      margin-top: 12px;
       cursor: pointer;
       transition: 0.2s;
       font-size: 14px;
+      font-weight: 500;
     }
 
     .google-btn:hover,
-    .apple-btn:hover {
+    .apple-btn:hover,
+    .social:hover {
       border-color: #f5c542;
     }
 
@@ -168,10 +174,11 @@
 
     /* RIGHT SIDE IMAGE */
     .login-right {
-      width: 60%;
+      width: 55%;
       background-image: url("https://images.unsplash.com/photo-1581092918484-8313a5e3c4b6?auto=format&fit=crop&w=1500&q=80");
       background-size: cover;
       background-position: center;
+      background-repeat: no-repeat;
       position: relative;
     }
 
