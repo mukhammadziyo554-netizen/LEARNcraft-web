@@ -713,16 +713,16 @@
         }
 
         .hero {
-            max-width: 1400px;
-            margin: 0 auto;
+            margin: 0;
             padding-top: 90px;
             padding-bottom: 50px;
-            padding-left: clamp(20px, 5vw, 80px);
-            padding-right: clamp(20px, 5vw, 80px);
+            padding-left: 36px;
+            padding-right: 36px;
         }
 
         .hero-content {
             max-width: 780px;
+            margin: 0;
         }
 
         .hero h1 {
@@ -740,6 +740,7 @@
             font-size: 17px;
             line-height: 1.5;
             max-width: 600px;
+            margin-left: 0;
         }
 
         .hero-buttons {
@@ -747,6 +748,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
+            justify-content: flex-start;
         }
 
         /* HERO FEATURE BOXES */
@@ -756,6 +758,7 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 16px;
             max-width: 780px;
+            margin-left: 0;
         }
 
         .hero-feature-box {
@@ -789,6 +792,8 @@
             .hero {
                 padding-top: 80px;
                 padding-bottom: 40px;
+                padding-left: 16px;
+                padding-right: 16px;
             }
 
             .hero-features {
@@ -835,21 +840,17 @@
             .primary-btn {
                 padding: 12px 20px;
                 font-size: 14px;
-                width: 100%;
-                text-align: center;
             }
 
             .btn-outline,
             .secondary-btn {
                 padding: 12px 20px;
                 font-size: 14px;
-                width: 100%;
-                text-align: center;
             }
 
             .hero-buttons {
-                flex-direction: column;
-                width: 100%;
+                flex-direction: row;
+                width: auto;
             }
 
             .hero p {
@@ -913,7 +914,6 @@
         .secondary-btn:hover,
         .btn-outline:hover {
             background: rgba(244, 197, 66, 0.1);
-        }   background: rgba(244, 197, 66, 0.1);
         }
 
         /* VALUE SECTION */
