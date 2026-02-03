@@ -267,6 +267,24 @@
       border: 1px solid rgba(34, 197, 94, 0.3);
       color: #22c55e;
     }
+
+    /* BACK BUTTON */
+    .auth-back {
+      position: absolute;
+      top: 28px;
+      left: 40px;
+      color: #aaa;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: all 0.25s ease;
+    }
+
+    .auth-back:hover {
+      color: #f4c542;
+      transform: translateX(-4px);
+    }
   </style>
 </head>
 <body>
@@ -275,6 +293,10 @@
     
     <!-- LEFT SIDE (FORM) -->
     <div class="login-left">
+
+      <a href="index.html" class="auth-back">
+        ← Back to Home
+      </a>
 
       <div class="logo">LEARN<span>craft</span></div>
 
