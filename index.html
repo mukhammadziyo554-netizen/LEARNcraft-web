@@ -389,88 +389,256 @@
             line-height: 1.6;
         }
 
-        /* Premium Hero Section Styles */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
+        /* Civil Engineering Main Page Styles */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
             background: #000;
+            border-bottom: 1px solid rgba(255, 216, 77, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 2000;
+            box-shadow: 0 6px 20px rgba(255, 216, 77, 0.08);
         }
 
-        .hero-content {
-            max-width: 900px;
+        .top-nav .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
-        .hero h1 {
-            font-size: clamp(40px, 6vw, 72px);
+        .nav-logo {
+            font-size: 18px;
             font-weight: 700;
-            line-height: 1.1;
-            color: #FFFFFF;
-            margin-bottom: 0;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 0.5px;
         }
 
-        .hero h1 span {
+        .nav-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            opacity: 0.85;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .burger-menu {
+            background: transparent;
+            border: 1px solid rgba(255, 216, 77, 0.35);
+            border-radius: 8px;
+            width: 42px;
+            height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .burger-menu span {
+            display: block;
+            width: 16px;
+            height: 2px;
+            background: #ffd84d;
+        }
+
+        .theme-toggle {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            gap: 8px;
+        }
+
+        .theme-toggle input {
+            opacity: 0;
+            position: absolute;
+        }
+
+        .toggle-track {
+            width: 42px;
+            height: 22px;
+            border-radius: 999px;
+            background: #111;
+            border: 1px solid rgba(255, 216, 77, 0.4);
+            display: inline-block;
+        }
+
+        .toggle-thumb {
+            position: absolute;
+            left: 4px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #ffd84d;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle input:checked ~ .toggle-thumb {
+            transform: translateX(18px);
+        }
+
+        .nav-btn {
+            border-radius: 10px;
+            padding: 10px 18px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn.outline {
+            border: 1px solid #ffd84d;
             color: #ffd84d;
         }
 
-        .hero-subtext {
-            margin-top: 20px;
+        .nav-btn.outline:hover {
+            background: rgba(255, 216, 77, 0.1);
+        }
+
+        .nav-btn.filled {
+            background: #ffd84d;
+            color: #000;
+        }
+
+        .nav-btn.filled:hover {
+            box-shadow: 0 10px 20px rgba(255, 216, 77, 0.2);
+        }
+
+        .hero {
+            min-height: 90vh;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            align-items: center;
+            padding: 140px 10% 80px;
+            gap: 40px;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(40px, 5vw, 64px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .hero-text p {
             font-size: 18px;
             color: #b3b3b3;
-            max-width: 650px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.6;
+            line-height: 1.7;
+            max-width: 520px;
+            margin-bottom: 30px;
         }
 
         .hero-buttons {
-            margin-top: 40px;
             display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            border-radius: 12px;
+            padding: 14px 24px;
+            font-weight: 600;
+            font-size: 15px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
             justify-content: center;
-            gap: 16px;
-            flex-wrap: wrap;
         }
 
         .btn-primary {
             background: #ffd84d;
             color: #000;
-            padding: 14px 28px;
-            border-radius: 10px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-block;
+            box-shadow: 0 10px 20px rgba(255, 216, 77, 0.2);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 216, 77, 0.3);
         }
 
         .btn-secondary {
-            border: 1px solid #444;
+            border: 1px solid rgba(255, 216, 77, 0.5);
+            color: #ffd84d;
             background: transparent;
-            color: #fff;
-            padding: 14px 28px;
-            border-radius: 10px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-block;
         }
 
         .btn-secondary:hover {
-            border-color: #ffd84d;
-            transform: translateY(-2px);
+            background: rgba(255, 216, 77, 0.1);
         }
 
-        /* 3 Core Benefits Features Section */
+        .hero-space {
+            min-height: 300px;
+        }
+
+        .section-heading {
+            text-align: center;
+            max-width: 680px;
+            margin: 0 auto 30px;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(26px, 3vw, 36px);
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .section-heading p {
+            color: #b3b3b3;
+            line-height: 1.6;
+        }
+
+        .ask-ai {
+            padding: 40px 10% 80px;
+        }
+
+        .ask-ai-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 760px;
+            margin: 0 auto;
+            background: #0b0b0b;
+            border: 1px solid rgba(255, 216, 77, 0.2);
+            border-radius: 16px;
+            padding: 12px 14px;
+        }
+
+        .ask-ai-box input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+        }
+
         .features {
-            padding: 100px 20px;
-            background: #000;
+            padding: 60px 10% 80px;
         }
 
         .features-grid {
@@ -483,16 +651,18 @@
 
         .feature-card {
             background: #111;
-            border: 1px solid #1f1f1f;
+            border: 1px solid rgba(255, 216, 77, 0.12);
             border-radius: 16px;
-            padding: 40px;
+            padding: 36px;
             text-align: left;
             transition: all 0.3s ease;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
         }
 
         .feature-card:hover {
             border-color: #ffd84d;
             transform: translateY(-6px);
+            box-shadow: 0 16px 30px rgba(255, 216, 77, 0.12);
         }
 
         .feature-card h3 {
@@ -508,17 +678,65 @@
             line-height: 1.6;
         }
 
+        .roadmap-preview {
+            padding: 60px 10% 120px;
+        }
+
+        .roadmap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .roadmap-card {
+            background: #0f0f0f;
+            border: 1px solid rgba(255, 216, 77, 0.18);
+            border-radius: 18px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: flex-start;
+            transition: all 0.3s ease;
+        }
+
+        .roadmap-card:hover {
+            border-color: #ffd84d;
+            transform: translateY(-4px);
+        }
+
         @media (max-width: 900px) {
+            .top-nav {
+                flex-direction: column;
+                height: auto;
+                padding: 12px 16px;
+                gap: 12px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 140px 8% 60px;
+            }
+
+            .hero-buttons {
+                align-items: stretch;
+            }
+
+            .ask-ai-box {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
             .features-grid {
                 grid-template-columns: 1fr;
             }
 
             .feature-card {
                 padding: 30px;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
             }
         }
 
@@ -2958,40 +3176,6 @@
     </style>
 </head>
 <body>
-    <!-- Fullscreen Menu Overlay -->
-    <div class="menu-overlay" id="menuOverlay">
-        <div class="app-menu">
-            <a href="ask-ai.html" onclick="closeMenu();">AI</a>
-            <a href="learn.html" onclick="closeMenu();">Learn</a>
-            <a href="roadmap.html" onclick="closeMenu();">Roadmap</a>
-            <a href="practice.html" onclick="closeMenu();">Practice</a>
-            <a href="debug-help.html" onclick="closeMenu();">Debug Help</a>
-            <a href="community.html" onclick="closeMenu();">Community</a>
-            <a href="settings.html" onclick="closeMenu();">Settings</a>
-        </div>
-    </div>
-
-    <!-- Top Controls Group -->
-    <div class="top-controls">
-        <div class="language-switcher">
-            <div class="lang-dropdown">
-                <button class="lang-btn" onclick="toggleLanguageMenu()">
-                    <span id="current-lang">EN ▾</span>
-                </button>
-                <div class="lang-menu" id="lang-menu">
-                    <div class="lang-option active" onclick="changeLanguage('en', 'EN')">English</div>
-                    <div class="lang-option" onclick="changeLanguage('ru', 'RU')">Русский</div>
-                    <div class="lang-option" onclick="changeLanguage('uz', 'UZ')">O'zbek</div>
-                </div>
-            </div>
-        </div>
-        
-        <button class="menu-btn" id="menuBtn" onclick="toggleMenu()">
-            <span></span>
-            <span></span>
-        </button>
-    </div>
-
     <!-- Startup Animation Overlay -->
     <div class="startup-overlay" id="startupOverlay">
         <div class="startup-content">
@@ -3009,83 +3193,33 @@
     <!-- Light bloom effect -->
     <div class="light-bloom" id="lightBloom"></div>
 
-    <!-- Premium Hero Section - ALWAYS VISIBLE -->
-    <section class="hero">
-      <div class="hero-content">
-        <h1>
-          Master Engineering<br>
-          <span>Step by Step</span>
-        </h1>
-
-        <p class="hero-subtext">
-          AI-powered roadmaps, structured study paths, and progress tracking
-          built for future engineers.
-        </p>
-
-        <div class="hero-buttons">
-          <a href="learn.html" class="btn-primary">Start Learning</a>
-          <a href="#about-section" class="btn-secondary">How It Works</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3 Core Benefits Section - ALWAYS VISIBLE -->
-    <section class="features">
-      <div class="features-grid">
-
-        <div class="feature-card">
-          <h3>Structured Learning Paths</h3>
-          <p>
-            Follow clear engineering roadmaps that guide you from foundations
-            to advanced professional skills.
-          </p>
-        </div>
-
-        <div class="feature-card">
-          <h3>AI Study Assistance</h3>
-          <p>
-            Ask questions anytime and get instant help understanding
-            difficult engineering concepts.
-          </p>
-        </div>
-
-        <div class="feature-card">
-          <h3>Progress Tracking System</h3>
-          <p>
-            Track your study consistency, weekly goals, and stage completion
-            as you grow step by step.
-          </p>
-        </div>
-
-      </div>
-    </section>
-
     <!-- Page content with initial opacity -->
     <div class="page-content" id="pageContent">
 
-    <div class="nav-bar">
+    <header class="top-nav">
         <div class="nav-left">
-            <div class="nav-brand" onclick="document.getElementById('header-section').scrollIntoView();" style="cursor: pointer;">LEARNcraft</div>
-            <div class="user-account" id="userAccount" style="display: none;">
-                <div class="user-circle" id="userCircle"></div>
-                <div class="user-menu" id="userMenu">
-                    <div class="user-menu-header" id="userEmail"></div>
-                    <div class="user-menu-item" id="logoutBtn">Logout</div>
-                </div>
-            </div>
-            <button id="signInBtn" onclick="window.location.href='registration.html'" data-en="Sign In" data-ru="Войти" data-uz="Kirish">Sign In</button>
+            <button class="burger-menu" id="hamburgerMenu" onclick="toggleSidebar()" aria-label="Open menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <a class="nav-logo" href="index.html">LEARNcraft</a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="#ask-ai">About</a>
+                <a href="#roadmap">LEARNcraft Pro</a>
+            </nav>
         </div>
-        
         <div class="nav-right">
+            <label class="theme-toggle" for="themeToggle">
+                <input type="checkbox" id="themeToggle" aria-label="Toggle theme">
+                <span class="toggle-track"></span>
+                <span class="toggle-thumb"></span>
+            </label>
+            <a class="nav-btn outline" href="login.html">Sign In</a>
+            <a class="nav-btn filled" href="registration.html">Get Started</a>
         </div>
-        
-        <!-- Hamburger Menu -->
-        <button class="hamburger-menu" id="hamburgerMenu" onclick="toggleSidebar()">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
+    </header>
 
     <!-- Sidebar Menu Overlay -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
@@ -3097,166 +3231,79 @@
         </div>
         <button class="sidebar-close" onclick="closeSidebar()">✕</button>
         <nav class="sidebar-nav">
-            <a href="#" class="sidebar-item" onclick="closeSidebar();" data-en="Product" data-ru="Продукт" data-uz="Mahsulot">Product</a>
-            <a href="#" class="sidebar-item" onclick="closeSidebar();" data-en="Teams" data-ru="Команды" data-uz="Jamoalar">Teams</a>
-            <a href="#" class="sidebar-item" onclick="closeSidebar();" data-en="Resources" data-ru="Ресурсы" data-uz="Manbalar">Resources</a>
-            <a href="#" class="sidebar-item" onclick="closeSidebar();" data-en="Community" data-ru="Сообщество" data-uz="Hamjamiyat">Community</a>
-            <a href="ask-ai.html" class="sidebar-item" onclick="closeSidebar();" data-en="Ask AI" data-ru="Спросить AI" data-uz="AI so'rash">Ask AI</a>
-            <a href="support.html" class="sidebar-item" onclick="closeSidebar();" data-en="Support" data-ru="Поддержка" data-uz="Yordam">Support</a>
-            <a href="#" class="sidebar-item" onclick="closeSidebar();" data-en="Enterprise" data-ru="Предприятие" data-uz="Biznes">Enterprise</a>
-            <a href="#" class="sidebar-item" onclick="closeSidebar();" data-en="Pricing" data-ru="Цены" data-uz="Narxlar">Pricing</a>
-            <a href="admin.html" class="sidebar-item" id="adminBtnMenu" onclick="closeSidebar();" data-en="Admin" data-ru="Администратор" data-uz="Admin">Admin</a>
+            <a href="index.html" class="sidebar-item" onclick="closeSidebar();">Home</a>
+            <a href="#ask-ai" class="sidebar-item" onclick="closeSidebar();">About</a>
+            <a href="#roadmap" class="sidebar-item" onclick="closeSidebar();">LEARNcraft Pro</a>
+            <a href="learn.html" class="sidebar-item" onclick="closeSidebar();">Learn</a>
+            <a href="ask-ai.html" class="sidebar-item" onclick="closeSidebar();">Ask AI</a>
+            <a href="support.html" class="sidebar-item" onclick="closeSidebar();">Support</a>
         </nav>
-        <div class="sidebar-footer">
-            <button class="sidebar-login" onclick="window.location.href='registration.html'; closeSidebar();" data-en="Log in" data-ru="Войти" data-uz="Kirish">Log in</button>
-            <button class="sidebar-signup" onclick="window.location.href='registration.html'; closeSidebar();" data-en="Sign up" data-ru="Зарегистрироваться" data-uz="Ro'yxatdan o'tish">Sign up</button>
-            <button class="sidebar-admin" id="adminBtnFooter" onclick="window.location.href='admin.html'; closeSidebar();" data-en="Admin" data-ru="Администратор" data-uz="Admin">Admin</button>
-        </div>
     </div>
 
-    <section class="intro-scene">
-        <div class="scene-layer hero-layer">
-            <div class="logo">⊕</div>
-            <h1>LEARNcraft</h1>
-            <p class="tagline" data-en="Your AI-Powered Engineering Support App" data-ru="Ваше AI-приложение для инженерной поддержки" data-uz="Sizning AI muhandislik yordamchi ilovangiz">Your AI-Powered Engineering Support App</p>
-            <div class="description-container">
-                <p class="description-line" data-en="Get instant help on Telegram bot with engineering concepts," data-ru="Получите мгновенную помощь в Telegram боте с инженерными концепциями," data-uz="Telegram botida muhandislik tushunchalari bo'yicha darhol yordam oling,">Get instant help on Telegram bot with engineering concepts,</p>
-                <p class="description-line" data-en="academic resources, and personalized learning roadmaps." data-ru="академическими ресурсами и персонализированными картами обучения." data-uz="akademik manbalar va shaxsiy ta'lim yo'l xaritalari.">academic resources, and personalized learning roadmaps.</p>
-                <p class="description-line" data-en="Explore this app 24/7 to support your learning journey!" data-ru="Изучайте это приложение 24/7 для поддержки вашего обучения!" data-uz="Bu ilovani 24/7 o'quv jarayoningizni qo'llab-quvvatlash uchun o'rganing!">Explore this app 24/7 to support your learning journey!</p>
-            </div>
-
-            <div class="hero-actions">
-                <a class="button primary" href="https://t.me/LEARN_craft_bot" target="_blank">
-                    <span class="btn-word" data-en="Telegram bot" data-ru="Телеграм бот" data-uz="Telegram bot">Telegram bot</span>
-                </a>
-                <button class="button" onclick="alert('Ask AI feature coming soon!')">
-                    <span class="btn-word" data-en="Start with AI" data-ru="Начать с ИИ" data-uz="AI bilan boshlash">Start with AI</span>
-                </button>
+    <section class="hero" id="hero">
+        <div class="hero-text">
+            <h1>Learn Civil Engineering with AI</h1>
+            <p>
+                Structured topics, guided explanations, real problem-solving,
+                and interactive learning powered by AI.
+            </p>
+            <div class="hero-buttons">
+                <a class="btn-primary" href="civil-engineering.html">Start Learning Civil Engineering</a>
+                <a class="btn-secondary" href="#roadmap">Explore Roadmap</a>
             </div>
         </div>
+        <div class="hero-space" aria-hidden="true"></div>
+    </section>
 
-        <div class="scene-layer features-layer">
-            <div class="features-left">
-                <div class="feature-item" id="f1">01 AI Smart Answers</div>
-                <div class="feature-item" id="f2">02 24/7 Fast Response</div>
-                <div class="feature-item" id="f3">03 Get Help Anytime</div>
+    <section class="ask-ai" id="ask-ai">
+        <div class="section-heading">
+            <h2>Ask Your Civil Engineering AI Tutor</h2>
+            <p>Stuck on a concept? Ask anything about structures, mechanics, materials, or site engineering.</p>
+        </div>
+        <div class="ask-ai-box">
+            <input type="text" placeholder="Ask about beam bending, soil mechanics, or load calculations…" aria-label="Ask civil engineering AI">
+            <button class="btn-primary" type="button">Ask AI</button>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Structured Civil Learning</h3>
+                <p>Follow a step-by-step roadmap from foundations to advanced civil engineering topics.</p>
             </div>
-
-            <div class="features-right">
-                <div class="feature-desc" id="d1">
-                    <h2>AI that thinks like an engineer</h2>
-                    <div class="desc-points">
-                        <p>• <strong>Step-by-step explanations</strong> for formulas, theories, and problem solving</p>
-                        <p>• <strong>Adapts to your level</strong> — from beginner concepts to advanced topics</p>
-                        <p>• <strong>Real engineering logic</strong>, not generic AI guesses</p>
-                        <p>• <strong>Clear examples</strong> that connect theory to practice</p>
-                    </div>
-                </div>
-                <div class="feature-desc" id="d2">
-                    <h2>Help in seconds, not hours</h2>
-                    <div class="desc-points">
-                        <p>• <strong>Instant replies</strong> to technical questions</p>
-                        <p>• <strong>Available 24/7</strong> without waiting</p>
-                        <p>• <strong>Perfect for homework</strong> and exam prep</p>
-                    </div>
-                </div>
-                <div class="feature-desc" id="d3">
-                    <h2>Support when you need it most</h2>
-                    <div class="desc-points">
-                        <p>• <strong>Stuck on a problem?</strong> Get guided help through Telegram bot</p>
-                        <p>• <strong>Confused about a concept?</strong> Ask for clarification anytime</p>
-                        <p>• <strong>Need study resources?</strong> Access curated learning materials</p>
-                        <p>• <strong>Contact support</strong> for technical issues or questions</p>
-                    </div>
-                </div>
+            <div class="feature-card">
+                <h3>AI-Guided Problem Solving</h3>
+                <p>Get instant explanations, walkthroughs, and hints for real engineering problems.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Track Your Progress</h3>
+                <p>Monitor your study streak, topic completion, and mastery over time.</p>
             </div>
         </div>
     </section>
 
-    <!-- About Section - Page 2 -->
-    <section id="about-section">
-        <div class="about-container">
-            <h2 class="section-title" data-en="About LEARNcraft" data-ru="О LEARNcraft" data-uz="LEARNcraft haqida">About LEARNcraft</h2>
-            
-            <div class="about-content">
-                <div class="about-card mission-bg">
-                    <h3 class="about-subtitle" data-en="Our Mission" data-ru="Наша миссия" data-uz="Bizning missiya">Our Mission</h3>
-                    <p class="about-text" data-en="LEARNcraft exists to make engineering education accessible, intelligent, and personalized through AI-powered support." data-ru="LEARNcraft существует, чтобы сделать инженерное образование доступным, интеллектуальным и персонализированным через поддержку искусственного интеллекта." data-uz="LEARNcraft muhandislik ta'limini sun'iy intellekt yordamida ochiq, aqlli va shaxsiylashtirilgan qilish uchun mavjud.">LEARNcraft exists to make engineering education accessible, intelligent, and personalized through AI-powered support.</p>
-                </div>
-
-                <div class="about-card why-bg">
-                    <h3 class="about-subtitle" data-en="Why LEARNcraft" data-ru="Почему LEARNcraft" data-uz="Nega LEARNcraft">Why LEARNcraft</h3>
-                    <p class="about-text" data-en="Traditional learning is static. LEARNcraft adapts to your pace, your style, and your goals in real time." data-ru="Традиционное обучение статично. LEARNcraft адаптируется к вашему темпу, вашему стилю и вашим целям в режиме реального времени." data-uz="An'anaviy ta'lim statik. LEARNcraft sizning tezligingiz, uslubingiz va maqsadlaringizga real vaqtda moslashadi.">Traditional learning is static. LEARNcraft adapts to your pace, your style, and your goals in real time.</p>
-                </div>
-
-                <div class="about-card help-bg">
-                    <h3 class="about-subtitle" data-en="Instant Support" data-ru="Мгновенная поддержка" data-uz="Darhol yordam">Instant Support</h3>
-                    <p class="about-text" data-en="Get guidance, explanations, and problem-solving help anytime — powered by AI and available 24/7." data-ru="Получайте руководство, объяснения и помощь в решении проблем в любое время — на базе ИИ и доступно 24/7." data-uz="Har qanday vaqtda yo'riqnoma, tushuntirish va muammolarni hal qilish yordamini oling — AI bilan quvvatlanadi va 24/7 mavjud.">Get guidance, explanations, and problem-solving help anytime — powered by AI and available 24/7.</p>
-                </div>
-
-                <div class="about-card community-bg">
-                    <h3 class="about-subtitle" data-en="Built for the Future" data-ru="Создано для будущего" data-uz="Kelajak uchun qurilgan">Built for the Future</h3>
-                    <p class="about-text" data-en="We are building the next generation learning environment where AI and human curiosity grow together." data-ru="Мы создаем среду обучения нового поколения, где ИИ и человеческое любопытство растут вместе." data-uz="Biz keyingi avlod ta'lim muhitini yaratyapmiz, unda AI va inson qiziquvchanlik birga o'sadi.">We are building the next generation learning environment where AI and human curiosity grow together.</p>
-                </div>
-            </div>
+    <section class="roadmap-preview" id="roadmap">
+        <div class="section-heading">
+            <h2>Your Civil Engineering Learning Path</h2>
         </div>
-    </section>
-
-    <!-- LEARNcraft Experience Section -->
-    <section id="experience-section">
-        <div class="experience-container">
-            <h2 class="section-title" data-en="The LEARNcraft Experience" data-ru="Опыт LEARNcraft" data-uz="LEARNcraft tajribasi">The LEARNcraft Experience</h2>
-            <p class="section-subtitle" data-en="More than a tool. A new way to learn." data-ru="Больше, чем инструмент. Новый способ обучения." data-uz="Vositadan ko'proq. O'qishning yangi usuli.">More than a tool. A new way to learn.</p>
-
-            <div class="experience-grid">
-                <div class="experience-card">
-                    <h3 class="experience-title" data-en="AI That Understands You" data-ru="ИИ, который понимает вас" data-uz="Sizni tushunadigan AI">AI That Understands You</h3>
-                    <p class="experience-text" data-en="LEARNcraft does more than provide answers — it understands context and adapts explanations to your level." data-ru="LEARNcraft делает больше, чем просто предоставляет ответы — он понимает контекст и адаптирует объяснения к вашему уровню." data-uz="LEARNcraft javob berishdan ko'proq narsani qiladi — u kontekstni tushunadi va tushuntirishlarni sizning darajangizga moslashadi.">LEARNcraft does more than provide answers — it understands context and adapts explanations to your level.</p>
-                </div>
-
-                <div class="experience-card">
-                    <h3 class="experience-title" data-en="Personalized Learning Paths" data-ru="Персонализированные пути обучения" data-uz="Shaxsiylashtirilgan o'quv yo'llari">Personalized Learning Paths</h3>
-                    <p class="experience-text" data-en="Dynamic roadmaps built around your strengths, weaknesses, and goals." data-ru="Динамические дорожные карты, построенные вокруг ваших сильных и слабых сторон и целей." data-uz="Sizning kuchli va zaif tomonlaringiz va maqsadlaringiz asosida qurilgan dinamik yo'l xaritalari.">Dynamic roadmaps built around your strengths, weaknesses, and goals.</p>
-                </div>
-
-                <div class="experience-card">
-                    <h3 class="experience-title" data-en="Always Evolving" data-ru="Постоянно развивается" data-uz="Doim rivojlanmoqda">Always Evolving</h3>
-                    <p class="experience-text" data-en="Our AI improves continuously to deliver smarter, clearer, and more effective guidance." data-ru="Наш ИИ постоянно совершенствуется, чтобы предоставлять более умное, ясное и эффективное руководство." data-uz="Bizning AI yanada aqlli, aniqroq va samaraliroq yo'riqnoma berish uchun doimiy ravishda yaxshilanadi.">Our AI improves continuously to deliver smarter, clearer, and more effective guidance.</p>
-                </div>
+        <div class="roadmap-grid">
+            <div class="roadmap-card">
+                <h3>Foundations</h3>
+                <a href="civil-stage1.html" class="btn-secondary">Open Stage</a>
             </div>
-        </div>
-    </section>
-
-    <!-- Trust & Credibility Section -->
-    <section id="trust-section">
-        <div class="trust-container">
-            <h2 class="section-title" data-en="Designed for Serious Learners" data-ru="Разработано для серьезных учеников" data-uz="Jiddiy o'quvchilar uchun yaratilgan">Designed for Serious Learners</h2>
-            
-            <div class="trust-features">
-                <div class="trust-item">
-                    <div class="trust-icon">AI</div>
-                    <p class="trust-text" data-en="AI-powered educational system" data-ru="Образовательная система на базе ИИ" data-uz="AI bilan quvvatlanadigan ta'lim tizimi">AI-powered educational system</p>
-                </div>
-                <div class="trust-item">
-                    <div class="trust-icon">ES</div>
-                    <p class="trust-text" data-en="Built for engineering students" data-ru="Создано для студентов инженерных специальностей" data-uz="Muhandislik talabalari uchun qurilgan">Built for engineering students</p>
-                </div>
-                <div class="trust-item">
-                    <div class="trust-icon">24/7</div>
-                    <p class="trust-text" data-en="Accessible anytime, anywhere" data-ru="Доступно в любое время, в любом месте" data-uz="Har qanday vaqtda, har qanday joyda">Accessible anytime, anywhere</p>
-                </div>
-                <div class="trust-item">
-                    <div class="trust-icon">DU</div>
-                    <p class="trust-text" data-en="Focused on deep understanding" data-ru="Сосредоточено на глубоком понимании" data-uz="Chuqur tushunishga qaratilgan">Focused on deep understanding</p>
-                </div>
+            <div class="roadmap-card">
+                <h3>Structural Mechanics</h3>
+                <a href="civil-stage2.html" class="btn-secondary">Open Stage</a>
             </div>
-        </div>
-    </section>
-
-    <!-- Quote Section -->
-    <section id="quote-section">
-        <div class="quote-container">
-            <blockquote class="quote-text" data-en="LEARNcraft is not just an app. It's your AI learning partner." data-ru="LEARNcraft — это не просто приложение. Это ваш партнер по обучению с ИИ." data-uz="LEARNcraft shunchaki ilova emas. Bu sizning AI o'quv sherigingiz.">LEARNcraft is not just an app.<br>It's your AI learning partner.</blockquote>
+            <div class="roadmap-card">
+                <h3>Materials &amp; Geotechnics</h3>
+                <a href="civil-stage3.html" class="btn-secondary">Open Stage</a>
+            </div>
+            <div class="roadmap-card">
+                <h3>Practical Design &amp; Projects</h3>
+                <a href="civil-stage4.html" class="btn-secondary">Open Stage</a>
+            </div>
         </div>
     </section>
 
@@ -3271,15 +3318,15 @@
             const isInternalNavigation = document.referrer && document.referrer.includes(window.location.hostname);
             
             // If user already entered OR coming from internal page, skip intro completely
-            if (sessionStorage.getItem('enteredSite') || isInternalNavigation) {
+            if (sessionStorage.getItem('learncraft-entered') || isInternalNavigation) {
                 intro.style.display = 'none';
                 welcomeMsg.style.display = 'none';
                 mainSite.classList.remove('hidden');
                 document.body.style.overflow = '';
                 
                 // Mark as entered if coming from internal navigation
-                if (!sessionStorage.getItem('enteredSite')) {
-                    sessionStorage.setItem('enteredSite', 'true');
+                if (!sessionStorage.getItem('learncraft-entered')) {
+                    sessionStorage.setItem('learncraft-entered', 'true');
                 }
             }
         })();
@@ -4007,16 +4054,6 @@
     </script>
 
     </div><!-- Close page-content -->
-
-    <!-- Main Navigation Bar -->
-    <nav class="main-nav">
-        <ul class="nav-list">
-            <li class="nav-item active" onclick="setActiveNav(this)">Product</li>
-            <li class="nav-item" onclick="setActiveNav(this)">Resources</li>
-            <li class="nav-item" onclick="setActiveNav(this)">Company</li>
-            <li class="nav-item" onclick="setActiveNav(this)">Programs</li>
-        </ul>
-    </nav>
 
     <!-- Footer -->
     <footer>
