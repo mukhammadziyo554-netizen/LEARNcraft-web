@@ -798,54 +798,78 @@
         .hero-stats {
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            min-width: 280px;
+            gap: 20px;
+            min-width: 320px;
             flex-shrink: 0;
         }
 
         .stat-card {
-            background: linear-gradient(135deg, rgba(15, 15, 15, 0.9), rgba(20, 20, 20, 0.8));
-            border: 1px solid rgba(250, 204, 21, 0.2);
-            border-radius: 16px;
-            padding: 20px;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
+            background: linear-gradient(135deg, rgba(20, 20, 22, 0.95), rgba(15, 15, 17, 0.9));
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            border-radius: 20px;
+            padding: 28px 24px;
+            backdrop-filter: blur(20px);
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
             position: relative;
             overflow: hidden;
         }
 
         .stat-card:hover {
-            border-color: rgba(250, 204, 21, 0.5);
-            transform: translateX(-4px);
-            box-shadow: 0 8px 24px rgba(250, 204, 21, 0.15);
+            border-color: rgba(250, 204, 21, 0.6);
+            transform: translateX(-6px) translateY(-2px);
+            box-shadow: 0 12px 32px rgba(250, 204, 21, 0.25), 0 0 60px rgba(250, 204, 21, 0.1);
         }
 
         .stat-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            right: 0;
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle, rgba(250, 204, 21, 0.1), transparent);
-            border-radius: 50%;
-            transform: translate(40%, -40%);
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(250, 204, 21, 0.12), transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
         }
 
         .stat-icon {
-            font-size: 32px;
-            margin-bottom: 8px;
-            display: inline-block;
+            width: 48px;
+            height: 48px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(250, 204, 21, 0.15), rgba(250, 204, 21, 0.05));
+            border-radius: 12px;
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: #facc15;
+            stroke-width: 2;
+            fill: none;
         }
 
         .stat-value {
-            font-size: 28px;
-            font-weight: 700;
-            color: #facc15;
-            margin-bottom: 4px;
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #facc15, #ffd84d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 6px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            letter-spacing: -0.5px;
         }
 
         .stat-value.counting {
@@ -869,7 +893,11 @@
             gap: 4px;
             font-size: 14px;
             color: #10b981;
-            font-weight: 600;
+            font-weight: 700;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
         }
 
         .stat-trend::before {
@@ -888,16 +916,18 @@
         }
 
         .stat-label {
-            font-size: 13px;
-            color: #9ca3af;
-            font-weight: 500;
+            font-size: 14px;
+            color: #e5e7eb;
+            font-weight: 600;
+            margin-bottom: 4px;
+            letter-spacing: 0.3px;
         }
 
         .stat-description {
-            font-size: 11px;
-            color: #6b7280;
-            margin-top: 6px;
-            line-height: 1.4;
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 8px;
+            line-height: 1.5;
         }
 
         /* Dollar animation */
@@ -4020,32 +4050,45 @@
         <!-- Hero Stats Cards -->
         <div class="hero-stats">
             <div class="stat-card">
-                <div class="stat-icon dollar-animate">💰</div>
+                <div class="stat-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                    </svg>
+                </div>
                 <div class="stat-value counting">
-                    <span id="salary-counter">$75k</span>
+                    <span id="salary-counter">$85k</span>
                     <span class="stat-trend">+15%</span>
                 </div>
-                <div class="stat-label">Average Salary</div>
-                <div class="stat-description">Civil engineers earn competitive salaries with steady growth</div>
+                <div class="stat-label">Average Starting Salary</div>
+                <div class="stat-description">Top 10% earn over $140k annually with experience and specialization</div>
             </div>
 
             <div class="stat-card">
-                <div class="stat-icon">📈</div>
-                <div class="stat-value counting">
-                    <span>10,000+</span>
+                <div class="stat-icon">
+                    <svg viewBox="0 0 24 24">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                    </svg>
                 </div>
-                <div class="stat-label">Active Projects</div>
-                <div class="stat-description">Infrastructure projects worldwide need civil engineers</div>
+                <div class="stat-value counting">
+                    <span>8% Growth</span>
+                </div>
+                <div class="stat-label">Job Market Expansion</div>
+                <div class="stat-description">Faster than average industry growth through 2030, driven by infrastructure needs</div>
             </div>
 
             <div class="stat-card">
-                <div class="stat-icon">🎓</div>
+                <div class="stat-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                        <polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                </div>
                 <div class="stat-value counting">
-                    <span>95%</span>
+                    <span>94%</span>
                     <span class="stat-trend">High</span>
                 </div>
-                <div class="stat-label">Job Placement</div>
-                <div class="stat-description">Excellent employment rate for qualified engineers</div>
+                <div class="stat-label">Employment Rate</div>
+                <div class="stat-description">Outstanding job placement with diverse career paths in public and private sectors</div>
             </div>
         </div>
     </section>
