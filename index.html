@@ -718,11 +718,17 @@
             padding-bottom: 50px;
             padding-left: 36px;
             padding-right: 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 60px;
+            max-width: 1400px;
         }
 
         .hero-content {
             max-width: 780px;
             margin: 0;
+            flex: 1;
         }
 
         .hero h1 {
@@ -788,12 +794,143 @@
             margin: 0;
         }
 
+        /* HERO STATS CARDS */
+        .hero-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            min-width: 280px;
+            flex-shrink: 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.9), rgba(20, 20, 20, 0.8));
+            border: 1px solid rgba(250, 204, 21, 0.2);
+            border-radius: 16px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(250, 204, 21, 0.5);
+            transform: translateX(-4px);
+            box-shadow: 0 8px 24px rgba(250, 204, 21, 0.15);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(250, 204, 21, 0.1), transparent);
+            border-radius: 50%;
+            transform: translate(40%, -40%);
+        }
+
+        .stat-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #facc15;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stat-value.counting {
+            animation: countUp 2s ease-out;
+        }
+
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stat-trend {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 14px;
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .stat-trend::before {
+            content: '↗';
+            font-size: 18px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-4px);
+            }
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #9ca3af;
+            font-weight: 500;
+        }
+
+        .stat-description {
+            font-size: 11px;
+            color: #6b7280;
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+
+        /* Dollar animation */
+        .dollar-animate {
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-6px) rotate(5deg);
+            }
+            75% {
+                transform: translateY(-3px) rotate(-5deg);
+            }
+        }
+
         @media (max-width: 768px) {
             .hero {
                 padding-top: 80px;
                 padding-bottom: 40px;
                 padding-left: 16px;
                 padding-right: 16px;
+                flex-direction: column;
+                gap: 32px;
+            }
+
+            .hero-stats {
+                min-width: 100%;
+                order: 2;
             }
 
             .hero-features {
@@ -3879,6 +4016,38 @@
                 </div>
             </div>
         </div>
+
+        <!-- Hero Stats Cards -->
+        <div class="hero-stats">
+            <div class="stat-card">
+                <div class="stat-icon dollar-animate">💰</div>
+                <div class="stat-value counting">
+                    <span id="salary-counter">$75k</span>
+                    <span class="stat-trend">+15%</span>
+                </div>
+                <div class="stat-label">Average Salary</div>
+                <div class="stat-description">Civil engineers earn competitive salaries with steady growth</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">📈</div>
+                <div class="stat-value counting">
+                    <span>10,000+</span>
+                </div>
+                <div class="stat-label">Active Projects</div>
+                <div class="stat-description">Infrastructure projects worldwide need civil engineers</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🎓</div>
+                <div class="stat-value counting">
+                    <span>95%</span>
+                    <span class="stat-trend">High</span>
+                </div>
+                <div class="stat-label">Job Placement</div>
+                <div class="stat-description">Excellent employment rate for qualified engineers</div>
+            </div>
+        </div>
     </section>
 
     <section class="ask-ai" id="ask-ai">
@@ -4010,6 +4179,29 @@
                     card.style.transform = 'scale(1)';
                 });
             }, 300);
+        }
+
+        // Animate salary counter
+        function animateSalary() {
+            const counter = document.getElementById('salary-counter');
+            if (!counter) return;
+
+            const values = ['$60k', '$65k', '$70k', '$75k', '$80k', '$85k'];
+            let index = 0;
+
+            const interval = setInterval(() => {
+                counter.textContent = values[index];
+                index++;
+                if (index >= values.length) {
+                    clearInterval(interval);
+                    counter.textContent = '$85k';
+                }
+            }, 300);
+        }
+
+        // Start animation when page loads
+        if (sessionStorage.getItem('learncraft-entered')) {
+            setTimeout(animateSalary, 500);
         }
     </script>
 
