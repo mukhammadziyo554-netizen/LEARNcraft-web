@@ -1,498 +1,329 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, height=device-height">
-    <meta name="description" content="Login - LEARNcraft">
-    <meta name="theme-color" content="#000000">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Login - LEARNcraft</title>
-    <!-- Telegram Web App Script -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Login - LEARNcraft">
+  <meta name="theme-color" content="#000000">
+  <title>Login — LEARNcraft</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
 
-        html {
-            scroll-behavior: smooth;
-        }
+    body {
+      background: #0b0b0b;
+      color: white;
+      height: 100vh;
+      overflow: hidden;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-            color: #C9A961;
-            min-height: 100vh;
-        }
+    .login-container {
+      display: flex;
+      height: 100vh;
+    }
 
-        .nav-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: transparent !important;
-            border-bottom: none !important;
-            box-shadow: none !important;
-            backdrop-filter: none !important;
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            z-index: 999;
-            animation: slideDown 0.5s ease-out;
-        }
+    /* LEFT SIDE */
+    .login-left {
+      width: 40%;
+      min-width: 400px;
+      padding: 60px 70px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: linear-gradient(to bottom right, #0d0d0d, #111);
+    }
 
-        @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
 
-        .nav-brand {
-            font-size: 24px;
-            font-weight: bold;
-            color: #FFD700;
-            white-space: nowrap;
-        }
+    .logo span {
+      color: #f5c542;
+    }
 
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
+    h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
 
-        .nav-link {
-            color: #C9A961;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 16px;
-            transition: 0.3s;
-            cursor: pointer;
-        }
+    .subtitle {
+      color: #aaa;
+      margin-bottom: 40px;
+    }
 
-        .nav-link:hover {
-            color: #D4AF37;
-            transform: scale(1.05);
-        }
+    .login-form {
+      display: flex;
+      flex-direction: column;
+    }
 
-        .page {
-            padding: 120px 20px 60px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+    .login-form label {
+      font-size: 14px;
+      margin: 12px 0 6px;
+      color: #bbb;
+    }
 
-        .content {
-            width: 100%;
-            max-width: 450px;
-            animation: fadeInUp 0.6s ease-out;
-        }
+    .login-form input {
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #333;
+      background: #1a1a1a;
+      color: white;
+      font-size: 14px;
+    }
 
-        @keyframes fadeInUp {
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
+    .login-form input:focus {
+      border-color: #f5c542;
+      outline: none;
+    }
 
-        .title {
-            font-size: 42px;
-            margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(201, 169, 97, 0.5);
-        }
+    .login-btn {
+      margin-top: 25px;
+      padding: 14px;
+      background: #f5c542;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+      color: #000;
+    }
 
-        .subtitle {
-            font-size: 16px;
-            color: #D4AF37;
-            margin-bottom: 40px;
-        }
+    .login-btn:hover {
+      background: #ffd86b;
+    }
 
-        .form-container {
-            background: rgba(201, 169, 97, 0.05);
-            border: 2px solid #C9A961;
-            border-radius: 16px;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
+    /* DIVIDER */
+    .divider {
+      text-align: center;
+      margin: 30px 0;
+      position: relative;
+    }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            text-align: left;
-        }
+    .divider span {
+      background: #111;
+      padding: 0 15px;
+      color: #666;
+    }
 
-        .form-label {
-            font-size: 16px;
-            font-weight: bold;
-            color: #C9A961;
-        }
+    .divider::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: #333;
+      z-index: -1;
+    }
 
-        .form-input {
-            padding: 14px 16px;
-            border-radius: 10px;
-            border: 2px solid #C9A961;
-            background: rgba(0, 0, 0, 0.6);
-            color: #C9A961;
-            font-size: 16px;
-            transition: 0.3s;
-        }
+    /* SOCIAL BUTTONS */
+    .google-btn,
+    .apple-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #333;
+      background: #1a1a1a;
+      color: white;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: 0.2s;
+      font-size: 14px;
+    }
 
-        .form-input:focus {
-            outline: none;
-            background: rgba(0, 0, 0, 0.8);
-            box-shadow: 0 0 15px rgba(201, 169, 97, 0.3);
-            border-color: #D4AF37;
-        }
+    .google-btn:hover,
+    .apple-btn:hover {
+      border-color: #f5c542;
+    }
 
-        .form-input::placeholder {
-            color: rgba(201, 169, 97, 0.5);
-        }
+    .google-btn img,
+    .apple-btn img {
+      width: 18px;
+    }
 
-        .submit-btn {
-            padding: 14px 20px;
-            background: linear-gradient(135deg, #C9A961 0%, #D4AF37 100%);
-            border: none;
-            border-radius: 10px;
-            color: #000;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: 10px;
-        }
+    .register-text {
+      margin-top: 25px;
+      font-size: 14px;
+      color: #aaa;
+      text-align: center;
+    }
 
-        .submit-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(201, 169, 97, 0.6);
-        }
+    .register-text a {
+      color: #f5c542;
+      text-decoration: none;
+    }
 
-        .submit-btn:active {
-            transform: scale(0.98);
-        }
+    .register-text a:hover {
+      text-decoration: underline;
+    }
 
-        .register-link {
-            text-align: center;
-            font-size: 14px;
-            color: #D4AF37;
-            margin-top: 20px;
-        }
+    /* RIGHT SIDE IMAGE */
+    .login-right {
+      width: 60%;
+      background-image: url("https://images.unsplash.com/photo-1581092918484-8313a5e3c4b6?auto=format&fit=crop&w=1500&q=80");
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
 
-        .register-link a {
-            color: #C9A961;
-            text-decoration: none;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+    .login-right::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to left, rgba(0,0,0,0.2), rgba(0,0,0,0.85));
+    }
 
-        .register-link a:hover {
-            color: #D4AF37;
-            text-decoration: underline;
-        }
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .login-container {
+        flex-direction: column;
+      }
 
-        .success-message {
-            display: none;
-            background: rgba(76, 175, 80, 0.2);
-            border: 2px solid #4CAF50;
-            border-radius: 10px;
-            padding: 16px;
-            color: #4CAF50;
-            font-weight: bold;
-            animation: fadeIn 0.3s ease-out;
-        }
+      .login-left {
+        width: 100%;
+        min-width: auto;
+        padding: 40px 30px;
+      }
 
-        .success-message.show {
-            display: block;
-        }
+      .login-right {
+        display: none;
+      }
+    }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
+    /* Error/Success Messages */
+    .message {
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: none;
+    }
 
-        .error-message {
-            display: none;
-            background: rgba(244, 67, 54, 0.2);
-            border: 2px solid #F44336;
-            border-radius: 10px;
-            padding: 16px;
-            color: #F44336;
-            font-weight: bold;
-            animation: fadeIn 0.3s ease-out;
-        }
+    .message.show {
+      display: block;
+    }
 
-        .error-message.show {
-            display: block;
-        }
+    .message.error {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #ef4444;
+    }
 
-        @media (max-width: 768px) {
-            .title {
-                font-size: 32px;
-            }
-
-            .form-container {
-                padding: 30px 20px;
-            }
-
-            .nav-bar {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
-        /* Minimal matte theme overrides */
-        :root {
-            --bg: #0f1115;
-            --surface: #151a21;
-            --surface-2: #1b222c;
-            --text: #e5e7eb;
-            --muted: #9aa3af;
-            --accent: #94a3b8;
-            --accent-strong: #cbd5e1;
-            --border: rgba(148, 163, 184, 0.25);
-        }
-
-        body {
-            background: var(--bg) !important;
-            color: var(--text) !important;
-            font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            letter-spacing: 0.2px;
-        }
-
-        .nav-bar,
-        .top-nav,
-        .navbar {
-            background: rgba(15, 17, 21, 0.95) !important;
-            border-bottom: 1px solid var(--border) !important;
-        }
-
-        .nav-brand,
-        .logo,
-        .brand {
-            color: var(--text) !important;
-            font-weight: 600 !important;
-        }
-
-        .nav-links button,
-        .nav-center button,
-        .options-item,
-        .lang-option {
-            color: var(--muted) !important;
-            font-weight: 600 !important;
-        }
-
-        .nav-links button:hover,
-        .nav-center button:hover,
-        .options-item:hover,
-        .lang-option:hover {
-            color: var(--text) !important;
-            transform: none !important;
-            background: var(--surface-2) !important;
-        }
-
-        button,
-        .btn,
-        .cta-button,
-        .field-btn,
-        input,
-        textarea,
-        select {
-            background: transparent !important;
-            border: 1px solid var(--border) !important;
-            color: var(--text) !important;
-            box-shadow: none !important;
-        }
-
-        button:hover,
-        .btn:hover,
-        .cta-button:hover,
-        .field-btn:hover {
-            background: var(--surface-2) !important;
-            color: var(--text) !important;
-            transform: none !important;
-        }
-
-        .card,
-        .field-card,
-        .feature-card,
-        .content-card,
-        .panel,
-        .roadmap-item,
-        .roadmap-steps,
-        .roadmap-step,
-        .form-container {
-            background: var(--surface) !important;
-            border: 1px solid var(--border) !important;
-            box-shadow: none !important;
-        }
-
-        .card:hover,
-        .field-card:hover,
-        .feature-card:hover,
-        .content-card:hover,
-        .roadmap-item:hover {
-            background: var(--surface-2) !important;
-            transform: none !important;
-        }
-
-        h1, h2, h3, h4, h5, h6,
-        .section-title,
-        .title {
-            color: var(--text) !important;
-            font-weight: 600 !important;
-        }
-
-        p,
-        .subtitle,
-        .section-subtitle,
-        .field-description,
-        label {
-            color: var(--muted) !important;
-        }
-    </style>
+    .message.success {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #22c55e;
+    }
+  </style>
 </head>
 <body>
-    <div class="nav-bar">
-        <div class="nav-brand">🚀 LEARNcraft</div>
-        <div class="nav-links">
-            <span class="nav-link" onclick="window.history.back()">Back</span>
-            <span class="nav-link" onclick="window.location.href='ask-ai.html'">Ask AI</span>
-        </div>
+
+  <div class="login-container">
+    
+    <!-- LEFT SIDE (FORM) -->
+    <div class="login-left">
+
+      <div class="logo">LEARN<span>craft</span></div>
+
+      <h1>Welcome Back</h1>
+      <p class="subtitle">Sign in to continue your civil engineering journey</p>
+
+      <div id="message" class="message"></div>
+
+      <form class="login-form" onsubmit="handleLogin(event)">
+        <label>Email</label>
+        <input type="email" id="email" placeholder="Enter your email" required />
+
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required />
+
+        <button type="submit" class="login-btn">Login</button>
+      </form>
+
+      <div class="divider"><span>or</span></div>
+
+      <button class="google-btn" onclick="alert('Google Sign-In coming soon!')">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google">
+        Sign in with Google
+      </button>
+
+      <button class="apple-btn" onclick="alert('Apple Sign-In coming soon!')">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg" alt="Apple">
+        Sign in with Apple
+      </button>
+
+      <p class="register-text">
+        Don't have an account? <a href="registration.html">Register here</a>
+      </p>
+
     </div>
 
-    <div class="page">
-        <div class="content">
-            <h1 class="title">Login</h1>
-            <p class="subtitle">Welcome back to LEARNcraft</p>
+    <!-- RIGHT SIDE (CIVIL ENGINEERING IMAGE) -->
+    <div class="login-right"></div>
 
-            <div id="success-message" class="success-message">
-                ✓ Login successful! Redirecting...
-            </div>
+  </div>
 
-            <div id="error-message" class="error-message"></div>
+  <script>
+    function handleLogin(event) {
+      event.preventDefault();
 
-            <div class="form-container">
-                <form id="login-form" onsubmit="handleLogin(event)">
-                    <div class="form-group">
-                        <label class="form-label">Email</label>
-                        <input 
-                            type="email" 
-                            class="form-input" 
-                            id="email" 
-                            placeholder="Enter your email address"
-                            required
-                        >
-                    </div>
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const messageEl = document.getElementById('message');
 
-                    <div class="form-group">
-                        <label class="form-label">Password</label>
-                        <input 
-                            type="password" 
-                            class="form-input" 
-                            id="password" 
-                            placeholder="Enter your password"
-                            required
-                        >
-                    </div>
+      // Reset message
+      messageEl.classList.remove('show', 'error', 'success');
 
-                    <button type="submit" class="submit-btn">Login</button>
-                </form>
+      // Validation
+      if (!email || !password) {
+        messageEl.textContent = '⚠ Please fill in all fields';
+        messageEl.classList.add('show', 'error');
+        return;
+      }
 
-                <div class="register-link">
-                    Don't have an account? <a href="registration.html">Register here</a>
-                </div>
-            </div>
-        </div>
-    </div>
+      // Get registered users from localStorage
+      const users = JSON.parse(localStorage.getItem('learncraft_users')) || [];
+      
+      // Find user with matching email
+      const user = users.find(u => u.email === email);
 
-    <script>
-        // Initialize Telegram Web App
-        if (typeof TelegramWebApp !== 'undefined') {
-            const tg = window.Telegram.WebApp;
-            tg.ready();
-            
-            // Set header color
-            tg.setHeaderColor('#1a1a1a');
-            tg.setBackgroundColor('#000000');
-            
-            // Enable closing button
-            tg.MainButton.hide();
-        }
+      if (!user) {
+        messageEl.textContent = '⚠ No account found with this email. Please register first.';
+        messageEl.classList.add('show', 'error');
+        return;
+      }
 
-        function handleLogin(event) {
-            event.preventDefault();
+      // Check password
+      if (user.password !== password) {
+        messageEl.textContent = '⚠ Incorrect password. Please try again.';
+        messageEl.classList.add('show', 'error');
+        return;
+      }
 
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            const successMsg = document.getElementById('success-message');
-            const errorMsg = document.getElementById('error-message');
+      // Set current user session
+      localStorage.setItem('learncraft_current_user', JSON.stringify({
+        email: user.email,
+        id: user.id,
+        loggedInAt: new Date().toISOString()
+      }));
 
-            // Reset messages
-            successMsg.classList.remove('show');
-            errorMsg.classList.remove('show');
+      // Show success message
+      messageEl.textContent = '✓ Login successful! Redirecting...';
+      messageEl.classList.add('show', 'success');
+      
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 1500);
+    }
+  </script>
 
-            // Validation
-            if (!email || !password) {
-                errorMsg.textContent = '⚠ Please fill in all fields';
-                errorMsg.classList.add('show');
-                return;
-            }
-
-            // Get registered users from localStorage
-            const users = JSON.parse(localStorage.getItem('learncraft_users')) || [];
-            console.log('Total registered users:', users.length);
-            console.log('Looking for email:', email);
-
-            // Find user with matching email
-            const user = users.find(u => u.email === email);
-
-            if (!user) {
-                console.log('User not found. Available emails:', users.map(u => u.email));
-                errorMsg.textContent = '⚠ No account found with this email. Please register first.';
-                errorMsg.classList.add('show');
-                return;
-            }
-
-            // Check password
-            if (user.password !== password) {
-                errorMsg.textContent = '⚠ Incorrect password. Please try again.';
-                errorMsg.classList.add('show');
-                return;
-            }
-
-            // Set current user session
-            localStorage.setItem('learncraft_current_user', JSON.stringify({
-                email: user.email,
-                id: user.id,
-                loggedInAt: new Date().toISOString()
-            }));
-
-            // Show success message
-            successMsg.classList.add('show');
-            
-            setTimeout(() => {
-                // Redirect to home page after successful login
-                window.location.href = 'index.html';
-            }, 1500);
-        }
-    </script>
 </body>
 </html>
