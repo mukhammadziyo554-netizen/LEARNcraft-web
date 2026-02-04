@@ -173,6 +173,37 @@
       text-decoration: none;
     }
 
+    .switch-link {
+      background: transparent;
+      border: none;
+      color: #f5c542;
+      font: inherit;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .auth-forms {
+      position: relative;
+      min-height: 420px;
+    }
+
+    .auth-panel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .auth-panel.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
     .register-text a:hover {
       text-decoration: underline;
     }
@@ -181,8 +212,22 @@
     .auth-right,
     .login-right {
       flex: 1;
-      background: url("https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1500&q=80") center/cover no-repeat;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1500 1000'%3E%3Crect fill='%23f5f5f5' width='1500' height='1000'/%3E%3C/svg%3E") center/cover no-repeat;
+      background-image: linear-gradient(135deg, #e5e5e5 0%, #ffffff 100%);
       position: relative;
+      overflow: hidden;
+    }
+    
+    .auth-right::after,
+    .login-right::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="%23cccccc" stroke-width="0.5"/></pattern><pattern id="grid-major" width="200" height="200" patternUnits="userSpaceOnUse"><rect width="200" height="200" fill="url(%23grid)"/><path d="M 200 0 L 0 0 0 200" fill="none" stroke="%23999999" stroke-width="1"/></pattern></defs><rect width="1200" height="800" fill="%23f5f5f5"/><rect width="1200" height="800" fill="url(%23grid-major)"/><g stroke="%23333" stroke-width="2" fill="none"><line x1="100" y1="100" x2="1100" y2="100"/><line x1="100" y1="100" x2="100" y2="700"/><circle cx="500" cy="400" r="150"/><path d="M300 300 L700 300 L700 500 L300 500 Z"/><line x1="200" y1="200" x2="1000" y2="600"/></g></svg>');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      z-index: 0;
     }
 
     /* SMOOTH DARK TO LIGHT TRANSITION */
@@ -200,7 +245,7 @@
         rgba(11, 11, 12, 0.15) 70%,
         rgba(11, 11, 12, 0) 85%
       );
-      z-index: 1;
+      z-index: 2;
     }
 
     /* LIGHT BLOOM AT FAR RIGHT */
@@ -214,7 +259,7 @@
         rgba(255,255,255,0.15),
         rgba(255,255,255,0) 50%
       );
-      z-index: 2;
+      z-index: 3;
     }
 
     /* RESPONSIVE */
@@ -293,36 +338,59 @@
 
       <div class="logo">LEARN<span>craft</span></div>
 
-      <h1>Welcome Back</h1>
-      <p class="subtitle">Sign in to continue your civil engineering journey</p>
-
       <div id="message" class="message"></div>
 
-      <form class="login-form" onsubmit="handleLogin(event)">
-        <label>Email</label>
-        <input type="email" id="email" placeholder="Enter your email" required />
+      <div class="auth-forms">
+        <div class="auth-panel active" id="loginPanel">
+          <h1>Welcome Back</h1>
+          <p class="subtitle">Sign in to continue your civil engineering journey</p>
 
-        <label>Password</label>
-        <input type="password" id="password" placeholder="Enter your password" required />
+          <form class="login-form" onsubmit="handleLogin(event)">
+            <label>Email</label>
+            <input type="email" id="loginEmail" placeholder="Enter your email" required />
 
-        <button type="submit" class="login-btn">Login</button>
-      </form>
+            <label>Password</label>
+            <input type="password" id="loginPassword" placeholder="Enter your password" required />
 
-      <div class="divider"><span>or</span></div>
+            <button type="submit" class="login-btn">Login</button>
+          </form>
 
-      <button class="google-btn" onclick="alert('Google Sign-In coming soon!')">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google">
-        Sign in with Google
-      </button>
+          <div class="divider"><span>or</span></div>
 
-      <button class="apple-btn" onclick="alert('Apple Sign-In coming soon!')">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg" alt="Apple">
-        Sign in with Apple
-      </button>
+          <button class="google-btn" onclick="alert('Google Sign-In coming soon!')">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google">
+            Sign in with Google
+          </button>
 
-      <p class="register-text">
-        Don't have an account? <a href="registration.html">Register here</a>
-      </p>
+          <button class="apple-btn" onclick="alert('Apple Sign-In coming soon!')">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg" alt="Apple">
+            Sign in with Apple
+          </button>
+
+          <p class="register-text">
+            Don't have an account? <button type="button" class="switch-link" data-target="register">Register here</button>
+          </p>
+        </div>
+
+        <div class="auth-panel" id="registerPanel">
+          <h1>Create Account</h1>
+          <p class="subtitle">Start your civil engineering learning journey</p>
+
+          <form class="login-form" onsubmit="handleRegistration(event)">
+            <label>Email</label>
+            <input type="email" id="registerEmail" placeholder="Enter your email" required />
+
+            <label>Password</label>
+            <input type="password" id="registerPassword" placeholder="Enter your password" required />
+
+            <button type="submit" class="login-btn">Register</button>
+          </form>
+
+          <p class="register-text">
+            Already have an account? <button type="button" class="switch-link" data-target="login">Login here</button>
+          </p>
+        </div>
+      </div>
 
     </div>
 
@@ -336,8 +404,8 @@
     async function handleLogin(event) {
       event.preventDefault();
 
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
       const messageEl = document.getElementById('message');
 
       messageEl.classList.remove('show', 'error', 'success');
@@ -387,6 +455,83 @@
         if (user && user.emailVerified) {
           window.location.href = 'index.html';
         }
+      });
+    });
+
+    async function handleRegistration(event) {
+      event.preventDefault();
+
+      const email = document.getElementById('registerEmail').value.trim();
+      const password = document.getElementById('registerPassword').value;
+      const messageEl = document.getElementById('message');
+
+      messageEl.classList.remove('show', 'error', 'success');
+
+      if (!email || !password) {
+        messageEl.textContent = 'Please fill in all fields.';
+        messageEl.classList.add('show', 'error');
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        messageEl.textContent = 'Please enter a valid email address.';
+        messageEl.classList.add('show', 'error');
+        return;
+      }
+
+      if (password.length < 6) {
+        messageEl.textContent = 'Password must be at least 6 characters.';
+        messageEl.classList.add('show', 'error');
+        return;
+      }
+
+      if (!window.learncraftAuth) {
+        messageEl.textContent = 'Authentication is not ready. Please refresh and try again.';
+        messageEl.classList.add('show', 'error');
+        return;
+      }
+
+      try {
+        await window.learncraftAuth.signUp(email, password);
+        await window.learncraftAuth.signOutUser();
+        messageEl.textContent = 'Verification email sent. Please verify, then log in.';
+        messageEl.classList.add('show', 'success');
+        switchAuthMode('login');
+      } catch (error) {
+        if (error.code === 'auth/email-already-in-use') {
+          messageEl.textContent = 'This email is already registered. Please log in.';
+        } else if (error.code === 'auth/weak-password') {
+          messageEl.textContent = 'Password must be at least 6 characters.';
+        } else if (error.code === 'auth/invalid-email') {
+          messageEl.textContent = 'Please enter a valid email address.';
+        } else {
+          messageEl.textContent = 'Registration failed. Please try again.';
+        }
+        messageEl.classList.add('show', 'error');
+      }
+    }
+
+    function switchAuthMode(mode) {
+      const loginPanel = document.getElementById('loginPanel');
+      const registerPanel = document.getElementById('registerPanel');
+      const messageEl = document.getElementById('message');
+
+      messageEl.classList.remove('show', 'error', 'success');
+
+      if (mode === 'register') {
+        loginPanel.classList.remove('active');
+        registerPanel.classList.add('active');
+      } else {
+        registerPanel.classList.remove('active');
+        loginPanel.classList.add('active');
+      }
+    }
+
+    document.querySelectorAll('.switch-link').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const target = btn.getAttribute('data-target');
+        switchAuthMode(target);
       });
     });
   </script>

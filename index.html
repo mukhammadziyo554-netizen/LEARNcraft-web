@@ -690,11 +690,12 @@
             color: #222222;
         }
 
-        body.light-mode .pricing-header p,
         body.light-mode .plan-label,
+        body.light-mode .plan-price,
+        body.light-mode .plan-period,
         body.light-mode .plan-savings,
-        body.light-mode .roadmap-subtitle {
-            color: #333333;
+        body.light-mode .plan-features li {
+            color: #000000 !important;
         }
 
         body.light-mode .hero-feature-box,
@@ -715,11 +716,11 @@
         }
 
         body.light-mode .pricing-card {
-            border-color: rgba(245, 197, 24, 0.25);
+            border-color: #000000;
         }
 
         body.light-mode .pricing-card.popular {
-            border-color: rgba(245, 197, 24, 0.55);
+            border-color: #000000;
             box-shadow: 0 14px 40px rgba(17, 24, 39, 0.12);
         }
 
@@ -764,6 +765,10 @@
         body.light-mode .btn-primary {
             background: #f5c518;
             color: #000000;
+        }
+
+        body.light-mode .plan-button.filled:hover {
+            background: #ffd84d;
         }
 
         body.light-mode .theme-toggle {
@@ -1850,7 +1855,7 @@
         .pricing-card {
             background: rgba(15, 15, 15, 0.8);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 216, 77, 0.15);
+            border: 2px solid #000000;
             border-radius: 20px;
             padding: 40px 30px;
             position: relative;
@@ -1860,13 +1865,13 @@
         }
 
         .pricing-card:hover {
-            border-color: rgba(255, 216, 77, 0.4);
+            border-color: #000000;
             transform: translateY(-8px);
             box-shadow: 0 20px 60px rgba(255, 216, 77, 0.15);
         }
 
         .pricing-card.popular {
-            border-color: rgba(255, 216, 77, 0.5);
+            border-color: #000000;
             box-shadow: 0 10px 40px rgba(255, 216, 77, 0.2);
         }
 
@@ -1888,7 +1893,7 @@
         .plan-label {
             font-size: 14px;
             font-weight: 600;
-            color: #9ca3af;
+            color: #ffffff;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 12px;
@@ -1897,19 +1902,19 @@
         .plan-price {
             font-size: 48px;
             font-weight: 700;
-            color: #fff;
+            color: #ffffff;
             margin-bottom: 6px;
         }
 
         .plan-period {
             font-size: 15px;
-            color: #6b7280;
+            color: #e5e7eb;
             margin-bottom: 8px;
         }
 
         .plan-savings {
             font-size: 14px;
-            color: #10b981;
+            color: #fbbf24;
             font-weight: 600;
             margin-bottom: 24px;
         }
@@ -1923,7 +1928,7 @@
 
         .plan-features li {
             padding: 12px 0;
-            color: #d1d5db;
+            color: #e5e7eb;
             font-size: 15px;
             display: flex;
             align-items: center;
@@ -4701,7 +4706,7 @@
                     <li>Unlimited AI questions</li>
                     <li>Progress tracking</li>
                 </ul>
-                <a href="#" class="plan-button outline">Start Yearly Plan</a>
+                <a href="#" class="plan-button filled">Start Yearly Plan</a>
             </div>
         </div>
     </section>
