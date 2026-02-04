@@ -97,6 +97,36 @@
       background: rgba(245, 197, 66, 0.1);
     }
 
+    body.light-mode .stats-section {
+      background: #f0f0f0;
+    }
+
+    body.light-mode .how-works-section {
+      background: #f0f0f0;
+    }
+
+    body.light-mode .cta-section {
+      background: linear-gradient(135deg, rgba(245, 197, 66, 0.15) 0%, rgba(245, 197, 66, 0.08) 100%);
+    }
+
+    body.light-mode .cta-content h2 {
+      color: #000000;
+    }
+
+    body.light-mode .cta-content p {
+      color: #333333;
+    }
+
+    body.light-mode footer {
+      background: #ffffff;
+      border-top: 1px solid #e0e0e0;
+      color: #666666;
+    }
+
+    body.light-mode .back-link {
+      color: #f5c542;
+    }
+
     /* NAVIGATION */
     .nav-bar {
       position: fixed;
@@ -112,6 +142,17 @@
       align-items: center;
       z-index: 1000;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
 
     .logo {
@@ -148,6 +189,47 @@
 
     .back-link:hover {
       gap: 12px;
+    }
+
+    /* THEME TOGGLE */
+    .theme-toggle {
+      position: relative;
+      width: 50px;
+      height: 26px;
+      background: #1a1a1a;
+      border: 2px solid #333;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 0;
+    }
+
+    .theme-toggle::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 18px;
+      height: 18px;
+      background: #666;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .theme-toggle.active::after {
+      left: 26px;
+      background: #ffd84d;
+      box-shadow: 0 2px 8px rgba(255, 216, 77, 0.4);
+    }
+
+    body.light-mode .theme-toggle {
+      background: #f0f0f0;
+      border-color: #d0d0d0;
+    }
+
+    body.light-mode .theme-toggle::after {
+      background: #ffd84d;
     }
 
     /* HERO SECTION */
@@ -532,8 +614,13 @@
 <body>
   <!-- Navigation -->
   <nav class="nav-bar">
-    <a href="index.html" class="logo">LEARN<span>craft</span></a>
-    <a href="index.html" class="back-link">← Back to Home</a>
+    <div class="nav-left">
+      <a href="index.html" class="logo">LEARN<span>craft</span></a>
+    </div>
+    <div class="nav-right">
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme"></button>
+      <a href="index.html" class="back-link">← Back to Home</a>
+    </div>
   </nav>
 
   <!-- Hero Section -->
@@ -729,11 +816,12 @@
 
     statCards.forEach(card => animateNumbers.observe(card));
 
-    // Theme toggle (if present in DOM)
+    // Theme toggle
     const themeToggle = document.querySelector('.theme-toggle');
     if (themeToggle) {
       themeToggle.addEventListener('click', () => {
         document.body.classList.toggle('light-mode');
+        themeToggle.classList.toggle('active');
         localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
       });
     }
@@ -741,6 +829,9 @@
     // Load saved theme
     if (localStorage.getItem('theme') === 'light') {
       document.body.classList.add('light-mode');
+      if (themeToggle) {
+        themeToggle.classList.add('active');
+      }
     }
   </script>
 </body>
