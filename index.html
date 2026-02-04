@@ -698,8 +698,12 @@
         body.light-mode .plan-label,
         body.light-mode .plan-price,
         body.light-mode .plan-period,
-        body.light-mode .plan-savings,
         body.light-mode .plan-features li {
+            color: #000000 !important;
+        }
+
+        body.light-mode .plan-savings {
+            background-color: #FFD700 !important;
             color: #000000 !important;
         }
 
@@ -1938,9 +1942,13 @@
 
         .plan-savings {
             font-size: 14px;
-            color: #fbbf24;
+            color: #000000;
             font-weight: 600;
             margin-bottom: 24px;
+            background-color: #FFD700;
+            padding: 6px 12px;
+            border-radius: 4px;
+            display: inline-block;
         }
 
         .plan-features {
