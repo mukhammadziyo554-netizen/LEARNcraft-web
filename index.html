@@ -715,8 +715,12 @@
         }
 
         body.light-mode .stat-card {
-            border-color: rgba(245, 197, 24, 0.35);
+            border-color: #000000;
             background: #FFFFFF;
+        }
+
+        body.light-mode .stat-card:hover {
+            border-color: #000000;
         }
 
         body.light-mode .pricing-card {
@@ -906,7 +910,7 @@
 
         .stat-card {
             background: linear-gradient(135deg, rgba(20, 20, 22, 0.95), rgba(15, 15, 17, 0.9));
-            border: 1px solid rgba(250, 204, 21, 0.3);
+            border: 2px solid #000000;
             border-radius: 20px;
             padding: 28px 24px;
             backdrop-filter: blur(20px);
@@ -944,7 +948,7 @@
         }
 
         .stat-card:hover {
-            border-color: rgba(250, 204, 21, 0.6);
+            border-color: #facc15;
             transform: translateX(-6px) translateY(-2px) !important;
             box-shadow: 0 12px 32px rgba(250, 204, 21, 0.25), 0 0 60px rgba(250, 204, 21, 0.1);
             animation-play-state: paused;
