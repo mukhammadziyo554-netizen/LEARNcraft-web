@@ -224,20 +224,37 @@
     .login-right::before {
       content: '';
       position: absolute;
-      right: -50px;
+      right: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(to right, #d4a574 0%, #e8c9a0 50%, #f0dcc0 100%);
+      background-image: 
+        repeating-linear-gradient(0deg, #c9956f 0px, #c9956f 1px, transparent 1px, transparent 2px),
+        repeating-linear-gradient(90deg, #c9956f 0px, #c9956f 1px, transparent 1px, transparent 2px);
+      background-size: 40px 40px, 40px 40px;
+      background-position: 0 0, 0 0;
+      z-index: 0;
+    }
+    
+    .auth-right::after,
+    .login-right::after {
+      content: '';
+      position: absolute;
+      right: 10%;
       top: 50%;
       transform: translateY(-50%);
-      height: 120%;
-      width: 70%;
-      background: url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=80') right center/contain no-repeat;
+      height: 90%;
+      width: 50%;
+      background: 
+        repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(0,0,0,0.03) 35px, rgba(0,0,0,0.03) 70px),
+        repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(0,0,0,0.03) 35px, rgba(0,0,0,0.03) 70px);
       z-index: 1;
-      opacity: 0.95;
     }
 
-    /* SMOOTH DARK TO LIGHT TRANSITION */
-    .login-right::after,
-    .auth-right::after {
-      content: "";
+    /* OVERLAY FOR SMOOTH DARK TO LIGHT GRADIENT */
+    .login-right-overlay,
+    .auth-right-overlay {
       position: absolute;
       inset: 0;
       background: linear-gradient(
@@ -249,6 +266,7 @@
         rgba(200, 160, 100, 0) 85%
       );
       z-index: 2;
+      pointer-events: none;
     }
 
     /* RESPONSIVE */
@@ -384,7 +402,9 @@
     </div>
 
     <!-- RIGHT SIDE (CIVIL ENGINEERING IMAGE) -->
-    <div class="login-right"></div>
+    <div class="login-right">
+      <div class="login-right-overlay"></div>
+    </div>
 
   </div>
 
