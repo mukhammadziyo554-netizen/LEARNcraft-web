@@ -546,13 +546,14 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 220px;
+            width: 140px;
             height: 100%;
             background: #0b0b0b;
-            padding-top: 80px;
+            padding-top: 70px;
             transform: translateX(-100%);
             transition: transform 0.3s ease;
             z-index: 10001;
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .sidebar.active {
@@ -561,25 +562,27 @@
 
         .sidebar a {
             display: block;
-            padding: 14px 22px;
-            font-size: 15px;
-            color: #ddd;
+            padding: 10px 12px;
+            font-size: 13px;
+            color: #999;
             text-decoration: none;
+            font-weight: 500;
+            text-align: left;
         }
 
         @media (max-width: 768px) {
             .sidebar {
-                width: 260px;
+                width: 140px;
             }
 
             .sidebar a {
-                padding: 16px 22px;
-                font-size: 16px;
+                padding: 10px 12px;
+                font-size: 13px;
             }
         }
 
         .sidebar a:hover {
-            background: #151515;
+            background: rgba(255, 216, 77, 0.1);
             color: #FFD84D;
         }
 
@@ -599,8 +602,8 @@
 
         .sidebar-header {
             position: absolute;
-            top: 20px;
-            right: -18px;
+            top: 16px;
+            right: -16px;
         }
 
         .collapse-btn {
@@ -608,9 +611,10 @@
             border: 1px solid #FFD84D;
             color: #FFD84D;
             border-radius: 50%;
-            width: 34px;
-            height: 34px;
+            width: 28px;
+            height: 28px;
             cursor: pointer;
+            font-size: 14px;
         }
 
         /* OVERLAY */
