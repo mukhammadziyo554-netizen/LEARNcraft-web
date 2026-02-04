@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="About LEARNcraft - Learn Civil Engineering with AI Guidance">
+  <meta name="theme-color" content="#000000">
+  <title>About LEARNcraft - Our Mission</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0b0b0b;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    /* LIGHT MODE */
+    body.light-mode {
+      background: #f7f7f7;
+      color: #000000;
+    }
+
+    body.light-mode .nav-bar {
+      background: #ffffff;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    body.light-mode .nav-link,
+    body.light-mode .logo {
+      color: #000000;
+    }
+
+    body.light-mode section {
+      background: #f7f7f7;
+    }
+
+    body.light-mode .hero-content h1,
+    body.light-mode .section-title {
+      color: #000000;
+    }
+
+    body.light-mode .hero-content p,
+    body.light-mode .stat-card p,
+    body.light-mode .growth-card p,
+    body.light-mode .step-card p,
+    body.light-mode .feature-card p {
+      color: #333333;
+    }
+
+    body.light-mode .stat-card,
+    body.light-mode .growth-card,
+    body.light-mode .step-card,
+    body.light-mode .feature-card {
+      background: #ffffff;
+      border-color: #e0e0e0;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    body.light-mode .stat-number {
+      color: #f5c542;
+    }
+
+    body.light-mode .badge {
+      background: rgba(245, 197, 66, 0.15);
+      color: #c17d0a;
+    }
+
+    body.light-mode .cta-btn {
+      background: #f5c542;
+      color: #000000;
+      border-color: #f5c542;
+    }
+
+    body.light-mode .cta-btn:hover {
+      background: #ffd84d;
+      border-color: #ffd84d;
+    }
+
+    body.light-mode .cta-btn.outline {
+      border-color: #f5c542;
+      color: #f5c542;
+      background: transparent;
+    }
+
+    body.light-mode .cta-btn.outline:hover {
+      background: rgba(245, 197, 66, 0.1);
+    }
+
+    /* NAVIGATION */
+    .nav-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      background: #0b0b0b;
+      backdrop-filter: blur(10px);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .logo span {
+      color: #f5c542;
+    }
+
+    .nav-link {
+      color: #aaaaaa;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s ease;
+      margin-left: 30px;
+    }
+
+    .nav-link:hover {
+      color: #f5c542;
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #f5c542;
+      text-decoration: none;
+      font-size: 14px;
+      transition: gap 0.3s ease;
+    }
+
+    .back-link:hover {
+      gap: 12px;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      padding-top: 140px;
+      padding-bottom: 80px;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .hero-content h1 {
+      font-size: 56px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      line-height: 1.2;
+      color: #ffffff;
+    }
+
+    .hero-content p {
+      font-size: 18px;
+      color: #aaaaaa;
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+
+    .highlight {
+      color: #f5c542;
+      font-weight: 600;
+    }
+
+    /* STATISTICS SECTION */
+    .stats-section {
+      padding: 80px 24px;
+      background: rgba(15, 15, 15, 0.8);
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 60px;
+      color: #ffffff;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .stat-card {
+      background: rgba(20, 20, 25, 0.9);
+      border: 1px solid rgba(255, 216, 77, 0.15);
+      border-radius: 16px;
+      padding: 40px 30px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      border-color: rgba(255, 216, 77, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(255, 216, 77, 0.15);
+    }
+
+    .stat-number {
+      font-size: 48px;
+      font-weight: 700;
+      color: #f5c542;
+      margin-bottom: 12px;
+    }
+
+    .stat-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #ffffff;
+    }
+
+    .stat-description {
+      font-size: 14px;
+      color: #888888;
+      line-height: 1.5;
+    }
+
+    /* CAREER GROWTH SECTION */
+    .career-section {
+      padding: 80px 24px;
+    }
+
+    .growth-cards-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 30px;
+    }
+
+    .growth-card {
+      background: rgba(20, 20, 25, 0.9);
+      border: 1px solid rgba(255, 216, 77, 0.15);
+      border-radius: 16px;
+      padding: 50px 40px;
+      transition: all 0.3s ease;
+    }
+
+    .growth-card:hover {
+      border-color: rgba(255, 216, 77, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(255, 216, 77, 0.15);
+    }
+
+    .growth-icon {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .growth-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #ffffff;
+    }
+
+    .growth-card p {
+      font-size: 15px;
+      color: #aaaaaa;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(245, 197, 66, 0.1);
+      color: #f5c542;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* HOW IT WORKS SECTION */
+    .how-works-section {
+      padding: 80px 24px;
+      background: rgba(15, 15, 15, 0.8);
+    }
+
+    .steps-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    .step-card {
+      background: rgba(20, 20, 25, 0.9);
+      border: 1px solid rgba(255, 216, 77, 0.15);
+      border-radius: 16px;
+      padding: 40px 30px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUpOnScroll 0.6s ease forwards;
+      transition: all 0.3s ease;
+    }
+
+    .step-card:hover {
+      border-color: rgba(255, 216, 77, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(255, 216, 77, 0.15);
+    }
+
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: rgba(245, 197, 66, 0.2);
+      border: 2px solid #f5c542;
+      border-radius: 50%;
+      font-size: 24px;
+      font-weight: 700;
+      color: #f5c542;
+      margin-bottom: 16px;
+    }
+
+    .step-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #ffffff;
+    }
+
+    .step-card p {
+      font-size: 14px;
+      color: #888888;
+      line-height: 1.6;
+    }
+
+    /* WHY DIFFERENT SECTION */
+    .why-different-section {
+      padding: 80px 24px;
+    }
+
+    .features-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: rgba(20, 20, 25, 0.9);
+      border: 1px solid rgba(255, 216, 77, 0.15);
+      border-radius: 12px;
+      padding: 30px 24px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(255, 216, 77, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(255, 216, 77, 0.15);
+    }
+
+    .feature-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #ffffff;
+    }
+
+    .feature-card p {
+      font-size: 13px;
+      color: #888888;
+      line-height: 1.5;
+    }
+
+    /* CTA SECTION */
+    .cta-section {
+      padding: 100px 24px;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(245, 197, 66, 0.1) 0%, rgba(245, 197, 66, 0.05) 100%);
+    }
+
+    .cta-content h2 {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+
+    .cta-content p {
+      font-size: 18px;
+      color: #aaaaaa;
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      cursor: pointer;
+      border: 2px solid #f5c542;
+      transition: all 0.3s ease;
+    }
+
+    .cta-btn.primary {
+      background: #f5c542;
+      color: #000000;
+    }
+
+    .cta-btn.primary:hover {
+      background: #ffd84d;
+      border-color: #ffd84d;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(245, 197, 66, 0.3);
+    }
+
+    .cta-btn.outline {
+      background: transparent;
+      color: #f5c542;
+    }
+
+    .cta-btn.outline:hover {
+      background: rgba(245, 197, 66, 0.15);
+      transform: translateY(-2px);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUpOnScroll {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes countUp {
+      from {
+        content-visibility: auto;
+      }
+    }
+
+    /* FOOTER */
+    footer {
+      background: #050505;
+      padding: 40px 24px;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      color: #666666;
+      font-size: 14px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 36px;
+      }
+
+      .hero-content p {
+        font-size: 16px;
+      }
+
+      .section-title {
+        font-size: 32px;
+        margin-bottom: 40px;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      .growth-cards-container {
+        grid-template-columns: 1fr;
+      }
+
+      .stat-number {
+        font-size: 36px;
+      }
+
+      .cta-content h2 {
+        font-size: 32px;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .cta-btn {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <a href="index.html" class="logo">LEARN<span>craft</span></a>
+    <a href="index.html" class="back-link">← Back to Home</a>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Building the Future Civil Engineers of Tomorrow</h1>
+      <p>LEARNcraft combines structured learning paths, <span class="highlight">AI guidance</span>, and real engineering thinking to help students and professionals master civil engineering from foundations to advanced design.</p>
+    </div>
+  </section>
+
+  <!-- Statistics Section -->
+  <section class="stats-section">
+    <h2 class="section-title">Why Students Choose LEARNcraft</h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">85%</div>
+        <div class="stat-title">Feel More Confident</div>
+        <p class="stat-description">After completing structured learning paths</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">94%</div>
+        <div class="stat-title">Employment Success</div>
+        <p class="stat-description">Civil engineers remain in high global demand</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">8%</div>
+        <div class="stat-title">Industry Growth</div>
+        <p class="stat-description">Infrastructure expansion drives job market</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">$85k</div>
+        <div class="stat-title">Starting Salary</div>
+        <p class="stat-description">Higher with specialization & experience</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Career Growth Section -->
+  <section class="career-section">
+    <h2 class="section-title">Career Opportunities in Civil Engineering</h2>
+    <div class="growth-cards-container">
+      <div class="growth-card">
+        <div class="growth-icon">→</div>
+        <h3 class="growth-title">Strong Salary Potential</h3>
+        <p>Civil engineers earn competitive salaries worldwide, with growth through specialization in structural design, geotechnics, transportation, and construction management.</p>
+        <span class="badge">+15% with advanced skills</span>
+      </div>
+      <div class="growth-card">
+        <div class="growth-icon">◆</div>
+        <h3 class="growth-title">High Global Demand</h3>
+        <p>From smart cities to sustainable infrastructure, civil engineers are essential for building the future. Governments and private sectors continue investing heavily in infrastructure projects.</p>
+        <span class="badge">Growing worldwide</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-works-section">
+    <h2 class="section-title">How You Become a Civil Engineer Here</h2>
+    <div class="steps-container">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h3 class="step-title">Structured Foundations</h3>
+        <p>You start with math, physics, and engineering basics that prepare you for advanced topics.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <h3 class="step-title">Core Engineering Knowledge</h3>
+        <p>Learn structural mechanics, materials, geotechnics, and analysis methods step-by-step.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <h3 class="step-title">Practical Design Skills</h3>
+        <p>Apply knowledge to real engineering problems, calculations, and design thinking.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <h3 class="step-title">AI Guidance & Progress</h3>
+        <p>Get explanations, help, and learning direction powered by AI while tracking your growth.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Different Section -->
+  <section class="why-different-section">
+    <h2 class="section-title">Why LEARNcraft is Different</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <h3 class="feature-title">AI-Guided Learning</h3>
+        <p>Instant explanations and guided problem solving tailored to your pace.</p>
+      </div>
+      <div class="feature-card">
+        <h3 class="feature-title">Real Engineering Thinking</h3>
+        <p>Focus on understanding, not memorizing. Learn to think like an engineer.</p>
+      </div>
+      <div class="feature-card">
+        <h3 class="feature-title">Step-by-Step Roadmaps</h3>
+        <p>Clear paths from beginner to advanced with structured progression.</p>
+      </div>
+      <div class="feature-card">
+        <h3 class="feature-title">Progress Tracking</h3>
+        <p>Monitor growth, streaks, and mastery across all engineering disciplines.</p>
+      </div>
+      <div class="feature-card">
+        <h3 class="feature-title">Career-Oriented Skills</h3>
+        <p>Learning aligned with real industry needs and job market demands.</p>
+      </div>
+      <div class="feature-card">
+        <h3 class="feature-title">Community Support</h3>
+        <p>Connect with peers, discuss challenges, and grow together.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Your Journey to Becoming a Civil Engineer Starts Here</h2>
+      <p>Master the knowledge, build the skills, and shape the future of infrastructure with confidence.</p>
+      <div class="cta-buttons">
+        <a href="#" class="cta-btn primary">Start Learning</a>
+        <a href="roadmap.html" class="cta-btn outline">Explore Roadmap</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 LEARNcraft. All rights reserved. Building the future, one engineer at a time.</p>
+  </footer>
+
+  <script>
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = 'fadeUpOnScroll 0.6s ease forwards';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observe step cards
+    document.querySelectorAll('.step-card').forEach((card, index) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.animationDelay = `${index * 0.15}s`;
+      observer.observe(card);
+    });
+
+    // Animate stat numbers on scroll
+    const statCards = document.querySelectorAll('.stat-card');
+    const hasAnimated = new Set();
+
+    const animateNumbers = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !hasAnimated.has(entry.target)) {
+          const numberElement = entry.target.querySelector('.stat-number');
+          const text = numberElement.textContent;
+          
+          // Extract number from text
+          const number = parseInt(text.replace(/[^0-9]/g, ''));
+          const isCurrency = text.includes('$');
+          const isPercent = text.includes('%');
+          
+          let current = 0;
+          const duration = 1500;
+          const increment = number / (duration / 16);
+          
+          const timer = setInterval(() => {
+            current += increment;
+            if (current >= number) {
+              current = number;
+              clearInterval(timer);
+            }
+            
+            let display = Math.floor(current).toString();
+            if (isCurrency) display = '$' + display + 'k';
+            if (isPercent) display = display + '%';
+            numberElement.textContent = display;
+          }, 16);
+          
+          hasAnimated.add(entry.target);
+          animateNumbers.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    statCards.forEach(card => animateNumbers.observe(card));
+
+    // Theme toggle (if present in DOM)
+    const themeToggle = document.querySelector('.theme-toggle');
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+      });
+    }
+
+    // Load saved theme
+    if (localStorage.getItem('theme') === 'light') {
+      document.body.classList.add('light-mode');
+    }
+  </script>
+</body>
+</html>
