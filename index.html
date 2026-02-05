@@ -2624,26 +2624,38 @@
         }
 
         .sidebar-admin {
-            padding: 10px 20px;
-            background: rgba(255, 212, 0, 0.15);
-            border: 1.5px solid #ffd400;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background: #181818;
+            border: 2px solid #ffd400;
             color: #ffd400;
-            border-radius: 16px;
-            font-weight: 700;
+            border-radius: 24px;
+            font-weight: 600;
             font-size: 15px;
             cursor: pointer;
-            transition: all 0.3s;
-            width: fit-content;
-            min-width: 100px;
-            text-align: center;
-            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
-            box-shadow: 0 0 10px rgba(255, 212, 0, 0.25);
+            transition: all 0.3s ease;
+            width: calc(100% - 32px);
+            margin: 8px 16px;
+            text-decoration: none;
+            box-shadow: 0 0 15px rgba(255, 212, 0, 0.3);
         }
 
         .sidebar-admin:hover {
-            background: rgba(255, 212, 0, 0.25);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(255, 212, 0, 0.4);
+            background: #1f1f1f;
+            transform: scale(1.03);
+            box-shadow: 0 0 25px rgba(255, 212, 0, 0.5);
+        }
+
+        .sidebar-admin:active {
+            transform: scale(0.98);
+        }
+
+        .sidebar-admin-icon {
+            width: 18px;
+            height: 18px;
+            opacity: 0.9;
         }
 
         @media (max-width: 768px) {
@@ -4571,7 +4583,15 @@
         <a href="ask-ai.html">Ask AI</a>
         <a href="practice.html">Practice</a>
         <a href="settings.html">Settings</a>
-        <a href="admin.html" id="sidebarAdminLink" style="display: none;">Admin</a>
+        <a href="admin-dashboard.html" id="sidebarAdminLink" class="sidebar-admin" style="display: none;">
+            <svg class="sidebar-admin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span>Admin Panel</span>
+        </a>
     </div>
 
     <div id="overlay" class="overlay"></div>
@@ -5593,18 +5613,16 @@
 
         // Check admin access
         function checkAdminAccess(email) {
-            const adminEmail = 'mukhammadziyo554@gmail.com';
-            
+            const adminEmail = 'muhammadzio554@gmail.com';
+
             if (email.toLowerCase() === adminEmail.toLowerCase()) {
                 // Show admin button in sidebar
                 const sidebarAdminLink = document.getElementById('sidebarAdminLink');
                 if (sidebarAdminLink) {
-                    sidebarAdminLink.style.display = 'block';
+                    sidebarAdminLink.style.display = 'flex';
                 }
             }
-        }
-
-        // Logout function
+        }        // Logout function
         function logout() {
             localStorage.removeItem('learncraft_current_user');
             window.location.reload();
