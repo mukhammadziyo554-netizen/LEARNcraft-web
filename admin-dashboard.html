@@ -43,7 +43,7 @@
         .admin-title {
             font-size: 32px;
             font-weight: 700;
-            color: #ffd400;
+            color: #f0c040;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -61,9 +61,9 @@
         }
 
         .theme-toggle {
-            background: #181818;
-            border: 2px solid #ffd400;
-            color: #ffd400;
+            background: #1a1a1a;
+            border: 2px solid #d4a017;
+            color: #f0c040;
             padding: 10px 20px;
             border-radius: 20px;
             cursor: pointer;
@@ -74,13 +74,13 @@
 
         body.light-mode .theme-toggle {
             background: #ffffff;
-            border-color: #000000;
-            color: #000000;
+            border-color: #1a1a1a;
+            color: #1a1a1a;
         }
 
         .theme-toggle:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255, 212, 0, 0.4);
+            box-shadow: 0 0 15px rgba(212, 160, 23, 0.3);
         }
 
         .back-btn {
@@ -154,7 +154,7 @@
         .metric-value {
             font-size: 42px;
             font-weight: 800;
-            background: linear-gradient(135deg, #ffd400, #ffed4e);
+            background: linear-gradient(135deg, #f0c040, #d4a017);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -180,7 +180,7 @@
             font-size: 24px;
             font-weight: 700;
             margin-bottom: 20px;
-            color: #ffd400;
+            color: #e0b030;
         }
 
         .charts-grid {
@@ -265,8 +265,8 @@
         }
 
         .users-table thead {
-            background: rgba(255, 212, 0, 0.1);
-            border-bottom: 2px solid #ffd400;
+            background: rgba(212, 160, 23, 0.1);
+            border-bottom: 2px solid #d4a017;
         }
 
         .users-table th {
@@ -276,7 +276,7 @@
             font-size: 13px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            color: #ffd400;
+            color: #f0c040;
         }
 
         .users-table td {
@@ -353,19 +353,19 @@
         }
 
         .activity-item:hover {
-            background: rgba(255, 212, 0, 0.05);
-            border-left-color: #ffd400;
+            background: rgba(212, 160, 23, 0.05);
+            border-left-color: #d4a017;
         }
 
         .activity-icon {
             width: 32px;
             height: 32px;
-            background: rgba(255, 212, 0, 0.1);
+            background: rgba(212, 160, 23, 0.1);
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #ffd400;
+            color: #f0c040;
             flex-shrink: 0;
         }
 
@@ -397,11 +397,11 @@
 
         .ai-stat-card {
             background: linear-gradient(145deg, #1a1a1a, #242424);
-            border: 2px solid #ffd400;
+            border: 2px solid #d4a017;
             border-radius: 16px;
             padding: 24px;
             text-align: center;
-            box-shadow: 0 0 20px rgba(255, 212, 0, 0.2);
+            box-shadow: 0 0 15px rgba(212, 160, 23, 0.15);
         }
 
         body.light-mode .ai-stat-card {
@@ -411,7 +411,7 @@
         .ai-stat-value {
             font-size: 36px;
             font-weight: 800;
-            color: #ffd400;
+            color: #f0c040;
             margin: 12px 0;
         }
 
@@ -458,21 +458,22 @@
         }
 
         .action-btn:hover {
-            border-color: #ffd400;
-            color: #ffd400;
+            border-color: #d4a017;
+            color: #f0c040;
             transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(255, 212, 0, 0.3);
+            box-shadow: 0 4px 16px rgba(212, 160, 23, 0.2);
         }
 
         .export-btn {
-            background: linear-gradient(135deg, #ffd400, #ffed4e);
+            background: linear-gradient(135deg, #f0c040, #d4a017);
             border: none;
             color: #000;
         }
 
         .export-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 4px 20px rgba(255, 212, 0, 0.5);
+            box-shadow: 0 4px 20px rgba(212, 160, 23, 0.4);
+            color: #000;
         }
 
         /* SCROLLBAR */
@@ -489,12 +490,12 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #ffd400;
+            background: #d4a017;
             border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #ffed4e;
+            background: #f0c040;
         }
 
         @media (max-width: 768px) {
@@ -544,7 +545,7 @@
                 Admin Dashboard
             </div>
             <div class="admin-actions">
-                <button id="themeToggle" class="theme-toggle">☀️ Light Mode</button>
+                <button id="themeToggle" class="theme-toggle">Light Mode</button>
                 <a href="index.html" class="back-btn">
                     <span>←</span> Back to Home
                 </a>
@@ -577,7 +578,7 @@
 
         <!-- CHARTS -->
         <div class="charts-section">
-            <div class="section-title">📊 Analytics Overview</div>
+            <div class="section-title">Analytics Overview</div>
             <div class="charts-grid">
                 <div class="chart-card">
                     <div class="chart-title">User Growth Over Time</div>
@@ -595,7 +596,7 @@
         </div>
 
         <!-- AI MONITOR -->
-        <div class="section-title">🧠 AI System Monitor</div>
+        <div class="section-title">AI System Monitor</div>
         <div class="ai-monitor-grid">
             <div class="ai-stat-card">
                 <div class="ai-stat-label">AI Messages Today</div>
@@ -612,7 +613,7 @@
         </div>
 
         <!-- USERS TABLE -->
-        <div class="section-title">👥 Registered Users</div>
+        <div class="section-title">Registered Users</div>
         <div class="table-container">
             <div class="table-header">
                 <h3 style="font-size: 18px; font-weight: 700;">User Management</h3>
@@ -634,25 +635,25 @@
         </div>
 
         <!-- ACTIVITY FEED -->
-        <div class="section-title">⚡ User Activity Feed</div>
+        <div class="section-title">User Activity Feed</div>
         <div class="activity-feed" id="activityFeed">
             <!-- Activity items will be populated here -->
         </div>
 
         <!-- QUICK ACTIONS -->
-        <div class="section-title">🧭 Quick Admin Actions</div>
+        <div class="section-title">Quick Admin Actions</div>
         <div class="quick-actions">
             <button class="action-btn" onclick="viewAllUsers()">
-                <span>👥</span> View All Users
+                View All Users
             </button>
             <button class="action-btn export-btn" onclick="exportUserEmails()">
-                <span>📥</span> Export Emails (CSV)
+                Export Emails (CSV)
             </button>
             <button class="action-btn" onclick="showSystemStats()">
-                <span>📊</span> System Statistics
+                System Statistics
             </button>
             <button class="action-btn" onclick="refreshDashboard()">
-                <span>🔄</span> Refresh Dashboard
+                Refresh Dashboard
             </button>
         </div>
     </div>
@@ -701,13 +702,13 @@
 
         if (savedTheme === 'light') {
             body.classList.add('light-mode');
-            themeToggle.textContent = '🌙 Dark Mode';
+            themeToggle.textContent = 'Dark Mode';
         }
 
         themeToggle.addEventListener('click', () => {
             body.classList.toggle('light-mode');
             const isLight = body.classList.contains('light-mode');
-            themeToggle.textContent = isLight ? '🌙 Dark Mode' : '☀️ Light Mode';
+            themeToggle.textContent = isLight ? 'Dark Mode' : 'Light Mode';
             localStorage.setItem('theme', isLight ? 'light' : 'dark');
         });
 
@@ -802,11 +803,11 @@
             feed.innerHTML = '';
 
             const activities = [
-                { icon: '✅', action: 'completed Structural Mechanics Stage' },
-                { icon: '💬', action: 'asked an AI question' },
-                { icon: '🔐', action: 'logged in' },
-                { icon: '📚', action: 'started Civil Engineering Roadmap' },
-                { icon: '🎯', action: 'completed practice quiz' }
+                { icon: '✓', action: 'completed Structural Mechanics Stage' },
+                { icon: '?', action: 'asked an AI question' },
+                { icon: '→', action: 'logged in' },
+                { icon: '+', action: 'started Civil Engineering Roadmap' },
+                { icon: '✓', action: 'completed practice quiz' }
             ];
 
             // Generate sample activities
@@ -860,8 +861,8 @@
                 datasets: [{
                     label: 'New Users',
                     data: [12, 19, 25, 32],
-                    borderColor: '#ffd400',
-                    backgroundColor: 'rgba(255, 212, 0, 0.1)',
+                    borderColor: '#d4a017',
+                    backgroundColor: 'rgba(212, 160, 23, 0.1)',
                     tension: 0.4,
                     fill: true
                 }]
@@ -878,7 +879,7 @@
                 datasets: [{
                     label: 'Active Users',
                     data: [65, 72, 68, 85, 92, 78, 70],
-                    backgroundColor: '#ffd400',
+                    backgroundColor: '#d4a017',
                     borderRadius: 8
                 }]
             },
@@ -894,8 +895,8 @@
                 datasets: [{
                     label: 'AI Questions',
                     data: [120, 150, 180, 165, 210, 195, 230],
-                    borderColor: '#ffed4e',
-                    backgroundColor: 'rgba(255, 237, 78, 0.2)',
+                    borderColor: '#f0c040',
+                    backgroundColor: 'rgba(240, 192, 64, 0.2)',
                     tension: 0.4,
                     fill: true
                 }]
