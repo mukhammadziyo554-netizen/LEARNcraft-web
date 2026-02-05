@@ -5668,6 +5668,15 @@
                     const user = JSON.parse(currentUserStr);
                     console.log('Logged in as:', user.email);
                     checkUserLogin(user);
+                    
+                    // FORCE SHOW ADMIN BUTTON FOR TESTING
+                    setTimeout(() => {
+                        const adminLink = document.getElementById('sidebarAdminLink');
+                        if (adminLink) {
+                            adminLink.style.display = 'block';
+                            console.log('🔧 FORCE SHOWING ADMIN BUTTON');
+                        }
+                    }, 500);
                 } catch (e) {
                     console.error('Error parsing user data:', e);
                     localStorage.removeItem('learncraft_current_user');
