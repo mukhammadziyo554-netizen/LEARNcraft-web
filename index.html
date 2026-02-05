@@ -5585,14 +5585,21 @@
         function checkAdminAccess(email) {
             const adminEmail = 'muhammadzio554@gmail.com';
             console.log('Checking admin access for:', email);
+            console.log('Admin email:', adminEmail);
+            console.log('Match:', email.toLowerCase() === adminEmail.toLowerCase());
 
             if (email.toLowerCase() === adminEmail.toLowerCase()) {
-                console.log('Admin access granted!');
+                console.log('✅ Admin access granted!');
                 const sidebarAdminLink = document.getElementById('sidebarAdminLink');
+                console.log('Admin button element:', sidebarAdminLink);
                 if (sidebarAdminLink) {
                     sidebarAdminLink.style.display = 'block';
-                    console.log('Admin button shown');
+                    console.log('✅ Admin button shown');
+                } else {
+                    console.log('❌ Admin button element not found');
                 }
+            } else {
+                console.log('❌ Not admin email');
             }
         }        // Logout function
         function logout() {
