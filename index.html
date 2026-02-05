@@ -2658,6 +2658,23 @@
             opacity: 0.9;
         }
 
+        /* Light mode admin button */
+        body.light-mode .sidebar-admin {
+            background: #ffffff;
+            border-color: #000000;
+            color: #000000;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-mode .sidebar-admin:hover {
+            background: #f5f5f5;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+        }
+
+        body.light-mode .sidebar-admin svg {
+            stroke: #000000;
+        }
+
         @media (max-width: 768px) {
             .hero-layer {
                 padding: 0 20px;
@@ -4162,13 +4179,6 @@
             text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85) !important;
         }
 
-        .sidebar-admin {
-            color: #ffd400 !important;
-            border-color: #ffd400 !important;
-            background: rgba(255, 212, 0, 0.15) !important;
-            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85) !important;
-        }
-
         .section-title {
             color: var(--text) !important;
             font-weight: 600 !important;
@@ -5614,13 +5624,22 @@
         // Check admin access
         function checkAdminAccess(email) {
             const adminEmail = 'muhammadzio554@gmail.com';
+            console.log('Checking admin access for:', email);
+            console.log('Admin email:', adminEmail);
 
             if (email.toLowerCase() === adminEmail.toLowerCase()) {
+                console.log('Admin access granted!');
                 // Show admin button in sidebar
                 const sidebarAdminLink = document.getElementById('sidebarAdminLink');
                 if (sidebarAdminLink) {
                     sidebarAdminLink.style.display = 'flex';
+                    sidebarAdminLink.style.visibility = 'visible';
+                    console.log('Admin button shown');
+                } else {
+                    console.error('Admin button element not found!');
                 }
+            } else {
+                console.log('Not admin user');
             }
         }        // Logout function
         function logout() {
