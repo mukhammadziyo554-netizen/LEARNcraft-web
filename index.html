@@ -5583,15 +5583,30 @@
         // Check if user is logged in using localStorage
         document.addEventListener('DOMContentLoaded', () => {
             const currentUserStr = localStorage.getItem('learncraft_current_user');
+            console.log('=== USER LOGIN CHECK ===');
+            console.log('Current user data:', currentUserStr);
+            
             if (currentUserStr) {
                 try {
                     const user = JSON.parse(currentUserStr);
+                    console.log('Logged in as:', user.email);
                     checkUserLogin(user);
                 } catch (e) {
                     console.error('Error parsing user data:', e);
                     localStorage.removeItem('learncraft_current_user');
                 }
+            } else {
+                console.log('No user logged in');
             }
+            
+            // TEMPORARY: Force show admin button for testing
+            setTimeout(() => {
+                const adminBtn = document.getElementById('sidebarAdminLink');
+                if (adminBtn) {
+                    adminBtn.style.display = 'block';
+                    console.log('✅ Admin button force-shown for testing');
+                }
+            }, 500);
         });
 
         // Main Navigation Active State Handler
