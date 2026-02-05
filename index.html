@@ -4582,7 +4582,7 @@
         <a href="ask-ai.html">Ask AI</a>
         <a href="practice.html">Practice</a>
         <a href="settings.html">Settings</a>
-        <a href="admin-dashboard.html" id="sidebarAdminLink" style="display: none;">Admin</a>
+        <a href="admin-dashboard.html" id="sidebarAdminLink" class="admin-link" style="display: none;">Admin</a>
     </div>
 
     <div id="overlay" class="overlay"></div>
@@ -5623,20 +5623,31 @@
         // Check admin access
         function checkAdminAccess(email) {
             const adminEmail = 'muhammadzio554@gmail.com';
-            console.log('Checking admin access for:', email);
-            console.log('Admin email:', adminEmail);
-            console.log('Match:', email.toLowerCase() === adminEmail.toLowerCase());
+            console.log('🔐 Checking admin access for:', email);
+            console.log('🔐 Admin email:', adminEmail);
+            console.log('🔐 Match:', email.toLowerCase() === adminEmail.toLowerCase());
 
             if (email.toLowerCase() === adminEmail.toLowerCase()) {
                 console.log('✅ Admin access granted!');
-                const sidebarAdminLink = document.getElementById('sidebarAdminLink');
-                console.log('Admin button element:', sidebarAdminLink);
-                if (sidebarAdminLink) {
-                    sidebarAdminLink.style.display = 'block';
-                    console.log('✅ Admin button shown');
-                } else {
-                    console.log('❌ Admin button element not found');
-                }
+                
+                // Use setTimeout to ensure DOM is ready
+                setTimeout(() => {
+                    const sidebarAdminLink = document.getElementById('sidebarAdminLink');
+                    console.log('🔍 Admin button element:', sidebarAdminLink);
+                    
+                    if (sidebarAdminLink) {
+                        sidebarAdminLink.style.display = 'block';
+                        sidebarAdminLink.style.visibility = 'visible';
+                        sidebarAdminLink.style.opacity = '1';
+                        console.log('✅ Admin button shown with styles:', {
+                            display: sidebarAdminLink.style.display,
+                            visibility: sidebarAdminLink.style.visibility,
+                            opacity: sidebarAdminLink.style.opacity
+                        });
+                    } else {
+                        console.log('❌ Admin button element not found in DOM');
+                    }
+                }, 100);
             } else {
                 console.log('❌ Not admin email');
             }
