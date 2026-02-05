@@ -13,6 +13,8 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <!-- Global Theme System -->
     <script src="theme.js"></script>
+    <!-- Internationalization System -->
+    <script src="i18n.js"></script>
     <style>
         :root {
             --bg-main: #0B0B0F;
@@ -501,6 +503,36 @@
             padding: 8px 18px;
             border-radius: 8px;
             cursor: pointer;
+        }
+
+        /* LANGUAGE SWITCHER */
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-right: 16px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .lang-option {
+            cursor: pointer;
+            transition: color 0.2s ease;
+            padding: 4px 2px;
+        }
+
+        .lang-option.active {
+            color: #FFD700;
+            font-weight: 700;
+        }
+
+        .lang-separator {
+            color: #666;
+            user-select: none;
+        }
+
+        body.light-mode .lang-separator {
+            color: #999;
         }
 
         .theme-toggle {
@@ -4512,15 +4544,22 @@
             <a href="index.html" class="logo">LEARN<span>craft</span></a>
 
             <nav class="main-nav">
-                <a href="index.html" class="nav-link active">Home</a>
-                <a href="about.html" class="nav-link">About</a>
+                <a href="index.html" class="nav-link active" data-i18n="nav.home">Home</a>
+                <a href="about.html" class="nav-link" data-i18n="nav.about">About</a>
                 <a href="#pricing" class="nav-link">LEARNcraft Pro</a>
             </nav>
         </div>
 
         <div class="right-group">
+            <div class="language-switcher" id="langSwitcher">
+                <span class="lang-option active" data-lang="en">EN</span>
+                <span class="lang-separator">|</span>
+                <span class="lang-option" data-lang="ru">RU</span>
+                <span class="lang-separator">|</span>
+                <span class="lang-option" data-lang="uz">UZ</span>
+            </div>
             <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme"></button>
-            <button id="signInBtn" class="signin-btn" onclick="window.location.href='login.html'">Sign In</button>
+            <button id="signInBtn" class="signin-btn" onclick="window.location.href='login.html'" data-i18n="nav.signIn">Sign In</button>
             <div id="userAccount" class="user-account" style="display: none;">
                 <div id="userCircle" class="user-circle">U</div>
                 <div id="userMenu" class="user-menu">
@@ -4550,31 +4589,31 @@
 
     <section class="hero" id="hero">
         <div class="hero-content">
-            <h1>Learn Civil Engineering with <span>AI</span></h1>
-            <p>
+            <h1 data-i18n="home.heroTitle">Learn Civil Engineering with <span>AI</span></h1>
+            <p data-i18n="home.heroSubtitle">
                 Structured topics, guided explanations, real problem-solving,
                 and interactive learning powered by AI.
             </p>
 
             <div class="hero-buttons">
-                <a href="civil-engineering.html" class="btn-primary">Start Learning</a>
-                <a href="roadmap.html" class="btn-outline">Explore Roadmap</a>
+                <a href="civil-engineering.html" class="btn-primary" data-i18n="home.startLearning">Start Learning</a>
+                <a href="roadmap.html" class="btn-outline" data-i18n="home.exploreRoadmap">Explore Roadmap</a>
             </div>
 
             <div class="hero-features">
                 <div class="hero-feature-box">
-                    <h4>Structured Roadmaps</h4>
-                    <p>Step-by-step civil engineering learning paths from foundations to advanced topics.</p>
+                    <h4 data-i18n="home.feature1Title">Structured Roadmaps</h4>
+                    <p data-i18n="home.feature1Desc">Step-by-step civil engineering learning paths from foundations to advanced topics.</p>
                 </div>
 
                 <div class="hero-feature-box">
-                    <h4>AI-Guided Problem Solving</h4>
-                    <p>Instant explanations, walkthroughs, and help with real engineering problems.</p>
+                    <h4 data-i18n="home.feature2Title">AI-Guided Problem Solving</h4>
+                    <p data-i18n="home.feature2Desc">Instant explanations, walkthroughs, and help with real engineering problems.</p>
                 </div>
 
                 <div class="hero-feature-box">
-                    <h4>Track Your Progress</h4>
-                    <p>Monitor completed topics, learning streaks, and mastery growth over time.</p>
+                    <h4 data-i18n="home.feature3Title">Track Your Progress</h4>
+                    <p data-i18n="home.feature3Desc">Monitor completed topics, learning streaks, and mastery growth over time.</p>
                 </div>
             </div>
         </div>
@@ -5945,6 +5984,52 @@
         window.addEventListener('resize', setAppHeight);
         window.addEventListener('orientationchange', setAppHeight);
         setAppHeight();
+
+        // LANGUAGE SWITCHER SETUP
+        function setupLanguageSwitcher() {
+            const langSwitcher = document.getElementById('langSwitcher');
+            if (!langSwitcher) return;
+
+            const langOptions = langSwitcher.querySelectorAll('.lang-option');
+            
+            // Set initial active language
+            const currentLang = LearnCraftI18n.getLanguage();
+            langOptions.forEach(option => {
+                if (option.dataset.lang === currentLang) {
+                    option.classList.add('active');
+                } else {
+                    option.classList.remove('active');
+                }
+            });
+
+            // Add click handlers
+            langOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const newLang = option.dataset.lang;
+                    
+                    // Update active state
+                    langOptions.forEach(opt => opt.classList.remove('active'));
+                    option.classList.add('active');
+                    
+                    // Change language
+                    LearnCraftI18n.setLanguage(newLang);
+                    LearnCraftI18n.translatePage();
+                    
+                    console.log('🌍 Language switched to:', newLang);
+                });
+            });
+        }
+
+        // Initialize language system
+        document.addEventListener('DOMContentLoaded', () => {
+            setupLanguageSwitcher();
+            LearnCraftI18n.translatePage();
+        });
+
+        // Also run on page show (for back/forward navigation)
+        window.addEventListener('pageshow', () => {
+            LearnCraftI18n.translatePage();
+        });
     </script>
 
     <script type="module" src="auth.js"></script>
