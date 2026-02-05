@@ -10,6 +10,8 @@
     <title>Ask AI - LEARNcraft</title>
     <!-- Telegram Web App Script -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- Global Theme System -->
+    <script src="theme.js"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -299,6 +301,93 @@
                 height: 480px;
                 padding: 20px;
             }
+        }
+
+        /* Light Mode Styles */
+        body.light-mode {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        body.light-mode .nav-bar {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-mode .nav-brand {
+            color: #000000;
+        }
+
+        body.light-mode .back-btn {
+            background: #f0f0f0;
+            color: #000000;
+        }
+
+        body.light-mode .back-btn:active {
+            background: #e0e0e0;
+        }
+
+        body.light-mode .ai-header h1 {
+            color: #000000;
+        }
+
+        body.light-mode .ai-description {
+            color: #333333;
+        }
+
+        body.light-mode .chat-container {
+            background: #f5f5f5;
+            border-color: #e0e0e0;
+        }
+
+        body.light-mode .ai-message {
+            background: #000000;
+            color: #ffffff;
+        }
+
+        body.light-mode .user-message {
+            background: #FFD700;
+            color: #000000;
+        }
+
+        body.light-mode .message-sender {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        body.light-mode .user-message .message-sender {
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        body.light-mode .input-container {
+            background: #ffffff;
+            border-color: #e0e0e0;
+        }
+
+        body.light-mode #userInput {
+            background: #f5f5f5;
+            color: #000000;
+        }
+
+        body.light-mode #userInput::placeholder {
+            color: #999999;
+        }
+
+        body.light-mode #sendBtn {
+            background: #FFD700;
+            color: #000000;
+        }
+
+        body.light-mode #sendBtn:active {
+            background: #FFC700;
+        }
+
+        body.light-mode .clear-btn {
+            background: #f0f0f0;
+            color: #666666;
+        }
+
+        body.light-mode .clear-btn:active {
+            background: #e0e0e0;
         }
     </style>
 </head>

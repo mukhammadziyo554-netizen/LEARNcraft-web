@@ -11,6 +11,8 @@
     <title>LEARNcraft - Engineering Support App</title>
     <!-- Telegram Web App Script -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- Global Theme System -->
+    <script src="theme.js"></script>
     <style>
         :root {
             --bg-main: #0B0B0F;
@@ -5082,18 +5084,22 @@
         }
 
         const themeToggle = document.getElementById('themeToggle');
-        const preferredTheme = localStorage.getItem('learncraft-theme');
 
-        if (preferredTheme === 'light') {
-            document.body.classList.add('light-mode');
+        // Initialize theme toggle state
+        if (window.LearnCraftTheme && window.LearnCraftTheme.getCurrent() === 'light') {
             themeToggle?.classList.add('active');
         }
 
+        // Theme toggle click handler
         themeToggle?.addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-            themeToggle.classList.toggle('active');
-            const theme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
-            localStorage.setItem('learncraft-theme', theme);
+            if (window.LearnCraftTheme) {
+                const isLight = window.LearnCraftTheme.toggle();
+                if (isLight) {
+                    themeToggle.classList.add('active');
+                } else {
+                    themeToggle.classList.remove('active');
+                }
+            }
         });
 
         // Startup animation function
