@@ -19,22 +19,30 @@
         }
     }
     
-    // Apply theme as soon as possible
+    // Apply theme immediately - run synchronously
     applyTheme();
     
     // Also apply on DOM ready to ensure it sticks
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', applyTheme);
-    }
+    document.addEventListener('DOMContentLoaded', applyTheme);
+    
+    // Apply on page show (for back/forward navigation)
+    window.addEventListener('pageshow', applyTheme);
     
     // Export functions for theme toggle (only used on index.html)
     window.LearnCraftTheme = {
         toggle: function() {
             const body = document.body;
-            body.classList.toggle('light-mode');
-            const isLight = body.classList.contains('light-mode');
-            localStorage.setItem(THEME_KEY, isLight ? 'light' : 'dark');
-            return isLight;
+            const wasLight = body.classList.contains('light-mode');
+            
+            if (wasLight) {
+                body.classList.remove('light-mode');
+                localStorage.setItem(THEME_KEY, 'dark');
+                return false;
+            } else {
+                body.classList.add('light-mode');
+                localStorage.setItem(THEME_KEY, 'light');
+                return true;
+            }
         },
         
         getCurrent: function() {
@@ -45,10 +53,11 @@
             const body = document.body;
             if (theme === 'light') {
                 body.classList.add('light-mode');
+                localStorage.setItem(THEME_KEY, 'light');
             } else {
                 body.classList.remove('light-mode');
+                localStorage.setItem(THEME_KEY, 'dark');
             }
-            localStorage.setItem(THEME_KEY, theme);
         }
     };
 })();

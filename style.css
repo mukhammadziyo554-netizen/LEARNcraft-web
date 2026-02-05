@@ -762,11 +762,11 @@ body.light-mode {
 
 body.light-mode .topbar {
     background: rgba(255, 255, 255, 0.95);
-    border-bottom-color: rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #000000;
 }
 
 body.light-mode .back-nav {
-    color: #666666;
+    color: #000000;
 }
 
 body.light-mode .back-nav:hover {
@@ -774,7 +774,7 @@ body.light-mode .back-nav:hover {
 }
 
 body.light-mode .topbar-title {
-    color: #FFD700;
+    color: #FFD700 !important;
 }
 
 body.light-mode .hero h1,
@@ -785,41 +785,42 @@ body.light-mode h1, body.light-mode h2, body.light-mode h3 {
 
 body.light-mode .hero p,
 body.light-mode p, body.light-mode .description {
-    color: #333333 !important;
+    color: #000000 !important;
 }
 
 body.light-mode .breadcrumb {
-    color: #666666;
+    color: #000000;
 }
 
 /* Keep yellow elements yellow in light mode */
 body.light-mode .highlight,
 body.light-mode .stat-value,
 body.light-mode .price,
-body.light-mode .topbar-title {
+body.light-mode .cta-button,
+body.light-mode .save-badge {
     color: #FFD700 !important;
 }
 
-/* Cards and containers */
+/* Cards and containers with BLACK borders */
 body.light-mode .card,
 body.light-mode .field-card,
 body.light-mode .week-card,
 body.light-mode .level-card {
-    background: #f5f5f5;
-    border-color: #e0e0e0;
+    background: #ffffff;
+    border: 2px solid #000000 !important;
     color: #000000;
 }
 
 body.light-mode .card h3,
 body.light-mode .field-card h3,
 body.light-mode .week-card h3 {
-    color: #000000;
+    color: #000000 !important;
 }
 
 body.light-mode .card p,
 body.light-mode .field-card p,
 body.light-mode .week-card p {
-    color: #333333;
+    color: #000000 !important;
 }
 
 /* Buttons */
@@ -827,7 +828,7 @@ body.light-mode .btn,
 body.light-mode button {
     background: #FFD700;
     color: #000000;
-    border-color: #FFD700;
+    border: 2px solid #000000;
 }
 
 body.light-mode .btn:hover,
@@ -836,9 +837,9 @@ body.light-mode button:hover {
 }
 
 body.light-mode .btn-secondary {
-    background: #f0f0f0;
+    background: #ffffff;
     color: #000000;
-    border-color: #e0e0e0;
+    border: 2px solid #000000;
 }
 
 /* Navigation and links */
@@ -854,24 +855,24 @@ body.light-mode a:hover {
 body.light-mode input,
 body.light-mode textarea,
 body.light-mode select {
-    background: #f5f5f5;
+    background: #ffffff;
     color: #000000;
-    border-color: #e0e0e0;
+    border: 2px solid #000000;
 }
 
 body.light-mode input::placeholder,
 body.light-mode textarea::placeholder {
-    color: #999999;
+    color: #666666;
 }
 
 /* Roadmap specific */
 body.light-mode .timeline-line {
-    border-left-color: #e0e0e0;
+    border-left: 2px solid #000000;
 }
 
 body.light-mode .stage-card {
-    background: #f5f5f5;
-    border-color: #e0e0e0;
+    background: #ffffff;
+    border: 2px solid #000000 !important;
 }
 
 body.light-mode .stage-title {
@@ -880,5 +881,20 @@ body.light-mode .stage-title {
 
 body.light-mode .topic-item {
     background: #ffffff;
-    border-color: #e0e0e0;
+    border: 2px solid #000000 !important;
+}
+
+/* Ensure all text is black except yellow highlights */
+body.light-mode .hero-feature-box h4,
+body.light-mode .section-heading h2,
+body.light-mode .feature-card h3,
+body.light-mode .roadmap-card h3 {
+    color: #000000 !important;
+}
+
+body.light-mode .hero-feature-box p,
+body.light-mode .section-heading p,
+body.light-mode .feature-card p,
+body.light-mode .roadmap-card p {
+    color: #000000 !important;
 }

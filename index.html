@@ -5604,15 +5604,6 @@
             } else {
                 console.log('No user logged in');
             }
-            
-            // TEMPORARY: Force show admin button for testing
-            setTimeout(() => {
-                const adminBtn = document.getElementById('sidebarAdminLink');
-                if (adminBtn) {
-                    adminBtn.style.display = 'block';
-                    console.log('✅ Admin button force-shown for testing');
-                }
-            }, 500);
         });
 
         // Main Navigation Active State Handler
