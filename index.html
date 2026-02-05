@@ -4571,6 +4571,7 @@
         <a href="ask-ai.html">Ask AI</a>
         <a href="practice.html">Practice</a>
         <a href="settings.html">Settings</a>
+        <a href="admin.html" id="sidebarAdminLink" style="display: none;">Admin</a>
     </div>
 
     <div id="overlay" class="overlay"></div>
@@ -5542,13 +5543,6 @@
 
         });
 
-        window.addEventListener('learncraft-auth-ready', () => {
-            const { observeAuthState } = window.learncraftAuth;
-            observeAuthState((user) => {
-                checkUserLogin(user);
-            });
-        });
-
         // Check if user is logged in
         function checkUserLogin(user) {
             if (user) {
@@ -5599,45 +5593,36 @@
 
         // Check admin access
         function checkAdminAccess(email) {
-            // Only this email can see the Admin button
             const adminEmail = 'mukhammadziyo554@gmail.com';
             
-            console.log('Checking admin access for email:', email);
-            console.log('Admin email expected:', adminEmail);
-            console.log('Match:', email.toLowerCase() === adminEmail.toLowerCase());
-            
             if (email.toLowerCase() === adminEmail.toLowerCase()) {
-                console.log('Admin access granted!');
-                // Show admin button in nav menu
-                const adminMenuItem = document.getElementById('adminBtnMenu');
-                if (adminMenuItem) {
-                    adminMenuItem.style.display = 'block';
-                    console.log('Admin button shown in sidebar');
+                // Show admin button in sidebar
+                const sidebarAdminLink = document.getElementById('sidebarAdminLink');
+                if (sidebarAdminLink) {
+                    sidebarAdminLink.style.display = 'block';
                 }
-                // Show admin button in sidebar footer
-                const adminBtnFooter = document.getElementById('adminBtnFooter');
-                if (adminBtnFooter) {
-                    adminBtnFooter.style.display = 'inline-flex';
-                    console.log('Admin button shown in footer');
-                }
-            } else {
-                console.log('Admin access denied for:', email);
             }
         }
 
         // Logout function
         function logout() {
-            if (!window.learncraftAuth) {
-                window.location.href = 'login.html';
-                return;
-            }
-
-            window.learncraftAuth.signOutUser().then(() => {
-                window.location.reload();
-            }).catch(() => {
-                window.location.href = 'login.html';
-            });
+            localStorage.removeItem('learncraft_current_user');
+            window.location.reload();
         }
+
+        // Check if user is logged in using localStorage
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentUserStr = localStorage.getItem('learncraft_current_user');
+            if (currentUserStr) {
+                try {
+                    const user = JSON.parse(currentUserStr);
+                    checkUserLogin(user);
+                } catch (e) {
+                    console.error('Error parsing user data:', e);
+                    localStorage.removeItem('learncraft_current_user');
+                }
+            }
+        });
 
         // Main Navigation Active State Handler
         function setActiveNav(element) {
