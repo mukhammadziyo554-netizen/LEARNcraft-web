@@ -2623,58 +2623,6 @@
             box-shadow: 0 4px 16px rgba(255, 255, 255, 0.3);
         }
 
-        .sidebar-admin {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 20px;
-            background: #181818;
-            border: 2px solid #ffd400;
-            color: #ffd400;
-            border-radius: 24px;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: calc(100% - 32px);
-            margin: 8px 16px;
-            text-decoration: none;
-            box-shadow: 0 0 15px rgba(255, 212, 0, 0.3);
-        }
-
-        .sidebar-admin:hover {
-            background: #1f1f1f;
-            transform: scale(1.03);
-            box-shadow: 0 0 25px rgba(255, 212, 0, 0.5);
-        }
-
-        .sidebar-admin:active {
-            transform: scale(0.98);
-        }
-
-        .sidebar-admin-icon {
-            width: 18px;
-            height: 18px;
-            opacity: 0.9;
-        }
-
-        /* Light mode admin button */
-        body.light-mode .sidebar-admin {
-            background: #ffffff;
-            border-color: #000000;
-            color: #000000;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        }
-
-        body.light-mode .sidebar-admin:hover {
-            background: #f5f5f5;
-            box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
-        }
-
-        body.light-mode .sidebar-admin svg {
-            stroke: #000000;
-        }
-
         @media (max-width: 768px) {
             .hero-layer {
                 padding: 0 20px;
@@ -4587,23 +4535,13 @@
         <div class="sidebar-header">
             <button id="collapseBtn" class="collapse-btn">◀</button>
         </div>
-        <!-- DEBUG: Test Admin Button -->
-        <button onclick="testAdminButton()" style="background: #ff0000; color: white; padding: 8px; margin: 8px; border: none; border-radius: 8px; cursor: pointer; font-size: 11px;">🔧 Show Admin Button</button>
         <a href="index.html">Home</a>
         <a href="roadmap.html">Roadmap</a>
         <a href="learn.html">Articles</a>
         <a href="ask-ai.html">Ask AI</a>
         <a href="practice.html">Practice</a>
         <a href="settings.html">Settings</a>
-        <a href="admin-dashboard.html" id="sidebarAdminLink" class="sidebar-admin" style="display: none;">
-            <svg class="sidebar-admin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="3" width="7" height="7"></rect>
-                <rect x="14" y="3" width="7" height="7"></rect>
-                <rect x="14" y="14" width="7" height="7"></rect>
-                <rect x="3" y="14" width="7" height="7"></rect>
-            </svg>
-            <span>Admin Panel</span>
-        </a>
+        <a href="admin-dashboard.html" id="sidebarAdminLink" style="display: none;">Admin</a>
     </div>
 
     <div id="overlay" class="overlay"></div>
@@ -5627,36 +5565,14 @@
         function checkAdminAccess(email) {
             const adminEmail = 'muhammadzio554@gmail.com';
             console.log('Checking admin access for:', email);
-            console.log('Admin email:', adminEmail);
 
             if (email.toLowerCase() === adminEmail.toLowerCase()) {
                 console.log('Admin access granted!');
-                // Show admin button in sidebar
                 const sidebarAdminLink = document.getElementById('sidebarAdminLink');
                 if (sidebarAdminLink) {
-                    sidebarAdminLink.style.display = 'flex';
-                    sidebarAdminLink.style.visibility = 'visible';
-                    sidebarAdminLink.style.opacity = '1';
+                    sidebarAdminLink.style.display = 'block';
                     console.log('Admin button shown');
-                } else {
-                    console.error('Admin button element not found!');
                 }
-            } else {
-                console.log('Not admin user');
-            }
-        }
-
-        // TEST FUNCTION - Force show admin button
-        function testAdminButton() {
-            console.log('Manual admin button test triggered');
-            const sidebarAdminLink = document.getElementById('sidebarAdminLink');
-            if (sidebarAdminLink) {
-                sidebarAdminLink.style.display = 'flex';
-                sidebarAdminLink.style.visibility = 'visible';
-                sidebarAdminLink.style.opacity = '1';
-                alert('Admin button should now be visible! Check below in the burger menu.');
-            } else {
-                alert('ERROR: Admin button element not found in DOM!');
             }
         }        // Logout function
         function logout() {
