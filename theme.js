@@ -7,10 +7,14 @@
     
     const THEME_KEY = 'learncraft_theme';
     
+    console.log('🎨 Theme system loaded');
+    
     // Apply theme immediately to prevent flash
     function applyTheme() {
         const savedTheme = localStorage.getItem(THEME_KEY);
         const body = document.body;
+        
+        console.log('Applying theme:', savedTheme || 'dark (default)');
         
         if (savedTheme === 'light') {
             body.classList.add('light-mode');
@@ -34,13 +38,17 @@
             const body = document.body;
             const wasLight = body.classList.contains('light-mode');
             
+            console.log('Toggle clicked! Current:', wasLight ? 'light' : 'dark');
+            
             if (wasLight) {
                 body.classList.remove('light-mode');
                 localStorage.setItem(THEME_KEY, 'dark');
+                console.log('Switched to DARK mode');
                 return false;
             } else {
                 body.classList.add('light-mode');
                 localStorage.setItem(THEME_KEY, 'light');
+                console.log('Switched to LIGHT mode');
                 return true;
             }
         },
@@ -60,4 +68,6 @@
             }
         }
     };
+    
+    console.log('✅ LearnCraftTheme ready:', window.LearnCraftTheme);
 })();

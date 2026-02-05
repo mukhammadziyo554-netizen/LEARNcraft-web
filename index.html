@@ -5083,24 +5083,38 @@
             });
         }
 
-        const themeToggle = document.getElementById('themeToggle');
+        // Theme Toggle Setup
+        function setupThemeToggle() {
+            const themeToggle = document.getElementById('themeToggle');
+            if (!themeToggle) return;
 
-        // Initialize theme toggle state
-        if (window.LearnCraftTheme && window.LearnCraftTheme.getCurrent() === 'light') {
-            themeToggle?.classList.add('active');
+            // Initialize theme toggle state
+            if (window.LearnCraftTheme && window.LearnCraftTheme.getCurrent() === 'light') {
+                themeToggle.classList.add('active');
+            }
+
+            // Theme toggle click handler
+            themeToggle.addEventListener('click', () => {
+                if (window.LearnCraftTheme) {
+                    const isLight = window.LearnCraftTheme.toggle();
+                    console.log('Theme toggled to:', isLight ? 'light' : 'dark');
+                    if (isLight) {
+                        themeToggle.classList.add('active');
+                    } else {
+                        themeToggle.classList.remove('active');
+                    }
+                } else {
+                    console.error('LearnCraftTheme not available');
+                }
+            });
         }
 
-        // Theme toggle click handler
-        themeToggle?.addEventListener('click', () => {
-            if (window.LearnCraftTheme) {
-                const isLight = window.LearnCraftTheme.toggle();
-                if (isLight) {
-                    themeToggle.classList.add('active');
-                } else {
-                    themeToggle.classList.remove('active');
-                }
-            }
-        });
+        // Setup theme toggle when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', setupThemeToggle);
+        } else {
+            setupThemeToggle();
+        }
 
         // Startup animation function
         function startExperience() {
