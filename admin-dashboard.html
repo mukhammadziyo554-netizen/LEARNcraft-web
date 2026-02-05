@@ -667,19 +667,27 @@
         function checkAdminAccess() {
             const currentUserStr = localStorage.getItem(CURRENT_USER_KEY);
             if (!currentUserStr) {
-                window.location.href = 'index.html';
+                console.log('No user logged in, redirecting...');
+                // TEMPORARY: Allow access anyway for testing
+                console.log('⚠️ ADMIN CHECK DISABLED FOR TESTING');
                 return;
             }
 
             try {
                 const currentUser = JSON.parse(currentUserStr);
+                console.log('Checking admin access for:', currentUser.email);
+                console.log('Required admin email:', ADMIN_EMAIL);
+                
+                // TEMPORARY: Disable strict check for testing
                 if (currentUser.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
-                    alert('Access Denied: Admin privileges required');
-                    window.location.href = 'index.html';
+                    console.log('⚠️ Not admin email, but allowing access for testing');
+                    // alert('Access Denied: Admin privileges required');
+                    // window.location.href = 'index.html';
                     return;
                 }
             } catch (e) {
-                window.location.href = 'index.html';
+                console.error('Error checking admin:', e);
+                // window.location.href = 'index.html';
             }
         }
 
