@@ -4587,6 +4587,8 @@
         <div class="sidebar-header">
             <button id="collapseBtn" class="collapse-btn">◀</button>
         </div>
+        <!-- DEBUG: Test Admin Button -->
+        <button onclick="testAdminButton()" style="background: #ff0000; color: white; padding: 8px; margin: 8px; border: none; border-radius: 8px; cursor: pointer; font-size: 11px;">🔧 Show Admin Button</button>
         <a href="index.html">Home</a>
         <a href="roadmap.html">Roadmap</a>
         <a href="learn.html">Articles</a>
@@ -5634,12 +5636,27 @@
                 if (sidebarAdminLink) {
                     sidebarAdminLink.style.display = 'flex';
                     sidebarAdminLink.style.visibility = 'visible';
+                    sidebarAdminLink.style.opacity = '1';
                     console.log('Admin button shown');
                 } else {
                     console.error('Admin button element not found!');
                 }
             } else {
                 console.log('Not admin user');
+            }
+        }
+
+        // TEST FUNCTION - Force show admin button
+        function testAdminButton() {
+            console.log('Manual admin button test triggered');
+            const sidebarAdminLink = document.getElementById('sidebarAdminLink');
+            if (sidebarAdminLink) {
+                sidebarAdminLink.style.display = 'flex';
+                sidebarAdminLink.style.visibility = 'visible';
+                sidebarAdminLink.style.opacity = '1';
+                alert('Admin button should now be visible! Check below in the burger menu.');
+            } else {
+                alert('ERROR: Admin button element not found in DOM!');
             }
         }        // Logout function
         function logout() {
