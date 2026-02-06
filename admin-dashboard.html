@@ -75,9 +75,8 @@
             color: #ffffff;
             cursor: pointer;
             transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            display: block;
+            text-decoration: none;
         }
 
         body.light-mode .sidebar-item {
@@ -492,48 +491,28 @@
         
         <div class="sidebar-section">
             <div class="sidebar-label">Main</div>
-            <div class="sidebar-item active">
-                <span>Dashboard</span>
-            </div>
-            <div class="sidebar-item">
-                <span>User Analytics</span>
-            </div>
-            <div class="sidebar-item">
-                <span>AI Usage</span>
-            </div>
+            <a href="admin-dashboard.html" class="sidebar-item active">Dashboard</a>
+            <a href="user-analytics.html" class="sidebar-item">User Analytics</a>
+            <a href="ai-usage.html" class="sidebar-item">AI Usage</a>
         </div>
 
         <div class="sidebar-section">
             <div class="sidebar-label">Content</div>
-            <div class="sidebar-item">
-                <span>Courses Analytics</span>
-            </div>
-            <div class="sidebar-item">
-                <span>Subscriptions</span>
-            </div>
+            <a href="#" class="sidebar-item">Courses Analytics</a>
+            <a href="#" class="sidebar-item">Subscriptions</a>
         </div>
 
         <div class="sidebar-section">
             <div class="sidebar-label">Data</div>
-            <div class="sidebar-item">
-                <span>Registered Emails</span>
-            </div>
-            <div class="sidebar-item">
-                <span>Activity Logs</span>
-            </div>
-            <div class="sidebar-item">
-                <span>Screen Time</span>
-            </div>
+            <a href="#" class="sidebar-item">Registered Emails</a>
+            <a href="#" class="sidebar-item">Activity Logs</a>
+            <a href="#" class="sidebar-item">Screen Time</a>
         </div>
 
         <div class="sidebar-section">
             <div class="sidebar-label">System</div>
-            <div class="sidebar-item">
-                <span>System Health</span>
-            </div>
-            <div class="sidebar-item">
-                <span>Admin Settings</span>
-            </div>
+            <a href="#" class="sidebar-item">System Health</a>
+            <a href="#" class="sidebar-item">Admin Settings</a>
         </div>
     </div>
 
