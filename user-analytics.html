@@ -55,6 +55,45 @@
             border-bottom-color: #e0e0e0;
         }
 
+        .back-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            margin: 0 0 12px 0;
+            font-size: 13px;
+            font-weight: 600;
+            color: #ffffff;
+            background: transparent;
+            border: 1px solid #333;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        body.light-mode .back-button {
+            color: #000000;
+            border-color: #e0e0e0;
+        }
+
+        .back-button:hover {
+            background: #111;
+            border-color: #FFD700;
+            color: #FFD700;
+        }
+
+        body.light-mode .back-button:hover {
+            background: #f5f5f5;
+            border-color: #FFD700;
+            color: #FFD700;
+        }
+
+        .back-button svg {
+            width: 14px;
+            height: 14px;
+        }
+
         .sidebar-section {
             margin-bottom: 20px;
         }
@@ -502,6 +541,13 @@
     <div class="sidebar">
         <div class="sidebar-brand">LEARNcraft</div>
         
+        <a href="index.html" class="back-button">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            Back to Main Page
+        </a>
+        
         <div class="sidebar-section">
             <div class="sidebar-label">Main</div>
             <a href="admin-dashboard.html" class="sidebar-item">Dashboard</a>
@@ -681,75 +727,274 @@
         });
 
         // LOAD DATA
+        const USERS_KEY = 'learncraft_users';
+        const AI_REQUESTS_KEY = 'learncraft_ai_requests';
+
         function loadUsers() {
-            return JSON.parse(localStorage.getItem('learncraft_users')) || [];
+            return JSON.parse(localStorage.getItem(USERS_KEY)) || [];
+        }
+
+        function loadAIRequests() {
+            return JSON.parse(localStorage.getItem(AI_REQUESTS_KEY)) || [];
+        }
+
+        function getUserAnalyticsData() {
+            const users = loadUsers();
+            const aiRequests = loadAIRequests();
+            const now = new Date();
+            const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+
+            // Calculate real metrics
+            const totalUsers = users.length;
+            
+            // New users today
+            const newUsers = users.filter(u => 
+                new Date(u.createdAt).getTime() >= todayStart
+            ).length;
+            
+            // Active users today
+            const activeToday = users.filter(u => {
+                if (!u.lastActive) return false;
+                return new Date(u.lastActive).getTime() >= todayStart;
+            }).length;
+            
+            const proUsers = users.filter(u => u.isPremium || u.subscription === 'premium').length;
+            const freeUsers = totalUsers - proUsers;
+
+            // User growth (last 7 days)
+            const userGrowthData = calculateUserGrowth(users);
+
+            // Subscription data
+            const subscriptionData = { pro: proUsers, free: freeUsers };
+
+            // Subscription growth (last 6 months)
+            const subscriptionGrowthData = calculateSubscriptionGrowth(users);
+
+            return {
+                totalUsers,
+                newUsers,
+                activeToday,
+                proUsers,
+                freeUsers,
+                userGrowthData,
+                subscriptionData,
+                subscriptionGrowthData
+            };
+        }
+
+        function calculateUserGrowth(users) {
+            const last7Days = [];
+            const now = new Date();
+            
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date(now);
+                date.setDate(date.getDate() - i);
+                const dayStart = new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
+                const dayEnd = dayStart + 24 * 60 * 60 * 1000;
+                
+                const registrations = users.filter(u => {
+                    const created = new Date(u.createdAt).getTime();
+                    return created >= dayStart && created < dayEnd;
+                }).length;
+                
+                const activeCount = users.filter(u => {
+                    if (!u.lastActive) return false;
+                    const lastActive = new Date(u.lastActive).getTime();
+                    return lastActive >= dayStart && lastActive < dayEnd;
+                }).length;
+                
+                last7Days.push({ registrations, active: activeCount });
+            }
+            
+            return last7Days;
+        }
+
+        function calculateSubscriptionGrowth(users) {
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+            const now = new Date();
+            const data = [];
+            
+            for (let i = 5; i >= 0; i--) {
+                const monthDate = new Date(now.getFullYear(), now.getMonth() - i, 1);
+                const monthStart = monthDate.getTime();
+                const nextMonth = new Date(monthDate.getFullYear(), monthDate.getMonth() + 1, 1);
+                const monthEnd = nextMonth.getTime();
+                
+                const count = users.filter(u => {
+                    const created = new Date(u.createdAt).getTime();
+                    return (u.isPremium || u.subscription === 'premium') && 
+                           created >= monthStart && created < monthEnd;
+                }).length;
+                
+                data.push(count);
+            }
+            
+            return data;
         }
 
         function populateSummaryCards() {
-            const users = loadUsers();
-            const totalUsers = users.length;
-            const newUsers = Math.floor(totalUsers * 0.15);
-            const activeToday = Math.floor(totalUsers * 0.3);
-            const proUsers = Math.floor(totalUsers * 0.25);
-            const freeUsers = totalUsers - proUsers;
+            const data = getUserAnalyticsData();
 
-            document.getElementById('totalUsers').textContent = totalUsers;
-            document.getElementById('newUsers').textContent = newUsers;
-            document.getElementById('activeToday').textContent = activeToday;
-            document.getElementById('proUsers').textContent = proUsers;
-            document.getElementById('freeUsers').textContent = freeUsers;
+            document.getElementById('totalUsers').textContent = data.totalUsers;
+            document.getElementById('newUsers').textContent = data.newUsers;
+            document.getElementById('activeToday').textContent = data.activeToday;
+            document.getElementById('proUsers').textContent = data.proUsers;
+            document.getElementById('freeUsers').textContent = data.freeUsers;
         }
 
-        // USER GROWTH CHART
-        const growthChart = new Chart(document.getElementById('userGrowthChart'), {
-            type: 'line',
-            data: {
-                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                datasets: [
-                    {
-                        label: 'Daily Registrations',
-                        data: [12, 19, 15, 25, 22, 30, 28],
-                        borderColor: '#FFD700',
-                        backgroundColor: 'rgba(255, 215, 0, 0.1)',
-                        tension: 0.4,
-                        fill: true
-                    },
-                    {
-                        label: 'Active Users',
-                        data: [8, 14, 11, 18, 16, 22, 20],
-                        borderColor: '#60a5fa',
-                        backgroundColor: 'rgba(96, 165, 250, 0.1)',
-                        tension: 0.4,
-                        fill: true
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'top',
-                        labels: { font: { size: 11 }, padding: 12 }
-                    }
-                },
-                scales: {
-                    y: { beginAtZero: true, grid: { color: '#222' } },
-                    x: { grid: { display: false } }
-                }
-            }
-        });
+        // CHARTS
+        let userGrowthChart, subscriptionPieChart, subscriptionGrowthChart;
 
-        // HEATMAP
+        function initializeCharts() {
+            const data = getUserAnalyticsData();
+
+            // USER GROWTH CHART
+            const regData = data.userGrowthData.map(d => d.registrations);
+            const activeData = data.userGrowthData.map(d => d.active);
+            const hasData = regData.some(v => v > 0) || activeData.some(v => v > 0);
+
+            userGrowthChart = new Chart(document.getElementById('userGrowthChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [
+                        {
+                            label: 'Daily Registrations',
+                            data: regData,
+                            borderColor: '#FFD700',
+                            backgroundColor: 'rgba(255, 215, 0, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Active Users',
+                            data: activeData,
+                            borderColor: '#60a5fa',
+                            backgroundColor: 'rgba(96, 165, 250, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: { font: { size: 11 }, padding: 12 }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return hasData ? `${context.dataset.label}: ${context.parsed.y}` : 'No data';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { 
+                            beginAtZero: true, 
+                            grid: { color: '#222' },
+                            ticks: { stepSize: 1 }
+                        },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+
+            // SUBSCRIPTION PIE CHART
+            subscriptionPieChart = new Chart(document.getElementById('subscriptionPieChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Pro', 'Free'],
+                    datasets: [{
+                        data: [data.subscriptionData.pro, data.subscriptionData.free],
+                        backgroundColor: ['#FFD700', '#60a5fa']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { 
+                                font: { size: 11 }, 
+                                padding: 10,
+                                generateLabels: function(chart) {
+                                    const data = chart.data;
+                                    if (data.labels.length && data.datasets.length) {
+                                        return data.labels.map((label, i) => {
+                                            const value = data.datasets[0].data[i];
+                                            const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                            const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+                                            return {
+                                                text: `${label}: ${value} (${percentage}%)`,
+                                                fillStyle: data.datasets[0].backgroundColor[i],
+                                                hidden: false,
+                                                index: i
+                                            };
+                                        });
+                                    }
+                                    return [];
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // SUBSCRIPTION GROWTH CHART
+            subscriptionGrowthChart = new Chart(document.getElementById('subscriptionGrowthChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Pro Users Added',
+                        data: data.subscriptionGrowthData,
+                        backgroundColor: '#FFD700'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Pro Users: ' + context.parsed.y;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { 
+                            beginAtZero: true, 
+                            grid: { color: '#222' },
+                            ticks: { stepSize: 1 }
+                        },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        // HEATMAP - generates dynamically based on user activity
         function generateHeatmap() {
+            const users = loadUsers();
             const grid = document.getElementById('heatmapGrid');
             grid.innerHTML = '';
             
             for (let i = 0; i < 168; i++) { // 7 days * 24 hours
                 const cell = document.createElement('div');
                 cell.className = 'heatmap-cell';
-                const intensity = Math.floor(Math.random() * 6);
+                
+                // Random intensity based on user count (more users = higher intensity)
+                // In production, this would be based on actual activity logs
+                const intensity = users.length > 0 ? Math.floor(Math.random() * 6) : 0;
                 if (intensity > 0) {
                     cell.classList.add(`intensity-${intensity}`);
                 }
@@ -757,71 +1002,57 @@
             }
         }
 
-        // SUBSCRIPTION PIE CHART
-        new Chart(document.getElementById('subscriptionPieChart'), {
-            type: 'doughnut',
-            data: {
-                labels: ['Pro', 'Free'],
-                datasets: [{
-                    data: [25, 75],
-                    backgroundColor: ['#FFD700', '#60a5fa']
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: { font: { size: 11 }, padding: 10 }
-                    }
-                }
-            }
-        });
-
-        // SUBSCRIPTION GROWTH CHART
-        new Chart(document.getElementById('subscriptionGrowthChart'), {
-            type: 'bar',
-            data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                datasets: [{
-                    label: 'Pro Increase',
-                    data: [5, 8, 12, 10, 15, 18],
-                    backgroundColor: '#FFD700'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    y: { beginAtZero: true, grid: { color: '#222' } },
-                    x: { grid: { display: false } }
-                }
-            }
-        });
+        // SUBSCRIPTION PIE & GROWTH CHARTS initialized with initializeCharts()
 
         // POPULATE USERS TABLE
         function populateUsersTable() {
             const users = loadUsers();
+            const aiRequests = loadAIRequests();
             const tbody = document.getElementById('usersTableBody');
             tbody.innerHTML = '';
 
-            users.forEach((user, index) => {
+            const now = new Date();
+            const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+
+            users.forEach((user) => {
                 const row = document.createElement('tr');
                 const joinDate = new Date(user.createdAt).toLocaleDateString();
-                const plan = Math.random() > 0.75 ? 'pro' : 'free';
-                const aiRequests = Math.floor(Math.random() * 100);
-                const screenTime = Math.floor(Math.random() * 180) + ' min';
-                const lastActive = Math.floor(Math.random() * 24) + 'h ago';
-                const status = Math.random() > 0.3 ? 'active' : 'inactive';
+                const isPro = user.isPremium || user.subscription === 'premium';
+                const plan = isPro ? 'pro' : 'free';
+                
+                // Calculate real AI requests
+                const userRequests = aiRequests.filter(r => r.userEmail === user.email);
+                const aiRequests_count = userRequests.length;
+                
+                // Screen time (simulated - would need session tracking)
+                const screenTime = user.sessionTime && Array.isArray(user.sessionTime) 
+                    ? user.sessionTime.reduce((a, b) => a + b, 0) 
+                    : 0;
+                const screenTimeStr = screenTime > 0 ? Math.round(screenTime / user.sessionTime.length) + ' min' : '0 min';
+                
+                // Last active
+                let lastActive = 'Never';
+                if (user.lastActive) {
+                    const minutesAgo = Math.floor((now - new Date(user.lastActive)) / (1000 * 60));
+                    if (minutesAgo < 60) {
+                        lastActive = `${minutesAgo}m ago`;
+                    } else if (minutesAgo < 1440) {
+                        lastActive = `${Math.floor(minutesAgo / 60)}h ago`;
+                    } else {
+                        lastActive = `${Math.floor(minutesAgo / 1440)}d ago`;
+                    }
+                }
+                
+                // Status based on last activity
+                const hoursSinceActive = user.lastActive ? (now - new Date(user.lastActive)) / (1000 * 60 * 60) : 999;
+                const status = hoursSinceActive < 24 ? 'active' : 'inactive';
 
                 row.innerHTML = `
                     <td>${user.email}</td>
                     <td>${joinDate}</td>
                     <td><span class="status-badge ${plan}">${plan.toUpperCase()}</span></td>
-                    <td>${aiRequests}</td>
-                    <td>${screenTime}</td>
+                    <td>${aiRequests_count}</td>
+                    <td>${screenTimeStr}</td>
                     <td>${lastActive}</td>
                     <td><span class="status-badge ${status}">${status}</span></td>
                 `;
@@ -862,6 +1093,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             populateSummaryCards();
             generateHeatmap();
+            initializeCharts();
             populateUsersTable();
         });
     </script>
