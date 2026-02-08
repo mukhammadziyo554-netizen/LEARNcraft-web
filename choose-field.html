@@ -344,6 +344,20 @@
                 localStorage.setItem('selectedEngineeringField', fieldName);
                 localStorage.setItem('fieldSelectionTime', new Date().toISOString());
                 
+                // Track field selection in user profile
+                const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
+                if (currentUser) {
+                    const users = JSON.parse(localStorage.getItem('learncraft_users')) || [];
+                    const userIndex = users.findIndex(u => u.email === currentUser.email);
+                    
+                    if (userIndex !== -1) {
+                        users[userIndex].selectedField = fieldName;
+                        users[userIndex].fieldSelectedAt = new Date().toISOString();
+                        users[userIndex].lastActive = new Date().toISOString();
+                        localStorage.setItem('learncraft_users', JSON.stringify(users));
+                    }
+                }
+                
                 // Route to field-specific roadmap page
                 if (fieldName === 'Civil Engineering') {
                     window.location.href = 'civil-roadmap.html';

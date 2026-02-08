@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Analytics Test</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #0a0a0a;
+            color: #fff;
+        }
+        h1 { color: #FFD700; }
+        .test-section {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .success { color: #4ade80; }
+        .warning { color: #fbbf24; }
+        button {
+            background: #FFD700;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { opacity: 0.8; }
+        pre {
+            background: #000;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+        .result { margin: 10px 0; padding: 10px; background: #000; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>🔧 Admin Dashboard Analytics Test</h1>
+    
+    <div class="test-section">
+        <h2>Test Data Generator</h2>
+        <p>Generate sample data to test dashboard analytics:</p>
+        <button onclick="generateSampleUsers()">Generate 5 Sample Users</button>
+        <button onclick="generateAIRequests()">Generate 20 AI Requests</button>
+        <button onclick="clearAllData()">Clear All Data</button>
+    </div>
+
+    <div class="test-section">
+        <h2>Current Data Summary</h2>
+        <div id="dataSummary"></div>
+        <button onclick="refreshSummary()">Refresh Summary</button>
+        <button onclick="viewAdminDashboard()">Open Admin Dashboard</button>
+    </div>
+
+    <div class="test-section">
+        <h2>Verification Tests</h2>
+        <div id="testResults"></div>
+        <button onclick="runTests()">Run All Tests</button>
+    </div>
+
+    <script>
+        const USERS_KEY = 'learncraft_users';
+        const AI_REQUESTS_KEY = 'learncraft_ai_requests';
+
+        function generateSampleUsers() {
+            const users = [];
+            const fields = ['Civil Engineering - Structural', 'Civil Engineering - Geotechnical', 
+                          'Mechanical Engineering', 'Electrical Engineering', 'Aerospace Engineering'];
+            
+            for (let i = 0; i < 5; i++) {
+                const daysAgo = Math.floor(Math.random() * 7);
+                const createdDate = new Date();
+                createdDate.setDate(createdDate.getDate() - daysAgo);
+                
+                const user = {
+                    email: `testuser${i+1}@example.com`,
+                    password: 'test123',
+                    createdAt: createdDate.toISOString(),
+                    lastActive: new Date().toISOString(),
+                    selectedField: fields[i % fields.length],
+                    completedCourses: i % 2 === 0 ? ['Foundations', 'Structures'] : [],
+                    aiUsageCount: Math.floor(Math.random() * 10) + 1,
+                    isPremium: i === 0
+                };
+                users.push(user);
+            }
+            
+            localStorage.setItem(USERS_KEY, JSON.stringify(users));
+            alert('✅ Generated 5 sample users');
+            refreshSummary();
+        }
+
+        function generateAIRequests() {
+            const users = JSON.parse(localStorage.getItem(USERS_KEY)) || [];
+            if (users.length === 0) {
+                alert('⚠️ Generate users first!');
+                return;
+            }
+
+            const requests = [];
+            const questions = [
+                'What is structural engineering?',
+                'Explain beam deflection',
+                'How do I calculate loads?',
+                'What is moment of inertia?',
+                'Tell me about concrete design'
+            ];
+
+            for (let i = 0; i < 20; i++) {
+                const hoursAgo = Math.floor(Math.random() * 24);
+                const timestamp = new Date();
+                timestamp.setHours(timestamp.getHours() - hoursAgo);
+                
+                const request = {
+                    userEmail: users[i % users.length].email,
+                    message: questions[Math.floor(Math.random() * questions.length)],
+                    timestamp: timestamp.toISOString(),
+                    responseGenerated: true
+                };
+                requests.push(request);
+            }
+            
+            localStorage.setItem(AI_REQUESTS_KEY, JSON.stringify(requests));
+            alert('✅ Generated 20 AI requests');
+            refreshSummary();
+        }
+
+        function clearAllData() {
+            if (confirm('Clear all test data?')) {
+                localStorage.removeItem(USERS_KEY);
+                localStorage.removeItem(AI_REQUESTS_KEY);
+                alert('✅ All data cleared');
+                refreshSummary();
+            }
+        }
+
+        function refreshSummary() {
+            const users = JSON.parse(localStorage.getItem(USERS_KEY)) || [];
+            const aiRequests = JSON.parse(localStorage.getItem(AI_REQUESTS_KEY)) || [];
+            
+            const todayStart = new Date();
+            todayStart.setHours(0, 0, 0, 0);
+            
+            const aiToday = aiRequests.filter(r => 
+                new Date(r.timestamp) >= todayStart
+            ).length;
+            
+            const fieldCounts = {};
+            users.forEach(u => {
+                const field = u.selectedField || 'Not selected';
+                fieldCounts[field] = (fieldCounts[field] || 0) + 1;
+            });
+
+            document.getElementById('dataSummary').innerHTML = `
+                <div class="result">
+                    <strong>📊 Total Users:</strong> ${users.length}<br>
+                    <strong>🤖 Total AI Requests:</strong> ${aiRequests.length}<br>
+                    <strong>📅 AI Requests Today:</strong> ${aiToday}<br>
+                    <strong>💎 Premium Users:</strong> ${users.filter(u => u.isPremium).length}<br>
+                    <br>
+                    <strong>🎯 Field Distribution:</strong><br>
+                    <pre>${JSON.stringify(fieldCounts, null, 2)}</pre>
+                </div>
+            `;
+        }
+
+        function viewAdminDashboard() {
+            window.open('admin-dashboard.html', '_blank');
+        }
+
+        function runTests() {
+            const users = JSON.parse(localStorage.getItem(USERS_KEY)) || [];
+            const aiRequests = JSON.parse(localStorage.getItem(AI_REQUESTS_KEY)) || [];
+            
+            const results = [];
+            
+            // Test 1: Users array exists
+            if (Array.isArray(users)) {
+                results.push('✅ Users array is valid');
+            } else {
+                results.push('❌ Users array is invalid');
+            }
+            
+            // Test 2: AI requests array exists
+            if (Array.isArray(aiRequests)) {
+                results.push('✅ AI requests array is valid');
+            } else {
+                results.push('❌ AI requests array is invalid');
+            }
+            
+            // Test 3: Users have createdAt
+            const hasCreatedAt = users.every(u => u.createdAt);
+            if (hasCreatedAt || users.length === 0) {
+                results.push('✅ All users have createdAt timestamp');
+            } else {
+                results.push('❌ Some users missing createdAt');
+            }
+            
+            // Test 4: AI requests have timestamp
+            const hasTimestamp = aiRequests.every(r => r.timestamp);
+            if (hasTimestamp || aiRequests.length === 0) {
+                results.push('✅ All AI requests have timestamp');
+            } else {
+                results.push('❌ Some AI requests missing timestamp');
+            }
+            
+            // Test 5: Field selections tracked
+            const withFields = users.filter(u => u.selectedField).length;
+            results.push(`ℹ️ ${withFields}/${users.length} users have selected field`);
+            
+            // Test 6: Data consistency
+            const totalAICount = users.reduce((sum, u) => sum + (u.aiUsageCount || 0), 0);
+            results.push(`ℹ️ User AI count sum: ${totalAICount} | Requests logged: ${aiRequests.length}`);
+            
+            document.getElementById('testResults').innerHTML = 
+                results.map(r => `<div class="result">${r}</div>`).join('');
+        }
+
+        // Auto-refresh on load
+        refreshSummary();
+    </script>
+</body>
+</html>

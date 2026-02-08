@@ -557,6 +557,7 @@ Keep responses quick and actionable.`
             userInput.value = '';
 
             saveMessageToChats(message, 'user');
+            trackAIRequest(message); // Track for admin analytics
 
             // Show typing indicator
             const typingDiv = document.createElement('div');
@@ -572,6 +573,34 @@ Keep responses quick and actionable.`
                 addMessage(response, 'ai-message');
                 saveMessageToChats(response, 'admin');
             }, 800);
+        }
+
+        function trackAIRequest(message) {
+            const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
+            if (!currentUser) return;
+
+            const AI_REQUESTS_KEY = 'learncraft_ai_requests';
+            let aiRequests = JSON.parse(localStorage.getItem(AI_REQUESTS_KEY)) || [];
+            
+            const requestData = {
+                userEmail: currentUser.email,
+                message: message,
+                timestamp: new Date().toISOString(),
+                responseGenerated: true
+            };
+
+            aiRequests.push(requestData);
+            localStorage.setItem(AI_REQUESTS_KEY, JSON.stringify(aiRequests));
+
+            // Also update user's AI usage count
+            const users = JSON.parse(localStorage.getItem('learncraft_users')) || [];
+            const userIndex = users.findIndex(u => u.email === currentUser.email);
+            
+            if (userIndex !== -1) {
+                users[userIndex].aiUsageCount = (users[userIndex].aiUsageCount || 0) + 1;
+                users[userIndex].lastActive = new Date().toISOString();
+                localStorage.setItem('learncraft_users', JSON.stringify(users));
+            }
         }
 
         function saveMessageToChats(text, sender) {
