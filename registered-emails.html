@@ -936,26 +936,85 @@
 
     <script>
         // ═══════════════════════════════════════════════════════════
-        // SECURITY CHECK
+        // SECURITY CHECK - WAIT FOR SESSION BEFORE RENDERING
         // ═══════════════════════════════════════════════════════════
 
-        const ADMIN_EMAIL = 'your.email@example.com'; // Change this to your admin email
+        // Your admin email - change this to your actual admin email
+        const ADMIN_EMAIL = 'mukhammadziyo554@gmail.com';
+
+        // Flag to track if we're checking access
+        let accessChecked = false;
+
+        function normalizeEmail(email) {
+            return (email || '').toLowerCase().trim();
+        }
 
         function checkAdminAccess() {
             const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user') || '{}');
-            if (!currentUser.email || currentUser.email !== ADMIN_EMAIL) {
+            const userEmail = currentUser.email;
+
+            console.log('🔍 Access Check:');
+            console.log('  User email:', userEmail);
+            console.log('  Admin email:', ADMIN_EMAIL);
+            console.log('  Match:', normalizeEmail(userEmail) === normalizeEmail(ADMIN_EMAIL));
+
+            // Check if user is logged in
+            if (!userEmail) {
+                console.warn('⚠️ No user session found, redirecting to login...');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1000);
+                return false;
+            }
+
+            // Compare normalized emails (lowercase, trimmed)
+            const normalizedUserEmail = normalizeEmail(userEmail);
+            const normalizedAdminEmail = normalizeEmail(ADMIN_EMAIL);
+
+            if (normalizedUserEmail !== normalizedAdminEmail) {
+                console.error('❌ Access Denied - Not admin email');
                 document.querySelector('.main-content').style.display = 'none';
                 document.getElementById('accessDenied').style.display = 'flex';
                 return false;
             }
+
+            console.log('✅ Access Granted - Admin verified');
             return true;
         }
 
-        // Check access on load
-        window.addEventListener('load', () => {
-            if (!checkAdminAccess()) return;
-            initializePage();
-        });
+        // Wait for session to be ready before checking access
+        function waitForSession() {
+            const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user') || '{}');
+            
+            if (!currentUser.email) {
+                console.log('⏳ Waiting for session to initialize...');
+                // Retry after a short delay
+                setTimeout(waitForSession, 500);
+                return;
+            }
+
+            // Session is ready, check access
+            accessChecked = true;
+            if (checkAdminAccess()) {
+                initializePage();
+            }
+        }
+
+        // Start session check on page load
+        window.addEventListener('load', waitForSession);
+
+        // Also try immediately if DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                if (!accessChecked) {
+                    waitForSession();
+                }
+            });
+        } else {
+            if (!accessChecked) {
+                waitForSession();
+            }
+        }
 
         // ═══════════════════════════════════════════════════════════
         // DATA MANAGEMENT
