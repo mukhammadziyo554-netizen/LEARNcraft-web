@@ -685,103 +685,265 @@
         });
 
         // LOAD DATA
+        const USERS_KEY = 'learncraft_users';
+        const AI_REQUESTS_KEY = 'learncraft_ai_requests';
+
         function loadUsers() {
-            return JSON.parse(localStorage.getItem('learncraft_users')) || [];
+            return JSON.parse(localStorage.getItem(USERS_KEY)) || [];
+        }
+
+        function loadAIRequests() {
+            return JSON.parse(localStorage.getItem(AI_REQUESTS_KEY)) || [];
+        }
+
+        function getAIAnalyticsData() {
+            const users = loadUsers();
+            const aiRequests = loadAIRequests();
+            const now = new Date();
+            const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+
+            // Calculate real metrics
+            const totalRequests = aiRequests.length;
+            const requestsToday = aiRequests.filter(r => 
+                new Date(r.timestamp).getTime() >= todayStart
+            ).length;
+
+            const avgPerUser = users.length > 0 ? Math.round(totalRequests / users.length) : 0;
+
+            // Calculate pro vs free usage
+            const proUsers = users.filter(u => u.isPremium || u.subscription === 'premium');
+            const proRequests = aiRequests.filter(r => {
+                const user = users.find(u => u.email === r.userEmail);
+                return user && (user.isPremium || user.subscription === 'premium');
+            }).length;
+
+            const proUsagePercent = totalRequests > 0 ? Math.round((proRequests / totalRequests) * 100) : 0;
+            const freeUsagePercent = 100 - proUsagePercent;
+
+            // Calculate daily trend (last 7 days)
+            const dailyTrend = calculateDailyTrend(aiRequests, users);
+
+            // Calculate hourly load
+            const hourlyLoad = calculateHourlyLoad(aiRequests);
+
+            return {
+                totalRequests,
+                requestsToday,
+                avgPerUser,
+                proUsagePercent,
+                freeUsagePercent,
+                dailyTrend,
+                hourlyLoad
+            };
+        }
+
+        function calculateDailyTrend(aiRequests, users) {
+            const last7Days = [];
+            const now = new Date();
+            
+            const proUsers = users.filter(u => u.isPremium || u.subscription === 'premium');
+            const proEmails = new Set(proUsers.map(u => u.email));
+
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date(now);
+                date.setDate(date.getDate() - i);
+                const dayStart = new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
+                const dayEnd = dayStart + 24 * 60 * 60 * 1000;
+                
+                const dayRequests = aiRequests.filter(r => {
+                    const timestamp = new Date(r.timestamp).getTime();
+                    return timestamp >= dayStart && timestamp < dayEnd;
+                });
+
+                const proCount = dayRequests.filter(r => proEmails.has(r.userEmail)).length;
+                const freeCount = dayRequests.length - proCount;
+                
+                last7Days.push({ pro: proCount, free: freeCount });
+            }
+            
+            return last7Days;
+        }
+
+        function calculateHourlyLoad(aiRequests) {
+            const hourly = new Array(24).fill(0);
+            const now = new Date();
+            const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+            
+            aiRequests.forEach(req => {
+                const reqTime = new Date(req.timestamp);
+                if (reqTime.getTime() >= todayStart) {
+                    const hour = reqTime.getHours();
+                    hourly[hour]++;
+                }
+            });
+            
+            return hourly;
         }
 
         function populateSummaryCards() {
-            const users = loadUsers();
-            const totalUsers = users.length;
-            const totalRequests = totalUsers * 45;
-            const requestsToday = totalUsers * 12;
-            const avgPerUser = totalUsers > 0 ? Math.floor(totalRequests / totalUsers) : 0;
-            const proUsage = 65;
-            const freeUsage = 35;
+            const data = getAIAnalyticsData();
 
-            document.getElementById('totalRequests').textContent = totalRequests.toLocaleString();
-            document.getElementById('requestsToday').textContent = requestsToday;
-            document.getElementById('avgPerUser').textContent = avgPerUser;
-            document.getElementById('proUsage').textContent = proUsage + '%';
-            document.getElementById('freeUsage').textContent = freeUsage + '%';
+            document.getElementById('totalRequests').textContent = data.totalRequests.toLocaleString();
+            document.getElementById('requestsToday').textContent = data.requestsToday;
+            document.getElementById('avgPerUser').textContent = data.avgPerUser;
+            document.getElementById('proUsage').textContent = data.proUsagePercent + '%';
+            document.getElementById('freeUsage').textContent = data.freeUsagePercent + '%';
         }
 
-        // AI REQUEST TREND CHART
-        new Chart(document.getElementById('requestTrendChart'), {
-            type: 'line',
-            data: {
-                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                datasets: [
-                    {
-                        label: 'Pro Users',
-                        data: [85, 92, 88, 105, 98, 110, 102],
-                        borderColor: '#FFD700',
-                        backgroundColor: 'rgba(255, 215, 0, 0.1)',
-                        tension: 0.4,
-                        fill: true
-                    },
-                    {
-                        label: 'Free Users',
-                        data: [45, 52, 48, 55, 51, 58, 54],
-                        borderColor: '#60a5fa',
-                        backgroundColor: 'rgba(96, 165, 250, 0.1)',
-                        tension: 0.4,
-                        fill: true
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'top',
-                        labels: { font: { size: 11 }, padding: 12 }
-                    }
-                },
-                scales: {
-                    y: { beginAtZero: true, grid: { color: '#222' } },
-                    x: { grid: { display: false } }
-                }
-            }
-        });
+        // CHARTS
+        let requestTrendChart, hourlyLoadChart;
 
-        // HOURLY LOAD CHART
-        new Chart(document.getElementById('hourlyLoadChart'), {
-            type: 'bar',
-            data: {
-                labels: ['00', '02', '04', '06', '08', '10', '12', '14', '16', '18', '20', '22'],
-                datasets: [{
-                    label: 'AI Requests',
-                    data: [12, 8, 5, 15, 35, 55, 85, 92, 88, 78, 45, 25],
-                    backgroundColor: '#FFD700'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    y: { beginAtZero: true, grid: { color: '#222' } },
-                    x: { grid: { display: false } }
+        function initializeCharts() {
+            const data = getAIAnalyticsData();
+
+            // AI REQUEST TREND CHART (Last 7 Days)
+            const proData = data.dailyTrend.map(d => d.pro);
+            const freeData = data.dailyTrend.map(d => d.free);
+            const hasData = proData.some(v => v > 0) || freeData.some(v => v > 0);
+
+            requestTrendChart = new Chart(document.getElementById('requestTrendChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [
+                        {
+                            label: 'Pro Users',
+                            data: proData,
+                            borderColor: '#FFD700',
+                            backgroundColor: 'rgba(255, 215, 0, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Free Users',
+                            data: freeData,
+                            borderColor: '#60a5fa',
+                            backgroundColor: 'rgba(96, 165, 250, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: { font: { size: 11 }, padding: 12 }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return hasData ? `${context.dataset.label}: ${context.parsed.y}` : 'No data';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { 
+                            beginAtZero: true, 
+                            grid: { color: '#222' },
+                            ticks: { stepSize: 1 }
+                        },
+                        x: { grid: { display: false } }
+                    }
                 }
+            });
+
+            // HOURLY LOAD CHART
+            const hourLabels = [];
+            const hourData = [];
+            for (let i = 0; i < 24; i += 2) {
+                hourLabels.push(i.toString().padStart(2, '0'));
+                hourData.push(data.hourlyLoad[i]);
             }
-        });
+
+            const hasHourlyData = hourData.some(v => v > 0);
+
+            hourlyLoadChart = new Chart(document.getElementById('hourlyLoadChart'), {
+                type: 'bar',
+                data: {
+                    labels: hourLabels,
+                    datasets: [{
+                        label: 'AI Requests',
+                        data: hourData,
+                        backgroundColor: '#FFD700'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return hasHourlyData ? `Requests: ${context.parsed.y}` : 'No requests';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { 
+                            beginAtZero: true, 
+                            grid: { color: '#222' },
+                            ticks: { stepSize: 1 }
+                        },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
 
         // POPULATE AI USAGE TABLE
         function populateAIUsageTable() {
             const users = loadUsers();
+            const aiRequests = loadAIRequests();
             const tbody = document.getElementById('aiUsageTableBody');
             tbody.innerHTML = '';
 
-            users.forEach((user, index) => {
+            const now = new Date();
+            const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+            const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
+
+            users.forEach((user) => {
                 const row = document.createElement('tr');
-                const plan = Math.random() > 0.75 ? 'pro' : 'free';
-                const requestsToday = Math.floor(Math.random() * 30);
-                const requestsMonth = Math.floor(Math.random() * 500) + 100;
-                const totalRequests = Math.floor(Math.random() * 2000) + 500;
-                const avgPromptLength = Math.floor(Math.random() * 150) + 50;
-                const lastUsed = Math.floor(Math.random() * 12) + 'h ago';
+                const isPro = user.isPremium || user.subscription === 'premium';
+                const plan = isPro ? 'pro' : 'free';
+                
+                // Calculate real request counts
+                const userRequests = aiRequests.filter(r => r.userEmail === user.email);
+                const requestsToday = userRequests.filter(r => 
+                    new Date(r.timestamp).getTime() >= todayStart
+                ).length;
+                const requestsMonth = userRequests.filter(r => 
+                    new Date(r.timestamp).getTime() >= monthStart
+                ).length;
+                const totalRequests = userRequests.length;
+
+                // Calculate average prompt length
+                const avgPromptLength = userRequests.length > 0 
+                    ? Math.round(userRequests.reduce((sum, r) => sum + (r.message?.length || 0), 0) / userRequests.length)
+                    : 0;
+
+                // Calculate last used
+                const lastRequest = userRequests.sort((a, b) => 
+                    new Date(b.timestamp) - new Date(a.timestamp)
+                )[0];
+                
+                let lastUsed = 'Never';
+                if (lastRequest) {
+                    const minutesAgo = Math.floor((now - new Date(lastRequest.timestamp)) / (1000 * 60));
+                    if (minutesAgo < 60) {
+                        lastUsed = `${minutesAgo}m ago`;
+                    } else if (minutesAgo < 1440) {
+                        lastUsed = `${Math.floor(minutesAgo / 60)}h ago`;
+                    } else {
+                        lastUsed = `${Math.floor(minutesAgo / 1440)}d ago`;
+                    }
+                }
 
                 row.innerHTML = `
                     <td>${user.email}</td>
@@ -826,6 +988,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             populateSummaryCards();
             populateAIUsageTable();
+            initializeCharts();
         });
     </script>
 </body>
