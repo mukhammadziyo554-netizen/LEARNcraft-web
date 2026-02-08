@@ -546,6 +546,11 @@
             position: relative;
             cursor: pointer;
             transition: background 0.3s ease;
+            pointer-events: auto !important;
+            z-index: 10003 !important;
+            padding: 0;
+            margin: 0;
+            outline: none;
         }
 
         .theme-toggle::after {
@@ -559,6 +564,7 @@
             left: 2px;
             transition: all 0.3s ease;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            pointer-events: none;
         }
 
         .theme-toggle.active::after {
@@ -4560,7 +4566,7 @@
                 <span class="lang-separator">|</span>
                 <span class="lang-option" data-lang="uz">UZ</span>
             </div>
-            <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme"></button>
+            <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme" type="button"></button>
             <button id="signInBtn" class="signin-btn" onclick="window.location.href='login.html'" data-i18n="nav.signIn">Sign In</button>
             <div id="userAccount" class="user-account" style="display: none;">
                 <div id="userCircle" class="user-circle">U</div>
@@ -5127,27 +5133,48 @@
         // Theme Toggle Setup
         function setupThemeToggle() {
             const themeToggle = document.getElementById('themeToggle');
-            if (!themeToggle) return;
-
-            // Initialize theme toggle state
-            if (window.LearnCraftTheme && window.LearnCraftTheme.getCurrent() === 'light') {
-                themeToggle.classList.add('active');
+            if (!themeToggle) {
+                console.warn('Theme toggle button not found');
+                return;
             }
 
-            // Theme toggle click handler
-            themeToggle.addEventListener('click', () => {
+            console.log('✅ Setting up theme toggle...');
+
+            // Wait for LearnCraftTheme to be available
+            function ensureThemeManager() {
+                if (!window.LearnCraftTheme) {
+                    console.warn('LearnCraftTheme not ready, retrying...');
+                    setTimeout(ensureThemeManager, 100);
+                    return;
+                }
+                
+                // Initialize button state
+                const current = window.LearnCraftTheme.getCurrent();
+                console.log('Current theme:', current);
+                if (current === 'light') {
+                    themeToggle.classList.add('active');
+                } else {
+                    themeToggle.classList.remove('active');
+                }
+            }
+
+            ensureThemeManager();
+
+            // Add click handler with proper event handling
+            themeToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('🎨 Click detected on theme toggle');
                 if (window.LearnCraftTheme) {
                     const isLight = window.LearnCraftTheme.toggle();
-                    console.log('Theme toggled to:', isLight ? 'light' : 'dark');
-                    if (isLight) {
-                        themeToggle.classList.add('active');
-                    } else {
-                        themeToggle.classList.remove('active');
-                    }
+                    themeToggle.classList.toggle('active', isLight);
+                    console.log('✅ Theme switched to:', isLight ? 'light' : 'dark');
                 } else {
                     console.error('LearnCraftTheme not available');
                 }
-            });
+            }, false);
+
+            console.log('✅ Theme toggle ready');
         }
 
         // Setup theme toggle when DOM is ready
