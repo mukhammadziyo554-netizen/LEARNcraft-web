@@ -581,6 +581,14 @@
             font-size: 22px;
             cursor: pointer;
             margin-right: 18px;
+            pointer-events: auto;
+            z-index: 10004;
+            padding: 5px;
+            margin: 0;
+        }
+        
+        .burger-btn:active {
+            opacity: 0.8;
         }
 
         /* SIDEBAR */
@@ -5103,31 +5111,59 @@
         const collapseBtn = document.getElementById('collapseBtn');
         const overlay = document.getElementById('overlay');
 
-        if (burgerBtn && sidebar) {
-            burgerBtn.onclick = () => {
-                sidebar.classList.add('active');
-                if (overlay) overlay.classList.add('show');
-            };
-        }
+        // Initialize navigation when DOM is ready
+        function initializeNavigation() {
+            const burgerBtn = document.getElementById('burgerBtn');
+            const sidebar = document.getElementById('sidebar');
+            const collapseBtn = document.getElementById('collapseBtn');
+            const overlay = document.getElementById('overlay');
 
-        if (collapseBtn && sidebar) {
-            collapseBtn.onclick = () => {
-                sidebar.classList.toggle('collapsed');
-            };
-        }
+            if (burgerBtn && sidebar) {
+                burgerBtn.onclick = function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('🍔 Burger button clicked');
+                    sidebar.classList.add('active');
+                    if (overlay) overlay.classList.add('show');
+                };
+                console.log('✅ Burger button handler attached');
+            } else {
+                console.warn('Burger button or sidebar not found');
+            }
 
-        if (overlay && sidebar) {
-            overlay.addEventListener('click', () => {
-                sidebar.classList.remove('active');
-                overlay.classList.remove('show');
-            });
+            if (collapseBtn && sidebar) {
+                collapseBtn.onclick = function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('◀ Collapse button clicked');
+                    sidebar.classList.toggle('collapsed');
+                };
+                console.log('✅ Collapse button handler attached');
+            }
 
-            document.addEventListener('keydown', (event) => {
-                if (event.key === 'Escape') {
+            if (overlay && sidebar) {
+                overlay.addEventListener('click', function() {
+                    console.log('Close sidebar via overlay');
                     sidebar.classList.remove('active');
                     overlay.classList.remove('show');
-                }
-            });
+                });
+
+                document.addEventListener('keydown', function(event) {
+                    if (event.key === 'Escape') {
+                        sidebar.classList.remove('active');
+                        overlay.classList.remove('show');
+                    }
+                });
+                console.log('✅ Overlay handlers attached');
+            }
+        }
+
+        // Run on DOMContentLoaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeNavigation);
+        } else {
+            // DOM is already ready
+            initializeNavigation();
         }
 
         // Theme Toggle Setup
