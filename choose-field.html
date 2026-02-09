@@ -338,8 +338,12 @@
         ];
 
         function selectField(fieldName) {
+            console.log('selectField called with:', fieldName);
+            
             // Check if roadmap is available for this field
             if (activeRoadmapFields.includes(fieldName)) {
+                console.log('Field is active, proceeding...');
+                
                 // Save selected field to localStorage
                 localStorage.setItem('selectedEngineeringField', fieldName);
                 localStorage.setItem('fieldSelectionTime', new Date().toISOString());
@@ -360,6 +364,7 @@
                 
                 // Route to field-specific roadmap page
                 if (fieldName === 'Civil Engineering') {
+                    console.log('Navigating to civil-roadmap.html');
                     window.location.href = 'civil-roadmap.html';
                 } else if (fieldName === 'Mechanical Engineering') {
                     alert('Mechanical roadmap coming soon.');
@@ -367,13 +372,14 @@
                     alert('Electrical roadmap coming soon.');
                 }
             } else {
+                console.log('Field not active:', fieldName);
                 // Show message for unavailable fields
                 alert('Roadmap coming soon for this field.');
             }
         }
 
         // Initialize page and mark locked fields
-        window.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function() {
             const previousField = localStorage.getItem('selectedEngineeringField');
             if (previousField) {
                 console.log('Previously selected field:', previousField);
@@ -383,7 +389,9 @@
             const fieldCards = document.querySelectorAll('.field-card');
             fieldCards.forEach(card => {
                 const fieldNameElement = card.querySelector('.field-name');
-                const fieldName = fieldNameElement ? fieldNameElement.textContent : '';
+                const fieldName = fieldNameElement ? fieldNameElement.textContent.trim() : '';
+                
+                console.log('Checking field:', fieldName, 'Active fields:', activeRoadmapFields);
                 
                 // Only lock cards that are NOT in activeRoadmapFields
                 if (!activeRoadmapFields.includes(fieldName)) {
@@ -399,10 +407,6 @@
                     
                     // Remove click handler from card
                     card.onclick = null;
-                }
-                // For active fields, ensure onclick handler is preserved
-                else if (fieldName === 'Civil Engineering') {
-                    card.onclick = () => selectField('Civil Engineering');
                 }
             });
         });
