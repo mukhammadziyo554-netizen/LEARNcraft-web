@@ -884,6 +884,51 @@
             background: rgba(17, 24, 39, 0.2);
         }
 
+        /* Light mode for chat messages */
+        body.light-mode .chat-messages {
+            background: #FFFFFF;
+        }
+
+        body.light-mode .chat-messages::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        body.light-mode .chat-messages::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        body.light-mode .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        body.light-mode .ai-message .message-content {
+            border-color: #FFD700;
+            background: #FFFFFF;
+            color: #000000;
+        }
+
+        body.light-mode .ai-message .message-content p {
+            color: #000000;
+        }
+
+        body.light-mode .user-message .message-content {
+            background: rgba(255, 215, 0, 0.15);
+            border-color: rgba(255, 215, 0, 0.5);
+            color: #000000;
+        }
+
+        body.light-mode .user-message .message-content p {
+            color: #000000;
+        }
+
+        body.light-mode .message-content ul {
+            color: #000000;
+        }
+
+        body.light-mode .message-content li {
+            color: #000000;
+        }
+
         /* TELEGRAM MINI APP NAVIGATION - Hidden by default */
         .tg-mini-app-nav {
             display: none !important;
