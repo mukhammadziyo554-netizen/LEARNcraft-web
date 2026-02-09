@@ -509,32 +509,102 @@
 
         /* LANGUAGE SWITCHER */
         .language-switcher {
+            position: relative;
+            margin-right: 16px;
+        }
+
+        .lang-current {
+            width: 36px;
+            height: 32px;
             display: flex;
             align-items: center;
-            gap: 6px;
-            margin-right: 16px;
-            font-size: 13px;
-            font-weight: 600;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-current:hover {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        body.light-mode .lang-current {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: rgba(0, 0, 0, 0.1);
+            color: #000000;
+        }
+
+        body.light-mode .lang-current:hover {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        .lang-dropdown {
+            position: absolute;
+            top: 38px;
+            right: 0;
+            background: #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            padding: 4px;
+            display: none;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 60px;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .lang-dropdown.show {
+            display: flex;
+        }
+
+        body.light-mode .lang-dropdown {
+            background: #ffffff;
+            border-color: rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .lang-option {
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 600;
             cursor: pointer;
-            transition: color 0.2s ease;
-            padding: 4px 2px;
+            transition: all 0.2s ease;
+            border-radius: 4px;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .lang-option:hover {
+            background: rgba(255, 215, 0, 0.1);
+            color: #FFD700;
         }
 
         .lang-option.active {
+            background: rgba(255, 215, 0, 0.15);
             color: #FFD700;
             font-weight: 700;
         }
 
-        .lang-separator {
-            color: #666;
-            user-select: none;
+        body.light-mode .lang-option {
+            color: #000000;
         }
 
-        body.light-mode .lang-separator {
-            color: #999;
+        body.light-mode .lang-option:hover {
+            background: rgba(255, 215, 0, 0.1);
+            color: #FFD700;
+        }
+
+        body.light-mode .lang-option.active {
+            background: rgba(255, 215, 0, 0.15);
+            color: #FFD700;
         }
 
         .theme-toggle {
@@ -4652,11 +4722,12 @@
 
         <div class="right-group">
             <div class="language-switcher" id="langSwitcher">
-                <span class="lang-option active" data-lang="en">EN</span>
-                <span class="lang-separator">|</span>
-                <span class="lang-option" data-lang="ru">RU</span>
-                <span class="lang-separator">|</span>
-                <span class="lang-option" data-lang="uz">UZ</span>
+                <div class="lang-current" id="langCurrent">EN</div>
+                <div class="lang-dropdown" id="langDropdown">
+                    <span class="lang-option active" data-lang="en">EN</span>
+                    <span class="lang-option" data-lang="ru">RU</span>
+                    <span class="lang-option" data-lang="uz">UZ</span>
+                </div>
             </div>
             <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme" type="button"></button>
             <button id="signInBtn" class="signin-btn" onclick="window.location.href='login.html'" data-i18n="nav.signIn">Sign In</button>
@@ -6176,10 +6247,14 @@
             const langSwitcher = document.getElementById('langSwitcher');
             if (!langSwitcher) return;
 
+            const langCurrent = document.getElementById('langCurrent');
+            const langDropdown = document.getElementById('langDropdown');
             const langOptions = langSwitcher.querySelectorAll('.lang-option');
             
             // Set initial active language
             const currentLang = LearnCraftI18n.getLanguage();
+            langCurrent.textContent = currentLang.toUpperCase();
+            
             langOptions.forEach(option => {
                 if (option.dataset.lang === currentLang) {
                     option.classList.add('active');
@@ -6188,14 +6263,34 @@
                 }
             });
 
-            // Add click handlers
+            // Toggle dropdown on click
+            langCurrent.addEventListener('click', (e) => {
+                e.stopPropagation();
+                langDropdown.classList.toggle('show');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!langSwitcher.contains(e.target)) {
+                    langDropdown.classList.remove('show');
+                }
+            });
+
+            // Add click handlers for language options
             langOptions.forEach(option => {
-                option.addEventListener('click', () => {
+                option.addEventListener('click', (e) => {
+                    e.stopPropagation();
                     const newLang = option.dataset.lang;
                     
                     // Update active state
                     langOptions.forEach(opt => opt.classList.remove('active'));
                     option.classList.add('active');
+                    
+                    // Update current language display
+                    langCurrent.textContent = newLang.toUpperCase();
+                    
+                    // Close dropdown
+                    langDropdown.classList.remove('show');
                     
                     // Change language
                     LearnCraftI18n.setLanguage(newLang);
