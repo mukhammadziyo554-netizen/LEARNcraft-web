@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Stage 5 — Professional Skills | LEARNcraft</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark">
+
+<header class="topbar">
+  <div class="topbar-container">
+    <button onclick="window.history.back()" class="back-nav">← Back</button>
+    <span class="topbar-title">LEARNcraft</span>
+    <div style="width: 50px;"></div>
+  </div>
+</header>
+
+<section class="hero small">
+  <div class="hero-content">
+    <div class="breadcrumb">Civil Engineering</div>
+    <h1>Stage 5 — Professional Skills</h1>
+    <p>Develop communication, teamwork, and professional development skills essential for civil engineering careers.</p>
+    <button class="start-stage-btn" onclick="startStage()">START STAGE & TRACK PROGRESS</button>
+  </div>
+</section>
+
+<section id="progressSection" class="hidden">
+
+  <div class="progress-dashboard">
+    <div class="stat-card">
+      <h3>Weekly Completion</h3>
+      <p id="weeklyPercent" class="stat-value">0%</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>Stage Progress</h3>
+      <p id="stagePercent" class="stat-value">0%</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>Study Streak</h3>
+      <p class="stat-value"><span id="streakCount">0</span> days</p>
+    </div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar-track">
+      <div id="progressFill" class="progress-bar-fill"></div>
+    </div>
+    <div class="progress-label">
+      <span id="progressPercent">0%</span> Complete
+    </div>
+  </div>
+
+  <section class="study-roadmap">
+    <h2>Professional Skills Development</h2>
+    <p class="roadmap-sub">Master the soft skills and professional practices that define successful engineers</p>
+
+    <div class="week-card">
+      <h3>Week 1 — Communication & Presentation</h3>
+      <ul>
+        <li>Writing technical reports</li>
+        <li>Creating effective presentations</li>
+        <li>Technical writing standards</li>
+        <li>Presenting to stakeholders</li>
+      </ul>
+      <p class="week-goal">Goal: Communicate technical ideas clearly</p>
+    </div>
+
+    <div class="week-card">
+      <h3>Week 2 — Teamwork & Collaboration</h3>
+      <ul>
+        <li>Working in multidisciplinary teams</li>
+        <li>Project management basics</li>
+        <li>Conflict resolution</li>
+        <li>Leadership skills</li>
+      </ul>
+      <p class="week-goal">Goal: Develop team collaboration skills</p>
+    </div>
+
+    <div class="week-card">
+      <h3>Week 3 — Ethics & Professional Practice</h3>
+      <ul>
+        <li>Professional engineering ethics</li>
+        <li>Safety and liability</li>
+        <li>Sustainability in engineering</li>
+        <li>Regulatory compliance</li>
+      </ul>
+      <p class="week-goal">Goal: Understand professional responsibilities</p>
+    </div>
+
+    <div class="week-card">
+      <h3>Week 4 — Career Development</h3>
+      <ul>
+        <li>Networking strategies</li>
+        <li>Building your professional portfolio</li>
+        <li>Interview preparation</li>
+        <li>Continuous learning and certification</li>
+      </ul>
+      <p class="week-goal">Goal: Prepare for engineering careers</p>
+    </div>
+  </section>
+
+  <div class="tracker-wrapper">
+    <div class="tracker-header">
+      <h2>Weekly Learning Schedule</h2>
+      <p>Check off tasks as you complete them each day</p>
+    </div>
+
+    <table class="tracker-table">
+      <thead>
+        <tr>
+          <th>Task</th>
+          <th>Mon</th><th>Tue</th><th>Wed</th>
+          <th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="task-name">Communication Practice</td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+        </tr>
+
+        <tr>
+          <td class="task-name">Team Exercises</td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+        </tr>
+
+        <tr>
+          <td class="task-name">Ethics Study</td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+        </tr>
+
+        <tr>
+          <td class="task-name">Portfolio Building</td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+        </tr>
+
+        <tr>
+          <td class="task-name">Networking Activities</td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tip-section">
+    <h3>Study Tip</h3>
+    <p>Professional development doesn't stop after graduation. Seek mentorship from experienced engineers, join professional organizations like ASCE, and commit to lifelong learning.</p>
+  </div>
+
+</section>
+
+<script>
+  if (typeof TelegramWebApp !== 'undefined') {
+    const tg = window.Telegram.WebApp;
+    tg.ready();
+    tg.setHeaderColor('#000000');
+    tg.setBackgroundColor('#000000');
+    tg.MainButton.hide();
+  }
+
+  function startStage() {
+    document.getElementById("progressSection").classList.remove("hidden");
+    document.querySelector("section.hero").style.paddingBottom = "20px";
+  }
+
+  const checkboxes = document.querySelectorAll("input[type='checkbox']");
+  checkboxes.forEach(cb => cb.addEventListener("change", updateProgress));
+
+  function updateProgress() {
+    const total = checkboxes.length;
+    let checked = 0;
+    checkboxes.forEach(cb => { if (cb.checked) checked++; });
+
+    const percent = Math.round((checked / total) * 100);
+
+    document.getElementById("stagePercent").textContent = percent + "%";
+    document.getElementById("weeklyPercent").textContent = percent + "%";
+    document.getElementById("progressPercent").textContent = percent + "%";
+    document.getElementById("progressFill").style.width = percent + "%";
+  }
+</script>
+
+</body>
+</html>
