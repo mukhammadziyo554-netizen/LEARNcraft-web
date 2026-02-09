@@ -251,16 +251,18 @@
                     <button class="select-button">Select Field</button>
                 </div>
 
-                <div class="field-card" onclick="selectField('Mechanical Engineering')">
+                <div class="field-card locked">
                     <div class="field-name">Mechanical Engineering</div>
                     <p class="field-description">Study machines, thermodynamics, mechanics, and system design.</p>
-                    <button class="select-button">Select Field</button>
+                    <button class="select-button" disabled>Coming Soon</button>
+                    <div class="coming-soon-label">Roadmap Coming Soon</div>
                 </div>
 
-                <div class="field-card" onclick="selectField('Electrical Engineering')">
+                <div class="field-card locked">
                     <div class="field-name">Electrical Engineering</div>
                     <p class="field-description">Work with circuits, power systems, electronics, and signals.</p>
-                    <button class="select-button">Select Field</button>
+                    <button class="select-button" disabled>Coming Soon</button>
+                    <div class="coming-soon-label">Roadmap Coming Soon</div>
                 </div>
 
                 <div class="field-card" onclick="selectField('Computer Science')">
@@ -332,9 +334,7 @@
 
         // List of fields that have active roadmaps
         const activeRoadmapFields = [
-            "Civil Engineering",
-            "Mechanical Engineering",
-            "Electrical Engineering"
+            "Civil Engineering"
         ];
 
         function selectField(fieldName) {
