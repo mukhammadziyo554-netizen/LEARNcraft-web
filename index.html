@@ -6070,6 +6070,23 @@
             }
         });
 
+        // THEME TOGGLE FUNCTIONALITY
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) {
+            // Load saved theme on page load
+            if (localStorage.getItem('theme') === 'light') {
+                document.body.classList.add('light-mode');
+                themeToggle.classList.add('active');
+            }
+
+            // Toggle theme on button click
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('light-mode');
+                themeToggle.classList.toggle('active');
+                localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+            });
+        }
+
         // Telegram Mini App Viewport Support
         function setAppHeight() {
             const vh = window.innerHeight;
