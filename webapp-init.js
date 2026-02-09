@@ -6,6 +6,35 @@
 // Initialize Telegram WebApp
 const tg = window.Telegram.WebApp;
 
+// Detect if running in Telegram Mini App and setup UI accordingly
+function detectAndSetupTelegramUI() {
+    // Check if we're in Telegram Mini App environment
+    const isTelegramMiniApp = typeof window.Telegram !== 'undefined' && 
+                              window.Telegram.WebApp && 
+                              window.Telegram.WebApp.initDataUnsafe;
+    
+    if (isTelegramMiniApp) {
+        console.log('🤖 Running in Telegram Mini App');
+        // Add class to body to show Telegram-specific UI elements
+        document.documentElement.classList.add('tg-mini-app-show');
+        
+        // Hide web-only elements if needed
+        const mainNav = document.querySelector('.main-nav');
+        const topbarRightGroup = document.querySelector('.right-group');
+        if (mainNav) mainNav.style.display = 'none';
+        if (topbarRightGroup) topbarRightGroup.style.display = 'none';
+    } else {
+        console.log('📱 Running as web app');
+    }
+}
+
+// Call detection on DOM ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', detectAndSetupTelegramUI);
+} else {
+    detectAndSetupTelegramUI();
+}
+
 // When the web app is ready
 window.addEventListener('load', function() {
     // Signal to Telegram that the app is ready
