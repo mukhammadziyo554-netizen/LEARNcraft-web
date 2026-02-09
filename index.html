@@ -552,13 +552,13 @@
             background: #1a1a1a;
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 6px;
-            padding: 4px;
+            padding: 6px;
             display: none;
             flex-direction: column;
-            gap: 2px;
-            min-width: 60px;
+            gap: 4px;
+            min-width: 80px;
             z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
         }
 
         .lang-dropdown.show {
@@ -567,44 +567,48 @@
 
         body.light-mode .lang-dropdown {
             background: #ffffff;
-            border-color: rgba(0, 0, 0, 0.1);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
         }
 
         .lang-option {
-            padding: 6px 12px;
-            font-size: 12px;
+            padding: 8px 14px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
             border-radius: 4px;
             color: #ffffff;
             text-align: center;
+            background: transparent;
         }
 
         .lang-option:hover {
-            background: rgba(255, 215, 0, 0.1);
+            background: rgba(255, 215, 0, 0.15);
             color: #FFD700;
         }
 
         .lang-option.active {
-            background: rgba(255, 215, 0, 0.15);
+            background: rgba(255, 215, 0, 0.2);
             color: #FFD700;
             font-weight: 700;
         }
 
         body.light-mode .lang-option {
             color: #000000;
+            font-weight: 600;
         }
 
         body.light-mode .lang-option:hover {
-            background: rgba(255, 215, 0, 0.1);
-            color: #FFD700;
+            background: rgba(255, 215, 0, 0.2);
+            color: #000000;
+            font-weight: 700;
         }
 
         body.light-mode .lang-option.active {
-            background: rgba(255, 215, 0, 0.15);
-            color: #FFD700;
+            background: rgba(255, 215, 0, 0.25);
+            color: #000000;
+            font-weight: 700;
         }
 
         .theme-toggle {
