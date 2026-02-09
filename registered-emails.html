@@ -800,21 +800,6 @@
             return true;
         }
 
-        const themeToggle = document.getElementById('themeToggle');
-        const savedTheme = localStorage.getItem('admin_theme') || 'dark';
-
-        if (savedTheme === 'light') {
-            document.body.classList.add('light-mode');
-            themeToggle.textContent = '🌙';
-        }
-
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-            const isLight = document.body.classList.contains('light-mode');
-            themeToggle.textContent = isLight ? '🌙' : '☀';
-            localStorage.setItem('admin_theme', isLight ? 'light' : 'dark');
-        });
-
         // ═══════════════════════════════════════════════════════════
         // DATA FUNCTIONS (SAME AS DASHBOARD)
         // ═══════════════════════════════════════════════════════════
@@ -1139,15 +1124,12 @@
             themeToggle.textContent = '🌙';
         } else {
             document.body.classList.remove('light-mode');
-            themeToggle.textContent = '☀';
+            themeToggle.textContent = '🌞';
         }
-
         themeToggle.addEventListener('click', () => {
             document.body.classList.toggle('light-mode');
             const isLight = document.body.classList.contains('light-mode');
-            themeToggle.textContent = isLight ? '🌙' : '☀';
             localStorage.setItem('admin_theme', isLight ? 'light' : 'dark');
+            themeToggle.textContent = isLight ? '🌙' : '🌞';
         });
     </script>
-</body>
-</html>
