@@ -385,24 +385,24 @@
                 const fieldNameElement = card.querySelector('.field-name');
                 const fieldName = fieldNameElement ? fieldNameElement.textContent : '';
                 
+                // Only lock cards that are NOT in activeRoadmapFields
                 if (!activeRoadmapFields.includes(fieldName)) {
                     // Mark as locked
                     card.classList.add('locked');
                     
                     // Update button
                     const button = card.querySelector('.select-button');
-                    button.disabled = true;
-                    button.textContent = 'Coming Soon';
-                    button.onclick = null;
-                    
-                    // Add coming soon label
-                    const comingSoonLabel = document.createElement('div');
-                    comingSoonLabel.className = 'coming-soon-label';
-                    comingSoonLabel.textContent = 'Roadmap Coming Soon';
-                    card.appendChild(comingSoonLabel);
+                    if (button) {
+                        button.disabled = true;
+                        button.textContent = 'Coming Soon';
+                    }
                     
                     // Remove click handler from card
                     card.onclick = null;
+                }
+                // For active fields, ensure onclick handler is preserved
+                else if (fieldName === 'Civil Engineering') {
+                    card.onclick = () => selectField('Civil Engineering');
                 }
             });
         });
