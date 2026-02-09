@@ -12,6 +12,8 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <!-- Global Theme System -->
     <script src="theme.js"></script>
+    <!-- Access Control System -->
+    <script src="access-control.js"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -465,6 +467,51 @@
         const chatMessages = document.getElementById('chatMessages');
         const userInput = document.getElementById('userInput');
 
+        // Check access on page load
+        function checkAIAccess() {
+            const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
+            
+            if (!currentUser) {
+                userInput.disabled = true;
+                userInput.placeholder = 'Please log in to use AI...';
+                const msg = document.createElement('div');
+                msg.className = 'ai-message';
+                msg.style.color = '#ff6b6b';
+                msg.textContent = '⚠️ Please log in to access AI features';
+                chatMessages.appendChild(msg);
+                return;
+            }
+
+            // Check pro access
+            if (!window.accessControl.canAccessAI(currentUser)) {
+                const daysRemaining = window.accessControl.getProTrialDaysRemaining(currentUser);
+                const status = window.accessControl.getAccessStatus('ai', currentUser);
+                
+                userInput.disabled = true;
+                userInput.placeholder = 'Upgrade to Pro to use AI...';
+                
+                const msg = document.createElement('div');
+                msg.className = 'ai-message';
+                msg.style.color = '#ff6b6b';
+                if (daysRemaining && daysRemaining > 0) {
+                    msg.textContent = `⏰ Pro trial active! ${daysRemaining} days remaining.`;
+                } else {
+                    msg.textContent = `📦 ${status.message}`;
+                }
+                chatMessages.appendChild(msg);
+                return;
+            }
+
+            // Founder gets special treatment
+            if (window.accessControl.isFounder(currentUser.email)) {
+                const msg = document.createElement('div');
+                msg.className = 'ai-message';
+                msg.style.color = '#FFD700';
+                msg.textContent = '👑 Welcome Founder! Full access to all AI features.';
+                chatMessages.appendChild(msg);
+            }
+        }
+
         // Load chat history on page load
         function loadChatHistory() {
             const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
@@ -485,6 +532,7 @@
 
         // Load history when page loads
         loadChatHistory();
+        checkAIAccess();
 
         // Auto-scroll on page load
         window.addEventListener('load', scrollToBottom);
@@ -552,6 +600,20 @@ Keep responses quick and actionable.`
         function sendMessage() {
             const message = userInput.value.trim();
             if (message === '') return;
+
+            // Check if user can access AI feature
+            const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
+            if (!currentUser) {
+                addMessage('Please log in to access AI features', 'ai-message');
+                return;
+            }
+
+            // Use access control to check if AI is accessible
+            if (!window.accessControl.canAccessAI(currentUser)) {
+                const status = window.accessControl.getAccessStatus('ai', currentUser);
+                addMessage(`⚠️ ${status.message}`, 'ai-message');
+                return;
+            }
 
             addMessage(message, 'user-message');
             userInput.value = '';
