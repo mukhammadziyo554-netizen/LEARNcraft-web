@@ -17,12 +17,6 @@ function detectAndSetupTelegramUI() {
         console.log('🤖 Running in Telegram Mini App');
         // Add class to body to show Telegram-specific UI elements
         document.documentElement.classList.add('tg-mini-app-show');
-        
-        // Hide web-only elements if needed
-        const mainNav = document.querySelector('.main-nav');
-        const topbarRightGroup = document.querySelector('.right-group');
-        if (mainNav) mainNav.style.display = 'none';
-        if (topbarRightGroup) topbarRightGroup.style.display = 'none';
     } else {
         console.log('📱 Running as web app');
     }

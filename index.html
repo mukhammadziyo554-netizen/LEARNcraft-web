@@ -884,64 +884,14 @@
             background: rgba(17, 24, 39, 0.2);
         }
 
-        /* TELEGRAM MINI APP NAVIGATION */
+        /* TELEGRAM MINI APP NAVIGATION - Hidden by default */
         .tg-mini-app-nav {
             display: none !important;
-            gap: 12px;
-            justify-content: center;
-            align-items: center;
-            padding: 16px 20px;
-            background: rgba(255, 215, 0, 0.08);
-            border: 1px solid rgba(255, 215, 0, 0.15);
-            margin-top: 20px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            border-radius: 8px;
         }
 
-        /* Show only in Telegram mini app - controlled by JS adding tg-mini-app-show class */
+        /* Only show if needed in future - not used for now */
         .tg-mini-app-show .tg-mini-app-nav {
-            display: flex !important;
-        }
-
-        .tg-mini-app-nav button {
-            background: #FFD700;
-            border: none;
-            color: #000000;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: none;
-            text-decoration: none;
-        }
-
-        .tg-mini-app-nav button:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
-            background: #FFED4E;
-        }
-
-        .tg-mini-app-nav button:active {
-            transform: translateY(0);
-            box-shadow: none;
-        }
-
-        body.light-mode .tg-mini-app-nav {
-            background: rgba(255, 215, 0, 0.1);
-            border-color: rgba(255, 215, 0, 0.2);
-        }
-
-        body.light-mode .tg-mini-app-nav button {
-            background: #FFD700;
-            color: #000000;
-            box-shadow: none;
-        }
-
-        body.light-mode .tg-mini-app-nav button:hover {
-            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+            display: none !important;
         }
 
         .hero {
@@ -4670,19 +4620,6 @@
                 Structured topics, guided explanations, real problem-solving,
                 and interactive learning powered by AI.
             </p>
-
-            <!-- Telegram Mini App Navigation -->
-            <div class="tg-mini-app-nav">
-                <button onclick="window.location.href='index.html'" title="Go to Home">
-                    🏠 Home
-                </button>
-                <button onclick="window.location.href='about.html'" title="Learn about us">
-                    ℹ️ About Us
-                </button>
-                <button onclick="window.location.href='#pricing'" title="Upgrade to Pro">
-                    ⭐ LEARNcraft Pro
-                </button>
-            </div>
 
             <div class="hero-buttons">
                 <a href="civil-engineering.html" class="btn-primary" data-i18n="home.startLearning">Start Learning</a>
