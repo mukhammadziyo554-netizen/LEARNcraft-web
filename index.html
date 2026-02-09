@@ -562,7 +562,7 @@
         }
 
         .lang-dropdown.show {
-            display: flex;
+            display: flex !important;
         }
 
         body.light-mode .lang-dropdown {
@@ -4723,7 +4723,7 @@
         <div class="right-group">
             <div class="language-switcher" id="langSwitcher">
                 <div class="lang-current" id="langCurrent">EN</div>
-                <div class="lang-dropdown" id="langDropdown">
+                <div class="lang-dropdown" id="langDropdown" style="display: none;">
                     <span class="lang-option active" data-lang="en">EN</span>
                     <span class="lang-option" data-lang="ru">RU</span>
                     <span class="lang-option" data-lang="uz">UZ</span>
