@@ -929,7 +929,36 @@
             color: #000000;
         }
 
-        /* TELEGRAM MINI APP NAVIGATION - Hidden by default */
+        /* Light mode for chat input area */
+        body.light-mode .chat-input-area {
+            background: #000000;
+        }
+
+        body.light-mode .chat-input-area input {
+            background: #FFFFFF;
+            color: #000000;
+            border-color: rgba(255, 215, 0, 0.6);
+        }
+
+        body.light-mode .chat-input-area input:focus {
+            background: #FFFFFF;
+            color: #000000;
+            border-color: rgba(255, 215, 0, 0.9);
+        }
+
+        body.light-mode .chat-input-area input::placeholder {
+            color: #999999;
+        }
+
+        body.light-mode .chat-input-area .btn-primary {
+            background: #FFD700;
+            color: #000000;
+        }
+
+        body.light-mode .chat-input-area .btn-primary:hover {
+            background: #FFED4E;
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+        }
         .tg-mini-app-nav {
             display: none !important;
         }
