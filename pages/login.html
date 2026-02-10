@@ -440,7 +440,7 @@
     window.addEventListener('DOMContentLoaded', () => {
       const currentUser = localStorage.getItem(CURRENT_USER_KEY);
       if (currentUser) {
-        window.location.href = 'index.html';
+        window.location.href = '../index.html';
       }
     });
 
@@ -476,7 +476,7 @@
         messageEl.textContent = 'Login successful. Redirecting...';
         messageEl.classList.add('show', 'success');
         setTimeout(() => {
-          window.location.href = 'index.html';
+          window.location.href = '../index.html';
         }, 1000);
       } else {
         messageEl.textContent = 'Invalid email or password.';

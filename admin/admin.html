@@ -606,7 +606,7 @@
             <div class="header-actions">
                 <button class="btn" onclick="refreshData()">🔄 Refresh</button>
                 <button class="btn" onclick="exportData()">📥 Export Data</button>
-                <button class="btn" onclick="if (document.referrer && document.referrer !== window.location.href) { window.history.back(); } else { window.location.href = '../pages/index.html'; }">← Back</button>
+                <button class="btn" onclick="if (document.referrer && document.referrer !== window.location.href) { window.history.back(); } else { window.location.href = '../index.html'; }">← Back</button>
             </div>
         </div>
 
@@ -1620,7 +1620,7 @@
         }
         const adminEmail = 'mukhammadziyo554@gmail.com';
         if (!user.email || user.email.toLowerCase() !== adminEmail.toLowerCase()) {
-            window.location.href = '../pages/index.html';
+            window.location.href = '../index.html';
         }
     </script>
 </body>
