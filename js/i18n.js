@@ -137,6 +137,28 @@ const translations = {
             passwordPlaceholder: "Enter your password",
             rememberMe: "Remember me",
             forgotPassword: "Forgot password?"
+        },
+        
+        // AI Chat & Commands
+        ai: {
+            title: "Ask AI Assistant",
+            subtitle: "Get instant help with your civil engineering questions",
+            placeholder: "Ask anything about civil engineering...",
+            send: "Send",
+            thinking: "AI is thinking...",
+            error: "Something went wrong. Please try again.",
+            welcomeMessage: "Hello! I'm your AI assistant for civil engineering. Ask me anything about structures, materials, design, or any topic you're studying.",
+            examplePrompts: "Example questions:",
+            example1: "Explain beam bending theory",
+            example2: "What is the difference between steel and concrete?",
+            example3: "How do I calculate load distribution?",
+            example4: "Explain soil bearing capacity",
+            clearChat: "Clear Chat",
+            newChat: "New Chat",
+            copyResponse: "Copy Response",
+            copied: "Copied!",
+            regenerate: "Regenerate Response",
+            stopGenerating: "Stop Generating"
         }
     },
     
@@ -275,6 +297,28 @@ const translations = {
             passwordPlaceholder: "Введите ваш пароль",
             rememberMe: "Запомнить меня",
             forgotPassword: "Забыли пароль?"
+        },
+        
+        // AI Chat & Commands
+        ai: {
+            title: "Спросить AI Ассистента",
+            subtitle: "Получите мгновенную помощь по вопросам гражданского строительства",
+            placeholder: "Спросите что-нибудь о гражданском строительстве...",
+            send: "Отправить",
+            thinking: "AI думает...",
+            error: "Что-то пошло не так. Пожалуйста, попробуйте снова.",
+            welcomeMessage: "Здравствуйте! Я ваш AI-ассистент по гражданскому строительству. Спрашивайте меня о конструкциях, материалах, проектировании или любой теме, которую вы изучаете.",
+            examplePrompts: "Примеры вопросов:",
+            example1: "Объясните теорию изгиба балок",
+            example2: "В чем разница между сталью и бетоном?",
+            example3: "Как рассчитать распределение нагрузки?",
+            example4: "Объясните несущую способность грунта",
+            clearChat: "Очистить Чат",
+            newChat: "Новый Чат",
+            copyResponse: "Копировать Ответ",
+            copied: "Скопировано!",
+            regenerate: "Сгенерировать Снова",
+            stopGenerating: "Остановить Генерацию"
         }
     },
     
@@ -413,6 +457,28 @@ const translations = {
             passwordPlaceholder: "Parolingizni kiriting",
             rememberMe: "Meni eslab qol",
             forgotPassword: "Parolni unutdingizmi?"
+        },
+        
+        // AI Chat & Commands
+        ai: {
+            title: "AI Yordamchidan So'rash",
+            subtitle: "Qurilish muhandisligi bo'yicha savollaringizga tezkor javob oling",
+            placeholder: "Qurilish muhandisligi haqida biror narsa so'rang...",
+            send: "Yuborish",
+            thinking: "AI o'ylayapti...",
+            error: "Xatolik yuz berdi. Iltimos, qayta urinib ko'ring.",
+            welcomeMessage: "Salom! Men qurilish muhandisligi bo'yicha sizning AI yordamchingizman. Konstruksiyalar, materiallar, loyihalash yoki siz o'rganayotgan har qanday mavzu haqida so'rang.",
+            examplePrompts: "Misol savollar:",
+            example1: "Balka egilish nazariyasini tushuntiring",
+            example2: "Po'lat va betonning farqi nimada?",
+            example3: "Yuk taqsimotini qanday hisoblash kerak?",
+            example4: "Tuproqning ko'tarish qobiliyatini tushuntiring",
+            clearChat: "Chatni Tozalash",
+            newChat: "Yangi Chat",
+            copyResponse: "Javobni Nusxalash",
+            copied: "Nusxalandi!",
+            regenerate: "Qayta Yaratish",
+            stopGenerating: "To'xtatish"
         }
     }
 };
