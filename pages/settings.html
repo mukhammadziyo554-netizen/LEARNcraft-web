@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <title>Settings - LEARNcraft</title>
+    <!-- Global Theme System -->
+    <script src="../theme.js"></script>
+    <style>
+        :root {
+            --app-height: 100vh;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(180deg, #0a0a0f 0%, #0f0f15 100%);
+            color: #ffffff;
+            min-height: var(--app-height);
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        img, video {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            max-width: min(800px, 95vw);
+            margin: 0 auto;
+            padding: clamp(60px, 10vh, 80px) clamp(16px, 4vw, 24px) clamp(40px, 8vh, 60px);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: clamp(40px, 8vw, 60px);
+            padding: clamp(30px, 6vw, 40px) 0;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 7vw, 48px);
+            font-weight: 700;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #ffffff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: clamp(14px, 2.5vw, 18px);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Settings Cards */
+        .settings-section {
+            margin-bottom: 32px;
+        }
+
+        .settings-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        .settings-card h3 {
+            font-size: 20px;
+            margin-bottom: 24px;
+            color: #ffd700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .icon {
+            font-size: 24px;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #ffd700;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 16px;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: #ffd700;
+        }
+
+        /* Toggle Switch */
+        .toggle-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .toggle-group:last-child {
+            border-bottom: none;
+        }
+
+        .toggle-label {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 52px;
+            height: 28px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background: #ffd700;
+        }
+
+        .toggle-switch::before {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #ffffff;
+            top: 3px;
+            left: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-switch.active::before {
+            left: 27px;
+            background: #000;
+        }
+
+        /* Button */
+        .btn-primary {
+            display: inline-block;
+            padding: 14px 40px;
+            background: #ffd700;
+            color: #000;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-family: inherit;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #ffd700;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .settings-card {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button onclick="if (document.referrer && document.referrer !== window.location.href) { history.back(); } else { window.location.href = 'index.html'; }" class="back-btn">← Back</button>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Account Settings</h1>
+            <p>Manage your profile and preferences</p>
+        </section>
+
+        <!-- Profile Settings -->
+        <section class="settings-section">
+            <div class="settings-card">
+                <h3><span class="icon">Profile</span></h3>
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-input" placeholder="Enter your name" value="John Doe">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-input" placeholder="your.email@example.com" value="john@example.com">
+                </div>
+                <button class="btn-primary">Save Changes</button>
+            </div>
+        </section>
+
+        <!-- Language Settings -->
+        <section class="settings-section">
+            <div class="settings-card">
+                <h3><span class="icon">Language</span></h3>
+                <div class="form-group">
+                    <label class="form-label">Preferred Language</label>
+                    <select class="form-select">
+                        <option value="en">English</option>
+                        <option value="ru">Русский</option>
+                        <option value="uz">O'zbek</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Appearance Settings -->
+        <section class="settings-section">
+            <div class="settings-card">
+                <h3><span class="icon">Appearance</span></h3>
+                <div class="toggle-group">
+                    <span class="toggle-label">Dark Mode</span>
+                    <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Notification Settings -->
+        <section class="settings-section">
+            <div class="settings-card">
+                <h3><span class="icon">Notifications</span></h3>
+                <div class="toggle-group">
+                    <span class="toggle-label">Email Updates</span>
+                    <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
+                </div>
+                <div class="toggle-group">
+                    <span class="toggle-label">Community Alerts</span>
+                    <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function toggleSwitch(element) {
+            element.classList.toggle('active');
+        }
+
+        // Telegram Mini App Viewport Support
+        function setAppHeight() {
+            const vh = window.innerHeight;
+            document.documentElement.style.setProperty('--app-height', `${vh}px`);
+        }
+        
+        window.addEventListener('resize', setAppHeight);
+        window.addEventListener('orientationchange', setAppHeight);
+        setAppHeight();
+    </script>
+    <script type="module">
+        import { requireAuth } from "./auth.js";
+        requireAuth();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Usage Analytics - LEARNcraft Admin</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        body.light-mode {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 200px;
+            height: 100vh;
+            background: #000000;
+            border-right: 1px solid #222;
+            padding: 16px 0;
+            z-index: 100;
+        }
+
+        body.light-mode .sidebar {
+            background: #ffffff;
+            border-right-color: #e0e0e0;
+        }
+
+        .sidebar-brand {
+            padding: 0 16px 20px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #FFD700;
+            border-bottom: 1px solid #222;
+            margin-bottom: 12px;
+        }
+
+        body.light-mode .sidebar-brand {
+            border-bottom-color: #e0e0e0;
+        }
+
+        .back-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            margin: 0 0 12px 0;
+            font-size: 13px;
+            font-weight: 600;
+            color: #ffffff;
+            background: transparent;
+            border: 1px solid #333;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        body.light-mode .back-button {
+            color: #000000;
+            border-color: #e0e0e0;
+        }
+
+        .back-button:hover {
+            background: #111;
+            border-color: #FFD700;
+            color: #FFD700;
+        }
+
+        body.light-mode .back-button:hover {
+            background: #f5f5f5;
+            border-color: #FFD700;
+            color: #FFD700;
+        }
+
+        .back-button svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .sidebar-section {
+            margin-bottom: 20px;
+        }
+
+        .sidebar-label {
+            padding: 0 16px;
+            font-size: 10px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .sidebar-item {
+            padding: 8px 16px;
+            font-size: 13px;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: block;
+            text-decoration: none;
+        }
+
+        body.light-mode .sidebar-item {
+            color: #000000;
+        }
+
+        .sidebar-item:hover {
+            background: #111;
+        }
+
+        body.light-mode .sidebar-item:hover {
+            background: #f5f5f5;
+        }
+
+        .sidebar-item.active {
+            background: #FFD700;
+            color: #000000;
+            font-weight: 600;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            margin-left: 200px;
+            min-height: 100vh;
+        }
+
+        /* TOP BAR */
+        .topbar {
+            height: 50px;
+            border-bottom: 1px solid #222;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            background: #000000;
+            z-index: 50;
+        }
+
+        body.light-mode .topbar {
+            background: #ffffff;
+            border-bottom-color: #e0e0e0;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .search-input {
+            width: 280px;
+            height: 32px;
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 6px;
+            padding: 0 12px;
+            color: #ffffff;
+            font-size: 13px;
+        }
+
+        body.light-mode .search-input {
+            background: #f5f5f5;
+            border-color: #e0e0e0;
+            color: #000000;
+        }
+
+        .search-input::placeholder {
+            color: #666;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .theme-toggle-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            border: 1px solid #222;
+            background: #111;
+            color: #FFD700;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body.light-mode .theme-toggle-btn {
+            background: #f5f5f5;
+            border-color: #e0e0e0;
+        }
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .admin-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #FFD700;
+            color: #000000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        /* CONTENT AREA */
+        .content-area {
+            padding: 20px;
+        }
+
+        .page-header {
+            margin-bottom: 20px;
+        }
+
+        .page-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .page-subtitle {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* SUMMARY CARDS */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .summary-card {
+            background: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 8px;
+            padding: 14px;
+        }
+
+        body.light-mode .summary-card {
+            background: #ffffff;
+            border-color: #e0e0e0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .summary-label {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .summary-value {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .summary-change {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .summary-change.positive {
+            color: #4ade80;
+        }
+
+        .summary-change.negative {
+            color: #f87171;
+        }
+
+        /* CHART SECTIONS */
+        .chart-section {
+            background: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        body.light-mode .chart-section {
+            background: #ffffff;
+            border-color: #e0e0e0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .chart-title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .chart-filter {
+            font-size: 12px;
+            padding: 6px 12px;
+            border: 1px solid #222;
+            border-radius: 6px;
+            background: transparent;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        body.light-mode .chart-filter {
+            border-color: #e0e0e0;
+        }
+
+        .chart-container {
+            height: 300px;
+            position: relative;
+        }
+
+        .chart-container.small {
+            height: 200px;
+        }
+
+        /* THREE COLUMN LAYOUT */
+        .three-column {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        /* METRIC CARD WITH PROGRESS BAR */
+        .metric-card {
+            background: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 8px;
+            padding: 14px;
+        }
+
+        body.light-mode .metric-card {
+            background: #ffffff;
+            border-color: #e0e0e0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .metric-label {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-value {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .metric-bar {
+            height: 6px;
+            background: #222;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        body.light-mode .metric-bar {
+            background: #e0e0e0;
+        }
+
+        .metric-bar-fill {
+            height: 100%;
+            background: #FFD700;
+            transition: width 0.3s ease;
+        }
+
+        /* TABLE */
+        .data-table {
+            background: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        body.light-mode .data-table {
+            background: #ffffff;
+            border-color: #e0e0e0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .table-controls {
+            padding: 12px;
+            border-bottom: 1px solid #222;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        body.light-mode .table-controls {
+            border-bottom-color: #e0e0e0;
+        }
+
+        .table-search {
+            flex: 1;
+            height: 32px;
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 6px;
+            padding: 0 12px;
+            color: #ffffff;
+            font-size: 13px;
+        }
+
+        body.light-mode .table-search {
+            background: #f5f5f5;
+            border-color: #e0e0e0;
+            color: #000000;
+        }
+
+        .table-filter {
+            height: 32px;
+            padding: 0 12px;
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        body.light-mode .table-filter {
+            background: #f5f5f5;
+            border-color: #e0e0e0;
+            color: #000000;
+        }
+
+        .data-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 10px 12px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #222;
+        }
+
+        body.light-mode .data-table th {
+            border-bottom-color: #e0e0e0;
+        }
+
+        .data-table td {
+            padding: 10px 12px;
+            font-size: 13px;
+            border-bottom: 1px solid #111;
+        }
+
+        body.light-mode .data-table td {
+            border-bottom-color: #f5f5f5;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-badge.pro {
+            background: rgba(255, 215, 0, 0.2);
+            color: #FFD700;
+        }
+
+        .status-badge.free {
+            background: rgba(96, 165, 250, 0.2);
+            color: #60a5fa;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 60px;
+            }
+
+            .main-content {
+                margin-left: 60px;
+            }
+
+            .sidebar-brand,
+            .sidebar-label,
+            .sidebar-item span {
+                display: none;
+            }
+
+            .three-column {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-brand">LEARNcraft</div>
+        
+        <a href="../admin/admin-dashboard.html" class="back-button">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            Back to Dashboard
+        </a>
+        
+        <div class="sidebar-section">
+            <div class="sidebar-label">Main</div>
+            <a href="../admin/admin-dashboard.html" class="sidebar-item">Dashboard</a>
+            <a href="../utils/user-analytics.html" class="sidebar-item">User Analytics</a>
+            <a href="ai-usage.html" class="sidebar-item active">AI Usage</a>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-label">Content</div>
+            <a href="../utils/course-analytics.html" class="sidebar-item">Courses Analytics</a>
+            <a href="../utils/subscriptions.html" class="sidebar-item">Subscriptions</a>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-label">Data</div>
+            <a href="#" class="sidebar-item">Registered Emails</a>
+            <a href="#" class="sidebar-item">Activity Logs</a>
+            <a href="#" class="sidebar-item">Screen Time</a>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-label">System</div>
+            <a href="#" class="sidebar-item">System Health</a>
+            <a href="#" class="sidebar-item">Admin Settings</a>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <!-- TOP BAR -->
+        <div class="topbar">
+            <div class="topbar-left">
+                <input type="text" class="search-input" placeholder="Search...">
+            </div>
+            <div class="topbar-right">
+                <button class="theme-toggle-btn" id="themeToggle">☀</button>
+                <div class="admin-profile">
+                    <div class="admin-avatar">A</div>
+                    <span id="adminEmail">Admin</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTENT AREA -->
+        <div class="content-area">
+            <!-- PAGE HEADER -->
+            <div class="page-header">
+                <div class="page-title">AI Usage Analytics</div>
+                <div class="page-subtitle">Monitor AI requests, usage patterns, and subscription impact.</div>
+            </div>
+
+            <!-- SUMMARY CARDS -->
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <div class="summary-label">Total AI Requests (All Time)</div>
+                    <div class="summary-value" id="totalRequests">0</div>
+                    <div class="summary-change positive">+35%</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-label">AI Requests Today</div>
+                    <div class="summary-value" id="requestsToday">0</div>
+                    <div class="summary-change positive">+28%</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-label">Average Requests Per User</div>
+                    <div class="summary-value" id="avgPerUser">0</div>
+                    <div class="summary-change positive">+5%</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-label">Pro AI Usage %</div>
+                    <div class="summary-value" id="proUsage">0%</div>
+                    <div class="summary-change positive">+8%</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-label">Free AI Usage %</div>
+                    <div class="summary-value" id="freeUsage">0%</div>
+                    <div class="summary-change negative">-3%</div>
+                </div>
+            </div>
+
+            <!-- AI REQUEST TREND -->
+            <div class="chart-section">
+                <div class="chart-header">
+                    <div class="chart-title">AI Request Trend</div>
+                    <select class="chart-filter" id="trendFilter">
+                        <option value="today">Today</option>
+                        <option value="7days" selected>Last 7 Days</option>
+                        <option value="30days">Last 30 Days</option>
+                    </select>
+                </div>
+                <div class="chart-container">
+                    <canvas id="requestTrendChart"></canvas>
+                </div>
+            </div>
+
+            <!-- AI LOAD DISTRIBUTION -->
+            <div class="chart-section">
+                <div class="chart-header">
+                    <div class="chart-title">AI Load Distribution (Hourly)</div>
+                    <div style="font-size: 11px; color: #666;">Peak usage hours: 12:00 - 18:00</div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="hourlyLoadChart"></canvas>
+                </div>
+            </div>
+
+            <!-- AI COST & SYSTEM LOAD -->
+            <div class="three-column">
+                <div class="metric-card">
+                    <div class="metric-label">Estimated Monthly AI Cost</div>
+                    <div class="metric-value">$2,450</div>
+                    <div class="metric-bar"><div class="metric-bar-fill" style="width: 65%"></div></div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Avg Response Time</div>
+                    <div class="metric-value">1.2s</div>
+                    <div class="metric-bar"><div class="metric-bar-fill" style="width: 35%"></div></div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">System Load %</div>
+                    <div class="metric-value">42%</div>
+                    <div class="metric-bar"><div class="metric-bar-fill" style="width: 42%"></div></div>
+                </div>
+            </div>
+
+            <!-- USER AI USAGE TABLE -->
+            <div class="data-table">
+                <div class="table-controls">
+                    <input type="text" class="table-search" placeholder="Search by email..." id="aiUserSearch">
+                    <select class="table-filter" id="sortFilter">
+                        <option value="usage">Highest Usage</option>
+                        <option value="pro">Pro First</option>
+                        <option value="recent">Newest Users</option>
+                    </select>
+                    <select class="table-filter" id="aiPlanFilter">
+                        <option value="all">All Plans</option>
+                        <option value="pro">Pro Only</option>
+                        <option value="free">Free Only</option>
+                    </select>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Plan</th>
+                            <th>Requests Today</th>
+                            <th>Requests This Month</th>
+                            <th>Total Requests</th>
+                            <th>Avg Prompt Length</th>
+                            <th>Last Used AI</th>
+                        </tr>
+                    </thead>
+                    <tbody id="aiUsageTableBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // THEME TOGGLE
+        const themeToggle = document.getElementById('themeToggle');
+        const savedTheme = localStorage.getItem('admin_theme') || 'dark';
+
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+            themeToggle.textContent = '🌙';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            const isLight = document.body.classList.contains('light-mode');
+            themeToggle.textContent = isLight ? '🌙' : '☀';
+            localStorage.setItem('admin_theme', isLight ? 'light' : 'dark');
+        });
+
+        // LOAD DATA
+        const USERS_KEY = 'learncraft_users';
+        const AI_REQUESTS_KEY = 'learncraft_ai_requests';
+
+        function loadUsers() {
+            return JSON.parse(localStorage.getItem(USERS_KEY)) || [];
+        }
+
+        function loadAIRequests() {
+            return JSON.parse(localStorage.getItem(AI_REQUESTS_KEY)) || [];
+        }
+
+        function getAIAnalyticsData() {
+            const users = loadUsers();
+            const aiRequests = loadAIRequests();
+            const now = new Date();
+            const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+
+            // Calculate real metrics
+            const totalRequests = aiRequests.length;
+            const requestsToday = aiRequests.filter(r => 
+                new Date(r.timestamp).getTime() >= todayStart
+            ).length;
+
+            const avgPerUser = users.length > 0 ? Math.round(totalRequests / users.length) : 0;
+
+            // Calculate pro vs free usage
+            const proUsers = users.filter(u => u.isPremium || u.subscription === 'premium');
+            const proRequests = aiRequests.filter(r => {
+                const user = users.find(u => u.email === r.userEmail);
+                return user && (user.isPremium || user.subscription === 'premium');
+            }).length;
+
+            const proUsagePercent = totalRequests > 0 ? Math.round((proRequests / totalRequests) * 100) : 0;
+            const freeUsagePercent = 100 - proUsagePercent;
+
+            // Calculate daily trend (last 7 days)
+            const dailyTrend = calculateDailyTrend(aiRequests, users);
+
+            // Calculate hourly load
+            const hourlyLoad = calculateHourlyLoad(aiRequests);
+
+            return {
+                totalRequests,
+                requestsToday,
+                avgPerUser,
+                proUsagePercent,
+                freeUsagePercent,
+                dailyTrend,
+                hourlyLoad
+            };
+        }
+
+        function calculateDailyTrend(aiRequests, users) {
+            const last7Days = [];
+            const now = new Date();
+            
+            const proUsers = users.filter(u => u.isPremium || u.subscription === 'premium');
+            const proEmails = new Set(proUsers.map(u => u.email));
+
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date(now);
+                date.setDate(date.getDate() - i);
+                const dayStart = new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
+                const dayEnd = dayStart + 24 * 60 * 60 * 1000;
+                
+                const dayRequests = aiRequests.filter(r => {
+                    const timestamp = new Date(r.timestamp).getTime();
+                    return timestamp >= dayStart && timestamp < dayEnd;
+                });
+
+                const proCount = dayRequests.filter(r => proEmails.has(r.userEmail)).length;
+                const freeCount = dayRequests.length - proCount;
+                
+                last7Days.push({ pro: proCount, free: freeCount });
+            }
+            
+            return last7Days;
+        }
+
+        function calculateHourlyLoad(aiRequests) {
+            const hourly = new Array(24).fill(0);
+            const now = new Date();
+            const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+            
+            aiRequests.forEach(req => {
+                const reqTime = new Date(req.timestamp);
+                if (reqTime.getTime() >= todayStart) {
+                    const hour = reqTime.getHours();
+                    hourly[hour]++;
+                }
+            });
+            
+            return hourly;
+        }
+
+        function populateSummaryCards() {
+            const data = getAIAnalyticsData();
+
+            document.getElementById('totalRequests').textContent = data.totalRequests.toLocaleString();
+            document.getElementById('requestsToday').textContent = data.requestsToday;
+            document.getElementById('avgPerUser').textContent = data.avgPerUser;
+            document.getElementById('proUsage').textContent = data.proUsagePercent + '%';
+            document.getElementById('freeUsage').textContent = data.freeUsagePercent + '%';
+        }
+
+        // CHARTS
+        let requestTrendChart, hourlyLoadChart;
+
+        function initializeCharts() {
+            const data = getAIAnalyticsData();
+
+            // AI REQUEST TREND CHART (Last 7 Days)
+            const proData = data.dailyTrend.map(d => d.pro);
+            const freeData = data.dailyTrend.map(d => d.free);
+            const hasData = proData.some(v => v > 0) || freeData.some(v => v > 0);
+
+            requestTrendChart = new Chart(document.getElementById('requestTrendChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [
+                        {
+                            label: 'Pro Users',
+                            data: proData,
+                            borderColor: '#FFD700',
+                            backgroundColor: 'rgba(255, 215, 0, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Free Users',
+                            data: freeData,
+                            borderColor: '#60a5fa',
+                            backgroundColor: 'rgba(96, 165, 250, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: { font: { size: 11 }, padding: 12 }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return hasData ? `${context.dataset.label}: ${context.parsed.y}` : 'No data';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { 
+                            beginAtZero: true, 
+                            grid: { color: '#222' },
+                            ticks: { stepSize: 1 }
+                        },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+
+            // HOURLY LOAD CHART
+            const hourLabels = [];
+            const hourData = [];
+            for (let i = 0; i < 24; i += 2) {
+                hourLabels.push(i.toString().padStart(2, '0'));
+                hourData.push(data.hourlyLoad[i]);
+            }
+
+            const hasHourlyData = hourData.some(v => v > 0);
+
+            hourlyLoadChart = new Chart(document.getElementById('hourlyLoadChart'), {
+                type: 'bar',
+                data: {
+                    labels: hourLabels,
+                    datasets: [{
+                        label: 'AI Requests',
+                        data: hourData,
+                        backgroundColor: '#FFD700'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return hasHourlyData ? `Requests: ${context.parsed.y}` : 'No requests';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { 
+                            beginAtZero: true, 
+                            grid: { color: '#222' },
+                            ticks: { stepSize: 1 }
+                        },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        // POPULATE AI USAGE TABLE
+        function populateAIUsageTable() {
+            const users = loadUsers();
+            const aiRequests = loadAIRequests();
+            const tbody = document.getElementById('aiUsageTableBody');
+            tbody.innerHTML = '';
+
+            const now = new Date();
+            const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+            const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
+
+            users.forEach((user) => {
+                const row = document.createElement('tr');
+                const isPro = user.isPremium || user.subscription === 'premium';
+                const plan = isPro ? 'pro' : 'free';
+                
+                // Calculate real request counts
+                const userRequests = aiRequests.filter(r => r.userEmail === user.email);
+                const requestsToday = userRequests.filter(r => 
+                    new Date(r.timestamp).getTime() >= todayStart
+                ).length;
+                const requestsMonth = userRequests.filter(r => 
+                    new Date(r.timestamp).getTime() >= monthStart
+                ).length;
+                const totalRequests = userRequests.length;
+
+                // Calculate average prompt length
+                const avgPromptLength = userRequests.length > 0 
+                    ? Math.round(userRequests.reduce((sum, r) => sum + (r.message?.length || 0), 0) / userRequests.length)
+                    : 0;
+
+                // Calculate last used
+                const lastRequest = userRequests.sort((a, b) => 
+                    new Date(b.timestamp) - new Date(a.timestamp)
+                )[0];
+                
+                let lastUsed = 'Never';
+                if (lastRequest) {
+                    const minutesAgo = Math.floor((now - new Date(lastRequest.timestamp)) / (1000 * 60));
+                    if (minutesAgo < 60) {
+                        lastUsed = `${minutesAgo}m ago`;
+                    } else if (minutesAgo < 1440) {
+                        lastUsed = `${Math.floor(minutesAgo / 60)}h ago`;
+                    } else {
+                        lastUsed = `${Math.floor(minutesAgo / 1440)}d ago`;
+                    }
+                }
+
+                row.innerHTML = `
+                    <td>${user.email}</td>
+                    <td><span class="status-badge ${plan}">${plan.toUpperCase()}</span></td>
+                    <td>${requestsToday}</td>
+                    <td>${requestsMonth}</td>
+                    <td>${totalRequests.toLocaleString()}</td>
+                    <td>${avgPromptLength} chars</td>
+                    <td>${lastUsed}</td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            if (users.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:20px;color:#666;">No AI usage data</td></tr>';
+            }
+        }
+
+        // TABLE FILTERS
+        document.getElementById('aiUserSearch').addEventListener('input', filterAITable);
+        document.getElementById('sortFilter').addEventListener('change', filterAITable);
+        document.getElementById('aiPlanFilter').addEventListener('change', filterAITable);
+
+        function filterAITable() {
+            const searchTerm = document.getElementById('aiUserSearch').value.toLowerCase();
+            const planFilter = document.getElementById('aiPlanFilter').value;
+            
+            const rows = Array.from(document.querySelectorAll('#aiUsageTableBody tr'));
+            
+            rows.forEach(row => {
+                const email = row.cells[0]?.textContent.toLowerCase() || '';
+                const plan = row.cells[1]?.textContent.toLowerCase() || '';
+                
+                const matchesSearch = email.includes(searchTerm);
+                const matchesPlan = planFilter === 'all' || plan.includes(planFilter);
+                
+                row.style.display = matchesSearch && matchesPlan ? '' : 'none';
+            });
+        }
+
+        // INITIALIZE
+        document.addEventListener('DOMContentLoaded', () => {
+            populateSummaryCards();
+            populateAIUsageTable();
+            initializeCharts();
+        });
+    </script>
+</body>
+</html>

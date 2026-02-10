@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Computer Science - LEARNcraft</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #000000;
+            color: #EAEAEA;
+            min-height: 100vh;
+        }
+
+        .page-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px 60px;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 16px;
+            background: transparent;
+            border: none;
+            color: #888;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.3s;
+            margin-bottom: 40px;
+        }
+
+        .back-button:hover {
+            color: #EAEAEA;
+        }
+
+        .article-header {
+            margin-bottom: 50px;
+        }
+
+        .article-title {
+            font-size: 56px;
+            font-weight: 700;
+            color: #CFCFCF;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .article-subtitle {
+            font-size: 20px;
+            color: #8F8F8F;
+            font-weight: 400;
+        }
+
+        .intro-paragraph {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #B6B6B6;
+            margin: 40px 0 30px 0;
+        }
+
+        .explore-button {
+            display: inline-block;
+            margin: 30px 0;
+            padding: 12px 28px;
+            background: transparent;
+            border: 2px solid #FFD84D;
+            color: #FFD84D;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .explore-button:hover {
+            background: #FFD84D;
+            color: #000000;
+            transform: translateY(-2px);
+        }
+
+        .article-content {
+            margin-top: 50px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #C2C2C2;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #222;
+        }
+
+        .section-content {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #B0B0B0;
+        }
+
+        .section-content p {
+            margin-bottom: 18px;
+        }
+
+        .subsection {
+            margin-top: 28px;
+            margin-bottom: 20px;
+        }
+
+        .subsection-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #E3C862;
+            margin-bottom: 10px;
+        }
+
+        .subsection-text {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #B6B6B6;
+        }
+
+        @media (max-width: 768px) {
+            .page-container {
+                padding: 70px 16px 40px;
+            }
+
+            .article-title {
+                font-size: 40px;
+            }
+
+            .article-subtitle {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <button onclick="if (document.referrer && document.referrer !== '') { window.history.back(); } else { window.location.href = '../courses/learn.html'; }" class="back-button">← Back</button>
+        
+        <div class="article-header">
+            <h1 class="article-title">Computer Science</h1>
+            <p class="article-subtitle">The study of computation, information, and automation</p>
+        </div>
+
+        <p class="intro-paragraph">
+            Computer science is the study of computation, information, and automation. Included broadly in the sciences, computer science spans theoretical disciplines such as algorithms, theory of computation, and information theory to applied disciplines including the design and implementation of hardware and software. The fundamental concern of computer science is determining what can and cannot be automated.
+        </p>
+
+        <button class="explore-button" onclick="window.location.href='../courses/learn.html'">Explore More Topics</button>
+
+        <div class="article-content">
+            <div class="section">
+                <h2 class="section-title">History</h2>
+                <div class="section-content">
+                    <p>The earliest foundations of what would become computer science predate the invention of the modern digital computer. Machines for calculating fixed numerical tasks such as the abacus have existed since antiquity. Wilhelm Schickard designed and constructed the first working mechanical calculator in 1623. In 1673, Gottfried Leibniz demonstrated a digital mechanical calculator and documented the binary number system.</p>
+                    <p>Charles Babbage started the design of the first automatic mechanical calculator, his Difference Engine, in 1822, which eventually gave him the idea of the first programmable mechanical calculator, his Analytical Engine. In 1843, Ada Lovelace wrote an algorithm to compute the Bernoulli numbers, considered to be the first published algorithm ever specifically tailored for implementation on a computer.</p>
+                    <p>During the 1940s, with the development of new computing machines such as the Atanasoff-Berry computer and ENIAC, the term computer came to refer to the machines rather than their human predecessors. Computer science began to be established as a distinct academic discipline in the 1950s and early 1960s. The world's first computer science degree program began at the University of Cambridge Computer Laboratory in 1953, and the first computer science department in the United States was formed at Purdue University in 1962.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Philosophy and Scope</h2>
+                <div class="section-content">
+                    <p>Computer science spans a range of topics from theoretical studies of algorithms and the limits of computation to the practical issues of implementing computing systems in hardware and software. The discipline is often debated as to whether it is a science, mathematics, or engineering discipline. Some argue it is an empirical science since it makes use of empirical testing, while others classify it as an engineering discipline or mathematical discipline.</p>
+                    <p>A famous quotation often attributed to Edsger Dijkstra states that "computer science is no more about computers than astronomy is about telescopes." The design and deployment of computers is generally considered the province of disciplines other than computer science, such as computer engineering for hardware and information systems for commercial deployment.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Theoretical Computer Science</h2>
+                <div class="section-content">
+                    <p>Theoretical computer science is mathematical and abstract in spirit, but derives its motivation from practical computation. According to Peter Denning, the fundamental question underlying computer science is "What can be automated?"</p>
+                    
+                    <div class="subsection">
+                        <h3 class="subsection-title">Theory of Computation</h3>
+                        <p class="subsection-text">Focused on answering fundamental questions about what can be computed and what resources are required. Computability theory examines which computational problems are solvable, while computational complexity theory studies time and space costs. Includes automata theory, formal languages, and quantum computing theory.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Information and Coding Theory</h3>
+                        <p class="subsection-text">Related to the quantification of information, developed by Claude Shannon to find fundamental limits on signal processing operations. Coding theory studies the properties of codes for data compression, cryptography, error detection and correction, and network coding.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Data Structures and Algorithms</h3>
+                        <p class="subsection-text">Studies commonly used computational methods and their efficiency. Includes analysis of algorithms, algorithm design, combinatorial optimization, computational geometry, and randomized algorithms. Algorithms and data structures are central to computer science.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Programming Language Theory</h3>
+                        <p class="subsection-text">Deals with the design, implementation, analysis, characterization, and classification of programming languages and their features. An active research area with numerous dedicated academic journals.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Applied Computer Science</h2>
+                <div class="section-content">
+                    <div class="subsection">
+                        <h3 class="subsection-title">Artificial Intelligence and Machine Learning</h3>
+                        <p class="subsection-text">Aims to synthesize goal-oriented processes such as problem-solving, decision-making, environmental adaptation, planning and learning. Includes computer vision for understanding image and video data, natural language processing for textual and linguistic data, robotics, neural networks, and computational game theory.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Computer Graphics and Visualization</h3>
+                        <p class="subsection-text">Studies digital visual contents and involves synthesis and manipulation of image data. Connected to computer vision, image processing, and computational geometry. Heavily applied in special effects, video games, animation, rendering, and virtual reality.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Software Engineering</h3>
+                        <p class="subsection-text">Studies designing, implementing, and modifying software to ensure high quality, affordability, maintainability, and fast development. Involves systematic approaches to software design, testing, systems engineering, technical debt management, and software development processes.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Human-Computer Interaction</h3>
+                        <p class="subsection-text">Studies the design and use of computer systems based on the analysis of interaction between humans and computer interfaces. Includes affective computing, brain-computer interfaces, human-centered design, and social computing.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Computer Architecture</h3>
+                        <p class="subsection-text">The conceptual design and fundamental operational structure of computer systems. Focuses on how the central processing unit performs internally and accesses memory. Includes microarchitecture, multiprocessing, operating systems, embedded systems, and real-time computing.</p>
+                    </div>
+
+                    <div class="subsection">
+                        <h3 class="subsection-title">Computer Networks and Security</h3>
+                        <p class="subsection-text">Studies construction and behavior of computer networks, addressing performance, resilience, security, and scalability. Computer security protects information from unauthorized access while maintaining system usability. Cryptography involves symmetric and asymmetric encryption, digital signatures, blockchain, and zero-knowledge proofs.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Computational Science</h2>
+                <div class="section-content">
+                    <p>Scientific computing constructs mathematical models and uses computers to analyze and solve scientific problems. Major usage includes simulation of various processes such as computational fluid dynamics, physical and electrical systems, and biological cells. Enables optimization of designs for aircraft, integrated circuits, and complex systems.</p>
+                    <p>Fields include numerical analysis, computational physics, computational chemistry, bioinformatics, neuroinformatics, medical informatics, and computational engineering.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Database Systems and Data Mining</h2>
+                <div class="section-content">
+                    <p>A database is intended to organize, store, and retrieve large amounts of data easily. Digital databases are managed using database management systems to store, create, maintain, and search data through database models and query languages. Data mining is a process of discovering patterns in large data sets, playing a crucial role in modern data analysis and business intelligence.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Recognition and Career</h2>
+                <div class="section-content">
+                    <p>The Turing Award is generally recognized as the highest distinction in computer science. An expert in the field is known as a computer scientist. Computer science research intersects with numerous disciplines including cognitive science, linguistics, mathematics, physics, biology, statistics, philosophy, and logic.</p>
+                    <p>The discipline has grown tremendously since the 1950s, with applications in virtually every aspect of modern life from smartphones and social media to medical diagnostics and space exploration. The field continues to evolve rapidly with emerging areas such as quantum computing, machine learning, and blockchain technology.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        if (typeof TelegramWebApp !== 'undefined') {
+            const tg = window.Telegram.WebApp;
+            tg.ready();
+            tg.setHeaderColor('#000000');
+            tg.setBackgroundColor('#000000');
+            tg.MainButton.hide();
+        }
+    </script>
+</body>
+</html>

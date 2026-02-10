@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Stage 6 — Advanced & Career Prep | LEARNcraft</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body class="dark">
+
+<header class="topbar">
+  <div class="topbar-container">
+    <button onclick="window.history.back()" class="back-nav">← Back</button>
+    <span class="topbar-title">LEARNcraft</span>
+    <div style="width: 50px;"></div>
+  </div>
+</header>
+
+<section class="hero small">
+  <div class="hero-content">
+    <div class="breadcrumb">Civil Engineering</div>
+    <h1>Stage 6 — Advanced & Career Prep</h1>
+    <p>Master advanced topics, pursue certifications, and prepare for professional engineering careers.</p>
+    <button class="start-stage-btn" onclick="startStage()">START STAGE & TRACK PROGRESS</button>
+  </div>
+</section>
+
+<section id="progressSection" class="hidden">
+
+  <div class="progress-dashboard">
+    <div class="stat-card">
+      <h3>Weekly Completion</h3>
+      <p id="weeklyPercent" class="stat-value">0%</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>Stage Progress</h3>
+      <p id="stagePercent" class="stat-value">0%</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>Study Streak</h3>
+      <p class="stat-value"><span id="streakCount">0</span> days</p>
+    </div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar-track">
+      <div id="progressFill" class="progress-bar-fill"></div>
+    </div>
+    <div class="progress-label">
+      <span id="progressPercent">0%</span> Complete
+    </div>
+  </div>
+
+  <section class="study-roadmap">
+    <h2>Advanced Topics & Career Preparation</h2>
+    <p class="roadmap-sub">Specialize further and prepare for professional engineering practice</p>
+
+    <div class="week-card">
+      <h3>Week 1 — Advanced Structural Analysis</h3>
+      <ul>
+        <li>Computer-aided design (CAD) software mastery</li>
+        <li>Advanced FEA (Finite Element Analysis)</li>
+        <li>Complex structure optimization</li>
+        <li>Seismic and dynamic analysis</li>
+      </ul>
+      <p class="week-goal">Goal: Master advanced analysis techniques</p>
+    </div>
+
+    <div class="week-card">
+      <h3>Week 2 — Professional Certifications</h3>
+      <ul>
+        <li>PE (Professional Engineer) exam prep</li>
+        <li>BIM (Building Information Modeling) certification</li>
+        <li>LEED certification studies</li>
+        <li>Specialty certifications in your field</li>
+      </ul>
+      <p class="week-goal">Goal: Achieve professional credentials</p>
+    </div>
+
+    <div class="week-card">
+      <h3>Week 3 — Industry Software & Tools</h3>
+      <ul>
+        <li>STAAD Pro, SAP2000, ETABS</li>
+        <li>AutoCAD and BIM platforms</li>
+        <li>GIS and survey software</li>
+        <li>Project management software</li>
+      </ul>
+      <p class="week-goal">Goal: Master industry-standard tools</p>
+    </div>
+
+    <div class="week-card">
+      <h3>Week 4 — Career Launch</h3>
+      <ul>
+        <li>Job search strategies</li>
+        <li>Interview mastery</li>
+        <li>Salary negotiation</li>
+        <li>First job success</li>
+      </ul>
+      <p class="week-goal">Goal: Launch your engineering career</p>
+    </div>
+  </section>
+
+  <div class="tracker-wrapper">
+    <div class="tracker-header">
+      <h2>Weekly Learning Schedule</h2>
+      <p>Check off tasks as you complete them each day</p>
+    </div>
+
+    <table class="tracker-table">
+      <thead>
+        <tr>
+          <th>Task</th>
+          <th>Mon</th><th>Tue</th><th>Wed</th>
+          <th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="task-name">Advanced Analysis</td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+        </tr>
+
+        <tr>
+          <td class="task-name">Certification Study</td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+        </tr>
+
+        <tr>
+          <td class="task-name">Software Training</td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+        </tr>
+
+        <tr>
+          <td class="task-name">Career Development</td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+        </tr>
+
+        <tr>
+          <td class="task-name">Exam Practice Tests</td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tip-section">
+    <h3>Study Tip</h3>
+    <p>The PE exam is challenging but highly rewarding. Start with the Fundamentals of Engineering (FE) exam, gain experience, then pursue the PE. This credential demonstrates your expertise to employers and clients.</p>
+  </div>
+
+</section>
+
+<script>
+  if (typeof TelegramWebApp !== 'undefined') {
+    const tg = window.Telegram.WebApp;
+    tg.ready();
+    tg.setHeaderColor('#000000');
+    tg.setBackgroundColor('#000000');
+    tg.MainButton.hide();
+  }
+
+  function startStage() {
+    document.getElementById("progressSection").classList.remove("hidden");
+    document.querySelector("section.hero").style.paddingBottom = "20px";
+  }
+
+  const checkboxes = document.querySelectorAll("input[type='checkbox']");
+  checkboxes.forEach(cb => cb.addEventListener("change", updateProgress));
+
+  function updateProgress() {
+    const total = checkboxes.length;
+    let checked = 0;
+    checkboxes.forEach(cb => { if (cb.checked) checked++; });
+
+    const percent = Math.round((checked / total) * 100);
+
+    document.getElementById("stagePercent").textContent = percent + "%";
+    document.getElementById("weeklyPercent").textContent = percent + "%";
+    document.getElementById("progressPercent").textContent = percent + "%";
+    document.getElementById("progressFill").style.width = percent + "%";
+  }
+</script>
+
+</body>
+</html>

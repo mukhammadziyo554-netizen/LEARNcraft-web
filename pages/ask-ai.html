@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, height=device-height">
+    <meta name="description" content="Ask AI - LEARNcraft">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Ask AI - LEARNcraft</title>
+    <!-- Telegram Web App Script -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- Global Theme System -->
+    <script src="../theme.js"></script>
+    <!-- Access Control System -->
+    <script src="access-control.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: transparent !important;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            z-index: 999;
+            border-bottom: none !important;
+            box-shadow: none !important;
+            backdrop-filter: none !important;
+        }
+
+        .nav-brand {
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.5px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .nav-brand:hover {
+            opacity: 0.8;
+        }
+
+        .back-btn {
+            color: #888;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.2s;
+        }
+
+        .back-btn:hover {
+            color: #fff;
+        }
+
+        .ai-page {
+            min-height: 100vh;
+            background: #0a0a0a;
+            padding: 90px 20px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .ai-header {
+            text-align: center;
+            margin-bottom: 40px;
+            max-width: 900px;
+        }
+
+        .ai-header h1 {
+            font-size: 64px;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 16px;
+            letter-spacing: -2px;
+        }
+
+        .ai-subtitle {
+            color: #888;
+            font-size: 18px;
+            margin-bottom: 24px;
+            font-weight: 400;
+        }
+
+        .ai-slogans {
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .ai-slogans span {
+            color: #666;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .ai-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .ai-tags span {
+            border: 1px solid #262626;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #ccc;
+            background: #141414;
+            font-weight: 400;
+        }
+
+        .detail-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #ccc;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .detail-toggle input[type="checkbox"] {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            accent-color: #5b5bff;
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 980px;
+            height: 520px;
+            background: #141414;
+            border: 1px solid #262626;
+            border-radius: 16px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #262626;
+            border-radius: 4px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #333;
+        }
+
+        .ai-message {
+            align-self: flex-start;
+            background: #1a1a1a;
+            color: #e5e5e5;
+            padding: 16px 18px;
+            border-radius: 12px;
+            max-width: 80%;
+            line-height: 1.6;
+            word-wrap: break-word;
+            font-size: 15px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background: #5b5bff;
+            color: white;
+            padding: 16px 18px;
+            border-radius: 12px;
+            max-width: 75%;
+            word-wrap: break-word;
+            font-size: 15px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .typing {
+            font-style: italic;
+            opacity: 0.7;
+            color: #888;
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 12px;
+            border-top: 1px solid #262626;
+            padding-top: 20px;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: #1a1a1a;
+            border: 1px solid #262626;
+            border-radius: 10px;
+            padding: 14px 18px;
+            color: white;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: #5b5bff;
+            background: #1f1f1f;
+        }
+
+        .chat-input::placeholder {
+            color: #555;
+        }
+
+        .send-btn {
+            background: #5b5bff;
+            border: none;
+            border-radius: 10px;
+            padding: 0 28px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 15px;
+        }
+
+        .send-btn:hover {
+            background: #6a6aff;
+        }
+
+        .send-btn:active {
+            transform: scale(0.98);
+        }
+
+        @media (max-width: 768px) {
+            .ai-header h1 {
+                font-size: 42px;
+            }
+
+            .ai-message {
+                max-width: 90%;
+            }
+
+            .user-message {
+                max-width: 90%;
+            }
+
+            .chat-container {
+                height: 480px;
+                padding: 20px;
+            }
+        }
+
+        /* Light Mode Styles */
+        body.light-mode {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        body.light-mode .nav-bar {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 2px solid #000000;
+        }
+
+        body.light-mode .nav-brand {
+            color: #000000;
+        }
+
+        body.light-mode .back-btn {
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid #000000;
+        }
+
+        body.light-mode .back-btn:active {
+            background: #f0f0f0;
+        }
+
+        body.light-mode .ai-header h1 {
+            color: #000000;
+        }
+
+        body.light-mode .ai-description {
+            color: #000000;
+        }
+
+        body.light-mode .chat-container {
+            background: #ffffff;
+            border: 2px solid #000000;
+        }
+
+        body.light-mode .ai-message {
+            background: #000000;
+            color: #ffffff;
+        }
+
+        body.light-mode .user-message {
+            background: #FFD700;
+            color: #000000;
+        }
+
+        body.light-mode .message-sender {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        body.light-mode .user-message .message-sender {
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        body.light-mode .input-container {
+            background: #ffffff;
+            border: 2px solid #000000;
+        }
+
+        body.light-mode #userInput {
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid #000000;
+        }
+
+        body.light-mode #userInput::placeholder {
+            color: #666666;
+        }
+
+        body.light-mode #sendBtn {
+            background: #FFD700;
+            color: #000000;
+            border: 2px solid #000000;
+        }
+
+        body.light-mode #sendBtn:active {
+            background: #FFC700;
+        }
+
+        body.light-mode .clear-btn {
+            background: #ffffff;
+            color: #000000;
+            border: 2px solid #000000;
+        }
+
+        body.light-mode .clear-btn:active {
+            background: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <div class="nav-brand" onclick="window.location.href='index.html'">LEARNcraft</div>
+        <button class="back-btn">← Back</button>
+    </div>
+
+    <section class="ai-page">
+        <div class="ai-header">
+            <h1>Ask AI</h1>
+            <p class="ai-subtitle">Expert engineering guidance at your fingertips</p>
+
+            <div class="ai-slogans">
+                <span>Built for serious learners</span>
+                <span>•</span>
+                <span>Answers that actually teach</span>
+                <span>•</span>
+                <span>From confusion to clarity</span>
+            </div>
+
+            <div class="ai-tags">
+                <span>Detailed explanations</span>
+                <span>Step-by-step guidance</span>
+                <span>Engineering expertise</span>
+            </div>
+
+            <label class="detail-toggle">
+                <input type="checkbox" id="detailedMode" checked />
+                Detailed answers
+            </label>
+        </div>
+
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <div class="ai-message">Hi! I'm LEARNcraft AI, your engineering expert. I'm here to provide detailed, structured explanations on any engineering topic. What would you like to learn today?</div>
+            </div>
+
+            <div class="chat-input-area">
+                <input type="text" id="userInput" class="chat-input" placeholder="Ask any engineering question..." onkeypress="if(event.key==='Enter') sendMessage()">
+                <button class="send-btn" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Initialize Telegram Web App
+        if (typeof TelegramWebApp !== 'undefined') {
+            const tg = window.Telegram.WebApp;
+            tg.ready();
+            tg.setHeaderColor('#0a0a0a');
+            tg.setBackgroundColor('#0a0a0a');
+            tg.MainButton.hide();
+        }
+
+        // Back button functionality
+        const backBtn = document.querySelector('.back-btn');
+        if (backBtn) {
+            backBtn.addEventListener('click', function() {
+                // Check if there's history to go back to
+                if (document.referrer && document.referrer !== '') {
+                    window.history.back();
+                } else {
+                    // Fallback to home page
+                    window.location.href = 'index.html';
+                }
+            });
+        }
+
+        const chatMessages = document.getElementById('chatMessages');
+        const userInput = document.getElementById('userInput');
+
+        // Check access on page load
+        function checkAIAccess() {
+            const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
+            
+            if (!currentUser) {
+                userInput.disabled = true;
+                userInput.placeholder = 'Please log in to use AI...';
+                const msg = document.createElement('div');
+                msg.className = 'ai-message';
+                msg.style.color = '#ff6b6b';
+                msg.textContent = '⚠️ Please log in to access AI features';
+                chatMessages.appendChild(msg);
+                return;
+            }
+
+            // Check pro access
+            if (!window.accessControl.canAccessAI(currentUser)) {
+                const daysRemaining = window.accessControl.getProTrialDaysRemaining(currentUser);
+                const status = window.accessControl.getAccessStatus('ai', currentUser);
+                
+                userInput.disabled = true;
+                userInput.placeholder = 'Upgrade to Pro to use AI...';
+                
+                const msg = document.createElement('div');
+                msg.className = 'ai-message';
+                msg.style.color = '#ff6b6b';
+                if (daysRemaining && daysRemaining > 0) {
+                    msg.textContent = `⏰ Pro trial active! ${daysRemaining} days remaining.`;
+                } else {
+                    msg.textContent = `📦 ${status.message}`;
+                }
+                chatMessages.appendChild(msg);
+                return;
+            }
+
+            // Founder gets special treatment
+            if (window.accessControl.isFounder(currentUser.email)) {
+                const msg = document.createElement('div');
+                msg.className = 'ai-message';
+                msg.style.color = '#FFD700';
+                msg.textContent = '👑 Welcome Founder! Full access to all AI features.';
+                chatMessages.appendChild(msg);
+            }
+        }
+
+        // Load chat history on page load
+        function loadChatHistory() {
+            const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
+            if (!currentUser) return;
+
+            const chats = JSON.parse(localStorage.getItem('learncraft_chats')) || [];
+            const userChats = chats.filter(chat => chat.userEmail === currentUser.email);
+            
+            // Sort by timestamp
+            userChats.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
+            // Display messages
+            userChats.forEach(chat => {
+                const messageType = chat.sender === 'admin' ? 'ai-message' : 'user-message';
+                addMessage(chat.text, messageType, false);
+            });
+        }
+
+        // Load history when page loads
+        loadChatHistory();
+        checkAIAccess();
+
+        // Auto-scroll on page load
+        window.addEventListener('load', scrollToBottom);
+
+        // Comprehensive response system with detailed explanations
+        const systemResponses = {
+            detailed: `You are LEARNcraft AI, an expert engineering and academic assistant. Always provide:
+- Detailed explanations with 2-3 paragraphs minimum
+- Step-by-step breakdowns when relevant
+- Real-world examples and applications
+- Clear structured formatting with proper spacing
+- Technical depth with accessibility
+Maintain professional yet approachable tone. Structure responses with headers, bullet points where applicable.`,
+            
+            concise: `You are LEARNcraft AI, an efficient engineering assistant. Provide:
+- Brief, focused answers (1-2 sentences)
+- Essential information only
+- Direct solutions without extensive examples
+Keep responses quick and actionable.`
+        };
+
+        const engineeringResponses = {
+            civil: [
+                "Civil engineering focuses on designing and constructing infrastructure like bridges, buildings, and water systems. In structural design, engineers analyze loads (dead load, live load, environmental forces) and select appropriate materials (concrete, steel, timber) based on stress calculations and safety factors. Key concepts include: (1) Load Analysis - determining all forces acting on a structure, (2) Material Selection - choosing materials that balance cost, durability, and performance, (3) Structural Analysis - using methods like finite element analysis (FEA) to predict behavior under various conditions, (4) Foundation Design - ensuring the structure properly transfers loads to soil. Modern practices incorporate sustainable materials, seismic design principles, and computational modeling.",
+                "Geotechnical engineering is the study of soil and rock properties for construction. Engineers perform soil testing to determine bearing capacity, permeability, and compaction characteristics. Foundation types include: (1) Shallow foundations (footings, rafts) for suitable soil conditions, (2) Deep foundations (piles, caissons) for poor soil or heavy loads. Soil mechanics involves analyzing shear strength through the Mohr-Coulomb model, understanding consolidation settlement, and assessing slope stability. Modern techniques include ground improvement methods, soil stabilization, and risk assessment in geohazard zones.",
+                "Transportation engineering involves designing safe and efficient networks for vehicles, pedestrians, and transit systems. Key areas include: (1) Pavement Design - selecting materials and thickness based on traffic loads and climate, (2) Traffic Flow Analysis - optimizing capacity and safety through signal timing and geometric design, (3) Intelligent Transportation Systems (ITS) - using technology for real-time management, (4) Sustainable Transport - designing for public transit, cycling, and pedestrian accessibility. Engineers use traffic simulation software, evaluate accident risk, and balance environmental impact with infrastructure needs."
+            ],
+            
+            mechanical: [
+                "Mechanical engineering covers the design and analysis of mechanical systems. Thermodynamics principles govern energy transfer: the First Law states energy conservation, the Second Law defines entropy and efficiency limits. Heat engines, refrigeration cycles, and combustion processes follow these principles. Applications include: (1) Power Generation - turbines, compressors, boilers converting fuel or thermal energy to work, (2) HVAC Systems - maintaining comfort through thermal control, (3) Energy Efficiency - optimizing systems to minimize losses. Engineers calculate efficiency using the ratio of useful output to total input, applying steam tables, psychrometric charts, and computational fluid dynamics (CFD).",
+                "Machine design integrates stress analysis with material science and kinematics. Designers calculate bearing stresses, bending moments, and fatigue life using formulas like Goodman's equation and stress concentration factors. Material selection considers: (1) Strength-to-weight ratio, (2) Corrosion resistance, (3) Manufacturability, (4) Cost. Components like gears must withstand contact stresses (Hertzian stress), shafts resist torsional shear, and bolted joints require preload analysis. Modern CAD/FEA tools enable rapid iteration and optimization.",
+                "Dynamics and control systems analyze motion and stability. Kinematics describes motion without forces; dynamics adds force analysis using Newton's second law (F=ma). Control systems maintain desired performance through feedback mechanisms - PID controllers adjust output based on error signals. Applications: (1) Robotics - coordinating multiple joints and sensors, (2) Vibration Control - damping oscillations in machinery, (3) Process Control - maintaining temperature, pressure, flow in industrial systems. Transfer function analysis and Bode plots characterize system response."
+            ],
+            
+            electrical: [
+                "Electrical engineering fundamentals start with circuit theory. Ohm's Law (V=IR) and Kirchhoff's Laws form the foundation for circuit analysis. DC circuits are analyzed using nodal analysis, mesh analysis, and Thevenin/Norton equivalents. AC circuits involve impedance (Z), complex numbers, and phasor analysis where V(t)=Vm sin(ωt) becomes V=Vm∠0 in phasor form. Power factor (cos φ) indicates reactive power efficiency. Engineers design circuits for specific frequency response, impedance matching, and signal integrity.",
+                "Power systems distribute electrical energy from generation to consumers through transmission and distribution networks. Key components: (1) Generators - mechanical to electrical conversion, (2) Transformers - voltage stepping using electromagnetic induction, (3) Transmission Lines - high-voltage transport minimizing losses (I²R), (4) Distribution - stepping down to usable voltage. Three-phase systems provide balanced power distribution. Protection devices (circuit breakers, fuses, relays) ensure safety and reliability. Grid stability requires load balancing and reactive power compensation.",
+                "Electronics involves semiconductor devices and signal processing. Diodes and transistors operate in different regions: (1) Transistor Saturation - maximum current flow, useful as a switch, (2) Active Region - current controlled by base signal, enabling amplification, (3) Cutoff - no current flow. Op-amps amplify small signals with gain (Av=Rf/Ri for non-inverting configuration). Digital electronics uses binary logic gates (AND, OR, NOT, XOR) for computation. Microcontrollers integrate processors, memory, and I/O for real-time applications."
+            ],
+            
+            aerospace: [
+                "Aerodynamics studies fluid flow over surfaces. Bernoulli's equation (P + 0.5ρV² + ρgh = constant) relates pressure, velocity, and height. Airfoil design balances lift and drag: lift results from pressure differential (higher pressure below than above), while drag opposes motion. The lift coefficient (CL) and drag coefficient (CD) depend on angle of attack, shape, and Reynolds number (Re = ρVD/μ). High-speed flight introduces compressibility effects and shock waves. Engineers use wind tunnels and computational fluid dynamics (CFD) to optimize designs.",
+                "Flight mechanics analyzes aircraft motion through six degrees of freedom: three translational (forward, side, vertical) and three rotational (roll, pitch, yaw). Stability requires: (1) Static Stability - initial response to disturbance is restorative, (2) Dynamic Stability - oscillations decay over time. Control surfaces (aileron, elevator, rudder) generate moments for maneuvering. Trim analysis determines equilibrium flight conditions. Performance calculations include climb rate (dh/dt), range, endurance, and takeoff/landing distance based on engine thrust and weight.",
+                "Spacecraft design involves orbital mechanics and propulsion. Kepler's laws describe orbital motion; escape velocity (11.2 km/s from Earth) requires specific energy (E = V²/2 - GM/r). Orbital transfers use Hohmann transfer ellipses for fuel efficiency. Propulsion systems: (1) Chemical rockets - high thrust but single-use, (2) Ion drives - low thrust but high efficiency (Isp > 3000s), (3) Solar sails - photon pressure for ultra-long missions. Thermal management, radiation protection, and microgravity effects pose engineering challenges."
+            ],
+            
+            chemical: [
+                "Chemical engineering applies chemistry and physics to industrial-scale processes. Mass and energy balances track material flow: input = output + accumulation. Stoichiometry determines reactant ratios from balanced equations. Reactions reach equilibrium characterized by the equilibrium constant K, which depends on temperature. Conversion (X) and selectivity measure reaction efficiency. Residence time (τ = V/Q) affects reactor design. Engineers scale laboratory reactions using dimensionless numbers (Reynolds, Schmidt, Froude) to maintain similarity.",
+                "Unit operations transform raw materials: (1) Separation (distillation, crystallization, extraction) - exploiting property differences, (2) Mixing - ensuring homogeneity and contact, (3) Heat Transfer - raising/lowering temperature via conduction, convection, radiation, (4) Mass Transfer - diffusion and absorption. Distillation separates liquids by boiling point; efficiency measured by the number of theoretical plates. Heat exchangers optimize thermal contact between streams. Absorption towers contact gas with liquid solvents. Design requires material balances, energy balances, and rate equations.",
+                "Process control maintains product quality and safety. Feedback systems monitor key variables (temperature, pressure, composition, flow) and adjust inputs (valve openings, heating power, feed rates). PID controllers calculate error, integrate error over time, and differentiate error rate to generate corrective action. Distillation column control requires temperature/composition monitoring at different tray levels. Safety interlocks prevent dangerous conditions (overpressure, overtemperature). Process modeling predicts transient response and guides tuning of controller parameters."
+            ],
+            
+            nuclear: [
+                "Nuclear physics explains radioactivity and fission. Unstable nuclei emit particles (alpha - Helium-4 nucleus, beta - electron/positron) or gamma rays (photons) to reach stability. The half-life (t1/2) predicts decay rate using N(t) = N0 e^(-λt) where λ = ln(2)/t1/2. Fission splits heavy nuclei (U-235, Pu-239) releasing 2-3 neutrons and 200 MeV energy, triggering chain reactions. Neutron multiplication factor (k_eff) determines criticality: k_eff > 1 is supercritical (power increase), k_eff = 1 is critical (steady state), k_eff < 1 is subcritical (power decrease).",
+                "Nuclear reactor design manages controlled fission. Core geometry arranges fuel assemblies with control rods (absorb neutrons) and moderators (slow neutrons). Thermal reactors use slow neutrons and moderators (water, graphite); fast reactors use unmoderated fast neutrons with higher density cores. Neutron economy balances production (fission), absorption (fuel, moderator, structural materials), and leakage. Xenon poisoning from fission products temporarily reduces reactivity. Coolant circulates through core to extract heat for steam generation or process applications.",
+                "Radiation protection limits exposure using ALARA principles: As Low As Reasonably Achievable. Dose rate depends on isotope half-life, energy, and source geometry. Shielding effectiveness varies by radiation type: (1) Alpha - stopped by paper, (2) Beta - requires plastic/metal, (3) Gamma - needs lead/concrete (half-value layer ~1 cm lead for Co-60), (4) Neutrons - moderated in water/boron. Biological effects depend on dose (Gy = J/kg) and dose rate. Safety systems include redundant cooling, containment structures, and emergency procedures for accident mitigation."
+            ],
+            
+            default: [
+                "Could you be more specific about which engineering field or topic you're interested in? I can provide detailed guidance on:\n- Civil Engineering (structures, infrastructure, geotechnics)\n- Mechanical Engineering (thermodynamics, machines, dynamics)\n- Electrical Engineering (circuits, power systems, electronics)\n- Aerospace Engineering (aerodynamics, flight mechanics, spacecraft)\n- Chemical Engineering (processes, unit operations, reaction engineering)\n- Nuclear Engineering (fission, reactors, radiation)\n\nWhat would you like to explore?",
+                "That's an interesting question! To give you the best answer, could you clarify: Are you asking about theory or practical application? What's your current background level with this topic? Would you like a comprehensive explanation or a quick overview? Providing context helps me tailor the response to your needs."
+            ]
+        };
+
+        function sendMessage() {
+            const message = userInput.value.trim();
+            if (message === '') return;
+
+            // Check if user can access AI feature
+            const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
+            if (!currentUser) {
+                addMessage('Please log in to access AI features', 'ai-message');
+                return;
+            }
+
+            // Use access control to check if AI is accessible
+            if (!window.accessControl.canAccessAI(currentUser)) {
+                const status = window.accessControl.getAccessStatus('ai', currentUser);
+                addMessage(`⚠️ ${status.message}`, 'ai-message');
+                return;
+            }
+
+            addMessage(message, 'user-message');
+            userInput.value = '';
+
+            saveMessageToChats(message, 'user');
+            trackAIRequest(message); // Track for admin analytics
+
+            // Show typing indicator
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'ai-message typing';
+            typingDiv.textContent = 'Thinking...';
+            chatMessages.appendChild(typingDiv);
+            scrollToBottom();
+
+            // Generate response with delay for natural feel
+            setTimeout(() => {
+                chatMessages.removeChild(typingDiv);
+                const response = generateResponse(message);
+                addMessage(response, 'ai-message');
+                saveMessageToChats(response, 'admin');
+            }, 800);
+        }
+
+        function trackAIRequest(message) {
+            const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
+            if (!currentUser) return;
+
+            const AI_REQUESTS_KEY = 'learncraft_ai_requests';
+            let aiRequests = JSON.parse(localStorage.getItem(AI_REQUESTS_KEY)) || [];
+            
+            const requestData = {
+                userEmail: currentUser.email,
+                message: message,
+                timestamp: new Date().toISOString(),
+                responseGenerated: true
+            };
+
+            aiRequests.push(requestData);
+            localStorage.setItem(AI_REQUESTS_KEY, JSON.stringify(aiRequests));
+
+            // Also update user's AI usage count
+            const users = JSON.parse(localStorage.getItem('learncraft_users')) || [];
+            const userIndex = users.findIndex(u => u.email === currentUser.email);
+            
+            if (userIndex !== -1) {
+                users[userIndex].aiUsageCount = (users[userIndex].aiUsageCount || 0) + 1;
+                users[userIndex].lastActive = new Date().toISOString();
+                localStorage.setItem('learncraft_users', JSON.stringify(users));
+            }
+        }
+
+        function saveMessageToChats(text, sender) {
+            const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
+            if (!currentUser) return;
+
+            let chats = JSON.parse(localStorage.getItem('learncraft_chats')) || [];
+            
+            const chatMessage = {
+                userEmail: currentUser.email,
+                userName: currentUser.email,
+                text: text,
+                sender: sender,
+                timestamp: new Date().toISOString()
+            };
+
+            chats.push(chatMessage);
+            localStorage.setItem('learncraft_chats', JSON.stringify(chats));
+        }
+
+        function scrollToBottom() {
+            const chatMessagesElement = document.getElementById('chatMessages');
+            if (chatMessagesElement) {
+                chatMessagesElement.scrollTop = chatMessagesElement.scrollHeight;
+            }
+        }
+
+        function addMessage(text, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = type;
+            messageDiv.textContent = text;
+            chatMessages.appendChild(messageDiv);
+            
+            scrollToBottom();
+        }
+
+        function generateResponse(userMessage) {
+            const lowerMessage = userMessage.toLowerCase();
+            const detailed = document.getElementById('detailedMode').checked;
+            
+            // Determine if asking about specific engineering field
+            let fieldResponses = null;
+            let responseArray = null;
+
+            if (lowerMessage.match(/\b(civil|structure|bridge|building|foundation|geotechnical|soil|infrastructure|concrete|steel)\b/i)) {
+                fieldResponses = engineeringResponses.civil;
+            } else if (lowerMessage.match(/\b(mechanical|thermodynamic|machine|engine|compressor|turbine|dynamics|vibration|control)\b/i)) {
+                fieldResponses = engineeringResponses.mechanical;
+            } else if (lowerMessage.match(/\b(electrical|circuit|power|voltage|current|electronics|signal|transformer|generator)\b/i)) {
+                fieldResponses = engineeringResponses.electrical;
+            } else if (lowerMessage.match(/\b(aerospace|aircraft|aerodynamic|flight|propulsion|drag|lift|rocket|orbital)\b/i)) {
+                fieldResponses = engineeringResponses.aerospace;
+            } else if (lowerMessage.match(/\b(chemical|chemical engineer|reaction|distillation|process|catalyst|extraction|absorption)\b/i)) {
+                fieldResponses = engineeringResponses.chemical;
+            } else if (lowerMessage.match(/\b(nuclear|fission|radiation|reactor|radioactive|isotope|neutron|uranium|plutonium)\b/i)) {
+                fieldResponses = engineeringResponses.nuclear;
+            }
+
+            // Select response
+            if (fieldResponses) {
+                responseArray = fieldResponses;
+            } else if (lowerMessage.match(/\b(hi|hello|hey|greetings|thanks|thank you)\b/i)) {
+                responseArray = [
+                    "Hello! I'm here to help you understand engineering concepts deeply. What engineering topic would you like to explore today?",
+                    "Hi there! Feel free to ask me anything about engineering - whether it's civil, mechanical, electrical, aerospace, chemical, or nuclear engineering. I'll provide detailed explanations.",
+                    "Greetings! I'm ready to guide you through engineering topics with comprehensive, structured explanations. What's on your mind?"
+                ];
+            } else if (lowerMessage.match(/\b(help|how do i|what is|explain|tell me about)\b/i)) {
+                responseArray = engineeringResponses.default;
+            } else {
+                responseArray = engineeringResponses.default;
+            }
+
+            // Get random response from selected array
+            const selectedResponse = responseArray[Math.floor(Math.random() * responseArray.length)];
+            
+            // Return response (simplified if concise mode, full if detailed)
+            if (!detailed && selectedResponse.length > 300) {
+                return selectedResponse.substring(0, 300) + '... Ask me for more details if you\'d like the full explanation!';
+            }
+            
+            return selectedResponse;
+        }
+
+        // Save chat to user's account if logged in
+        function saveChatHistory() {
+            const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
+            if (!currentUser) return;
+            
+            const users = JSON.parse(localStorage.getItem('learncraft_users')) || [];
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            
+            if (userIndex !== -1) {
+                if (!users[userIndex].chatHistory) {
+                    users[userIndex].chatHistory = [];
+                }
+                
+                const messages = Array.from(chatMessages.children).map(msg => ({
+                    text: msg.textContent,
+                    type: msg.classList.contains('user-message') ? 'user' : 'ai',
+                    timestamp: new Date().toISOString()
+                }));
+                
+                users[userIndex].chatHistory = messages;
+                users[userIndex].lastChatAt = new Date().toISOString();
+                localStorage.setItem('learncraft_users', JSON.stringify(users));
+            }
+        }
+
+        // Auto-save chat history periodically
+        const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
+        if (currentUser) {
+            setInterval(saveChatHistory, 10000);
+            
+            let lastMessageCount = 0;
+            setInterval(() => {
+                const chats = JSON.parse(localStorage.getItem('learncraft_chats')) || [];
+                const userChats = chats.filter(chat => chat.userEmail === currentUser.email);
+                
+                if (userChats.length > lastMessageCount) {
+                    const newMessages = userChats.slice(lastMessageCount);
+                    newMessages.forEach(chat => {
+                        const messageType = chat.sender === 'admin' ? 'ai-message' : 'user-message';
+                        const existingMessages = Array.from(chatMessages.children);
+                        const messageExists = existingMessages.some(msg => 
+                            msg.textContent === chat.text && msg.classList.contains(messageType)
+                        );
+                        if (!messageExists) {
+                            addMessage(chat.text, messageType);
+                        }
+                    });
+                    lastMessageCount = userChats.length;
+                }
+            }, 5000);
+            
+            const chats = JSON.parse(localStorage.getItem('learncraft_chats')) || [];
+            lastMessageCount = chats.filter(chat => chat.userEmail === currentUser.email).length;
+        }
+
+    </script>
+</body>
+</html>

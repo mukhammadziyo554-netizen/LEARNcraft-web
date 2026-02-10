@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Registered Emails - LEARNcraft Admin">
+    <title>Registered Emails - LEARNcraft Admin</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../theme.js"></script>
+    <style>
+        :root {
+            --bg-main: #0B0B0F;
+            --bg-soft: #111118;
+            --bg-card: #1a1a22;
+            --border-soft: rgba(255, 255, 255, 0.08);
+            --text-primary: #FFFFFF;
+            --text-secondary: rgba(255, 255, 255, 0.65);
+            --accent: #FFD700;
+            --accent-green: #10b981;
+            --accent-blue: #3b82f6;
+            --accent-red: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ═══════════════════════════════════════════════════════════ */
+        /* LIGHT MODE VARIABLES */
+        /* ═══════════════════════════════════════════════════════════ */
+
+        body.light-mode {
+            --bg-main: #FFFFFF;
+            --bg-soft: #F5F5F5;
+            --bg-card: #F9F9F9;
+            --border-soft: rgba(0, 0, 0, 0.1);
+            --text-primary: #000000;
+            --text-secondary: rgba(0, 0, 0, 0.6);
+        }
+
+        /* ═══════════════════════════════════════════════════════════ */
+        /* HEADER */
+        /* ═══════════════════════════════════════════════════════════ */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--bg-soft);
+            border-bottom: 1px solid var(--border-soft);
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            z-index: 1000;
+        }
+
+        header h1 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* ═══════════════════════════════════════════════════════════ */
+        /* SIDEBAR */
+        /* ═══════════════════════════════════════════════════════════ */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 60px;
+            width: 260px;
+            height: calc(100vh - 60px);
+            background: var(--bg-soft);
+            border-right: 1px solid var(--border-soft);
+            padding: 24px 0;
+            overflow-y: auto;
+            z-index: 999;
+        }
+
+        .sidebar-section {
+            padding: 0 16px;
+            margin-bottom: 24px;
+        }
+
+        .sidebar-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            padding: 0 8px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            margin-bottom: 4px;
+        }
+
+        .sidebar-link:hover {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--accent);
+        }
+
+        .sidebar-link.active {
+            background: rgba(255, 215, 0, 0.15);
+            color: var(--accent);
+        }
+
+        /* ═══════════════════════════════════════════════════════════ */
+        /* MAIN CONTENT */
+        /* ═══════════════════════════════════════════════════════════ */
+
+        .main-content {
+            margin-top: 60px;
+            margin-left: 260px;
+            padding: 32px;
+            min-height: calc(100vh - 60px);
+        }
+
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* ═══════════════════════════════════════════════════════════ */
+        /* STAT CARDS */
+        /* ═══════════════════════════════════════════════════════════ */
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-soft);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.2s ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+
+        .stat-growth {
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stat-growth.positive {
+            color: var(--accent-green);
+        }
+
+        .stat-growth.negative {
+            color: var(--accent-red);
+        }
+
+        /* ═══════════════════════════════════════════════════════════ */
+        /* FILTER BAR */
+        /* ═══════════════════════════════════════════════════════════ */
+
+        .filter-bar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-soft);
+            border-radius: 10px;
+            padding: 16px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 14px;
+            background: var(--bg-main);
+            border: 1px solid var(--border-soft);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .search-box input:focus {
+            border-color: var(--accent);
+        }
+
+        .search-box input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 10px 12px;
+            background: var(--bg-main);
+            border: 1px solid var(--border-soft);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 13px;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .filter-select:focus {
+            border-color: var(--accent);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 12px;
+            margin-left: auto;
+        }
+
+        .btn-filter {
+            padding: 10px 16px;
+            background: var(--bg-main);
+            border: 1px solid var(--border-soft);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-filter:hover {
+            border-color: var(--text-secondary);
+        }
+
+        .btn-export {
+            padding: 10px 16px;
+            background: var(--accent);
+            border: none;
+            border-radius: 6px;
+            color: #000;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-export:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+
+        /* ═══════════════════════════════════════════════════════════ */
+        /* TABLE */
+        /* ═══════════════════════════════════════════════════════════ */
+
+        .table-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-soft);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 32px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: var(--bg-soft);
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        th {
+            padding: 14px 16px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--border-soft);
+            transition: background-color 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background: rgba(255, 215, 0, 0.05);
+        }
+
+        td {
+            padding: 14px 16px;
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
+        .email-cell {
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 12px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════ */
+        /* BADGES */
+        /* ═══════════════════════════════════════════════════════════ */
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .badge-verified {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-green);
+        }
+
+        .badge-unverified {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--accent-red);
+        }
+
+        .badge-pro {
+            background: rgba(255, 215, 0, 0.15);
+            color: var(--accent);
+        }
+
+        .badge-free {
+            background: rgba(107, 114, 128, 0.15);
+            color: var(--text-secondary);
+        }
+
+        /* ═══════════════════════════════════════════════════════════ */
+        /* ACTION BUTTONS */
+        /* ═══════════════════════════════════════════════════════════ */
+
+        .action-buttons {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-action {
+            padding: 6px 10px;
+            background: transparent;
+            border: 1px solid var(--border-soft);
+            border-radius: 4px;
+            color: var(--text-secondary);
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-action:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(255, 215, 0, 0.05);
+        }
+
+        /* ═══════════════════════════════════════════════════════════ */
+        /* CHART SECTION */
+        /* ═══════════════════════════════════════════════════════════ */
+
+        .chart-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-soft);
+            border-radius: 10px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .chart-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════ */
+        /* TOP ACTIVE SECTION */
+        /* ═══════════════════════════════════════════════════════════ */
+
+        .top-active-section {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .active-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-soft);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .active-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .active-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .active-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .active-name {
+            font-size: 13px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .active-value {
+            font-size: 13px;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* ═══════════════════════════════════════════════════════════ */
+        /* PAGINATION */
+        /* ═══════════════════════════════════════════════════════════ */
+
+        .pagination-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-soft);
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .pagination-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pagination-select {
+            padding: 6px 10px;
+            background: var(--bg-main);
+            border: 1px solid var(--border-soft);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .pagination-nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        .pagination-btn {
+            padding: 6px 12px;
+            background: var(--bg-main);
+            border: 1px solid var(--border-soft);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ═══════════════════════════════════════════════════════════ */
+        /* RESPONSIVE */
+        /* ═══════════════════════════════════════════════════════════ */
+
+        @media (max-width: 1400px) {
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .top-active-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .main-content {
+                margin-left: 200px;
+                padding: 24px;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+
+            .filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                min-width: 100%;
+            }
+
+            .filter-group {
+                width: 100%;
+            }
+
+            .filter-buttons {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .table-container {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 10px 12px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                height: 50px;
+                padding: 0 16px;
+            }
+
+            .sidebar {
+                position: fixed;
+                left: -200px;
+                top: 50px;
+                width: 200px;
+                height: calc(100vh - 50px);
+                transition: left 0.3s ease;
+                z-index: 999;
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            .main-content {
+                margin-top: 50px;
+                margin-left: 0;
+                padding: 16px;
+            }
+
+            .page-title {
+                font-size: 24px;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .stat-card {
+                padding: 16px;
+            }
+
+            .stat-value {
+                font-size: 28px;
+            }
+
+            .top-active-section {
+                grid-template-columns: 1fr;
+            }
+
+            /* Stacked table on mobile */
+            .table-container {
+                display: none;
+            }
+
+            .mobile-cards {
+                display: block;
+            }
+
+            .email-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border-soft);
+                border-radius: 8px;
+                padding: 16px;
+                margin-bottom: 12px;
+            }
+
+            .email-card-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 8px 0;
+                border-bottom: 1px solid var(--border-soft);
+            }
+
+            .email-card-row:last-child {
+                border-bottom: none;
+            }
+
+            .email-card-label {
+                font-size: 11px;
+                font-weight: 600;
+                color: var(--text-secondary);
+                text-transform: uppercase;
+            }
+
+            .email-card-value {
+                font-size: 12px;
+                color: var(--text-primary);
+                text-align: right;
+                flex: 1;
+                margin-left: 12px;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════ */
+        /* ACCESS DENIED */
+        /* ═══════════════════════════════════════════════════════════ */
+
+        .access-denied {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .access-denied-icon {
+            font-size: 60px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .access-denied-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .access-denied-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .btn-back {
+            padding: 10px 20px;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-back:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <h1>📧 Registered Emails</h1>
+    </header>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-section">
+            <div class="sidebar-title">Navigation</div>
+            <a href="admin-dashboard.html" class="sidebar-link">Dashboard</a>
+            <a href="../pages/ai-usage.html" class="sidebar-link">AI Usage</a>
+            <a href="../utils/user-analytics.html" class="sidebar-link">User Analytics</a>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-title">Data</div>
+            <a href="registered-emails.html" class="sidebar-link active">📧 Registered Emails</a>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-title">System</div>
+            <a href="../pages/index.html" class="sidebar-link">Back to Home</a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- PAGE HEADER -->
+        <div class="page-header">
+            <h2 class="page-title">Registered Emails</h2>
+            <p class="page-subtitle">Monitor user registrations, verification status, and subscription levels.</p>
+        </div>
+
+        <!-- STAT CARDS -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-label">Total Registered Users</div>
+                <div class="stat-value" id="totalUsers">0</div>
+                <div class="stat-growth positive">↑ <span id="totalGrowth">0%</span></div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Verified Emails</div>
+                <div class="stat-value" id="verifiedCount">0</div>
+                <div class="stat-growth positive">↑ <span id="verifiedGrowth">0%</span></div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Unverified Emails</div>
+                <div class="stat-value" id="unverifiedCount">0</div>
+                <div class="stat-growth" id="unverifiedGrowth">↓ 0%</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Pro Subscribers</div>
+                <div class="stat-value" id="proCount">0</div>
+                <div class="stat-growth positive">↑ <span id="proGrowth">0%</span></div>
+            </div>
+        </div>
+
+        <!-- FILTER BAR -->
+        <div class="filter-bar">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search by email or name...">
+            </div>
+            <div class="filter-group">
+                <select class="filter-select" id="subscriptionFilter">
+                    <option value="">All Subscriptions</option>
+                    <option value="Free">Free</option>
+                    <option value="Pro">Pro</option>
+                </select>
+
+                <select class="filter-select" id="verificationFilter">
+                    <option value="">All Verification</option>
+                    <option value="Verified">Verified</option>
+                    <option value="Not Verified">Not Verified</option>
+                </select>
+
+                <select class="filter-select" id="countryFilter">
+                    <option value="">All Countries</option>
+                </select>
+            </div>
+            <div class="filter-buttons">
+                <button class="btn-filter" onclick="applyFilters()">Apply Filter</button>
+                <button class="btn-export" onclick="exportCSV()">📥 Export CSV</button>
+            </div>
+        </div>
+
+        <!-- EMAILS TABLE -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Registration Date</th>
+                        <th>Country</th>
+                        <th>Subscription</th>
+                        <th>Verification</th>
+                        <th>AI Usage</th>
+                        <th>Last Activity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="emailTableBody">
+                    <!-- Populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- PAGINATION -->
+        <div class="pagination-section">
+            <div class="pagination-info">
+                <label>Show 
+                    <select class="pagination-select" id="entriesPerPage" onchange="changeEntriesPerPage()">
+                        <option value="10">10</option>
+                        <option value="25" selected>25</option>
+                        <option value="50">50</option>
+                    </select>
+                    entries
+                </label>
+                <span id="entriesInfo">Showing 1 of 0</span>
+            </div>
+            <div class="pagination-nav">
+                <button class="pagination-btn" id="prevBtn" onclick="previousPage()">← Previous</button>
+                <span id="pageInfo">Page 1</span>
+                <button class="pagination-btn" id="nextBtn" onclick="nextPage()">Next →</button>
+            </div>
+        </div>
+
+        <!-- EMAIL GROWTH CHART -->
+        <div class="chart-section">
+            <h3 class="chart-title">Registration Growth</h3>
+            <div class="chart-container">
+                <canvas id="registrationChart"></canvas>
+            </div>
+        </div>
+
+        <!-- TOP ACTIVE SECTION -->
+        <div class="top-active-section">
+            <div class="active-card">
+                <h4 class="active-title">🔥 Top AI Users</h4>
+                <div id="topAIUsers">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="active-card">
+                <h4 class="active-title">👥 Most Active</h4>
+                <div id="mostActive">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="active-card">
+                <h4 class="active-title">⏰ Most Time Spent</h4>
+                <div id="mostTimeSpent">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ACCESS DENIED OVERLAY -->
+    <div id="accessDenied" class="access-denied" style="display: none;">
+        <div class="access-denied-icon">🔒</div>
+        <h2 class="access-denied-title">Access Denied</h2>
+        <p class="access-denied-text">You don't have permission to access this page.</p>
+        <a href="../pages/index.html" class="btn-back">Back to Home</a>
+    </div>
+
+    <script>
+        // ═══════════════════════════════════════════════════════════
+        // SECURITY CHECK - WAIT FOR SESSION BEFORE RENDERING
+        // ═══════════════════════════════════════════════════════════
+
+        // Your admin email - change this to your actual admin email
+        const ADMIN_EMAIL = 'mukhammadziyo554@gmail.com';
+
+        // Flag to track if we're checking access
+        let accessChecked = false;
+
+        function normalizeEmail(email) {
+            return (email || '').toLowerCase().trim();
+        }
+
+        function checkAdminAccess() {
+            const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user') || '{}');
+            const userEmail = currentUser.email;
+
+            console.log('🔍 Access Check:');
+            console.log('  User email:', userEmail);
+            console.log('  Admin email:', ADMIN_EMAIL);
+            console.log('  Match:', normalizeEmail(userEmail) === normalizeEmail(ADMIN_EMAIL));
+
+            // Check if user is logged in
+            if (!userEmail) {
+                console.warn('⚠️ No user session found, redirecting to login...');
+                setTimeout(() => {
+                    window.location.href = '../pages/login.html';
+                }, 1000);
+                return false;
+            }
+
+            // Compare normalized emails (lowercase, trimmed)
+            const normalizedUserEmail = normalizeEmail(userEmail);
+            const normalizedAdminEmail = normalizeEmail(ADMIN_EMAIL);
+
+            if (normalizedUserEmail !== normalizedAdminEmail) {
+                console.error('❌ Access Denied - Not admin email');
+                document.querySelector('.main-content').style.display = 'none';
+                document.getElementById('accessDenied').style.display = 'flex';
+                return false;
+            }
+
+            console.log('✅ Access Granted - Admin verified');
+            return true;
+        }
+
+        // Wait for session to be ready before checking access
+        function waitForSession() {
+            const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user') || '{}');
+            
+            if (!currentUser.email) {
+                console.log('⏳ Waiting for session to initialize...');
+                // Retry after a short delay
+                setTimeout(waitForSession, 500);
+                return;
+            }
+
+            // Session is ready, check access
+            accessChecked = true;
+            if (checkAdminAccess()) {
+                initializePage();
+            }
+        }
+
+        // Start session check on page load
+        window.addEventListener('load', waitForSession);
+
+        // Also try immediately if DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                if (!accessChecked) {
+                    waitForSession();
+                }
+            });
+        } else {
+            if (!accessChecked) {
+                waitForSession();
+            }
+        }
+
+        // ═══════════════════════════════════════════════════════════
+        // DATA MANAGEMENT
+        // ═══════════════════════════════════════════════════════════
+
+        let allUsers = [];
+        let filteredUsers = [];
+        let currentPage = 1;
+        let entriesPerPage = 25;
+        let registrationChart = null;
+
+        function getAdminData() {
+            const users = JSON.parse(localStorage.getItem('learncraft_users') || '[]');
+            const aiRequests = JSON.parse(localStorage.getItem('learncraft_ai_requests') || '[]');
+
+            return users.map(user => {
+                const userAIRequests = aiRequests.filter(req => req.userEmail === user.email);
+                return {
+                    id: user.email.split('@')[0].substring(0, 6).toUpperCase(),
+                    name: user.name || 'Unknown',
+                    email: user.email,
+                    registrationDate: user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A',
+                    country: user.country || 'Unknown',
+                    subscriptionType: user.isPremium ? 'Pro' : 'Free',
+                    verificationStatus: user.verified !== false ? 'Verified' : 'Not Verified',
+                    aiUsageCount: userAIRequests.length,
+                    lastActivity: user.lastActive ? new Date(user.lastActive).toLocaleDateString() : 'Never'
+                };
+            });
+        }
+
+        function updateStats() {
+            const total = allUsers.length;
+            const verified = allUsers.filter(u => u.verificationStatus === 'Verified').length;
+            const unverified = allUsers.filter(u => u.verificationStatus === 'Not Verified').length;
+            const pro = allUsers.filter(u => u.subscriptionType === 'Pro').length;
+
+            document.getElementById('totalUsers').textContent = total;
+            document.getElementById('verifiedCount').textContent = verified;
+            document.getElementById('unverifiedCount').textContent = unverified;
+            document.getElementById('proCount').textContent = pro;
+
+            // Calculate growth percentages (mock data)
+            document.getElementById('totalGrowth').textContent = '12%';
+            document.getElementById('verifiedGrowth').textContent = '8%';
+            document.getElementById('proGrowth').textContent = '15%';
+        }
+
+        function populateCountries() {
+            const countries = [...new Set(allUsers.map(u => u.country))];
+            const select = document.getElementById('countryFilter');
+            countries.forEach(country => {
+                if (country && country !== 'Unknown') {
+                    const option = document.createElement('option');
+                    option.value = country;
+                    option.textContent = country;
+                    select.appendChild(option);
+                }
+            });
+        }
+
+        function applyFilters() {
+            const searchText = document.getElementById('searchInput').value.toLowerCase();
+            const subscriptionFilter = document.getElementById('subscriptionFilter').value;
+            const verificationFilter = document.getElementById('verificationFilter').value;
+            const countryFilter = document.getElementById('countryFilter').value;
+
+            filteredUsers = allUsers.filter(user => {
+                const matchSearch = user.email.toLowerCase().includes(searchText) || 
+                                   user.name.toLowerCase().includes(searchText);
+                const matchSubscription = !subscriptionFilter || user.subscriptionType === subscriptionFilter;
+                const matchVerification = !verificationFilter || user.verificationStatus === verificationFilter;
+                const matchCountry = !countryFilter || user.country === countryFilter;
+
+                return matchSearch && matchSubscription && matchVerification && matchCountry;
+            });
+
+            currentPage = 1;
+            renderTable();
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('emailTableBody');
+            tbody.innerHTML = '';
+
+            const start = (currentPage - 1) * entriesPerPage;
+            const end = start + entriesPerPage;
+            const pageUsers = filteredUsers.slice(start, end);
+
+            pageUsers.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user.id}</td>
+                    <td>${user.name}</td>
+                    <td class="email-cell">${user.email}</td>
+                    <td>${user.registrationDate}</td>
+                    <td>${user.country}</td>
+                    <td><span class="badge ${user.subscriptionType === 'Pro' ? 'badge-pro' : 'badge-free'}">${user.subscriptionType}</span></td>
+                    <td><span class="badge ${user.verificationStatus === 'Verified' ? 'badge-verified' : 'badge-unverified'}">${user.verificationStatus}</span></td>
+                    <td>${user.aiUsageCount}</td>
+                    <td>${user.lastActivity}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-action" onclick="viewProfile('${user.email}')">View</button>
+                            <button class="btn-action" onclick="upgradeUser('${user.email}')">Upgrade</button>
+                            <button class="btn-action" onclick="deleteUser('${user.email}')">Delete</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            updatePagination();
+        }
+
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredUsers.length / entriesPerPage);
+            document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages}`;
+            document.getElementById('entriesInfo').textContent = `Showing ${Math.min((currentPage - 1) * entriesPerPage + 1, filteredUsers.length)} to ${Math.min(currentPage * entriesPerPage, filteredUsers.length)} of ${filteredUsers.length}`;
+            document.getElementById('prevBtn').disabled = currentPage === 1;
+            document.getElementById('nextBtn').disabled = currentPage === totalPages;
+        }
+
+        function nextPage() {
+            const totalPages = Math.ceil(filteredUsers.length / entriesPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderTable();
+            }
+        }
+
+        function previousPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                renderTable();
+            }
+        }
+
+        function changeEntriesPerPage() {
+            entriesPerPage = parseInt(document.getElementById('entriesPerPage').value);
+            currentPage = 1;
+            renderTable();
+        }
+
+        // ═══════════════════════════════════════════════════════════
+        // ACTIONS
+        // ═══════════════════════════════════════════════════════════
+
+        function viewProfile(email) {
+            alert('View Profile: ' + email);
+        }
+
+        function upgradeUser(email) {
+            alert('Upgrade User: ' + email);
+        }
+
+        function deleteUser(email) {
+            if (confirm('Are you sure you want to delete ' + email + '?')) {
+                const users = JSON.parse(localStorage.getItem('learncraft_users') || '[]');
+                const filtered = users.filter(u => u.email !== email);
+                localStorage.setItem('learncraft_users', JSON.stringify(filtered));
+                allUsers = getAdminData();
+                applyFilters();
+                alert('User deleted successfully');
+            }
+        }
+
+        function exportCSV() {
+            let csv = 'ID,Name,Email,Registration Date,Country,Subscription,Verification,AI Usage,Last Activity\n';
+            filteredUsers.forEach(user => {
+                csv += `${user.id},"${user.name}","${user.email}","${user.registrationDate}","${user.country}","${user.subscriptionType}","${user.verificationStatus}",${user.aiUsageCount},"${user.lastActivity}"\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'registered_emails_' + new Date().toISOString().split('T')[0] + '.csv';
+            a.click();
+        }
+
+        // ═══════════════════════════════════════════════════════════
+        // CHARTS
+        // ═══════════════════════════════════════════════════════════
+
+        function initializeChart() {
+            const ctx = document.getElementById('registrationChart').getContext('2d');
+
+            // Mock data for last 7 days
+            const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            const registrations = [8, 12, 15, 10, 18, 22, 19];
+            const verified = [6, 10, 14, 9, 16, 20, 18];
+            const pro = [2, 3, 4, 3, 5, 8, 6];
+
+            registrationChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Total Registrations',
+                            data: registrations,
+                            borderColor: '#FFD700',
+                            backgroundColor: 'rgba(255, 215, 0, 0.1)',
+                            tension: 0.4,
+                            fill: true,
+                            borderWidth: 2,
+                            pointRadius: 4,
+                            pointBackgroundColor: '#FFD700'
+                        },
+                        {
+                            label: 'Verified',
+                            data: verified,
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.05)',
+                            tension: 0.4,
+                            fill: true,
+                            borderWidth: 2,
+                            pointRadius: 4,
+                            pointBackgroundColor: '#10b981'
+                        },
+                        {
+                            label: 'Pro Upgrades',
+                            data: pro,
+                            borderColor: '#3b82f6',
+                            backgroundColor: 'rgba(59, 130, 246, 0.05)',
+                            tension: 0.4,
+                            fill: true,
+                            borderWidth: 2,
+                            pointRadius: 4,
+                            pointBackgroundColor: '#3b82f6'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: getComputedStyle(document.body).getPropertyValue('--text-secondary'),
+                                font: { size: 12 }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: getComputedStyle(document.body).getPropertyValue('--text-secondary'),
+                                font: { size: 11 }
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.08)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: getComputedStyle(document.body).getPropertyValue('--text-secondary'),
+                                font: { size: 11 }
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.08)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateTopActive() {
+            const sorted = [...allUsers].sort((a, b) => b.aiUsageCount - a.aiUsageCount);
+            const topAI = sorted.slice(0, 5);
+
+            document.getElementById('topAIUsers').innerHTML = topAI.map(user => `
+                <div class="active-item">
+                    <span class="active-name">${user.name}</span>
+                    <span class="active-value">${user.aiUsageCount} requests</span>
+                </div>
+            `).join('');
+
+            // Most active (by last activity date proximity)
+            const mostActiveSorted = [...allUsers].sort((a, b) => new Date(b.lastActivity) - new Date(a.lastActivity));
+            const mostActivList = mostActiveSorted.slice(0, 5);
+
+            document.getElementById('mostActive').innerHTML = mostActivList.map(user => `
+                <div class="active-item">
+                    <span class="active-name">${user.name}</span>
+                    <span class="active-value">${user.lastActivity}</span>
+                </div>
+            `).join('');
+
+            // Most time spent (mock - based on registration duration)
+            const timeSortedList = [...allUsers].sort((a, b) => new Date(a.registrationDate) - new Date(b.registrationDate));
+            const topTimeSpent = timeSortedList.slice(0, 5);
+
+            document.getElementById('mostTimeSpent').innerHTML = topTimeSpent.map(user => `
+                <div class="active-item">
+                    <span class="active-name">${user.name}</span>
+                    <span class="active-value">Since ${user.registrationDate}</span>
+                </div>
+            `).join('');
+        }
+
+        // ═══════════════════════════════════════════════════════════
+        // INITIALIZATION
+        // ═══════════════════════════════════════════════════════════
+
+        function initializePage() {
+            allUsers = getAdminData();
+            filteredUsers = [...allUsers];
+
+            updateStats();
+            populateCountries();
+            renderTable();
+            initializeChart();
+            updateTopActive();
+
+            console.log('✅ Registered Emails page initialized');
+        }
+    </script>
+</body>
+</html>
