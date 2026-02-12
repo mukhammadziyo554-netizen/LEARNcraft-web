@@ -585,17 +585,6 @@
     </div>
     <div class="nav-right">
       <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme"></button>
-      <div class="language-switcher">
-        <button id="languageSwitcher" class="lang-btn">
-          <span class="lang-icon">🌐</span>
-          <span class="lang-text">EN</span>
-        </button>
-        <div class="lang-dropdown" id="langDropdown">
-          <button class="lang-option" data-lang="en">🇬🇧 English</button>
-          <button class="lang-option" data-lang="ru">🇷🇺 Русский</button>
-          <button class="lang-option" data-lang="uz">🇺🇿 O'zbekcha</button>
-        </div>
-      </div>
       <a href="../index.html" class="back-link">← Back to Home</a>
     </div>
   </nav>
@@ -831,7 +820,16 @@
     };
 
     // Wait for DOM to load
-    document.addEventListener('DOMContentLoaded', animateCounters);
+    document.addEventListener('DOMContentLoaded', () => {
+      animateCounters();
+      // Initialize and translate page using i18n system
+      LearnCraftI18n.translatePage();
+    });
+
+    // Also run on page show (for back/forward navigation)
+    window.addEventListener('pageshow', () => {
+      LearnCraftI18n.translatePage();
+    });
 
     // Stagger animations for field cards
     window.addEventListener('load', () => {

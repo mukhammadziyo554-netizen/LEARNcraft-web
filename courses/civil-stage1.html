@@ -245,6 +245,28 @@
     }
 
     /* Content */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      color: #000000;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      padding: 8px;
+      transition: color 0.3s;
+    }
+
+    body:not(.light-mode) .back-btn {
+      color: #ffffff;
+    }
+
+    .back-btn:hover {
+      color: #FFD84D;
+    }
+
     .content-header {
       margin-bottom: 32px;
     }
@@ -454,6 +476,7 @@
     </div>
 
     <!-- Content Header -->
+    <button class="back-btn" onclick="window.history.back()">← Back</button>
     <div class="content-header">
       <h1 class="content-title" id="contentTitle">Math for Engineers</h1>
       <p class="content-description" id="contentDescription">

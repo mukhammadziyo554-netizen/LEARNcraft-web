@@ -442,6 +442,13 @@
       if (currentUser) {
         window.location.href = '../index.html';
       }
+      // Initialize and translate page using i18n system
+      LearnCraftI18n.translatePage();
+    });
+
+    // Also run on page show (for back/forward navigation)
+    window.addEventListener('pageshow', () => {
+      LearnCraftI18n.translatePage();
     });
 
     function getUsers() {

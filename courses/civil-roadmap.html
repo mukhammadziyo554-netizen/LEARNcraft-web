@@ -11,12 +11,36 @@
   <script src="../js/theme.js"></script>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      color: #000000;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 30px;
+      padding: 8px;
+      transition: color 0.3s;
+    }
+
+    body:not(.light-mode) .back-btn {
+      color: #ffffff;
+    }
+
+    .back-btn:hover {
+      color: #FFD84D;
+    }
+  </style>
 </head>
 <body class="dark">
 
 <header class="topbar">LEARNcraft</header>
 
 <section class="hero">
+  <button class="back-btn" onclick="window.history.back()">← Back</button>
   <h1>Civil Engineering Roadmap</h1>
   <p>Your step-by-step path to mastering Civil Engineering.</p>
 </section>

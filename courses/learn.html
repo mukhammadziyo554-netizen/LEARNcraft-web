@@ -21,8 +21,8 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #000000;
-            color: #EAEAEA;
+            background: #0a0a0c;
+            color: #c9cace;
             min-height: var(--app-height);
             width: 100%;
             overflow-x: hidden;
@@ -50,7 +50,7 @@
             font-size: clamp(32px, 8vw, 56px);
             font-weight: 700;
             margin-bottom: 16px;
-            background: linear-gradient(135deg, #ffffff, #ffd700);
+            background: linear-gradient(135deg, #d4d4d8, #c9a961);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -58,7 +58,7 @@
 
         .hero p {
             font-size: clamp(16px, 3vw, 20px);
-            color: #EAEAEA;
+            color: #a3a5aa;
             margin-bottom: 32px;
             max-width: min(600px, 90vw);
             margin-left: auto;
@@ -68,19 +68,19 @@
         .btn-primary {
             display: inline-block;
             padding: 16px 48px;
-            background: #ffd700;
-            color: #000;
+            background: #b8956a;
+            color: #0a0a0c;
             font-size: 18px;
             font-weight: 600;
             border-radius: 30px;
             text-decoration: none;
             transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+            box-shadow: 0 0 15px rgba(184, 149, 106, 0.2);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+            box-shadow: 0 0 20px rgba(184, 149, 106, 0.3);
         }
 
         /* Topic Categories Grid */
@@ -99,28 +99,28 @@
         }
 
         .topic-card {
-            background: transparent;
-            border: 1px solid #222;
+            background: rgba(201, 202, 206, 0.02);
+            border: 1px solid rgba(201, 202, 206, 0.1);
             border-radius: 12px;
             padding: clamp(20px, 4vw, 32px);
             transition: all 0.3s ease;
         }
 
         .topic-card:hover {
-            background: rgba(255, 215, 0, 0.05);
-            border-color: #FFD84D;
+            background: rgba(184, 149, 106, 0.05);
+            border-color: rgba(184, 149, 106, 0.4);
             transform: translateY(-4px);
         }
 
         .topic-card h3 {
             font-size: 24px;
             margin-bottom: 12px;
-            color: #FFD84D;
+            color: #b8956a;
         }
 
         .topic-card p {
             font-size: 16px;
-            color: #EAEAEA;
+            color: #a3a5aa;
             margin-bottom: 24px;
             line-height: 1.6;
         }
@@ -129,18 +129,18 @@
             display: inline-block;
             padding: 12px 32px;
             background: transparent;
-            color: #FFD84D;
+            color: #b8956a;
             font-size: 16px;
             font-weight: 500;
-            border: 2px solid #FFD84D;
+            border: 2px solid #b8956a;
             border-radius: 24px;
             text-decoration: none;
             transition: all 0.3s ease;
         }
 
         .btn-secondary:hover {
-            background: #FFD84D;
-            color: #000000;
+            background: #b8956a;
+            color: #0a0a0c;
         }
 
         /* How It Works Section */
@@ -158,8 +158,8 @@
         .step-card {
             text-align: center;
             padding: 32px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(201, 202, 206, 0.02);
+            border: 1px solid rgba(201, 202, 206, 0.08);
             border-radius: 12px;
         }
 
@@ -167,8 +167,8 @@
             width: 80px;
             height: 80px;
             margin: 0 auto 24px;
-            background: rgba(255, 215, 0, 0.1);
-            border: 2px solid #ffd700;
+            background: rgba(184, 149, 106, 0.08);
+            border: 2px solid #b8956a;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -179,12 +179,12 @@
         .step-card h3 {
             font-size: 20px;
             margin-bottom: 12px;
-            color: #ffd700;
+            color: #b8956a;
         }
 
         .step-card p {
             font-size: 15px;
-            color: rgba(255, 255, 255, 0.6);
+            color: #7f8185;
             line-height: 1.6;
         }
 
@@ -194,11 +194,11 @@
             top: 24px;
             left: 24px;
             padding: 12px 24px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(201, 202, 206, 0.05);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(201, 202, 206, 0.1);
             border-radius: 24px;
-            color: #fff;
+            color: #c9cace;
             text-decoration: none;
             font-weight: 500;
             font-family: inherit;
@@ -209,8 +209,8 @@
         }
 
         .back-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: #ffd700;
+            background: rgba(184, 149, 106, 0.1);
+            border-color: #b8956a;
         }
 
         @media (max-width: 768px) {

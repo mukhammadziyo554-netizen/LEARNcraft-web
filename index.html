@@ -4720,14 +4720,14 @@
             <nav class="main-nav">
                 <a href="index.html" class="nav-link active" data-i18n="nav.home">Home</a>
                 <a href="pages/about.html" class="nav-link" data-i18n="nav.about">About</a>
-                <a href="#pricing" class="nav-link">LEARNcraft Pro</a>
+                <a href="#pricing" class="nav-link" data-i18n="nav.pro">LEARNcraft Pro</a>
             </nav>
         </div>
 
         <div class="right-group">
             <div class="language-switcher" id="langSwitcher">
                 <div class="lang-current" id="langCurrent">EN</div>
-                <div class="lang-dropdown" id="langDropdown" style="display: none;">
+                <div class="lang-dropdown" id="langDropdown">
                     <span class="lang-option active" data-lang="en">EN</span>
                     <span class="lang-option" data-lang="ru">RU</span>
                     <span class="lang-option" data-lang="uz">UZ</span>
@@ -4887,14 +4887,14 @@
     <!-- PRICING SECTION -->
     <section class="pricing-section" id="pricing">
         <div class="pricing-header">
-            <h2>Upgrade to LEARNcraft Pro</h2>
-            <p>Unlock full AI-powered civil engineering learning tools.</p>
+            <h2 data-i18n="home.pricingTitle">Upgrade to LEARNcraft Pro</h2>
+            <p data-i18n="home.pricingDesc">Unlock full AI-powered civil engineering learning tools.</p>
         </div>
 
         <div class="pricing-toggle">
-            <button class="toggle-option active" onclick="switchPlan('monthly')">Monthly</button>
-            <button class="toggle-option" onclick="switchPlan('6month')">6 Months</button>
-            <button class="toggle-option" onclick="switchPlan('yearly')">Yearly</button>
+            <button class="toggle-option active" onclick="switchPlan('monthly')" data-i18n="home.pricingMonthly">Monthly</button>
+            <button class="toggle-option" onclick="switchPlan('6month')" data-i18n="home.pricing6Month">6 Months</button>
+            <button class="toggle-option" onclick="switchPlan('yearly')" data-i18n="home.pricingYearly">Yearly</button>
         </div>
 
         <div class="pricing-cards">

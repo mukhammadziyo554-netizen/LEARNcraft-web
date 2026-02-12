@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, height=device-height">
+    <meta name="description" content="Interactive Lesson with AI Assistant - LEARNcraft">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Lesson - LEARNcraft</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/access-control.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #ffffff;
+            color: #000000;
+            min-height: 100vh;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        body:not(.light-mode) {
+            background: #000000;
+            color: #ffffff;
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            color: #000000;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 999;
+            border-bottom: 1px solid #e0e0e0;
+            backdrop-filter: blur(10px);
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        body:not(.light-mode) .nav-bar {
+            background: rgba(0, 0, 0, 0.95);
+            color: #ffffff;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-back-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #000000;
+            transition: color 0.3s;
+        }
+
+        body:not(.light-mode) .nav-back-btn {
+            color: #ffffff;
+        }
+
+        .nav-back-btn:hover {
+            color: #FFD84D;
+        }
+
+        .nav-brand {
+            font-size: 16px;
+            font-weight: 700;
+            color: #000000;
+        }
+
+        body:not(.light-mode) .nav-brand {
+            color: #ffffff;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid #000000;
+            color: #000000;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        body:not(.light-mode) .theme-toggle {
+            border: 1px solid #ffffff;
+            color: #ffffff;
+        }
+
+        .theme-toggle:hover {
+            background: #FFD84D;
+            color: #000000;
+            border-color: #FFD84D;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 80px;
+            padding-left: 16px;
+            padding-right: 16px;
+            padding-bottom: 40px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        /* Desktop: 2-column layout */
+        @media (min-width: 1200px) {
+            .main-container {
+                grid-template-columns: 2fr 1fr;
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+        }
+
+        /* LEFT SIDE - Lesson Content */
+        .lesson-content {
+            flex: 1;
+        }
+
+        .lesson-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #000000;
+        }
+
+        body:not(.light-mode) .lesson-content h1 {
+            color: #ffffff;
+        }
+
+        .lesson-content h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            color: #FFD84D;
+            transition: color 0.3s;
+        }
+
+        .lesson-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            color: #000000;
+        }
+
+        body:not(.light-mode) .lesson-content h3 {
+            color: #ffffff;
+        }
+
+        .lesson-content p {
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 16px;
+            color: #000000;
+        }
+
+        body:not(.light-mode) .lesson-content p {
+            color: #ffffff;
+        }
+
+        .lesson-content ul,
+        .lesson-content ol {
+            margin-left: 24px;
+            margin-bottom: 16px;
+        }
+
+        .lesson-content li {
+            margin-bottom: 12px;
+            color: #000000;
+            line-height: 1.6;
+        }
+
+        body:not(.light-mode) .lesson-content li {
+            color: #ffffff;
+        }
+
+        .lesson-content strong {
+            font-weight: 600;
+        }
+
+        /* Code Block */
+        .code-block {
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            font-family: "Monaco", "Menlo", monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            color: #333;
+        }
+
+        body:not(.light-mode) .code-block {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #e0e0e0;
+        }
+
+        /* Problem Box */
+        .problem-box {
+            border: 2px solid #000000;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            background: #ffffff;
+        }
+
+        body:not(.light-mode) .problem-box {
+            background: #0a0a0a;
+            border: 2px solid #ffffff;
+        }
+
+        .problem-box h3 {
+            margin-top: 0;
+        }
+
+        /* Key Concepts Box */
+        .concepts-box {
+            border-left: 4px solid #FFD84D;
+            padding-left: 16px;
+            margin: 20px 0;
+        }
+
+        /* RIGHT SIDE - AI Chat Panel (Desktop) */
+        .ai-panel-container {
+            display: none;
+        }
+
+        @media (min-width: 1200px) {
+            .ai-panel-container {
+                display: block;
+            }
+        }
+
+        .ai-panel {
+            position: sticky;
+            top: 100px;
+            height: 80vh;
+            border: 2px solid #000000;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        body:not(.light-mode) .ai-panel {
+            background: #0a0a0a;
+            border: 2px solid #ffffff;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .ai-panel-header {
+            padding: 16px;
+            border-bottom: 2px solid #000000;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #000000;
+            transition: border-color 0.3s;
+        }
+
+        body:not(.light-mode) .ai-panel-header {
+            color: #ffffff;
+            border-bottom: 2px solid #ffffff;
+        }
+
+        .ai-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .ai-message {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 12px;
+            background: #f5f5f5;
+            color: #000000;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        body:not(.light-mode) .ai-message {
+            background: #1a1a1a;
+            color: #ffffff;
+        }
+
+        .ai-message.user {
+            background: #FFD84D;
+            color: #000000;
+            justify-content: flex-end;
+            margin-left: 24px;
+        }
+
+        .ai-message.assistant {
+            background: #f0f0f0;
+        }
+
+        body:not(.light-mode) .ai-message.assistant {
+            background: #1a1a1a;
+        }
+
+        .ai-panel-input {
+            padding: 16px;
+            border-top: 2px solid #000000;
+            display: flex;
+            gap: 8px;
+            transition: border-color 0.3s;
+        }
+
+        body:not(.light-mode) .ai-panel-input {
+            border-top: 2px solid #ffffff;
+        }
+
+        .ai-input-field {
+            flex: 1;
+            background: transparent;
+            border: 1px solid #000000;
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 0.9rem;
+            color: #000000;
+            transition: border-color 0.3s;
+        }
+
+        body:not(.light-mode) .ai-input-field {
+            border: 1px solid #ffffff;
+            color: #ffffff;
+        }
+
+        .ai-input-field::placeholder {
+            color: #999;
+        }
+
+        body:not(.light-mode) .ai-input-field::placeholder {
+            color: #666;
+        }
+
+        .ai-input-field:focus {
+            outline: none;
+            border-color: #FFD84D;
+            box-shadow: 0 0 0 3px rgba(255, 216, 77, 0.1);
+        }
+
+        .ai-send-btn {
+            background: #FFD84D;
+            border: none;
+            color: #000000;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .ai-send-btn:hover {
+            background: #ffd700;
+            transform: scale(1.05);
+        }
+
+        .ai-send-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* MOBILE - Floating Button */
+        .ai-floating-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 56px;
+            height: 56px;
+            background: #FFD84D;
+            color: #000000;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 40;
+            box-shadow: 0 8px 24px rgba(255, 216, 77, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .ai-floating-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 32px rgba(255, 216, 77, 0.4);
+        }
+
+        @media (min-width: 1200px) {
+            .ai-floating-btn {
+                display: none;
+            }
+        }
+
+        /* Mobile Bottom Sheet */
+        .ai-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 50;
+        }
+
+        .ai-modal-overlay.open {
+            display: flex;
+            align-items: flex-end;
+        }
+
+        @media (max-width: 1199px) {
+            .ai-modal-overlay.open {
+                display: flex;
+            }
+        }
+
+        .ai-bottom-sheet {
+            width: 100%;
+            height: 70vh;
+            background: #ffffff;
+            border-radius: 24px 24px 0 0;
+            border-top: 2px solid #000000;
+            display: flex;
+            flex-direction: column;
+            color: #000000;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        body:not(.light-mode) .ai-bottom-sheet {
+            background: #0a0a0a;
+            border-top: 2px solid #ffffff;
+            color: #ffffff;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .ai-bottom-header {
+            padding: 16px;
+            border-bottom: 2px solid #000000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        body:not(.light-mode) .ai-bottom-header {
+            border-bottom: 2px solid #ffffff;
+        }
+
+        .ai-close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #000000;
+        }
+
+        body:not(.light-mode) .ai-close-btn {
+            color: #ffffff;
+        }
+
+        .ai-close-btn:hover {
+            color: #FFD84D;
+        }
+
+        /* Scrollbar Styling */
+        .ai-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .ai-messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .ai-messages::-webkit-scrollbar-thumb {
+            background: #ddd;
+            border-radius: 3px;
+        }
+
+        body:not(.light-mode) .ai-messages::-webkit-scrollbar-thumb {
+            background: #444;
+        }
+
+        /* Utility Classes */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="nav-bar">
+        <div class="nav-left">
+            <button class="nav-back-btn" onclick="window.history.back()" aria-label="Go back">←</button>
+            <div class="nav-brand">LEARNcraft</div>
+        </div>
+        <div class="nav-right">
+            <button class="theme-toggle" onclick="LearnCraftTheme.toggle()" id="themeToggle">Dark</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- LEFT SIDE: Lesson Content -->
+        <div class="lesson-content">
+            <h1>Structural Analysis — Lesson 1</h1>
+
+            <h2>1. Introduction</h2>
+            <p>
+                Structural analysis is the foundation of civil and structural engineering. It involves examining the response of a structure to loads and the internal forces acting within the structure. Understanding how structures behave under various loads is essential for designing safe, efficient, and economical buildings and infrastructure.
+            </p>
+            <p>
+                In this lesson, you'll learn the fundamental principles of structural analysis, including equilibrium, force distribution, and the basic methods used to analyze structures.
+            </p>
+
+            <h2>2. Key Concepts</h2>
+            <div class="concepts-box">
+                <h3>Core Principles</h3>
+                <ul>
+                    <li><strong>Static Equilibrium:</strong> For a structure to be in equilibrium, the sum of all forces and moments must equal zero.</li>
+                    <li><strong>Internal Forces:</strong> Axial forces, shear forces, and bending moments that develop within structural members.</li>
+                    <li><strong>Support Reactions:</strong> Forces and moments developed at supports in response to applied loads.</li>
+                    <li><strong>Compatibility:</strong> Deformations of a structure must be compatible with the constraints imposed by supports.</li>
+                </ul>
+            </div>
+
+            <h2>3. Types of Loads</h2>
+            <p>Structures are subjected to different types of loads:</p>
+            <ul>
+                <li><strong>Concentrated Loads:</strong> Forces applied at a single point</li>
+                <li><strong>Distributed Loads:</strong> Forces spread over a length or area</li>
+                <li><strong>Moments:</strong> Rotational forces applied to a structure</li>
+                <li><strong>Environmental Loads:</strong> Wind, earthquakes, temperature changes</li>
+            </ul>
+
+            <h2>4. Practice Problem</h2>
+            <div class="problem-box">
+                <h3>Example: Simply Supported Beam</h3>
+                <p>A simply supported beam of length 10 meters carries a uniform distributed load of 5 kN/m. Calculate:</p>
+                <ol>
+                    <li>The reaction forces at both supports</li>
+                    <li>The maximum bending moment</li>
+                    <li>The shear force at the midpoint</li>
+                </ol>
+                <p style="margin-top: 16px; font-style: italic; color: #666;">
+                    Hint: For a uniformly loaded simply supported beam, the maximum moment occurs at the midpoint and equals (w × L²) / 8, where w is the load per unit length and L is the beam length.
+                </p>
+            </div>
+
+            <h2>5. Step-by-Step Solution</h2>
+            <h3>Step 1: Identify the Support Reactions</h3>
+            <p>For a simply supported beam with uniform load:</p>
+            <div class="code-block">
+Total Load (W) = 5 kN/m × 10 m = 50 kN
+Reaction at A (RA) = W/2 = 25 kN
+Reaction at B (RB) = W/2 = 25 kN
+            </div>
+
+            <h3>Step 2: Calculate Maximum Bending Moment</h3>
+            <p>The maximum bending moment for a uniformly loaded beam occurs at mid-span:</p>
+            <div class="code-block">
+M_max = (w × L²) / 8
+M_max = (5 kN/m × 10²) / 8
+M_max = (5 × 100) / 8
+M_max = 62.5 kN·m
+            </div>
+
+            <h3>Step 3: Shear Force at Midpoint</h3>
+            <p>At the midpoint, the shear force can be calculated by considering the load on one side:</p>
+            <div class="code-block">
+V_mid = RA - (w × L/2)
+V_mid = 25 - (5 × 5)
+V_mid = 25 - 25
+V_mid = 0 kN
+            </div>
+
+            <p style="margin-top: 32px; font-style: italic; color: #999;">This result makes sense: at the midpoint of a uniformly loaded beam, the shear force is zero, and the bending moment reaches its maximum value.</p>
+
+            <h2>6. Summary</h2>
+            <p>In this lesson, you learned:</p>
+            <ul>
+                <li>The fundamental principles of structural equilibrium</li>
+                <li>How different types of loads affect structures</li>
+                <li>The method for analyzing simply supported beams</li>
+                <li>How to calculate reaction forces and bending moments</li>
+            </ul>
+            <p style="margin-top: 24px;">
+                In the next lesson, we'll explore more complex structures and advanced analysis methods including shear and bending moment diagrams.
+            </p>
+        </div>
+
+        <!-- RIGHT SIDE: AI Chat Panel (Desktop Only) -->
+        <div class="ai-panel-container">
+            <div class="ai-panel">
+                <div class="ai-panel-header">Ask AI About This Lesson</div>
+                
+                <div class="ai-messages" id="aiMessages">
+                    <div class="ai-message assistant">
+                        Hi! I'm here to help you understand structural analysis. Feel free to ask me any questions about the concepts covered in this lesson.
+                    </div>
+                </div>
+
+                <div class="ai-panel-input">
+                    <input 
+                        type="text" 
+                        class="ai-input-field" 
+                        id="aiInput" 
+                        placeholder="Ask about this topic..."
+                        onkeypress="handleAIMessage(event)"
+                    />
+                    <button class="ai-send-btn" onclick="sendAIMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MOBILE: Floating AI Button -->
+    <button class="ai-floating-btn" onclick="toggleAIModal()" title="Ask AI">
+        <span style="font-size: 28px;">💬</span>
+    </button>
+
+    <!-- MOBILE: Bottom Sheet Modal -->
+    <div class="ai-modal-overlay" id="aiModalOverlay" onclick="closeAIModal()">
+        <div class="ai-bottom-sheet" onclick="event.stopPropagation()">
+            <div class="ai-bottom-header">
+                <span>Lesson AI</span>
+                <button class="ai-close-btn" onclick="closeAIModal()">✕</button>
+            </div>
+            
+            <div class="ai-messages" id="aiMobileMessages">
+                <div class="ai-message assistant">
+                    Hi! I'm here to help you understand this lesson. What would you like to know?
+                </div>
+            </div>
+
+            <div class="ai-panel-input">
+                <input 
+                    type="text" 
+                    class="ai-input-field" 
+                    id="aiMobileInput" 
+                    placeholder="Ask about this lesson..."
+                    onkeypress="handleAIMobileMessage(event)"
+                />
+                <button class="ai-send-btn" onclick="sendAIMobileMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize theme
+        document.addEventListener('DOMContentLoaded', () => {
+            updateThemeButton();
+        });
+
+        // Update theme button text
+        function updateThemeButton() {
+            const btn = document.getElementById('themeToggle');
+            if (document.body.classList.contains('light-mode')) {
+                btn.textContent = 'Light';
+            } else {
+                btn.textContent = 'Dark';
+            }
+        }
+
+        // Observe theme changes
+        window.addEventListener('themeChanged', updateThemeButton);
+
+        // Mobile AI Modal
+        function toggleAIModal() {
+            const overlay = document.getElementById('aiModalOverlay');
+            overlay.classList.toggle('open');
+        }
+
+        function closeAIModal() {
+            document.getElementById('aiModalOverlay').classList.remove('open');
+        }
+
+        // Desktop AI Chat
+        function sendAIMessage() {
+            const input = document.getElementById('aiInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+
+            // Add user message
+            addAIMessage(message, 'user', 'aiMessages');
+            input.value = '';
+
+            // Simulate AI response
+            setTimeout(() => {
+                const responses = [
+                    "That's a great question! Let me explain that in detail.",
+                    "Good point! This relates to the equilibrium principle we discussed earlier.",
+                    "Exactly! You're understanding the core concepts well.",
+                    "Let me break that down into simpler steps for you."
+                ];
+                const response = responses[Math.floor(Math.random() * responses.length)];
+                addAIMessage(response, 'assistant', 'aiMessages');
+            }, 800);
+        }
+
+        function handleAIMessage(event) {
+            if (event.key === 'Enter') {
+                sendAIMessage();
+            }
+        }
+
+        // Mobile AI Chat
+        function sendAIMobileMessage() {
+            const input = document.getElementById('aiMobileInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+
+            addAIMessage(message, 'user', 'aiMobileMessages');
+            input.value = '';
+
+            setTimeout(() => {
+                const responses = [
+                    "That's a great question! Let me explain that in detail.",
+                    "Good point! This relates to the equilibrium principle we discussed earlier.",
+                    "Exactly! You're understanding the core concepts well.",
+                    "Let me break that down into simpler steps for you."
+                ];
+                const response = responses[Math.floor(Math.random() * responses.length)];
+                addAIMessage(response, 'assistant', 'aiMobileMessages');
+            }, 800);
+        }
+
+        function handleAIMobileMessage(event) {
+            if (event.key === 'Enter') {
+                sendAIMobileMessage();
+            }
+        }
+
+        // Helper function to add messages
+        function addAIMessage(text, type, containerId) {
+            const container = document.getElementById(containerId);
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `ai-message ${type}`;
+            messageDiv.textContent = text;
+            container.appendChild(messageDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+    </script>
+
+</body>
+</html>

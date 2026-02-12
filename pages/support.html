@@ -713,6 +713,13 @@
             if (currentUser) {
                 document.getElementById('userEmail').value = currentUser.email;
             }
+            // Initialize and translate page using i18n system
+            LearnCraftI18n.translatePage();
+        });
+
+        // Also run on page show (for back/forward navigation)
+        window.addEventListener('pageshow', () => {
+            LearnCraftI18n.translatePage();
         });
 
         // Options menu functions

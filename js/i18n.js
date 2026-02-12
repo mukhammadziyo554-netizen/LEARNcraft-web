@@ -13,7 +13,8 @@ const translations = {
             community: "Community",
             about: "About",
             support: "Support",
-            signIn: "Sign In"
+            signIn: "Sign In",
+            pro: "LEARNcraft Pro"
         },
         
         // Home Page
@@ -23,6 +24,10 @@ const translations = {
             startLearning: "Start Learning",
             exploreRoadmap: "Explore Roadmap",
             askAI: "Ask AI",
+            
+            // Focus Section
+            builtOnlyTitle: "Built Only for Civil Engineering",
+            builtOnlyDesc: "Every roadmap, exercise, and AI response is specifically engineered for civil professionals. No generic content. No unrelated fields.",
             
             // Features
             featuresTitle: "Why Students Choose LEARNcraft",
@@ -43,6 +48,13 @@ const translations = {
             statsUsers: "Active Students",
             statsLessons: "Engineering Lessons",
             statsProjects: "Practice Projects",
+            
+            // Pricing
+            pricingTitle: "Upgrade to LEARNcraft Pro",
+            pricingDesc: "Unlock full AI-powered civil engineering learning tools.",
+            pricingMonthly: "Monthly",
+            pricing6Month: "6 Months",
+            pricingYearly: "Yearly",
             
             // CTA
             ctaTitle: "Ready to Start Your Journey?",
@@ -173,7 +185,8 @@ const translations = {
             community: "Сообщество",
             about: "О нас",
             support: "Поддержка",
-            signIn: "Войти"
+            signIn: "Войти",
+            pro: "LEARNcraft Pro"
         },
         
         // Home Page
@@ -183,6 +196,10 @@ const translations = {
             startLearning: "Начать Обучение",
             exploreRoadmap: "Изучить Дорожную Карту",
             askAI: "Спросить AI",
+            
+            // Focus Section
+            builtOnlyTitle: "Создано Только для Гражданского Строительства",
+            builtOnlyDesc: "Каждая дорожная карта, упражнение и ответ AI специально разработаны для специалистов в области гражданского строительства. Без общего содержания. Без посторонних областей.",
             
             // Features
             featuresTitle: "Почему Студенты Выбирают LEARNcraft",
@@ -203,6 +220,13 @@ const translations = {
             statsUsers: "Активных Студентов",
             statsLessons: "Инженерных Уроков",
             statsProjects: "Практических Проектов",
+            
+            // Pricing
+            pricingTitle: "Перейти на LEARNcraft Pro",
+            pricingDesc: "Разблокируйте все инструменты обучения гражданскому строительству, работающие на AI.",
+            pricingMonthly: "Ежемесячно",
+            pricing6Month: "6 Месяцев",
+            pricingYearly: "Ежегодно",
             
             // CTA
             ctaTitle: "Готовы Начать Свой Путь?",
@@ -333,7 +357,8 @@ const translations = {
             community: "Jamoa",
             about: "Biz haqimizda",
             support: "Yordam",
-            signIn: "Kirish"
+            signIn: "Kirish",
+            pro: "LEARNcraft Pro"
         },
         
         // Home Page
@@ -343,6 +368,10 @@ const translations = {
             startLearning: "O'rganishni Boshlash",
             exploreRoadmap: "Yo'l Xaritasini Ko'rish",
             askAI: "AI dan So'rash",
+            
+            // Focus Section
+            builtOnlyTitle: "Faqat Qurilish Muhandisligi Uchun Qurilgan",
+            builtOnlyDesc: "Har bir yo'l xaritasi, mashq va AI javobi qurilish muhandisligi mutaxassislari uchun maxsus loyihalashtirilingan. Umumiy mazmun yo'q. Bog'liq bo'lmagan sohalar yo'q.",
             
             // Features
             featuresTitle: "Nima uchun Talabalar LEARNcraft ni Tanlaydi",
@@ -363,6 +392,13 @@ const translations = {
             statsUsers: "Faol Talabalar",
             statsLessons: "Muhandislik Darslari",
             statsProjects: "Amaliy Loyihalar",
+            
+            // Pricing
+            pricingTitle: "LEARNcraft Pro ga O'tish",
+            pricingDesc: "AI tomonidan ta'minlangan barcha qurilish muhandisligi o'rganish vositalarini ochib qo'ying.",
+            pricingMonthly: "Oylik",
+            pricing6Month: "6 Oy",
+            pricingYearly: "Yillik",
             
             // CTA
             ctaTitle: "Yo'lingizni Boshlashga Tayyormisiz?",
