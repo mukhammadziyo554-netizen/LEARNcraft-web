@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Authentication | LEARNcraft</title>
+  <link rel="stylesheet" href="auth.css">
+  <style>
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #e6f7e6;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    .auth-container {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,64,0,0.12), 0 1.5px 8px rgba(0,64,0,0.08);
+      max-width: 420px;
+      width: 90%;
+      padding: 0 0 32px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      transition: box-shadow 0.3s;
+    }
+    .auth-toggle {
+      display: flex;
+      border-radius: 20px 20px 0 0;
+      overflow: hidden;
+      background: #f3fdf3;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .auth-toggle-btn {
+      flex: 1;
+      padding: 20px 0 16px 0;
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1a3d1a;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+    .auth-toggle-btn.active {
+      background: #1a7a1a;
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(26,122,26,0.08);
+      z-index: 1;
+    }
+    .auth-form-area {
+      position: relative;
+      min-height: 340px;
+      padding: 0 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .auth-form {
+      position: absolute;
+      top: 0; left: 0; right: 0; width: 100%;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(30px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .auth-form.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+      z-index: 2;
+    }
+    .auth-form h2 {
+      text-align: center;
+      color: #1a3d1a;
+      margin-bottom: 24px;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    .auth-form label {
+      display: block;
+      margin-bottom: 8px;
+      color: #1a3d1a;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .auth-form input[type="text"],
+    .auth-form input[type="email"],
+    .auth-form input[type="password"] {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid #d0e6d0;
+      background: #f8fff8;
+      font-size: 1rem;
+      margin-bottom: 18px;
+      outline: none;
+      transition: border 0.2s;
+    }
+    .auth-form input:focus {
+      border: 1.5px solid #1a7a1a;
+      background: #fff;
+    }
+    .auth-form .form-row {
+      display: flex;
+      gap: 12px;
+    }
+    .auth-form .form-row > * {
+      flex: 1;
+    }
+    .auth-form .checkbox-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+      gap: 8px;
+    }
+    .auth-form .checkbox-row label {
+      margin: 0;
+      font-weight: 400;
+      font-size: 0.98rem;
+      color: #1a3d1a;
+      cursor: pointer;
+    }
+    .auth-form .forgot-link {
+      margin-left: auto;
+      font-size: 0.98rem;
+      color: #1a7a1a;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .auth-form .forgot-link:hover {
+      color: #145c14;
+      text-decoration: underline;
+    }
+    .auth-form button[type="submit"] {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      background: #1a7a1a;
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+      box-shadow: 0 2px 8px rgba(26,122,26,0.08);
+    }
+    .auth-form button[type="submit"]:hover {
+      background: #145c14;
+    }
+    .auth-form .switch-link {
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+      color: #1a7a1a;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.2s;
+    }
+    .auth-form .switch-link:hover {
+      color: #145c14;
+      text-decoration: underline;
+    }
+    @media (max-width: 600px) {
+      .auth-container {
+        max-width: 98vw;
+        border-radius: 0;
+        box-shadow: 0 2px 12px rgba(0,64,0,0.10);
+        padding: 0 0 24px 0;
+      }
+      .auth-form-area {
+        padding: 0 12px;
+      }
+      .auth-form h2 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-toggle">
+      <button class="auth-toggle-btn active" id="signInTab" type="button">Sign In</button>
+      <button class="auth-toggle-btn" id="signUpTab" type="button">Create Account</button>
+    </div>
+    <div class="auth-form-area">
+      <form class="auth-form active" id="signInForm" autocomplete="on">
+        <h2>Sign In</h2>
+        <label for="signin-email">Email</label>
+        <input type="email" id="signin-email" name="email" placeholder="Email" required>
+        <label for="signin-password">Password</label>
+        <input type="password" id="signin-password" name="password" placeholder="Password" required>
+        <div class="checkbox-row">
+          <input type="checkbox" id="rememberMe" name="remember">
+          <label for="rememberMe">Remember me</label>
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+        <button type="submit">Sign In</button>
+        <a href="#" class="switch-link" id="toSignUp">Don't have an account? Create Account</a>
+      </form>
+      <form class="auth-form" id="signUpForm" autocomplete="on">
+        <h2>Create Account</h2>
+        <div class="form-row">
+          <div>
+            <label for="signup-firstname">First Name</label>
+            <input type="text" id="signup-firstname" name="firstname" placeholder="First Name" required>
+          </div>
+          <div>
+            <label for="signup-lastname">Last Name</label>
+            <input type="text" id="signup-lastname" name="lastname" placeholder="Last Name" required>
+          </div>
+        </div>
+        <label for="signup-email">Email</label>
+        <input type="email" id="signup-email" name="email" placeholder="Email" required>
+        <label for="signup-password">Password</label>
+        <input type="password" id="signup-password" name="password" placeholder="Password" required>
+        <label for="signup-confirm">Confirm Password</label>
+        <input type="password" id="signup-confirm" name="confirm" placeholder="Confirm Password" required>
+        <button type="submit">Create Account</button>
+        <a href="#" class="switch-link" id="toSignIn">Already have an account? Sign In</a>
+      </form>
+    </div>
+  </div>
+  <script>
+    const signInTab = document.getElementById('signInTab');
+    const signUpTab = document.getElementById('signUpTab');
+    const signInForm = document.getElementById('signInForm');
+    const signUpForm = document.getElementById('signUpForm');
+    const toSignUp = document.getElementById('toSignUp');
+    const toSignIn = document.getElementById('toSignIn');
+
+    function showSignIn() {
+      signInTab.classList.add('active');
+      signUpTab.classList.remove('active');
+      signInForm.classList.add('active');
+      signUpForm.classList.remove('active');
+    }
+    function showSignUp() {
+      signUpTab.classList.add('active');
+      signInTab.classList.remove('active');
+      signUpForm.classList.add('active');
+      signInForm.classList.remove('active');
+    }
+    signInTab.onclick = showSignIn;
+    signUpTab.onclick = showSignUp;
+    toSignUp.onclick = function(e) { e.preventDefault(); showSignUp(); };
+    toSignIn.onclick = function(e) { e.preventDefault(); showSignIn(); };
+  </script>
+</body>
+</html>
