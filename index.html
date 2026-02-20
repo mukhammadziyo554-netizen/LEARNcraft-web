@@ -27,7 +27,6 @@
             --accent-end: #00D4FF;
             --app-height: 100vh;
             --vh: 1vh;
-        }
 
         @supports (height: 100dvh) {
             :root {
@@ -507,37 +506,118 @@
             cursor: pointer;
         }
 
-        /* LANGUAGE SWITCHER */
-        .language-switcher {
+        /* NEW LANGUAGE DROPDOWN */
+        /* LANGUAGE DROPDOWN (CLEANED) */
+        .lang-wrapper {
             position: relative;
             margin-right: 16px;
-        }
-
-        .lang-current {
-            width: 36px;
-            height: 32px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 700;
-            color: #ffffff;
+        }
+        .lang-btn {
+            background: #111;
+            color: #fff;
+            border: 1px solid #2a2a2a;
+            padding: 8px 18px 8px 14px;
+            border-radius: 10px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1010;
         }
-
-        .lang-current:hover {
-            background: rgba(255, 215, 0, 0.1);
-            border-color: rgba(255, 215, 0, 0.3);
+        .lang-btn:hover {
+            border-color: #FFD600;
         }
-
-        body.light-mode .lang-current {
-            background: rgba(0, 0, 0, 0.05);
-            border-color: rgba(0, 0, 0, 0.1);
-            color: #000000;
+        .arrow {
+            font-size: 13px;
+            margin-left: 2px;
+            opacity: 0.7;
+            pointer-events: none;
+            transition: transform 0.3s;
+        }
+        .lang-wrapper.active .arrow {
+            transform: rotate(180deg);
+        }
+        .lang-dropdown {
+            position: absolute;
+            top: calc(100% + 6px);
+            right: 0;
+            background: #111;
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 8px 0;
+            display: none;
+            flex-direction: column;
+            min-width: 150px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            z-index: 1011;
+            animation: fadeDown 0.25s ease;
+        }
+        .lang-dropdown button {
+            background: transparent;
+            border: none;
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            font-size: 15px;
+            outline: none;
+        }
+        .lang-dropdown button.active,
+        .lang-dropdown button:focus {
+            background: #222;
+            color: #FFD600;
+        }
+        .lang-dropdown button:hover {
+            background: #1f1f1f;
+        }
+                .lang-dropdown button:active {
+                    background: #222;
+                }
+        .lang-wrapper.active .lang-dropdown {
+            display: flex;
+        }
+                /* Keyboard accessibility: visually hide when tabbing out */
+                .lang-dropdown[aria-hidden="true"] {
+                    display: none !important;
+                }
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        body.light-mode .lang-btn {
+            background: #f5f5f5;
+            color: #000;
+            border: 1px solid #ddd;
+        }
+        body.light-mode .lang-dropdown {
+            background: #fff;
+            border: 1px solid #ddd;
+        }
+        body.light-mode .lang-dropdown button {
+            color: #000;
+        }
+        body.light-mode .lang-dropdown button.active,
+        body.light-mode .lang-dropdown button:focus {
+            background: #eee;
+            color: #FFD600;
+        }
+        body.light-mode .lang-dropdown button:hover {
+            background: #eee;
+        }
         }
 
         body.light-mode .lang-current:hover {
@@ -2566,13 +2646,11 @@
             transform: translateY(20px);
             transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
             flex-wrap: wrap;
-        }
 
         .menu-overlay.open .menu-socials {
             opacity: 1;
             transform: translateY(0);
             transition-delay: 0.16s;
-        }
 
         .menu-social-btn {
             width: 38px;
@@ -4687,6 +4765,124 @@
             }
         }
     </style>
+    <style>
+    /* --- Why Trust LEARNcraft Section Styles --- */
+    .trust-authority-section {
+        padding: 90px 20px 70px;
+        background: linear-gradient(180deg, var(--bg-main) 0%, #0b0b0f 100%);
+        position: relative;
+        z-index: 2;
+    }
+    .trust-authority-section .section-heading h2 {
+        color: #FFD700;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+    }
+    .authority-card-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+        max-width: 900px;
+        margin: 60px auto 0;
+    }
+    .authority-card {
+        background: rgba(255,255,255,0.02);
+        border: 1.5px solid rgba(255, 215, 0, 0.13);
+        border-radius: 18px;
+        padding: 38px 30px 32px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+        box-shadow: 0 8px 32px rgba(255, 215, 0, 0.04);
+        transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+        position: relative;
+        opacity: 0;
+        transform: translateY(40px);
+        will-change: opacity, transform;
+    }
+    .authority-card .authority-icon {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 215, 0, 0.08);
+        border-radius: 12px;
+        margin-bottom: 6px;
+        font-size: 28px;
+        color: #FFD700;
+    }
+    .authority-title {
+        font-size: 19px;
+        font-weight: 700;
+        color: #FFD700;
+        margin-bottom: 2px;
+    }
+    .authority-desc {
+        font-size: 15px;
+        color: var(--text-secondary);
+        font-weight: 500;
+        line-height: 1.6;
+    }
+    .authority-card:hover {
+        border-color: #FFD700;
+        background: rgba(255, 215, 0, 0.04);
+        box-shadow: 0 12px 40px rgba(255, 215, 0, 0.10);
+        z-index: 2;
+    }
+    @media (max-width: 900px) {
+        .authority-card-grid {
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+    }
+    @media (max-width: 600px) {
+        .trust-authority-section {
+            padding: 60px 6px 40px;
+        }
+        .authority-card {
+            padding: 24px 12px 20px;
+        }
+        .authority-title {
+            font-size: 16px;
+        }
+        .authority-desc {
+            font-size: 13px;
+        }
+    }
+    body.light-mode .trust-authority-section {
+        background: linear-gradient(180deg, #fff 0%, #f9f9f9 100%);
+    }
+    body.light-mode .trust-authority-section .section-heading h2 {
+        color: #FFD700;
+    }
+    body.light-mode .authority-card {
+        background: #fff;
+        border: 1.5px solid #FFD70022;
+        box-shadow: 0 8px 32px rgba(255, 215, 0, 0.06);
+    }
+    body.light-mode .authority-title {
+        color: #FFD700;
+    }
+    body.light-mode .authority-desc {
+        color: #444;
+    }
+    /* Fade-in animation for authority cards */
+    .trust-authority-section .authority-card {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .trust-authority-section.in-view .authority-card {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .trust-authority-section .authority-card:nth-child(1) { transition-delay: 0.1s; }
+    .trust-authority-section .authority-card:nth-child(2) { transition-delay: 0.2s; }
+    .trust-authority-section .authority-card:nth-child(3) { transition-delay: 0.3s; }
+    .trust-authority-section .authority-card:nth-child(4) { transition-delay: 0.4s; }
+    </style>
 </head>
 <body>
     <!-- Startup Animation Overlay -->
@@ -4726,12 +4922,15 @@
         </div>
 
         <div class="right-group">
-            <div class="language-switcher" id="langSwitcher">
-                <div class="lang-current" id="langCurrent">EN</div>
-                <div class="lang-dropdown" id="langDropdown">
-                    <span class="lang-option active" data-lang="en">EN</span>
-                    <span class="lang-option" data-lang="ru">RU</span>
-                    <span class="lang-option" data-lang="uz">UZ</span>
+            <div class="lang-wrapper">
+                <button class="lang-btn" type="button">
+                    EN
+                    <span class="arrow">▾</span>
+                </button>
+                <div class="lang-dropdown">
+                    <button data-lang="EN">English</button>
+                    <button data-lang="RU">Русский</button>
+                    <button data-lang="UZ">O'zbek</button>
                 </div>
             </div>
             <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme" type="button"></button>
@@ -4837,6 +5036,44 @@
                 </div>
                 <div class="stat-label">Employment Rate</div>
                 <div class="stat-description">Outstanding job placement with diverse career paths in public and private sectors</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Trust LEARNcraft Section -->
+    <section class="trust-authority-section animate-fade" id="trust-authority">
+        <div class="section-heading">
+            <h2>Why Trust LEARNcraft?</h2>
+            <p>Premium expertise, transparency, and real results—see why thousands rely on us for engineering mastery.</p>
+        </div>
+        <div class="authority-card-grid">
+            <div class="authority-card">
+                <div class="authority-icon" aria-hidden="true">
+                    <svg viewBox="0 0 32 32" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2"><circle cx="16" cy="16" r="14" stroke="#FFD700"/><path d="M10 17l4 4 8-8" stroke="#FFD700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="authority-title">Verified Engineering Experts</div>
+                <div class="authority-desc">All content is created and reviewed by licensed engineers and top university graduates.</div>
+            </div>
+            <div class="authority-card">
+                <div class="authority-icon" aria-hidden="true">
+                    <svg viewBox="0 0 32 32" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="8" width="20" height="16" rx="4" stroke="#FFD700"/><path d="M10 12h12M10 16h12M10 20h8" stroke="#FFD700" stroke-width="2" stroke-linecap="round"/></svg>
+                </div>
+                <div class="authority-title">Transparent, No Gimmicks</div>
+                <div class="authority-desc">No hidden fees, no upsells—just clear, honest learning and real support.</div>
+            </div>
+            <div class="authority-card">
+                <div class="authority-icon" aria-hidden="true">
+                    <svg viewBox="0 0 32 32" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4v24M4 16h24" stroke="#FFD700" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="16" r="12" stroke="#FFD700"/></svg>
+                </div>
+                <div class="authority-title">Proven Results</div>
+                <div class="authority-desc">Thousands of students have improved grades, passed exams, and landed jobs with LEARNcraft.</div>
+            </div>
+            <div class="authority-card">
+                <div class="authority-icon" aria-hidden="true">
+                    <svg viewBox="0 0 32 32" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 6a10 10 0 1 1 0 20a10 10 0 1 1 0-20z" stroke="#FFD700"/><path d="M16 10v6l4 2" stroke="#FFD700" stroke-width="2" stroke-linecap="round"/></svg>
+                </div>
+                <div class="authority-title">Always Up-to-Date</div>
+                <div class="authority-desc">Content and AI are updated monthly to reflect the latest standards and best practices.</div>
             </div>
         </div>
     </section>
@@ -4953,14 +5190,12 @@
             // Update toggle buttons
             document.querySelectorAll('.toggle-option').forEach(btn => {
                 btn.classList.remove('active');
-            });
             event.target.classList.add('active');
 
             // Highlight selected card
             document.querySelectorAll('.pricing-card').forEach(card => {
                 card.style.opacity = '0.6';
                 card.style.transform = 'scale(0.95)';
-            });
 
             const selectedCard = document.querySelector(`[data-plan="${plan}"]`);
             if (selectedCard) {
@@ -6248,56 +6483,66 @@
         window.addEventListener('orientationchange', setAppHeight);
         setAppHeight();
 
-        // LANGUAGE SWITCHER SETUP
-        function setupLanguageSwitcher() {
-            const langSwitcher = document.getElementById('langSwitcher');
-            if (!langSwitcher) return;
-
-            const langCurrent = document.getElementById('langCurrent');
-            const langDropdown = document.getElementById('langDropdown');
-            const langOptions = langSwitcher.querySelectorAll('.lang-option');
-            
-            // Set initial active language
-            const currentLang = LearnCraftI18n.getLanguage();
-            langCurrent.textContent = currentLang.toUpperCase();
-            
-            langOptions.forEach(option => {
-                if (option.dataset.lang === currentLang) {
-                    option.classList.add('active');
-                } else {
-                    option.classList.remove('active');
-                }
+        // LANGUAGE DROPDOWN LOGIC (FULLY FIXED)
+        (function(){
+            const langWrapper = document.querySelector('.lang-wrapper');
+            const langBtn = langWrapper.querySelector('.lang-btn');
+            const langDropdown = langWrapper.querySelector('.lang-dropdown');
+            const langButtons = langDropdown.querySelectorAll('button');
+            let currentLang = langButtons[0].dataset.lang;
+            langButtons.forEach(btn => {
+                if(btn.classList.contains('active')) currentLang = btn.dataset.lang;
             });
-
-            // Toggle dropdown on click
-            langCurrent.addEventListener('click', (e) => {
+            langBtn.childNodes[0].nodeValue = currentLang + ' ';
+            langButtons.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === currentLang);
+            });
+            // Toggle dropdown
+            langBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                langDropdown.classList.toggle('show');
+                const isActive = langWrapper.classList.toggle('active');
+                langDropdown.setAttribute('aria-hidden', !isActive);
+                if(isActive) langButtons[0].focus();
             });
-
-            // Close dropdown when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!langSwitcher.contains(e.target)) {
-                    langDropdown.classList.remove('show');
+            // Keyboard navigation
+            langBtn.addEventListener('keydown', (e) => {
+                if(e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    langWrapper.classList.add('active');
+                    langDropdown.setAttribute('aria-hidden', 'false');
+                    langButtons[0].focus();
                 }
             });
-
-            // Add click handlers for language options
-            langOptions.forEach(option => {
-                option.addEventListener('click', (e) => {
+            langButtons.forEach((btn, idx) => {
+                btn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    const newLang = option.dataset.lang;
-                    
-                    // Update active state
-                    langOptions.forEach(opt => opt.classList.remove('active'));
-                    option.classList.add('active');
-                    
-                    // Update current language display
-                    langCurrent.textContent = newLang.toUpperCase();
-                    
-                    // Close dropdown
-                    langDropdown.classList.remove('show');
-                    
+                    langButtons.forEach(b=>b.classList.remove('active'));
+                    btn.classList.add('active');
+                    langBtn.childNodes[0].nodeValue = btn.dataset.lang + ' ';
+                    langWrapper.classList.remove('active');
+                    langDropdown.setAttribute('aria-hidden', 'true');
+                    langBtn.focus();
+                });
+                btn.addEventListener('keydown', (e) => {
+                    if(e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        if(idx < langButtons.length-1) langButtons[idx+1].focus();
+                    } else if(e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        if(idx > 0) langButtons[idx-1].focus();
+                    } else if(e.key === 'Escape') {
+                        langWrapper.classList.remove('active');
+                        langDropdown.setAttribute('aria-hidden', 'true');
+                        langBtn.focus();
+                    }
+                });
+            });
+            // Outside click closes
+            document.addEventListener('click', () => {
+                langWrapper.classList.remove('active');
+                langDropdown.setAttribute('aria-hidden', 'true');
+            });
+        })();
                     // Change language
                     LearnCraftI18n.setLanguage(newLang);
                     LearnCraftI18n.translatePage();

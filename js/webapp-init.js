@@ -1,3 +1,17 @@
+// Fade-in animation for Why Trust LEARNcraft section
+document.addEventListener('DOMContentLoaded', function() {
+    var trustSection = document.querySelector('.trust-authority-section');
+    if (!trustSection) return;
+    function onScrollFadeIn() {
+        var rect = trustSection.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 80) {
+            trustSection.classList.add('in-view');
+            window.removeEventListener('scroll', onScrollFadeIn);
+        }
+    }
+    window.addEventListener('scroll', onScrollFadeIn);
+    onScrollFadeIn();
+});
 /**
  * Telegram Mini App Initialization
  * This script initializes the Telegram WebApp API
