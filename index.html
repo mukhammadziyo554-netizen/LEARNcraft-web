@@ -2646,12 +2646,12 @@
             transform: translateY(20px);
             transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
             flex-wrap: wrap;
-
+        }
         .menu-overlay.open .menu-socials {
             opacity: 1;
             transform: translateY(0);
             transition-delay: 0.16s;
-
+        }
         .menu-social-btn {
             width: 38px;
             height: 38px;
@@ -2908,7 +2908,6 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 16px rgba(255, 255, 255, 0.3);
         }
-
         @media (max-width: 768px) {
             .hero-layer {
                 padding: 0 20px;
@@ -4773,11 +4772,13 @@
         position: relative;
         z-index: 2;
     }
+
     .trust-authority-section .section-heading h2 {
         color: #FFD700;
         font-weight: 800;
         letter-spacing: 0.5px;
     }
+
     .authority-card-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -4785,6 +4786,7 @@
         max-width: 900px;
         margin: 60px auto 0;
     }
+
     .authority-card {
         background: rgba(255,255,255,0.02);
         border: 1.5px solid rgba(255, 215, 0, 0.13);
@@ -4801,6 +4803,7 @@
         transform: translateY(40px);
         will-change: opacity, transform;
     }
+
     .authority-card .authority-icon {
         width: 48px;
         height: 48px;
@@ -4813,30 +4816,35 @@
         font-size: 28px;
         color: #FFD700;
     }
+
     .authority-title {
         font-size: 19px;
         font-weight: 700;
         color: #FFD700;
         margin-bottom: 2px;
     }
+
     .authority-desc {
         font-size: 15px;
         color: var(--text-secondary);
         font-weight: 500;
         line-height: 1.6;
     }
+
     .authority-card:hover {
         border-color: #FFD700;
         background: rgba(255, 215, 0, 0.04);
         box-shadow: 0 12px 40px rgba(255, 215, 0, 0.10);
         z-index: 2;
     }
+
     @media (max-width: 900px) {
         .authority-card-grid {
             grid-template-columns: 1fr;
             gap: 24px;
         }
     }
+
     @media (max-width: 600px) {
         .trust-authority-section {
             padding: 60px 6px 40px;
@@ -4851,12 +4859,15 @@
             font-size: 13px;
         }
     }
+
     body.light-mode .trust-authority-section {
         background: linear-gradient(180deg, #fff 0%, #f9f9f9 100%);
     }
+
     body.light-mode .trust-authority-section .section-heading h2 {
         color: #FFD700;
     }
+
     body.light-mode .authority-card {
         background: #fff;
         border: 1.5px solid #FFD70022;
@@ -4923,14 +4934,14 @@
 
         <div class="right-group">
             <div class="lang-wrapper">
-                <button class="lang-btn" type="button">
-                    EN
+                <button class="lang-btn" id="current-lang-btn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                    <span id="current-lang">EN</span>
                     <span class="arrow">▾</span>
                 </button>
-                <div class="lang-dropdown">
-                    <button data-lang="EN">English</button>
-                    <button data-lang="RU">Русский</button>
-                    <button data-lang="UZ">O'zbek</button>
+                <div class="lang-dropdown" id="lang-dropdown" role="listbox" aria-hidden="true">
+                    <button class="lang-option" data-lang="EN" role="option">English</button>
+                    <button class="lang-option" data-lang="RU" role="option">Русский</button>
+                    <button class="lang-option" data-lang="UZ" role="option">O'zbek</button>
                 </div>
             </div>
             <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme" type="button"></button>
@@ -5190,18 +5201,19 @@
             // Update toggle buttons
             document.querySelectorAll('.toggle-option').forEach(btn => {
                 btn.classList.remove('active');
+            });
             event.target.classList.add('active');
 
             // Highlight selected card
             document.querySelectorAll('.pricing-card').forEach(card => {
                 card.style.opacity = '0.6';
                 card.style.transform = 'scale(0.95)';
+            });
 
             const selectedCard = document.querySelector(`[data-plan="${plan}"]`);
             if (selectedCard) {
                 selectedCard.style.opacity = '1';
                 selectedCard.style.transform = 'scale(1)';
-                
                 // Scroll to card on mobile
                 if (window.innerWidth <= 768) {
                     selectedCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -6486,86 +6498,83 @@
         // LANGUAGE DROPDOWN LOGIC (FULLY FIXED)
         (function(){
             const langWrapper = document.querySelector('.lang-wrapper');
-            const langBtn = langWrapper.querySelector('.lang-btn');
-            const langDropdown = langWrapper.querySelector('.lang-dropdown');
-            const langButtons = langDropdown.querySelectorAll('button');
-            let currentLang = langButtons[0].dataset.lang;
-            langButtons.forEach(btn => {
-                if(btn.classList.contains('active')) currentLang = btn.dataset.lang;
-            });
-            langBtn.childNodes[0].nodeValue = currentLang + ' ';
-            langButtons.forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.lang === currentLang);
-            });
-            // Toggle dropdown
+            const langBtn = document.getElementById('current-lang-btn');
+            const langDropdown = document.getElementById('lang-dropdown');
+            const langOptions = langDropdown.querySelectorAll('.lang-option');
+            const currentLangSpan = document.getElementById('current-lang');
+            let currentLang = localStorage.getItem('preferredLanguage') || 'EN';
+
+            function setActiveLang(lang) {
+                currentLang = lang;
+                currentLangSpan.textContent = lang;
+                langOptions.forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.lang === lang);
+                });
+                localStorage.setItem('preferredLanguage', lang);
+                langDropdown.setAttribute('aria-hidden', 'true');
+                langBtn.setAttribute('aria-expanded', 'false');
+                langWrapper.classList.remove('active');
+            }
+
+            // Initialize
+            setActiveLang(currentLang);
+
             langBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const isActive = langWrapper.classList.toggle('active');
                 langDropdown.setAttribute('aria-hidden', !isActive);
-                if(isActive) langButtons[0].focus();
+                langBtn.setAttribute('aria-expanded', isActive);
+                if(isActive) {
+                    // Focus the active or first option
+                    const activeBtn = langDropdown.querySelector('.lang-option.active') || langOptions[0];
+                    activeBtn.focus();
+                }
             });
-            // Keyboard navigation
+
             langBtn.addEventListener('keydown', (e) => {
                 if(e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
                     langWrapper.classList.add('active');
                     langDropdown.setAttribute('aria-hidden', 'false');
-                    langButtons[0].focus();
+                    langBtn.setAttribute('aria-expanded', 'true');
+                    const activeBtn = langDropdown.querySelector('.lang-option.active') || langOptions[0];
+                    activeBtn.focus();
                 }
             });
-            langButtons.forEach((btn, idx) => {
+
+            langOptions.forEach((btn, idx) => {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    langButtons.forEach(b=>b.classList.remove('active'));
-                    btn.classList.add('active');
-                    langBtn.childNodes[0].nodeValue = btn.dataset.lang + ' ';
-                    langWrapper.classList.remove('active');
-                    langDropdown.setAttribute('aria-hidden', 'true');
+                    setActiveLang(btn.dataset.lang);
                     langBtn.focus();
                 });
                 btn.addEventListener('keydown', (e) => {
                     if(e.key === 'ArrowDown') {
                         e.preventDefault();
-                        if(idx < langButtons.length-1) langButtons[idx+1].focus();
+                        if(idx < langOptions.length-1) langOptions[idx+1].focus();
                     } else if(e.key === 'ArrowUp') {
                         e.preventDefault();
-                        if(idx > 0) langButtons[idx-1].focus();
+                        if(idx > 0) langOptions[idx-1].focus();
                     } else if(e.key === 'Escape') {
                         langWrapper.classList.remove('active');
                         langDropdown.setAttribute('aria-hidden', 'true');
+                        langBtn.setAttribute('aria-expanded', 'false');
                         langBtn.focus();
                     }
                 });
             });
             // Outside click closes
-            document.addEventListener('click', () => {
-                langWrapper.classList.remove('active');
-                langDropdown.setAttribute('aria-hidden', 'true');
+            document.addEventListener('click', (event) => {
+                if (!langWrapper.contains(event.target)) {
+                    langWrapper.classList.remove('active');
+                    langDropdown.setAttribute('aria-hidden', 'true');
+                    langBtn.setAttribute('aria-expanded', 'false');
+                }
             });
         })();
-                    // Change language
-                    LearnCraftI18n.setLanguage(newLang);
-                    LearnCraftI18n.translatePage();
-                    
-                    console.log('🌍 Language switched to:', newLang);
-                });
-            });
-        }
-
-        // Initialize language system
-        document.addEventListener('DOMContentLoaded', () => {
-            setupLanguageSwitcher();
-            LearnCraftI18n.translatePage();
-        });
-
-        // Also run on page show (for back/forward navigation)
-        window.addEventListener('pageshow', () => {
-            LearnCraftI18n.translatePage();
-        });
     </script>
 
     <script type="module" src="js/auth.js"></script>
     <script src="js/webapp-init.js"></script>
-
-    </body>
+</body>
 </html>
