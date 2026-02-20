@@ -16,6 +16,13 @@
     <!-- Internationalization System -->
     <script src="js/i18n.js"></script>
     <style>
+                /* --- Responsive Container System --- */
+                .container {
+                    width: 100%;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding: 0 24px;
+                }
         :root {
             --bg-main: #0B0B0F;
             --bg-soft: #111118;
@@ -1123,16 +1130,24 @@
         }
 
         .hero {
-            margin: 0;
-            padding-top: 120px;
-            padding-bottom: 50px;
-            padding-left: 36px;
-            padding-right: 36px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+            padding: 100px 0;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 60px;
-            max-width: 1400px;
+            align-items: center;
+        }
+
+        .hero-left {
+            max-width: 600px;
+        }
+
+        .hero-right {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
         }
 
         .hero-content {
@@ -1142,7 +1157,7 @@
         }
 
         .hero h1 {
-            font-size: clamp(24px, 5vw, 48px);
+            font-size: clamp(32px, 5vw, 64px);
             line-height: 1.15;
             font-weight: 700;
             color: white;
@@ -1212,8 +1227,45 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
-            min-width: 320px;
+            width: 100%;
+            max-width: 480px;
             flex-shrink: 0;
+                /* --- Responsive Breakpoints --- */
+                @media (max-width: 1024px) {
+                    .hero-grid {
+                        grid-template-columns: 1fr;
+                        text-align: center;
+                    }
+                    .hero-left {
+                        max-width: 100%;
+                    }
+                    .hero-right {
+                        align-items: center;
+                        max-width: 100%;
+                    }
+                }
+
+                @media (max-width: 600px) {
+                    .container {
+                        padding: 0 8px;
+                    }
+                    .hero {
+                        padding: 40px 0;
+                    }
+                    .hero h1 {
+                        font-size: clamp(22px, 8vw, 36px);
+                    }
+                }
+
+                /* --- Navbar Responsive --- */
+                @media (max-width: 900px) {
+                    .main-nav {
+                        display: none !important;
+                    }
+                    .burger-btn {
+                        display: inline-block !important;
+                    }
+                }
         }
 
         .stat-card {
@@ -4974,8 +5026,9 @@
 
     <div id="overlay" class="overlay"></div>
 
-    <section class="hero" id="hero">
-        <div class="hero-content">
+        <section class="hero" id="hero">
+            <div class="container hero-grid">
+                <div class="hero-left">
             <h1 data-i18n="home.heroTitle">Learn Civil Engineering with <span>AI</span></h1>
             <p data-i18n="home.heroSubtitle">
                 Structured topics, guided explanations, real problem-solving,
@@ -4987,27 +5040,24 @@
                 <a href="courses/roadmap.html" class="btn-outline" data-i18n="home.exploreRoadmap">Explore Roadmap</a>
             </div>
 
-            <div class="hero-features">
-                <div class="hero-feature-box">
-                    <h4 data-i18n="home.feature1Title">Structured Roadmaps</h4>
-                    <p data-i18n="home.feature1Desc">Step-by-step civil engineering learning paths from foundations to advanced topics.</p>
+                        <div class="hero-features">
+                            <div class="hero-feature-box">
+                                <h4 data-i18n="home.feature1Title">Structured Roadmaps</h4>
+                                <p data-i18n="home.feature1Desc">Step-by-step civil engineering learning paths from foundations to advanced topics.</p>
+                            </div>
+                            <div class="hero-feature-box">
+                                <h4 data-i18n="home.feature2Title">AI-Guided Problem Solving</h4>
+                                <p data-i18n="home.feature2Desc">Instant explanations, walkthroughs, and help with real engineering problems.</p>
+                            </div>
+                            <div class="hero-feature-box">
+                                <h4 data-i18n="home.feature3Title">Track Your Progress</h4>
+                                <p data-i18n="home.feature3Desc">Monitor completed topics, learning streaks, and mastery growth over time.</p>
+                            </div>
+                        </div>
                 </div>
-
-                <div class="hero-feature-box">
-                    <h4 data-i18n="home.feature2Title">AI-Guided Problem Solving</h4>
-                    <p data-i18n="home.feature2Desc">Instant explanations, walkthroughs, and help with real engineering problems.</p>
-                </div>
-
-                <div class="hero-feature-box">
-                    <h4 data-i18n="home.feature3Title">Track Your Progress</h4>
-                    <p data-i18n="home.feature3Desc">Monitor completed topics, learning streaks, and mastery growth over time.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Hero Stats Cards -->
-        <div class="hero-stats">
-            <div class="stat-card">
+                <div class="hero-right">
+                    <div class="hero-stats">
+                        <div class="stat-card">
                 <div class="stat-icon">
                     <svg viewBox="0 0 24 24">
                         <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
