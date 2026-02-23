@@ -260,6 +260,7 @@ REAL_WORLD_APPS = {
 
 # Engineering knowledge base
 ENGINEERING_KNOWLEDGE = {
+
     'civil': {
         'topics': ['structures', 'concrete', 'steel', 'soil mechanics', 'hydraulics', 'transportation', 'surveying'],
         'formulas': {
