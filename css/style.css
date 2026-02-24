@@ -1,3 +1,69 @@
+/* --- Telegram Mini App adaptive header --- */
+@media (max-width: 768px) {
+    body.tg-mini-app .nav-bar, body.tg-mini-app .topbar {
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+    body.tg-mini-app .nav-center, body.tg-mini-app .main-nav, body.tg-mini-app .nav-links {
+        display: none !important;
+    }
+    body.tg-mini-app .tg-nav-scroll {
+        display: flex !important;
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 10px;
+        padding: 8px 0 0 0;
+        margin: 0 -12px 0 -12px;
+        background: transparent;
+        scrollbar-width: none;
+    }
+    body.tg-mini-app .tg-nav-scroll::-webkit-scrollbar {
+        display: none;
+    }
+    body.tg-mini-app .tg-nav-scroll a, body.tg-mini-app .tg-nav-scroll button {
+        flex: 0 0 auto;
+        min-width: 80px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #111;
+        background: #fff;
+        border-radius: 8px;
+        border: 1px solid #eee;
+        padding: 8px 16px;
+        margin: 0 2px;
+        text-align: center;
+        transition: background 0.2s, color 0.2s;
+    }
+    body.tg-mini-app .tg-nav-scroll a.active, body.tg-mini-app .tg-nav-scroll button.active {
+        background: #FFD84D;
+        color: #000;
+    }
+}
+
+/* Fix language and sign in button visibility in light mode */
+body.light-mode .lang-btn,
+body.light-mode .signin-btn {
+    background: #111 !important;
+    color: #fff !important;
+    border: 2px solid #000 !important;
+}
+body.light-mode .lang-btn:hover,
+body.light-mode .signin-btn:hover {
+    background: #222 !important;
+    color: #fff !important;
+    border: 2px solid #000 !important;
+}
+
+/* Fix Why Trust LEARNcraft boxes to have black frame in light mode */
+body.light-mode .authority-card {
+    border: 2px solid #000 !important;
+    background: #fff !important;
+}
+body.light-mode .authority-card:hover {
+    border: 2px solid #000 !important;
+    background: #f5f5f5 !important;
+}
 /* ===== GLOBAL STYLES ===== */
 * {
     margin: 0;
