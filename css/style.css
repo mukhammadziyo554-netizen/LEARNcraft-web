@@ -95,6 +95,8 @@ body.lc {
 
 :where(.lc) a { color: inherit; }
 
+:where(.lc) [id] { scroll-margin-top: calc(var(--header-h) + env(safe-area-inset-top) + 16px); }
+
 .lc :focus-visible {
   outline: 2px solid var(--c-focus);
   outline-offset: 2px;
@@ -479,6 +481,7 @@ body.lc {
 
 .lc-stage {
   display: grid;
+  align-content: start;
   gap: 8px;
 }
 
@@ -568,6 +571,311 @@ body.lc {
 .lc-footer nav a:hover { color: var(--c-text); }
 
 /* ==========================================================================
+   Page: home (index.html)
+   ========================================================================== */
+.home-hero {
+  padding-block: 40px 48px;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.home-hero__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.home-hero h1 { max-width: 18ch; }
+
+.home-points {
+  display: grid;
+  gap: 12px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-points li {
+  padding: 16px;
+  background: var(--c-bg);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+}
+
+.home-points__title {
+  font-size: var(--fs-md);
+  font-weight: 600;
+}
+
+:where(.lc) .home-points h2 { font-size: var(--fs-md); }
+
+.home-points p {
+  margin-top: 4px;
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+}
+
+.home-section {
+  padding-block: 48px;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.home-stages {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-stages .lc-stage { height: 100%; }
+
+.lc-stage__desc {
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+}
+
+.home-signin { display: none; }
+
+.home-account { position: relative; }
+
+.home-account[hidden] { display: none; }
+
+.home-account__circle {
+  width: 44px;
+  height: 44px;
+  background: var(--c-accent);
+  color: var(--c-on-accent);
+  font: 600 var(--fs-md) / 1 var(--font-sans);
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.home-account__menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  min-width: 220px;
+  padding: 4px;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 35%);
+}
+
+.home-account__menu[hidden] { display: none; }
+
+.home-account__email {
+  padding: 8px 12px;
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+  overflow-wrap: anywhere;
+}
+
+.home-account__item {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
+  background: none;
+  color: var(--c-text);
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.home-account__item:hover { background: var(--c-surface-2); }
+
+/* Ask AI chat */
+.chat {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+}
+
+.chat__messages {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 420px;
+  min-height: 160px;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.chat-msg {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 85%;
+}
+
+.chat-msg--user { align-self: flex-end; }
+
+.chat-msg__who {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-text-muted);
+}
+
+.chat-msg--user .chat-msg__who { text-align: right; }
+
+.chat-msg__text {
+  padding: 10px 14px;
+  background: var(--c-surface-2);
+  border-radius: var(--radius);
+  white-space: pre-line;
+}
+
+.chat-msg--user .chat-msg__text {
+  background: var(--c-accent);
+  color: var(--c-on-accent);
+}
+
+.chat-upgrade .chat-msg__text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  white-space: normal;
+}
+
+.chat__form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+  padding: 16px;
+  border-top: 1px solid var(--c-border);
+}
+
+.chat__field {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+.chat__send { min-height: 48px; }
+
+/* Pricing */
+.plan-switch {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 4px;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+}
+
+.plan-switch__btn {
+  min-height: 44px;
+  padding: 0 14px;
+  background: none;
+  color: var(--c-text-muted);
+  font: 500 var(--fs-sm) / 1 var(--font-sans);
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.plan-switch__btn[aria-pressed="true"] {
+  background: var(--c-surface-2);
+  color: var(--c-text);
+}
+
+.pricing-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.pricing-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  transition: border-color var(--dur) var(--ease);
+}
+
+.pricing-card.is-selected { border-color: var(--c-accent); }
+
+.pricing-card__price {
+  font-size: var(--fs-2xl);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.pricing-card__period {
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+}
+
+.pricing-card__features {
+  display: grid;
+  gap: 6px;
+  margin: 8px 0 12px;
+  padding-left: 1.1em;
+  font-size: var(--fs-sm);
+}
+
+.pricing-card .lc-btn { margin-top: auto; }
+
+/* Footer */
+.home-footer {
+  display: grid;
+  gap: 24px;
+}
+
+.home-footer__brand { max-width: 32ch; }
+.home-footer__brand .lc-footer__brand span { color: var(--c-accent-text); }
+
+.home-footer__note {
+  margin-top: 4px;
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+}
+
+.home-footer__col {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-footer__col .lc-label { margin-bottom: 4px; }
+
+.home-footer__col a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--c-text-muted);
+  font-size: var(--fs-sm);
+  text-decoration: none;
+}
+
+.home-footer__col a:hover { color: var(--c-text); }
+
+@media (min-width: 768px) {
+  .home-hero { padding-block: 72px 64px; }
+  .home-points { grid-template-columns: repeat(3, 1fr); }
+  .home-section { padding-block: 64px; }
+  .home-stages { grid-template-columns: repeat(2, 1fr); }
+  .pricing-grid { grid-template-columns: repeat(3, 1fr); }
+  .home-signin { display: inline-flex; }
+  .home-footer { grid-template-columns: 2fr repeat(3, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .home-stages { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ==========================================================================
    Legacy styles — pages without body.lc. Removed as pages move over.
    ========================================================================== */
 
@@ -614,29 +922,6 @@ body.lc {
     }
 }
 
-/* Fix language and sign in button visibility in light mode */
-body.light-mode:not(.lc) .lang-btn,
-body.light-mode:not(.lc) .signin-btn {
-    background: #111 !important;
-    color: #fff !important;
-    border: 2px solid #000 !important;
-}
-body.light-mode:not(.lc) .lang-btn:hover,
-body.light-mode:not(.lc) .signin-btn:hover {
-    background: #222 !important;
-    color: #fff !important;
-    border: 2px solid #000 !important;
-}
-
-/* Fix Why Trust LEARNcraft boxes to have black frame in light mode */
-body.light-mode:not(.lc) .authority-card {
-    border: 2px solid #000 !important;
-    background: #fff !important;
-}
-body.light-mode:not(.lc) .authority-card:hover {
-    border: 2px solid #000 !important;
-    background: #f5f5f5 !important;
-}
 /* ===== GLOBAL STYLES ===== */
 * {
     margin: 0;

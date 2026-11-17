@@ -34,6 +34,28 @@
         });
     }
 
+    // Apply a language to [data-i18n] text. English restores the page's own wording,
+    // which is the source text; other languages come from js/i18n.js.
+    function applyLanguage(lang) {
+        const i18n = window.LearnCraftI18n;
+        document.querySelectorAll('[data-i18n]').forEach((el) => {
+            if (!('i18nOriginal' in el.dataset)) {
+                el.dataset.i18nOriginal = el.matches('input, textarea') ? el.placeholder : el.textContent;
+            }
+        });
+        if (lang === 'en' || !i18n || typeof i18n.translatePage !== 'function') {
+            document.querySelectorAll('[data-i18n]').forEach((el) => {
+                if (el.matches('input, textarea')) el.placeholder = el.dataset.i18nOriginal;
+                else el.textContent = el.dataset.i18nOriginal;
+            });
+            document.documentElement.lang = lang;
+            return;
+        }
+        i18n.currentLang = lang;
+        document.documentElement.lang = lang;
+        i18n.translatePage();
+    }
+
     const FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
     function initDrawer() {
@@ -127,6 +149,7 @@
                 storage((ls) => ls.setItem(LANG_KEY, lang));
             }
             render(lang);
+            applyLanguage(lang);
             close();
         }
 
@@ -168,6 +191,7 @@
         });
 
         render(current());
+        if (current() !== 'en') applyLanguage(current());
     }
 
     function initThemeToggle() {
