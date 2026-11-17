@@ -1,784 +1,355 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#000000">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>Stage 1 — Foundations | LEARNcraft</title>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script src="../js/theme.js"></script>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background: #000000;
-      color: #ffffff;
-      min-height: 100vh;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    body.light-mode {
-      background: #ffffff;
-      color: #000000;
-    }
-
-    /* Header */
-    .topbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      background: #000000;
-      border-bottom: 1px solid #1a1a1a;
-      display: flex;
-      align-items: center;
-      padding: 0 20px;
-      z-index: 100;
-      transition: background-color 0.3s, border-color 0.3s;
-    }
-
-    body.light-mode .topbar {
-      background: #ffffff;
-      border-bottom-color: #e0e0e0;
-    }
-
-    .topbar-container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .back-nav {
-      background: none;
-      border: none;
-      color: #888;
-      font-size: 16px;
-      cursor: pointer;
-      padding: 8px;
-      transition: color 0.3s;
-    }
-
-    body.light-mode .back-nav {
-      color: #666;
-    }
-
-    .back-nav:hover {
-      color: #FFD54A;
-    }
-
-    .topbar-title {
-      font-size: 18px;
-      font-weight: 600;
-      letter-spacing: -0.5px;
-    }
-
-    .topbar-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    /* Main Layout */
-    .main-container {
-      display: flex;
-      margin-top: 60px;
-      min-height: calc(100vh - 60px);
-    }
-
-    /* Sidebar */
-    .sidebar {
-      width: 260px;
-      background: #0b0b0b;
-      border-right: 1px solid #1a1a1a;
-      padding: 24px 0;
-      overflow-y: auto;
-      position: fixed;
-      left: 0;
-      top: 60px;
-      height: calc(100vh - 60px);
-      transition: background-color 0.3s, border-color 0.3s;
-    }
-
-    body.light-mode .sidebar {
-      background: #f6f6f6;
-      border-right-color: #e0e0e0;
-    }
-
-    .sidebar-section {
-      padding: 0 16px;
-      margin-bottom: 24px;
-    }
-
-    .sidebar-title {
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      color: #666;
-      opacity: 0.7;
-      padding: 0 8px;
-      margin-bottom: 12px;
-      letter-spacing: 0.5px;
-    }
-
-    body.light-mode .sidebar-title {
-      color: #999;
-    }
-
-    .topic-item {
-      padding: 12px 12px;
-      cursor: pointer;
-      border-left: 3px solid transparent;
-      background: transparent;
-      border: none;
-      width: 100%;
-      text-align: left;
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.7);
-      transition: all 0.3s;
-      margin-bottom: 4px;
-      border-radius: 4px;
-    }
-
-    body.light-mode .topic-item {
-      color: rgba(0, 0, 0, 0.7);
-    }
-
-    .topic-item:hover {
-      background: rgba(255, 213, 74, 0.1);
-      color: #FFD54A;
-    }
-
-    .topic-item.active {
-      border-left-color: #FFD54A;
-      background: rgba(255, 213, 74, 0.08);
-      color: #ffffff;
-    }
-
-    body.light-mode .topic-item.active {
-      color: #000000;
-    }
-
-    /* Content Area */
-    .content-area {
-      margin-left: 260px;
-      padding: 24px;
-      flex: 1;
-      max-width: 900px;
-    }
-
-    /* Progress Header */
-    .progress-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 32px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid #1a1a1a;
-    }
-
-    body.light-mode .progress-header {
-      border-bottom-color: #e0e0e0;
-    }
-
-    .progress-info {
-      display: flex;
-      gap: 24px;
-      align-items: center;
-    }
-
-    .progress-item {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .progress-label {
-      font-size: 12px;
-      color: #888;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    body.light-mode .progress-label {
-      color: #999;
-    }
-
-    .progress-value {
-      font-size: 18px;
-      font-weight: 600;
-      color: #FFD54A;
-    }
-
-    .progress-bar-container {
-      flex: 1;
-      max-width: 300px;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 3px;
-      background: #1a1a1a;
-      border-radius: 2px;
-      overflow: hidden;
-    }
-
-    body.light-mode .progress-bar {
-      background: #e0e0e0;
-    }
-
-    .progress-bar-fill {
-      height: 100%;
-      background: #FFD54A;
-      width: 0%;
-      transition: width 0.3s;
-    }
-
-    /* Content */
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: none;
-      border: none;
-      color: #000000;
-      font-size: 16px;
-      cursor: pointer;
-      margin-bottom: 20px;
-      padding: 8px;
-      transition: color 0.3s;
-    }
-
-    body:not(.light-mode) .back-btn {
-      color: #ffffff;
-    }
-
-    .back-btn:hover {
-      color: #FFD84D;
-    }
-
-    .content-header {
-      margin-bottom: 32px;
-    }
-
-    .content-title {
-      font-size: 36px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: #CFCFCF;
-    }
-
-    body.light-mode .content-title {
-      color: #000000;
-    }
-
-    .content-description {
-      font-size: 16px;
-      color: #8F8F8F;
-      line-height: 1.6;
-    }
-
-    body.light-mode .content-description {
-      color: #666;
-    }
-
-    /* Accordion Section */
-    .accordion-section {
-      margin-bottom: 16px;
-      border: 1px solid #1a1a1a;
-      border-radius: 8px;
-      overflow: hidden;
-      transition: all 0.3s;
-    }
-
-    body.light-mode .accordion-section {
-      border-color: #e0e0e0;
-    }
-
-    .accordion-header {
-      padding: 16px;
-      background: #0b0b0b;
-      border: none;
-      width: 100%;
-      text-align: left;
-      font-size: 15px;
-      font-weight: 600;
-      color: #ffffff;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: all 0.3s;
-    }
-
-    body.light-mode .accordion-header {
-      background: #f6f6f6;
-      color: #000000;
-    }
-
-    .accordion-header:hover {
-      background: #1a1a1a;
-    }
-
-    body.light-mode .accordion-header:hover {
-      background: #efefef;
-    }
-
-    .accordion-header.active {
-      background: rgba(255, 213, 74, 0.1);
-      color: #FFD54A;
-    }
-
-    .accordion-toggle {
-      font-size: 12px;
-      transition: transform 0.3s;
-    }
-
-    .accordion-toggle.open {
-      transform: rotate(180deg);
-    }
-
-    .accordion-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-    }
-
-    .accordion-content.open {
-      max-height: 1000px;
-    }
-
-    .accordion-body {
-      padding: 16px;
-      background: #111111;
-      color: #B6B6B6;
-      line-height: 1.7;
-      font-size: 14px;
-    }
-
-    body.light-mode .accordion-body {
-      background: #f9f9f9;
-      color: #333;
-    }
-
-    .accordion-body ul {
-      margin-left: 20px;
-      margin-top: 8px;
-      margin-bottom: 8px;
-    }
-
-    .accordion-body li {
-      margin-bottom: 6px;
-    }
-
-    .accordion-body p {
-      margin-bottom: 8px;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .sidebar {
-        width: 0;
-        padding: 0;
-        border: none;
-      }
-
-      .sidebar.mobile-open {
-        width: 100%;
-        z-index: 200;
-      }
-
-      .content-area {
-        margin-left: 0;
-        padding: 16px;
-      }
-
-      .content-title {
-        font-size: 28px;
-      }
-
-      .progress-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
-      }
-
-      .progress-info {
-        width: 100%;
-        gap: 16px;
-      }
-
-      .progress-bar-container {
-        width: 100%;
-        max-width: 100%;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Build strong fundamentals in mathematics, physics, and core engineering principles.">
+    <meta name="theme-color" content="#0b0b0b">
+    <title>Stage 1 — Foundations — LEARNcraft</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/site.js" defer></script>
+    <script src="../js/stage.js" defer></script>
 </head>
-<body class="dark">
+<body class="lc">
+    <a class="lc-skip" href="#main">Skip to content</a>
 
-<!-- Header -->
-<header class="topbar">
-  <div class="topbar-container">
-    <button class="back-nav" onclick="window.history.back()">← Back</button>
-    <span class="topbar-title">LEARNcraft</span>
-    <div class="topbar-right">
-      <button style="background: none; border: none; color: #888; font-size: 20px; cursor: pointer;" onclick="toggleTheme()">
-        <span id="themeIcon">🌞</span>
-      </button>
-    </div>
-  </div>
-</header>
-
-
-<!-- Main Layout -->
-<div class="main-container">
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="sidebar-section">
-      <div class="sidebar-title">Stage 1 — Foundations</div>
-      <button class="topic-item active" onclick="selectTopic('math', this)">Math for Engineers</button>
-      <button class="topic-item" onclick="selectTopic('physics', this)">Physics Fundamentals</button>
-      <button class="topic-item" onclick="selectTopic('engineering', this)">Engineering Basics</button>
-      <button class="topic-item" onclick="selectTopic('problemsolving', this)">Problem Solving & Tools</button>
-    </div>
-  </aside>
-
-  <!-- Content Area -->
-  <main class="content-area">
-    <!-- Progress Header -->
-    <div class="progress-header">
-      <div class="progress-info">
-        <div class="progress-item">
-          <span class="progress-label">Progress</span>
-          <span class="progress-value" id="progressPercent">34%</span>
+    <header class="lc-header">
+        <div class="lc-container lc-header__inner">
+            <a class="lc-header__brand" href="../index.html">LEARN<span>craft</span></a>
+            <nav class="lc-nav" aria-label="Main">
+                <a class="lc-nav__link" href="../index.html" data-i18n="nav.home">Home</a>
+                <a class="lc-nav__link" href="../courses/roadmap.html" aria-current="page">Roadmap</a>
+                <a class="lc-nav__link" href="../learning/lesson.html">Lesson</a>
+                <a class="lc-nav__link" href="../pages/ask-ai.html">Ask AI</a>
+                <a class="lc-nav__link" href="../pages/about.html" data-i18n="nav.about">About</a>
+                <a class="lc-nav__link" href="../index.html#pricing" data-i18n="nav.pro">LEARNcraft Pro</a>
+            </nav>
+            <div class="lc-header__actions">
+                <div class="lc-lang-wrap">
+                    <button class="lc-lang" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu" aria-label="Language: English">EN</button>
+                    <ul class="lc-lang__menu" id="lang-menu" role="listbox" aria-label="Language" hidden>
+                        <li class="lc-lang__option" role="option" data-lang="en" aria-selected="true" tabindex="-1">English</li>
+                        <li class="lc-lang__option" role="option" data-lang="ru" aria-selected="false" tabindex="-1">Русский</li>
+                        <li class="lc-lang__option" role="option" data-lang="uz" aria-selected="false" tabindex="-1">Oʻzbek</li>
+                    </ul>
+                </div>
+                <button class="lc-icon-btn" type="button" data-lc-theme-toggle aria-pressed="false" aria-label="Light theme">
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                </button>
+                <a class="lc-btn lc-btn--secondary home-signin" id="signInBtn" href="../pages/login.html" data-i18n="nav.signIn">Sign In</a>
+                <div class="home-account" id="userAccount" hidden>
+                    <button class="home-account__circle" id="userCircle" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="userMenu" aria-label="Account menu">U</button>
+                    <div class="home-account__menu" id="userMenu" role="menu" hidden>
+                        <p class="home-account__email" id="userEmail"></p>
+                        <a class="home-account__item" role="menuitem" href="../pages/settings.html">Account settings</a>
+                        <button class="home-account__item" role="menuitem" id="logoutBtn" type="button">Log out</button>
+                    </div>
+                </div>
+                <button class="lc-burger" type="button" data-lc-drawer-toggle aria-controls="drawer" aria-expanded="false" aria-label="Open menu">
+                    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                </button>
+            </div>
         </div>
-        <div class="progress-item">
-          <span class="progress-label">Study Streak</span>
-          <span class="progress-value" id="streakCount">4 days</span>
+    </header>
+
+    <nav class="lc-drawer" id="drawer" aria-label="Menu" hidden>
+        <a class="lc-drawer__link" href="../index.html">Home</a>
+        <a class="lc-drawer__link" href="../courses/roadmap.html" aria-current="page">Roadmap</a>
+        <a class="lc-drawer__link" href="../courses/learn.html">Articles</a>
+        <a class="lc-drawer__link" href="../learning/lesson.html">Lesson</a>
+        <a class="lc-drawer__link" href="../pages/ask-ai.html">Ask AI</a>
+        <a class="lc-drawer__link" href="../courses/practice.html">Practice</a>
+        <a class="lc-drawer__link" href="../pages/about.html">About</a>
+        <a class="lc-drawer__link" href="../pages/settings.html">Settings</a>
+        <a class="lc-drawer__link" href="../pages/login.html">Sign in</a>
+        <a class="lc-drawer__link" href="../admin/admin-dashboard.html" id="sidebarAdminLink" hidden>Admin</a>
+    </nav>
+
+    <main id="main" class="lc-container stage" data-stage="1">
+            <a class="lc-btn lc-btn--ghost stage-back" href="roadmap.html"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Back to roadmap</a>
+            <header class="stage-head lc-stack" style="--gap: 12px">
+                <p class="lc-label">Stage 01 / Beginner</p>
+                <h1>Stage 1 — Foundations</h1>
+                <p class="lc-lead">Build strong fundamentals in mathematics, physics, and core engineering principles.</p>
+            </header>
+            <section class="stage-progress lc-card" aria-labelledby="progress-title">
+                <div class="stage-progress__head">
+                    <h2 class="stage-progress__title" id="progress-title">Your progress</h2>
+                    <span class="stage-progress__count" data-stage-progress-text>0 done</span>
+                </div>
+                <span class="lc-progress" data-stage-progress role="progressbar" aria-labelledby="progress-title" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" style="--value: 0"></span>
+                <div class="stage-progress__foot">
+                    <p>Ticks are saved in this browser.</p>
+                    <button class="lc-btn lc-btn--ghost" type="button" data-stage-reset>Clear ticks</button>
+                </div>
+            </section>
+            <section class="stage-section lc-stack" style="--gap: 12px" aria-labelledby="t-math">
+                <h2 id="t-math">Math for Engineers</h2>
+                <p class="stage-section__sub">Master the mathematical fundamentals required for advanced civil engineering study.</p>
+                <div class="stage-topics">
+                    <details class="stage-topic" open>
+                        <summary>Linear Equations &amp; Algebra</summary>
+                        <div class="lc-prose stage-topic__body">
+                            <ul>
+                            <li>Solving linear equations (one and two variables)</li>
+                            <li>Systems of linear equations</li>
+                            <li>Quadratic equations and factoring</li>
+                            <li>Exponential and logarithmic functions</li>
+                            </ul>
+                            <p><strong>Why it matters:</strong> Nearly every structural calculation involves algebraic manipulation. You'll need this constantly.</p>
+                        </div>
+                        <label class="stage-check"><input type="checkbox" data-task="math-1"> Mark “Linear Equations &amp; Algebra” as done</label>
+                    </details>
+                    <details class="stage-topic">
+                        <summary>Functions &amp; Graphs</summary>
+                        <div class="lc-prose stage-topic__body">
+                            <ul>
+                            <li>Understanding function notation</li>
+                            <li>Plotting and interpreting graphs</li>
+                            <li>Polynomial, rational, and piecewise functions</li>
+                            <li>Transformations and compositions</li>
+                            </ul>
+                            <p><strong>Application:</strong> Load diagrams, stress-strain relationships, and performance graphs all use function concepts.</p>
+                        </div>
+                        <label class="stage-check"><input type="checkbox" data-task="math-2"> Mark “Functions &amp; Graphs” as done</label>
+                    </details>
+                    <details class="stage-topic">
+                        <summary>Trigonometry</summary>
+                        <div class="lc-prose stage-topic__body">
+                            <ul>
+                            <li>Right triangle trigonometry (sin, cos, tan)</li>
+                            <li>Unit circle and radians</li>
+                            <li>Trigonometric identities and equations</li>
+                            <li>Applications in vectors and forces</li>
+                            </ul>
+                            <p><strong>Critical for Civil Engineering:</strong> Analyzing forces, slopes, angles, and structural geometry all rely on trigonometry.</p>
+                        </div>
+                        <label class="stage-check"><input type="checkbox" data-task="math-3"> Mark “Trigonometry” as done</label>
+                    </details>
+                    <details class="stage-topic">
+                        <summary>Units &amp; Conversions</summary>
+                        <div class="lc-prose stage-topic__body">
+                            <ul>
+                            <li>SI (metric) and imperial units</li>
+                            <li>Dimension analysis</li>
+                            <li>Converting between unit systems</li>
+                            <li>Significant figures and precision</li>
+                            </ul>
+                            <p><strong>Essential:</strong> Mistakes in unit conversion have cost companies millions and caused structural failures. Master this.</p>
+                        </div>
+                        <label class="stage-check"><input type="checkbox" data-task="math-4"> Mark “Units &amp; Conversions” as done</label>
+                    </details>
+                </div>
+            </section>
+            <section class="stage-section lc-stack" style="--gap: 12px" aria-labelledby="t-physics">
+                <h2 id="t-physics">Physics Fundamentals</h2>
+                <p class="stage-section__sub">Understand force, motion, and energy principles that govern structural behavior.</p>
+                <div class="stage-topics">
+                    <details class="stage-topic">
+                        <summary>Force &amp; Motion (Newton&#x27;s Laws)</summary>
+                        <div class="lc-prose stage-topic__body">
+                            <ul>
+                            <li>First Law: Objects in motion stay in motion (inertia)</li>
+                            <li>Second Law: F = ma (force, mass, acceleration)</li>
+                            <li>Third Law: Action-reaction pairs</li>
+                            <li>Applications to static equilibrium</li>
+                            </ul>
+                            <p><strong>Why it matters:</strong> Structures must remain in equilibrium. This is the foundation of structural analysis.</p>
+                        </div>
+                        <label class="stage-check"><input type="checkbox" data-task="physics-1"> Mark “Force &amp; Motion (Newton&#x27;s Laws)” as done</label>
+                    </details>
+                    <details class="stage-topic">
+                        <summary>Mass vs Weight</summary>
+                        <div class="lc-prose stage-topic__body">
+                            <ul>
+                            <li>Mass: Amount of material (constant everywhere)</li>
+                            <li>Weight: Force due to gravity (W = mg)</li>
+                            <li>Calculating loads on structures</li>
+                            <li>Dead loads vs live loads</li>
+                            </ul>
+                            <p><strong>Critical distinction:</strong> Civil engineers design for specific weights and loads. Getting this wrong leads to failure.</p>
+                        </div>
+                        <label class="stage-check"><input type="checkbox" data-task="physics-2"> Mark “Mass vs Weight” as done</label>
+                    </details>
+                    <details class="stage-topic">
+                        <summary>Vectors &amp; Vector Addition</summary>
+                        <div class="lc-prose stage-topic__body">
+                            <ul>
+                            <li>Magnitude and direction</li>
+                            <li>Component form (x, y, z)</li>
+                            <li>Vector addition and subtraction</li>
+                            <li>Dot and cross products</li>
+                            </ul>
+                            <p><strong>Application:</strong> Forces on structures are vectors. You'll combine and analyze them constantly.</p>
+                        </div>
+                        <label class="stage-check"><input type="checkbox" data-task="physics-3"> Mark “Vectors &amp; Vector Addition” as done</label>
+                    </details>
+                    <details class="stage-topic">
+                        <summary>Gravity &amp; Acceleration</summary>
+                        <div class="lc-prose stage-topic__body">
+                            <ul>
+                            <li>Gravitational acceleration (g = 9.81 m/s²)</li>
+                            <li>Free fall and projectile motion</li>
+                            <li>Centripetal acceleration</li>
+                            <li>Calculating impact forces</li>
+                            </ul>
+                        </div>
+                        <label class="stage-check"><input type="checkbox" data-task="physics-4"> Mark “Gravity &amp; Acceleration” as done</label>
+                    </details>
+                </div>
+            </section>
+            <section class="stage-section lc-stack" style="--gap: 12px" aria-labelledby="t-engineering">
+                <h2 id="t-engineering">Engineering Basics</h2>
+                <p class="stage-section__sub">Introduction to civil engineering concepts and structural thinking.</p>
+                <div class="stage-topics">
+                    <details class="stage-topic">
+                        <summary>What is Civil Engineering?</summary>
+                        <div class="lc-prose stage-topic__body">
+                            <ul>
+                            <li>History and major disciplines</li>
+                            <li>Structural, geotechnical, transportation, water resources</li>
+                            <li>Environmental and construction engineering</li>
+                            <li>Real-world impact and scale</li>
+                            </ul>
+                            <p><strong>Perspective:</strong> Civil engineers build the infrastructure society depends on. Your work lasts decades or centuries.</p>
+                        </div>
+                        <label class="stage-check"><input type="checkbox" data-task="engineering-1"> Mark “What is Civil Engineering?” as done</label>
+                    </details>
+                    <details class="stage-topic">
+                        <summary>Types of Structures</summary>
+                        <div class="lc-prose stage-topic__body">
+                            <ul>
+                            <li>Buildings (skyscrapers, houses, commercial)</li>
+                            <li>Bridges (beam, cable-stayed, suspension, arch)</li>
+                            <li>Roads and transportation infrastructure</li>
+                            <li>Dams, canals, and water systems</li>
+                            <li>Underground structures (tunnels, basements)</li>
+                            </ul>
+                        </div>
+                        <label class="stage-check"><input type="checkbox" data-task="engineering-2"> Mark “Types of Structures” as done</label>
+                    </details>
+                    <details class="stage-topic">
+                        <summary>Loads (Dead vs Live)</summary>
+                        <div class="lc-prose stage-topic__body">
+                            <ul>
+                            <li><strong>Dead Load:</strong> Permanent weight (structure + fixed elements)</li>
+                            <li><strong>Live Load:</strong> Temporary weight (people, furniture, snow, wind)</li>
+                            <li>Environmental loads (earthquakes, temperature)</li>
+                            <li>Load combinations for design</li>
+                            </ul>
+                            <p><strong>Key:</strong> Structures must handle worst-case load combinations safely.</p>
+                        </div>
+                        <label class="stage-check"><input type="checkbox" data-task="engineering-3"> Mark “Loads (Dead vs Live)” as done</label>
+                    </details>
+                    <details class="stage-topic">
+                        <summary>Safety Factors</summary>
+                        <div class="lc-prose stage-topic__body">
+                            <ul>
+                            <li>Why safety factors exist</li>
+                            <li>Factor of Safety (FoS) = Capacity / Load</li>
+                            <li>Typical safety factors in civil engineering</li>
+                            <li>Risk management and liability</li>
+                            </ul>
+                            <p><strong>Remember:</strong> A safety factor of 1.5 means the structure can handle 1.5x the expected load before failing.</p>
+                        </div>
+                        <label class="stage-check"><input type="checkbox" data-task="engineering-4"> Mark “Safety Factors” as done</label>
+                    </details>
+                </div>
+            </section>
+            <section class="stage-section lc-stack" style="--gap: 12px" aria-labelledby="t-problemsolving">
+                <h2 id="t-problemsolving">Problem Solving &amp; Tools</h2>
+                <p class="stage-section__sub">Develop engineering problem-solving skills and learn essential tools.</p>
+                <div class="stage-topics">
+                    <details class="stage-topic">
+                        <summary>Rearranging Formulas</summary>
+                        <div class="lc-prose stage-topic__body">
+                            <ul>
+                            <li>Isolating variables</li>
+                            <li>Working with complex equations</li>
+                            <li>Dimensional consistency checking</li>
+                            <li>Common formula mistakes to avoid</li>
+                            </ul>
+                            <p><strong>Practice:</strong> You'll manipulate formulas hundreds of times. Get comfortable now.</p>
+                        </div>
+                        <label class="stage-check"><input type="checkbox" data-task="problemsolving-1"> Mark “Rearranging Formulas” as done</label>
+                    </details>
+                    <details class="stage-topic">
+                        <summary>Solving Word Problems</summary>
+                        <div class="lc-prose stage-topic__body">
+                            <ul>
+                            <li>Understanding the problem</li>
+                            <li>Identifying given and unknown information</li>
+                            <li>Drawing diagrams and visualizing</li>
+                            <li>Setting up equations and solving systematically</li>
+                            </ul>
+                        </div>
+                        <label class="stage-check"><input type="checkbox" data-task="problemsolving-2"> Mark “Solving Word Problems” as done</label>
+                    </details>
+                    <details class="stage-topic">
+                        <summary>Using Calculators</summary>
+                        <div class="lc-prose stage-topic__body">
+                            <ul>
+                            <li>Scientific calculator basics</li>
+                            <li>Order of operations (PEMDAS)</li>
+                            <li>Rounding and significant figures</li>
+                            <li>Common calculator errors</li>
+                            </ul>
+                        </div>
+                        <label class="stage-check"><input type="checkbox" data-task="problemsolving-3"> Mark “Using Calculators” as done</label>
+                    </details>
+                    <details class="stage-topic">
+                        <summary>Graph Reading &amp; Interpretation</summary>
+                        <div class="lc-prose stage-topic__body">
+                            <ul>
+                            <li>Axes, scales, and units</li>
+                            <li>Extracting data from graphs</li>
+                            <li>Identifying trends and relationships</li>
+                            <li>Understanding slope and area under curves</li>
+                            </ul>
+                            <p><strong>Civil Engineering:</strong> Graphs show material properties, performance data, and design constraints. Learn to read them fluently.</p>
+                        </div>
+                        <label class="stage-check"><input type="checkbox" data-task="problemsolving-4"> Mark “Graph Reading &amp; Interpretation” as done</label>
+                    </details>
+                </div>
+            </section>
+            <nav class="stage-nav" aria-label="Stages">
+                
+                <a class="lc-btn lc-btn--primary" href="civil-stage2.html">Stage 2: Core Civil Concepts<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            </nav>
+    </main>
+
+    <footer class="lc-footer">
+        <div class="lc-container home-footer">
+            <div class="home-footer__brand">
+                <p class="lc-footer__brand">LEARN<span>craft</span></p>
+                <p class="home-footer__note">Civil engineering, one stage at a time. In English, Russian and Uzbek.</p>
+            </div>
+            <nav class="home-footer__col" aria-labelledby="f-learn">
+                <p class="lc-label" id="f-learn">Learn</p>
+                <a href="../courses/roadmap.html">Roadmap</a>
+                <a href="../courses/learn.html">Articles</a>
+                <a href="../learning/lesson.html">Lesson</a>
+                <a href="../courses/practice.html">Practice</a>
+                <a href="../pages/ask-ai.html">Ask AI</a>
+            </nav>
+            <nav class="home-footer__col" aria-labelledby="f-about">
+                <p class="lc-label" id="f-about">LEARNcraft</p>
+                <a href="../pages/about.html">About</a>
+                <a href="../index.html#pricing">Pro plans</a>
+                <a href="../pages/support.html">Support</a>
+                <a href="../pages/community.html">Community</a>
+            </nav>
+            <nav class="home-footer__col" aria-labelledby="f-account">
+                <p class="lc-label" id="f-account">Account</p>
+                <a href="../pages/login.html">Sign in</a>
+                <a href="../pages/settings.html">Settings</a>
+            </nav>
         </div>
-      </div>
-      <div class="progress-bar-container">
-        <div class="progress-bar">
-          <div class="progress-bar-fill" id="progressFill" style="width: 34%;"></div>
-        </div>
-      </div>
-    </div>
+    </footer>
 
-    <!-- Content Header -->
-    <button class="back-btn" onclick="window.history.back()">← Back</button>
-    <div class="content-header">
-      <h1 class="content-title" id="contentTitle">Math for Engineers</h1>
-      <p class="content-description" id="contentDescription">
-        Master the mathematical fundamentals required for advanced civil engineering study.
-      </p>
-    </div>
-
-    <!-- Accordion Sections -->
-    <div id="contentSections"></div>
-  </main>
-</div>
-
-<script>
-  if (typeof TelegramWebApp !== 'undefined') {
-    const tg = window.Telegram.WebApp;
-    tg.ready();
-    tg.setHeaderColor('#000000');
-    tg.setBackgroundColor('#000000');
-    tg.MainButton.hide();
-  }
-
-  // Course content structure
-  const courseContent = {
-    math: {
-      title: "Math for Engineers",
-      description: "Master the mathematical fundamentals required for advanced civil engineering study.",
-      sections: [
-        {
-          title: "Linear Equations & Algebra",
-          content: `
-            <ul>
-              <li>Solving linear equations (one and two variables)</li>
-              <li>Systems of linear equations</li>
-              <li>Quadratic equations and factoring</li>
-              <li>Exponential and logarithmic functions</li>
-            </ul>
-            <p><strong>Why it matters:</strong> Nearly every structural calculation involves algebraic manipulation. You'll need this constantly.</p>
-          `
-        },
-        {
-          title: "Functions & Graphs",
-          content: `
-            <ul>
-              <li>Understanding function notation</li>
-              <li>Plotting and interpreting graphs</li>
-              <li>Polynomial, rational, and piecewise functions</li>
-              <li>Transformations and compositions</li>
-            </ul>
-            <p><strong>Application:</strong> Load diagrams, stress-strain relationships, and performance graphs all use function concepts.</p>
-          `
-        },
-        {
-          title: "Trigonometry",
-          content: `
-            <ul>
-              <li>Right triangle trigonometry (sin, cos, tan)</li>
-              <li>Unit circle and radians</li>
-              <li>Trigonometric identities and equations</li>
-              <li>Applications in vectors and forces</li>
-            </ul>
-            <p><strong>Critical for Civil Engineering:</strong> Analyzing forces, slopes, angles, and structural geometry all rely on trigonometry.</p>
-          `
-        },
-        {
-          title: "Units & Conversions",
-          content: `
-            <ul>
-              <li>SI (metric) and imperial units</li>
-              <li>Dimension analysis</li>
-              <li>Converting between unit systems</li>
-              <li>Significant figures and precision</li>
-            </ul>
-            <p><strong>Essential:</strong> Mistakes in unit conversion have cost companies millions and caused structural failures. Master this.</p>
-          `
-        }
-      ]
-    },
-    physics: {
-      title: "Physics Fundamentals",
-      description: "Understand force, motion, and energy principles that govern structural behavior.",
-      sections: [
-        {
-          title: "Force & Motion (Newton's Laws)",
-          content: `
-            <ul>
-              <li>First Law: Objects in motion stay in motion (inertia)</li>
-              <li>Second Law: F = ma (force, mass, acceleration)</li>
-              <li>Third Law: Action-reaction pairs</li>
-              <li>Applications to static equilibrium</li>
-            </ul>
-            <p><strong>Why it matters:</strong> Structures must remain in equilibrium. This is the foundation of structural analysis.</p>
-          `
-        },
-        {
-          title: "Mass vs Weight",
-          content: `
-            <ul>
-              <li>Mass: Amount of material (constant everywhere)</li>
-              <li>Weight: Force due to gravity (W = mg)</li>
-              <li>Calculating loads on structures</li>
-              <li>Dead loads vs live loads</li>
-            </ul>
-            <p><strong>Critical distinction:</strong> Civil engineers design for specific weights and loads. Getting this wrong leads to failure.</p>
-          `
-        },
-        {
-          title: "Vectors & Vector Addition",
-          content: `
-            <ul>
-              <li>Magnitude and direction</li>
-              <li>Component form (x, y, z)</li>
-              <li>Vector addition and subtraction</li>
-              <li>Dot and cross products</li>
-            </ul>
-            <p><strong>Application:</strong> Forces on structures are vectors. You'll combine and analyze them constantly.</p>
-          `
-        },
-        {
-          title: "Gravity & Acceleration",
-          content: `
-            <ul>
-              <li>Gravitational acceleration (g = 9.81 m/s²)</li>
-              <li>Free fall and projectile motion</li>
-              <li>Centripetal acceleration</li>
-              <li>Calculating impact forces</li>
-            </ul>
-          `
-        }
-      ]
-    },
-    engineering: {
-      title: "Engineering Basics",
-      description: "Introduction to civil engineering concepts and structural thinking.",
-      sections: [
-        {
-          title: "What is Civil Engineering?",
-          content: `
-            <ul>
-              <li>History and major disciplines</li>
-              <li>Structural, geotechnical, transportation, water resources</li>
-              <li>Environmental and construction engineering</li>
-              <li>Real-world impact and scale</li>
-            </ul>
-            <p><strong>Perspective:</strong> Civil engineers build the infrastructure society depends on. Your work lasts decades or centuries.</p>
-          `
-        },
-        {
-          title: "Types of Structures",
-          content: `
-            <ul>
-              <li>Buildings (skyscrapers, houses, commercial)</li>
-              <li>Bridges (beam, cable-stayed, suspension, arch)</li>
-              <li>Roads and transportation infrastructure</li>
-              <li>Dams, canals, and water systems</li>
-              <li>Underground structures (tunnels, basements)</li>
-            </ul>
-          `
-        },
-        {
-          title: "Loads (Dead vs Live)",
-          content: `
-            <ul>
-              <li><strong>Dead Load:</strong> Permanent weight (structure + fixed elements)</li>
-              <li><strong>Live Load:</strong> Temporary weight (people, furniture, snow, wind)</li>
-              <li>Environmental loads (earthquakes, temperature)</li>
-              <li>Load combinations for design</li>
-            </ul>
-            <p><strong>Key:</strong> Structures must handle worst-case load combinations safely.</p>
-          `
-        },
-        {
-          title: "Safety Factors",
-          content: `
-            <ul>
-              <li>Why safety factors exist</li>
-              <li>Factor of Safety (FoS) = Capacity / Load</li>
-              <li>Typical safety factors in civil engineering</li>
-              <li>Risk management and liability</li>
-            </ul>
-            <p><strong>Remember:</strong> A safety factor of 1.5 means the structure can handle 1.5x the expected load before failing.</p>
-          `
-        }
-      ]
-    },
-    problemsolving: {
-      title: "Problem Solving & Tools",
-      description: "Develop engineering problem-solving skills and learn essential tools.",
-      sections: [
-        {
-          title: "Rearranging Formulas",
-          content: `
-            <ul>
-              <li>Isolating variables</li>
-              <li>Working with complex equations</li>
-              <li>Dimensional consistency checking</li>
-              <li>Common formula mistakes to avoid</li>
-            </ul>
-            <p><strong>Practice:</strong> You'll manipulate formulas hundreds of times. Get comfortable now.</p>
-          `
-        },
-        {
-          title: "Solving Word Problems",
-          content: `
-            <ul>
-              <li>Understanding the problem</li>
-              <li>Identifying given and unknown information</li>
-              <li>Drawing diagrams and visualizing</li>
-              <li>Setting up equations and solving systematically</li>
-            </ul>
-          `
-        },
-        {
-          title: "Using Calculators",
-          content: `
-            <ul>
-              <li>Scientific calculator basics</li>
-              <li>Order of operations (PEMDAS)</li>
-              <li>Rounding and significant figures</li>
-              <li>Common calculator errors</li>
-            </ul>
-          `
-        },
-        {
-          title: "Graph Reading & Interpretation",
-          content: `
-            <ul>
-              <li>Axes, scales, and units</li>
-              <li>Extracting data from graphs</li>
-              <li>Identifying trends and relationships</li>
-              <li>Understanding slope and area under curves</li>
-            </ul>
-            <p><strong>Civil Engineering:</strong> Graphs show material properties, performance data, and design constraints. Learn to read them fluently.</p>
-          `
-        }
-      ]
-    }
-  };
-
-  // Theme toggle
-  function toggleTheme() {
-    document.body.classList.toggle('light-mode');
-    localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
-    updateThemeIcon();
-  }
-
-  function updateThemeIcon() {
-    const icon = document.getElementById('themeIcon');
-    icon.textContent = document.body.classList.contains('light-mode') ? '🌙' : '🌞';
-  }
-
-  // Load saved theme
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'light') {
-    document.body.classList.add('light-mode');
-  }
-  updateThemeIcon();
-
-  // Select topic
-  function selectTopic(topicId, element) {
-    // Update active state
-    document.querySelectorAll('.topic-item').forEach(item => {
-      item.classList.remove('active');
-    });
-    element.classList.add('active');
-
-    // Load content
-    loadTopicContent(topicId);
-  }
-
-  // Load topic content
-  function loadTopicContent(topicId) {
-    const content = courseContent[topicId];
-    if (!content) return;
-
-    document.getElementById('contentTitle').textContent = content.title;
-    document.getElementById('contentDescription').textContent = content.description;
-
-    const sectionsHtml = content.sections.map((section, index) => `
-      <div class="accordion-section">
-        <button class="accordion-header" onclick="toggleAccordion(this)">
-          <span>${section.title}</span>
-          <span class="accordion-toggle">▼</span>
-        </button>
-        <div class="accordion-content">
-          <div class="accordion-body">${section.content}</div>
-        </div>
-      </div>
-    `).join('');
-
-    document.getElementById('contentSections').innerHTML = sectionsHtml;
-  }
-
-  // Toggle accordion
-  function toggleAccordion(header) {
-    header.classList.toggle('active');
-    header.querySelector('.accordion-toggle').classList.toggle('open');
-    header.nextElementSibling.classList.toggle('open');
-  }
-
-  // Initialize
-  loadTopicContent('math');
-</script>
-
+    <script src="../js/webapp-init.js"></script>
 </body>
 </html>

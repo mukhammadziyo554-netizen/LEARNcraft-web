@@ -2,799 +2,190 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, height=device-height">
-    <meta name="description" content="Interactive Lesson with AI Assistant - LEARNcraft">
-    <meta name="theme-color" content="#000000">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Lesson - LEARNcraft</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Lesson 1 in structural analysis: equilibrium, loads and a worked simply supported beam example.">
+    <meta name="theme-color" content="#0b0b0b">
+    <title>Structural Analysis — Lesson 1 — LEARNcraft</title>
+    <link rel="stylesheet" href="../css/style.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="../js/theme.js"></script>
-    <script src="../js/access-control.js"></script>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: #ffffff;
-            color: #000000;
-            min-height: 100vh;
-            transition: background 0.3s, color 0.3s;
-        }
-
-        body:not(.light-mode) {
-            background: #000000;
-            color: #ffffff;
-        }
-
-        /* Navigation Bar */
-        .nav-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            color: #000000;
-            padding: 16px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            z-index: 999;
-            border-bottom: 1px solid #e0e0e0;
-            backdrop-filter: blur(10px);
-            transition: background 0.3s, border-color 0.3s;
-        }
-
-        body:not(.light-mode) .nav-bar {
-            background: rgba(0, 0, 0, 0.95);
-            color: #ffffff;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .nav-back-btn {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            color: #000000;
-            transition: color 0.3s;
-        }
-
-        body:not(.light-mode) .nav-back-btn {
-            color: #ffffff;
-        }
-
-        .nav-back-btn:hover {
-            color: #FFD84D;
-        }
-
-        .nav-brand {
-            font-size: 16px;
-            font-weight: 700;
-            color: #000000;
-        }
-
-        body:not(.light-mode) .nav-brand {
-            color: #ffffff;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .theme-toggle {
-            background: none;
-            border: 1px solid #000000;
-            color: #000000;
-            padding: 8px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background 0.3s, border-color 0.3s;
-        }
-
-        body:not(.light-mode) .theme-toggle {
-            border: 1px solid #ffffff;
-            color: #ffffff;
-        }
-
-        .theme-toggle:hover {
-            background: #FFD84D;
-            color: #000000;
-            border-color: #FFD84D;
-        }
-
-        /* Main Container */
-        .main-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding-top: 80px;
-            padding-left: 16px;
-            padding-right: 16px;
-            padding-bottom: 40px;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 24px;
-        }
-
-        /* Desktop: 2-column layout */
-        @media (min-width: 1200px) {
-            .main-container {
-                grid-template-columns: 2fr 1fr;
-                padding-left: 24px;
-                padding-right: 24px;
-            }
-        }
-
-        /* LEFT SIDE - Lesson Content */
-        .lesson-content {
-            flex: 1;
-        }
-
-        .lesson-content h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 24px;
-            color: #000000;
-        }
-
-        body:not(.light-mode) .lesson-content h1 {
-            color: #ffffff;
-        }
-
-        .lesson-content h2 {
-            font-size: 1.75rem;
-            font-weight: 600;
-            margin-top: 32px;
-            margin-bottom: 16px;
-            color: #FFD84D;
-            transition: color 0.3s;
-        }
-
-        .lesson-content h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-top: 20px;
-            margin-bottom: 12px;
-            color: #000000;
-        }
-
-        body:not(.light-mode) .lesson-content h3 {
-            color: #ffffff;
-        }
-
-        .lesson-content p {
-            font-size: 1rem;
-            line-height: 1.8;
-            margin-bottom: 16px;
-            color: #000000;
-        }
-
-        body:not(.light-mode) .lesson-content p {
-            color: #ffffff;
-        }
-
-        .lesson-content ul,
-        .lesson-content ol {
-            margin-left: 24px;
-            margin-bottom: 16px;
-        }
-
-        .lesson-content li {
-            margin-bottom: 12px;
-            color: #000000;
-            line-height: 1.6;
-        }
-
-        body:not(.light-mode) .lesson-content li {
-            color: #ffffff;
-        }
-
-        .lesson-content strong {
-            font-weight: 600;
-        }
-
-        /* Code Block */
-        .code-block {
-            background: #f5f5f5;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 16px;
-            margin: 16px 0;
-            font-family: "Monaco", "Menlo", monospace;
-            font-size: 0.9rem;
-            overflow-x: auto;
-            color: #333;
-        }
-
-        body:not(.light-mode) .code-block {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            color: #e0e0e0;
-        }
-
-        /* Problem Box */
-        .problem-box {
-            border: 2px solid #000000;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 24px 0;
-            background: #ffffff;
-        }
-
-        body:not(.light-mode) .problem-box {
-            background: #0a0a0a;
-            border: 2px solid #ffffff;
-        }
-
-        .problem-box h3 {
-            margin-top: 0;
-        }
-
-        /* Key Concepts Box */
-        .concepts-box {
-            border-left: 4px solid #FFD84D;
-            padding-left: 16px;
-            margin: 20px 0;
-        }
-
-        /* RIGHT SIDE - AI Chat Panel (Desktop) */
-        .ai-panel-container {
-            display: none;
-        }
-
-        @media (min-width: 1200px) {
-            .ai-panel-container {
-                display: block;
-            }
-        }
-
-        .ai-panel {
-            position: sticky;
-            top: 100px;
-            height: 80vh;
-            border: 2px solid #000000;
-            border-radius: 20px;
-            display: flex;
-            flex-direction: column;
-            background: #ffffff;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        body:not(.light-mode) .ai-panel {
-            background: #0a0a0a;
-            border: 2px solid #ffffff;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        .ai-panel-header {
-            padding: 16px;
-            border-bottom: 2px solid #000000;
-            font-weight: 600;
-            font-size: 1rem;
-            color: #000000;
-            transition: border-color 0.3s;
-        }
-
-        body:not(.light-mode) .ai-panel-header {
-            color: #ffffff;
-            border-bottom: 2px solid #ffffff;
-        }
-
-        .ai-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .ai-message {
-            display: flex;
-            gap: 12px;
-            padding: 12px;
-            border-radius: 12px;
-            background: #f5f5f5;
-            color: #000000;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        body:not(.light-mode) .ai-message {
-            background: #1a1a1a;
-            color: #ffffff;
-        }
-
-        .ai-message.user {
-            background: #FFD84D;
-            color: #000000;
-            justify-content: flex-end;
-            margin-left: 24px;
-        }
-
-        .ai-message.assistant {
-            background: #f0f0f0;
-        }
-
-        body:not(.light-mode) .ai-message.assistant {
-            background: #1a1a1a;
-        }
-
-        .ai-panel-input {
-            padding: 16px;
-            border-top: 2px solid #000000;
-            display: flex;
-            gap: 8px;
-            transition: border-color 0.3s;
-        }
-
-        body:not(.light-mode) .ai-panel-input {
-            border-top: 2px solid #ffffff;
-        }
-
-        .ai-input-field {
-            flex: 1;
-            background: transparent;
-            border: 1px solid #000000;
-            border-radius: 8px;
-            padding: 10px 12px;
-            font-size: 0.9rem;
-            color: #000000;
-            transition: border-color 0.3s;
-        }
-
-        body:not(.light-mode) .ai-input-field {
-            border: 1px solid #ffffff;
-            color: #ffffff;
-        }
-
-        .ai-input-field::placeholder {
-            color: #999;
-        }
-
-        body:not(.light-mode) .ai-input-field::placeholder {
-            color: #666;
-        }
-
-        .ai-input-field:focus {
-            outline: none;
-            border-color: #FFD84D;
-            box-shadow: 0 0 0 3px rgba(255, 216, 77, 0.1);
-        }
-
-        .ai-send-btn {
-            background: #FFD84D;
-            border: none;
-            color: #000000;
-            padding: 10px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: background 0.3s, transform 0.2s;
-        }
-
-        .ai-send-btn:hover {
-            background: #ffd700;
-            transform: scale(1.05);
-        }
-
-        .ai-send-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* MOBILE - Floating Button */
-        .ai-floating-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            width: 56px;
-            height: 56px;
-            background: #FFD84D;
-            color: #000000;
-            border: none;
-            border-radius: 50%;
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 40;
-            box-shadow: 0 8px 24px rgba(255, 216, 77, 0.3);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .ai-floating-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 12px 32px rgba(255, 216, 77, 0.4);
-        }
-
-        @media (min-width: 1200px) {
-            .ai-floating-btn {
-                display: none;
-            }
-        }
-
-        /* Mobile Bottom Sheet */
-        .ai-modal-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 50;
-        }
-
-        .ai-modal-overlay.open {
-            display: flex;
-            align-items: flex-end;
-        }
-
-        @media (max-width: 1199px) {
-            .ai-modal-overlay.open {
-                display: flex;
-            }
-        }
-
-        .ai-bottom-sheet {
-            width: 100%;
-            height: 70vh;
-            background: #ffffff;
-            border-radius: 24px 24px 0 0;
-            border-top: 2px solid #000000;
-            display: flex;
-            flex-direction: column;
-            color: #000000;
-            animation: slideUp 0.3s ease-out;
-        }
-
-        body:not(.light-mode) .ai-bottom-sheet {
-            background: #0a0a0a;
-            border-top: 2px solid #ffffff;
-            color: #ffffff;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(100%);
-            }
-            to {
-                transform: translateY(0);
-            }
-        }
-
-        .ai-bottom-header {
-            padding: 16px;
-            border-bottom: 2px solid #000000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-        }
-
-        body:not(.light-mode) .ai-bottom-header {
-            border-bottom: 2px solid #ffffff;
-        }
-
-        .ai-close-btn {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: #000000;
-        }
-
-        body:not(.light-mode) .ai-close-btn {
-            color: #ffffff;
-        }
-
-        .ai-close-btn:hover {
-            color: #FFD84D;
-        }
-
-        /* Scrollbar Styling */
-        .ai-messages::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .ai-messages::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .ai-messages::-webkit-scrollbar-thumb {
-            background: #ddd;
-            border-radius: 3px;
-        }
-
-        body:not(.light-mode) .ai-messages::-webkit-scrollbar-thumb {
-            background: #444;
-        }
-
-        /* Utility Classes */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-    </style>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/site.js" defer></script>
 </head>
-<body>
+<body class="lc">
+    <a class="lc-skip" href="#main">Skip to content</a>
 
-    <!-- Navigation Bar -->
-    <nav class="nav-bar">
-        <div class="nav-left">
-            <button class="nav-back-btn" onclick="window.history.back()" aria-label="Go back">←</button>
-            <div class="nav-brand">LEARNcraft</div>
+    <header class="lc-header">
+        <div class="lc-container lc-header__inner">
+            <a class="lc-header__brand" href="../index.html">LEARN<span>craft</span></a>
+            <nav class="lc-nav" aria-label="Main">
+                <a class="lc-nav__link" href="../index.html" data-i18n="nav.home">Home</a>
+                <a class="lc-nav__link" href="../courses/roadmap.html">Roadmap</a>
+                <a class="lc-nav__link" href="../learning/lesson.html" aria-current="page">Lesson</a>
+                <a class="lc-nav__link" href="../pages/ask-ai.html">Ask AI</a>
+                <a class="lc-nav__link" href="../pages/about.html" data-i18n="nav.about">About</a>
+                <a class="lc-nav__link" href="../index.html#pricing" data-i18n="nav.pro">LEARNcraft Pro</a>
+            </nav>
+            <div class="lc-header__actions">
+                <div class="lc-lang-wrap">
+                    <button class="lc-lang" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu" aria-label="Language: English">EN</button>
+                    <ul class="lc-lang__menu" id="lang-menu" role="listbox" aria-label="Language" hidden>
+                        <li class="lc-lang__option" role="option" data-lang="en" aria-selected="true" tabindex="-1">English</li>
+                        <li class="lc-lang__option" role="option" data-lang="ru" aria-selected="false" tabindex="-1">Русский</li>
+                        <li class="lc-lang__option" role="option" data-lang="uz" aria-selected="false" tabindex="-1">Oʻzbek</li>
+                    </ul>
+                </div>
+                <button class="lc-icon-btn" type="button" data-lc-theme-toggle aria-pressed="false" aria-label="Light theme">
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                </button>
+                <a class="lc-btn lc-btn--secondary home-signin" id="signInBtn" href="../pages/login.html" data-i18n="nav.signIn">Sign In</a>
+                <div class="home-account" id="userAccount" hidden>
+                    <button class="home-account__circle" id="userCircle" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="userMenu" aria-label="Account menu">U</button>
+                    <div class="home-account__menu" id="userMenu" role="menu" hidden>
+                        <p class="home-account__email" id="userEmail"></p>
+                        <a class="home-account__item" role="menuitem" href="../pages/settings.html">Account settings</a>
+                        <button class="home-account__item" role="menuitem" id="logoutBtn" type="button">Log out</button>
+                    </div>
+                </div>
+                <button class="lc-burger" type="button" data-lc-drawer-toggle aria-controls="drawer" aria-expanded="false" aria-label="Open menu">
+                    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                </button>
+            </div>
         </div>
-        <div class="nav-right">
-            <button class="theme-toggle" onclick="LearnCraftTheme.toggle()" id="themeToggle">Dark</button>
-        </div>
+    </header>
+
+    <nav class="lc-drawer" id="drawer" aria-label="Menu" hidden>
+        <a class="lc-drawer__link" href="../index.html">Home</a>
+        <a class="lc-drawer__link" href="../courses/roadmap.html">Roadmap</a>
+        <a class="lc-drawer__link" href="../courses/learn.html">Articles</a>
+        <a class="lc-drawer__link" href="../learning/lesson.html" aria-current="page">Lesson</a>
+        <a class="lc-drawer__link" href="../pages/ask-ai.html">Ask AI</a>
+        <a class="lc-drawer__link" href="../courses/practice.html">Practice</a>
+        <a class="lc-drawer__link" href="../pages/about.html">About</a>
+        <a class="lc-drawer__link" href="../pages/settings.html">Settings</a>
+        <a class="lc-drawer__link" href="../pages/login.html">Sign in</a>
+        <a class="lc-drawer__link" href="../admin/admin-dashboard.html" id="sidebarAdminLink" hidden>Admin</a>
     </nav>
 
-    <!-- Main Content -->
-    <div class="main-container">
-        <!-- LEFT SIDE: Lesson Content -->
-        <div class="lesson-content">
-            <h1>Structural Analysis — Lesson 1</h1>
-
+    <main id="main" class="lc-container lesson">
+        <a class="lc-btn lc-btn--ghost stage-back" href="../courses/roadmap.html"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Back to roadmap</a>
+        <div class="lesson-layout">
+            <article class="lesson-article" aria-labelledby="lesson-title">
+                <header class="lc-stack" style="--gap: 12px">
+                    <p class="lc-label">Lesson 01 / Structural analysis</p>
+                    <h1 id="lesson-title">Structural Analysis — Lesson 1</h1>
+                </header>
+                <div class="lc-prose">
             <h2>1. Introduction</h2>
             <p>
-                Structural analysis is the foundation of civil and structural engineering. It involves examining the response of a structure to loads and the internal forces acting within the structure. Understanding how structures behave under various loads is essential for designing safe, efficient, and economical buildings and infrastructure.
+            Structural analysis is the foundation of civil and structural engineering. It involves examining the response of a structure to loads and the internal forces acting within the structure. Understanding how structures behave under various loads is essential for designing safe, efficient, and economical buildings and infrastructure.
             </p>
             <p>
-                In this lesson, you'll learn the fundamental principles of structural analysis, including equilibrium, force distribution, and the basic methods used to analyze structures.
+            In this lesson, you'll learn the fundamental principles of structural analysis, including equilibrium, force distribution, and the basic methods used to analyze structures.
             </p>
-
             <h2>2. Key Concepts</h2>
-            <div class="concepts-box">
-                <h3>Core Principles</h3>
-                <ul>
-                    <li><strong>Static Equilibrium:</strong> For a structure to be in equilibrium, the sum of all forces and moments must equal zero.</li>
-                    <li><strong>Internal Forces:</strong> Axial forces, shear forces, and bending moments that develop within structural members.</li>
-                    <li><strong>Support Reactions:</strong> Forces and moments developed at supports in response to applied loads.</li>
-                    <li><strong>Compatibility:</strong> Deformations of a structure must be compatible with the constraints imposed by supports.</li>
-                </ul>
+            <div class="lc-card lesson-box">
+            <h3>Core Principles</h3>
+            <ul>
+            <li><strong>Static Equilibrium:</strong> For a structure to be in equilibrium, the sum of all forces and moments must equal zero.</li>
+            <li><strong>Internal Forces:</strong> Axial forces, shear forces, and bending moments that develop within structural members.</li>
+            <li><strong>Support Reactions:</strong> Forces and moments developed at supports in response to applied loads.</li>
+            <li><strong>Compatibility:</strong> Deformations of a structure must be compatible with the constraints imposed by supports.</li>
+            </ul>
             </div>
-
             <h2>3. Types of Loads</h2>
             <p>Structures are subjected to different types of loads:</p>
             <ul>
-                <li><strong>Concentrated Loads:</strong> Forces applied at a single point</li>
-                <li><strong>Distributed Loads:</strong> Forces spread over a length or area</li>
-                <li><strong>Moments:</strong> Rotational forces applied to a structure</li>
-                <li><strong>Environmental Loads:</strong> Wind, earthquakes, temperature changes</li>
+            <li><strong>Concentrated Loads:</strong> Forces applied at a single point</li>
+            <li><strong>Distributed Loads:</strong> Forces spread over a length or area</li>
+            <li><strong>Moments:</strong> Rotational forces applied to a structure</li>
+            <li><strong>Environmental Loads:</strong> Wind, earthquakes, temperature changes</li>
             </ul>
-
             <h2>4. Practice Problem</h2>
-            <div class="problem-box">
-                <h3>Example: Simply Supported Beam</h3>
-                <p>A simply supported beam of length 10 meters carries a uniform distributed load of 5 kN/m. Calculate:</p>
-                <ol>
-                    <li>The reaction forces at both supports</li>
-                    <li>The maximum bending moment</li>
-                    <li>The shear force at the midpoint</li>
-                </ol>
-                <p style="margin-top: 16px; font-style: italic; color: #666;">
-                    Hint: For a uniformly loaded simply supported beam, the maximum moment occurs at the midpoint and equals (w × L²) / 8, where w is the load per unit length and L is the beam length.
-                </p>
+            <div class="lc-card lesson-box lesson-box--problem">
+            <h3>Example: Simply Supported Beam</h3>
+            <p>A simply supported beam of length 10 meters carries a uniform distributed load of 5 kN/m. Calculate:</p>
+            <ol>
+            <li>The reaction forces at both supports</li>
+            <li>The maximum bending moment</li>
+            <li>The shear force at the midpoint</li>
+            </ol>
+            <p class="lesson-note">
+            Hint: For a uniformly loaded simply supported beam, the maximum moment occurs at the midpoint and equals (w × L²) / 8, where w is the load per unit length and L is the beam length.
+            </p>
             </div>
-
             <h2>5. Step-by-Step Solution</h2>
             <h3>Step 1: Identify the Support Reactions</h3>
             <p>For a simply supported beam with uniform load:</p>
-            <div class="code-block">
-Total Load (W) = 5 kN/m × 10 m = 50 kN
+            <pre class="lesson-calc">Total Load (W) = 5 kN/m × 10 m = 50 kN
 Reaction at A (RA) = W/2 = 25 kN
-Reaction at B (RB) = W/2 = 25 kN
-            </div>
-
+Reaction at B (RB) = W/2 = 25 kN</pre>
             <h3>Step 2: Calculate Maximum Bending Moment</h3>
             <p>The maximum bending moment for a uniformly loaded beam occurs at mid-span:</p>
-            <div class="code-block">
-M_max = (w × L²) / 8
+            <pre class="lesson-calc">M_max = (w × L²) / 8
 M_max = (5 kN/m × 10²) / 8
 M_max = (5 × 100) / 8
-M_max = 62.5 kN·m
-            </div>
-
+M_max = 62.5 kN·m</pre>
             <h3>Step 3: Shear Force at Midpoint</h3>
             <p>At the midpoint, the shear force can be calculated by considering the load on one side:</p>
-            <div class="code-block">
-V_mid = RA - (w × L/2)
+            <pre class="lesson-calc">V_mid = RA - (w × L/2)
 V_mid = 25 - (5 × 5)
 V_mid = 25 - 25
-V_mid = 0 kN
-            </div>
-
-            <p style="margin-top: 32px; font-style: italic; color: #999;">This result makes sense: at the midpoint of a uniformly loaded beam, the shear force is zero, and the bending moment reaches its maximum value.</p>
-
+V_mid = 0 kN</pre>
+            <p class="lesson-note">This result makes sense: at the midpoint of a uniformly loaded beam, the shear force is zero, and the bending moment reaches its maximum value.</p>
             <h2>6. Summary</h2>
             <p>In this lesson, you learned:</p>
             <ul>
-                <li>The fundamental principles of structural equilibrium</li>
-                <li>How different types of loads affect structures</li>
-                <li>The method for analyzing simply supported beams</li>
-                <li>How to calculate reaction forces and bending moments</li>
+            <li>The fundamental principles of structural equilibrium</li>
+            <li>How different types of loads affect structures</li>
+            <li>The method for analyzing simply supported beams</li>
+            <li>How to calculate reaction forces and bending moments</li>
             </ul>
-            <p style="margin-top: 24px;">
-                In the next lesson, we'll explore more complex structures and advanced analysis methods including shear and bending moment diagrams.
+            <p class="lesson-note">
+            In the next lesson, we'll explore more complex structures and advanced analysis methods including shear and bending moment diagrams.
             </p>
-        </div>
-
-        <!-- RIGHT SIDE: AI Chat Panel (Desktop Only) -->
-        <div class="ai-panel-container">
-            <div class="ai-panel">
-                <div class="ai-panel-header">Ask AI About This Lesson</div>
-                
-                <div class="ai-messages" id="aiMessages">
-                    <div class="ai-message assistant">
-                        Hi! I'm here to help you understand structural analysis. Feel free to ask me any questions about the concepts covered in this lesson.
-                    </div>
                 </div>
-
-                <div class="ai-panel-input">
-                    <input 
-                        type="text" 
-                        class="ai-input-field" 
-                        id="aiInput" 
-                        placeholder="Ask about this topic..."
-                        onkeypress="handleAIMessage(event)"
-                    />
-                    <button class="ai-send-btn" onclick="sendAIMessage()">Send</button>
+            </article>
+            <aside class="lesson-aside" aria-labelledby="ask-title">
+                <div class="lc-card lesson-ask">
+                    <p class="lc-label">Questions?</p>
+                    <h2 id="ask-title">Stuck on part of this lesson?</h2>
+                    <p>Ask about equilibrium, loads, reactions or bending moments on the Ask AI page.</p>
+                    <a class="lc-btn lc-btn--primary" href="../pages/ask-ai.html">Open Ask AI</a>
                 </div>
-            </div>
+            </aside>
         </div>
-    </div>
+    </main>
 
-    <!-- MOBILE: Floating AI Button -->
-    <button class="ai-floating-btn" onclick="toggleAIModal()" title="Ask AI">
-        <span style="font-size: 28px;">💬</span>
-    </button>
-
-    <!-- MOBILE: Bottom Sheet Modal -->
-    <div class="ai-modal-overlay" id="aiModalOverlay" onclick="closeAIModal()">
-        <div class="ai-bottom-sheet" onclick="event.stopPropagation()">
-            <div class="ai-bottom-header">
-                <span>Lesson AI</span>
-                <button class="ai-close-btn" onclick="closeAIModal()">✕</button>
+    <footer class="lc-footer">
+        <div class="lc-container home-footer">
+            <div class="home-footer__brand">
+                <p class="lc-footer__brand">LEARN<span>craft</span></p>
+                <p class="home-footer__note">Civil engineering, one stage at a time. In English, Russian and Uzbek.</p>
             </div>
-            
-            <div class="ai-messages" id="aiMobileMessages">
-                <div class="ai-message assistant">
-                    Hi! I'm here to help you understand this lesson. What would you like to know?
-                </div>
-            </div>
-
-            <div class="ai-panel-input">
-                <input 
-                    type="text" 
-                    class="ai-input-field" 
-                    id="aiMobileInput" 
-                    placeholder="Ask about this lesson..."
-                    onkeypress="handleAIMobileMessage(event)"
-                />
-                <button class="ai-send-btn" onclick="sendAIMobileMessage()">Send</button>
-            </div>
+            <nav class="home-footer__col" aria-labelledby="f-learn">
+                <p class="lc-label" id="f-learn">Learn</p>
+                <a href="../courses/roadmap.html">Roadmap</a>
+                <a href="../courses/learn.html">Articles</a>
+                <a href="../learning/lesson.html">Lesson</a>
+                <a href="../courses/practice.html">Practice</a>
+                <a href="../pages/ask-ai.html">Ask AI</a>
+            </nav>
+            <nav class="home-footer__col" aria-labelledby="f-about">
+                <p class="lc-label" id="f-about">LEARNcraft</p>
+                <a href="../pages/about.html">About</a>
+                <a href="../index.html#pricing">Pro plans</a>
+                <a href="../pages/support.html">Support</a>
+                <a href="../pages/community.html">Community</a>
+            </nav>
+            <nav class="home-footer__col" aria-labelledby="f-account">
+                <p class="lc-label" id="f-account">Account</p>
+                <a href="../pages/login.html">Sign in</a>
+                <a href="../pages/settings.html">Settings</a>
+            </nav>
         </div>
-    </div>
+    </footer>
 
-    <script>
-        // Initialize theme
-        document.addEventListener('DOMContentLoaded', () => {
-            updateThemeButton();
-        });
-
-        // Update theme button text
-        function updateThemeButton() {
-            const btn = document.getElementById('themeToggle');
-            if (document.body.classList.contains('light-mode')) {
-                btn.textContent = 'Light';
-            } else {
-                btn.textContent = 'Dark';
-            }
-        }
-
-        // Observe theme changes
-        window.addEventListener('themeChanged', updateThemeButton);
-
-        // Mobile AI Modal
-        function toggleAIModal() {
-            const overlay = document.getElementById('aiModalOverlay');
-            overlay.classList.toggle('open');
-        }
-
-        function closeAIModal() {
-            document.getElementById('aiModalOverlay').classList.remove('open');
-        }
-
-        // Desktop AI Chat
-        function sendAIMessage() {
-            const input = document.getElementById('aiInput');
-            const message = input.value.trim();
-            
-            if (!message) return;
-
-            // Add user message
-            addAIMessage(message, 'user', 'aiMessages');
-            input.value = '';
-
-            // Simulate AI response
-            setTimeout(() => {
-                const responses = [
-                    "That's a great question! Let me explain that in detail.",
-                    "Good point! This relates to the equilibrium principle we discussed earlier.",
-                    "Exactly! You're understanding the core concepts well.",
-                    "Let me break that down into simpler steps for you."
-                ];
-                const response = responses[Math.floor(Math.random() * responses.length)];
-                addAIMessage(response, 'assistant', 'aiMessages');
-            }, 800);
-        }
-
-        function handleAIMessage(event) {
-            if (event.key === 'Enter') {
-                sendAIMessage();
-            }
-        }
-
-        // Mobile AI Chat
-        function sendAIMobileMessage() {
-            const input = document.getElementById('aiMobileInput');
-            const message = input.value.trim();
-            
-            if (!message) return;
-
-            addAIMessage(message, 'user', 'aiMobileMessages');
-            input.value = '';
-
-            setTimeout(() => {
-                const responses = [
-                    "That's a great question! Let me explain that in detail.",
-                    "Good point! This relates to the equilibrium principle we discussed earlier.",
-                    "Exactly! You're understanding the core concepts well.",
-                    "Let me break that down into simpler steps for you."
-                ];
-                const response = responses[Math.floor(Math.random() * responses.length)];
-                addAIMessage(response, 'assistant', 'aiMobileMessages');
-            }, 800);
-        }
-
-        function handleAIMobileMessage(event) {
-            if (event.key === 'Enter') {
-                sendAIMobileMessage();
-            }
-        }
-
-        // Helper function to add messages
-        function addAIMessage(text, type, containerId) {
-            const container = document.getElementById(containerId);
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `ai-message ${type}`;
-            messageDiv.textContent = text;
-            container.appendChild(messageDiv);
-            container.scrollTop = container.scrollHeight;
-        }
-    </script>
-
+    <script src="../js/webapp-init.js"></script>
 </body>
 </html>

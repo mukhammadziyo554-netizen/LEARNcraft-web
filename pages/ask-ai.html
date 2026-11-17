@@ -2,425 +2,144 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, height=device-height">
-    <meta name="description" content="Ask AI - LEARNcraft">
-    <meta name="theme-color" content="#000000">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Ask AI - LEARNcraft</title>
-    <!-- Telegram Web App Script -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Ask engineering questions and get structured explanations.">
+    <meta name="theme-color" content="#0b0b0b">
+    <title>Ask AI — LEARNcraft</title>
+    <link rel="stylesheet" href="../css/style.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <!-- Global Theme System -->
     <script src="../js/theme.js"></script>
-    <!-- Access Control System -->
+    <script src="../js/i18n.js"></script>
+    <script src="../js/site.js" defer></script>
     <script src="../js/access-control.js"></script>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: #0a0a0a;
-            <link rel="stylesheet" href="../css/style.css">
-        }
-
-        .back-btn:hover {
-            color: #fff;
-        }
-
-        .ai-page {
-            min-height: 100vh;
-            background: #0a0a0a;
-            padding: 90px 20px 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .ai-header {
-            text-align: center;
-            margin-bottom: 40px;
-            max-width: 900px;
-        }
-
-        .ai-header h1 {
-            font-size: 64px;
-            color: white;
-            font-weight: 600;
-            margin-bottom: 16px;
-            letter-spacing: -2px;
-        }
-
-        .ai-subtitle {
-            color: #888;
-            font-size: 18px;
-            margin-bottom: 24px;
-            font-weight: 400;
-        }
-
-        .ai-slogans {
-            margin-bottom: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .ai-slogans span {
-            color: #666;
-            font-size: 14px;
-            font-weight: 400;
-        }
-
-        .ai-tags {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .ai-tags span {
-            border: 1px solid #262626;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            color: #ccc;
-            background: #141414;
-            font-weight: 400;
-        }
-
-        .detail-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            color: #ccc;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .detail-toggle input[type="checkbox"] {
-            cursor: pointer;
-            width: 18px;
-            height: 18px;
-            accent-color: #5b5bff;
-        }
-
-        .chat-container {
-            width: 100%;
-            max-width: 980px;
-            height: 520px;
-            background: #141414;
-            border: 1px solid #262626;
-            border-radius: 16px;
-            padding: 28px;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
-        }
-
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding-right: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-
-        .chat-messages::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .chat-messages::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .chat-messages::-webkit-scrollbar-thumb {
-            background: #262626;
-            border-radius: 4px;
-        }
-
-        .chat-messages::-webkit-scrollbar-thumb:hover {
-            background: #333;
-        }
-
-        .ai-message {
-            align-self: flex-start;
-            background: #1a1a1a;
-            color: #e5e5e5;
-            padding: 16px 18px;
-            border-radius: 12px;
-            max-width: 80%;
-            line-height: 1.6;
-            word-wrap: break-word;
-            font-size: 15px;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .user-message {
-            align-self: flex-end;
-            background: #5b5bff;
-            color: white;
-            padding: 16px 18px;
-            border-radius: 12px;
-            max-width: 75%;
-            word-wrap: break-word;
-            font-size: 15px;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(8px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .typing {
-            font-style: italic;
-            opacity: 0.7;
-            color: #888;
-        }
-
-        .chat-input-area {
-            display: flex;
-            gap: 12px;
-            border-top: 1px solid #262626;
-            padding-top: 20px;
-        }
-
-        .chat-input {
-            flex: 1;
-            background: #1a1a1a;
-            border: 1px solid #262626;
-            border-radius: 10px;
-            padding: 14px 18px;
-            color: white;
-            font-size: 15px;
-            font-family: inherit;
-            transition: all 0.2s;
-        }
-
-        .chat-input:focus {
-            outline: none;
-            border-color: #5b5bff;
-            background: #1f1f1f;
-        }
-
-        .chat-input::placeholder {
-            color: #555;
-        }
-
-        .send-btn {
-            background: #5b5bff;
-            border: none;
-            border-radius: 10px;
-            padding: 0 28px;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 15px;
-        }
-
-        .send-btn:hover {
-            background: #6a6aff;
-        }
-
-        .send-btn:active {
-            transform: scale(0.98);
-        }
-
-        @media (max-width: 768px) {
-            .ai-header h1 {
-                font-size: 42px;
-            }
-
-            .ai-message {
-                max-width: 90%;
-            }
-
-            .user-message {
-                max-width: 90%;
-            }
-
-            .chat-container {
-                height: 480px;
-                padding: 20px;
-            }
-        }
-
-        /* Light Mode Styles */
-        body.light-mode {
-            background: #ffffff;
-            color: #000000;
-        }
-
-        body.light-mode .nav-bar {
-            background: rgba(255, 255, 255, 0.95);
-            border-bottom: 2px solid #000000;
-        }
-
-        body.light-mode .nav-brand {
-            color: #000000;
-        }
-
-        body.light-mode .back-btn {
-            background: #ffffff;
-            color: #000000;
-            border: 2px solid #000000;
-        }
-
-        body.light-mode .back-btn:active {
-            background: #f0f0f0;
-        }
-
-        body.light-mode .ai-header h1 {
-            color: #000000;
-        }
-
-        body.light-mode .ai-description {
-            color: #000000;
-        }
-
-        body.light-mode .chat-container {
-            background: #ffffff;
-            border: 2px solid #000000;
-        }
-
-        body.light-mode .ai-message {
-            background: #000000;
-            color: #ffffff;
-        }
-
-        body.light-mode .user-message {
-            background: #FFD700;
-            color: #000000;
-        }
-
-        body.light-mode .message-sender {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        body.light-mode .user-message .message-sender {
-            color: rgba(0, 0, 0, 0.6);
-        }
-
-        body.light-mode .input-container {
-            background: #ffffff;
-            border: 2px solid #000000;
-        }
-
-        body.light-mode #userInput {
-            background: #ffffff;
-            color: #000000;
-            border: 2px solid #000000;
-        }
-
-        body.light-mode #userInput::placeholder {
-            color: #666666;
-        }
-
-        body.light-mode #sendBtn {
-            background: #FFD700;
-            color: #000000;
-            border: 2px solid #000000;
-        }
-
-        body.light-mode #sendBtn:active {
-            background: #FFC700;
-        }
-
-        body.light-mode .clear-btn {
-            background: #ffffff;
-            color: #000000;
-            border: 2px solid #000000;
-        }
-
-        body.light-mode .clear-btn:active {
-            background: #f0f0f0;
-        }
-    </style>
 </head>
-<body>
-    <div class="nav-bar">
-        <div class="nav-brand" onclick="window.location.href='../index.html'">LEARNcraft</div>
-        <button class="back-btn">← Back</button>
-    </div>
+<body class="lc">
+    <a class="lc-skip" href="#main">Skip to content</a>
 
-    <section class="ai-page">
-        <div class="ai-header">
-            <h1>Ask AI</h1>
-            <p class="ai-subtitle">Expert engineering guidance at your fingertips</p>
-
-            <div class="ai-slogans">
-                <span>Built for serious learners</span>
-                <span>•</span>
-                <span>Answers that actually teach</span>
-                <span>•</span>
-                <span>From confusion to clarity</span>
+    <header class="lc-header">
+        <div class="lc-container lc-header__inner">
+            <a class="lc-header__brand" href="../index.html">LEARN<span>craft</span></a>
+            <nav class="lc-nav" aria-label="Main">
+                <a class="lc-nav__link" href="../index.html" data-i18n="nav.home">Home</a>
+                <a class="lc-nav__link" href="../courses/roadmap.html">Roadmap</a>
+                <a class="lc-nav__link" href="../learning/lesson.html">Lesson</a>
+                <a class="lc-nav__link" href="../pages/ask-ai.html" aria-current="page">Ask AI</a>
+                <a class="lc-nav__link" href="../pages/about.html" data-i18n="nav.about">About</a>
+                <a class="lc-nav__link" href="../index.html#pricing" data-i18n="nav.pro">LEARNcraft Pro</a>
+            </nav>
+            <div class="lc-header__actions">
+                <div class="lc-lang-wrap">
+                    <button class="lc-lang" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu" aria-label="Language: English">EN</button>
+                    <ul class="lc-lang__menu" id="lang-menu" role="listbox" aria-label="Language" hidden>
+                        <li class="lc-lang__option" role="option" data-lang="en" aria-selected="true" tabindex="-1">English</li>
+                        <li class="lc-lang__option" role="option" data-lang="ru" aria-selected="false" tabindex="-1">Русский</li>
+                        <li class="lc-lang__option" role="option" data-lang="uz" aria-selected="false" tabindex="-1">Oʻzbek</li>
+                    </ul>
+                </div>
+                <button class="lc-icon-btn" type="button" data-lc-theme-toggle aria-pressed="false" aria-label="Light theme">
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                </button>
+                <a class="lc-btn lc-btn--secondary home-signin" id="signInBtn" href="../pages/login.html" data-i18n="nav.signIn">Sign In</a>
+                <div class="home-account" id="userAccount" hidden>
+                    <button class="home-account__circle" id="userCircle" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="userMenu" aria-label="Account menu">U</button>
+                    <div class="home-account__menu" id="userMenu" role="menu" hidden>
+                        <p class="home-account__email" id="userEmail"></p>
+                        <a class="home-account__item" role="menuitem" href="../pages/settings.html">Account settings</a>
+                        <button class="home-account__item" role="menuitem" id="logoutBtn" type="button">Log out</button>
+                    </div>
+                </div>
+                <button class="lc-burger" type="button" data-lc-drawer-toggle aria-controls="drawer" aria-expanded="false" aria-label="Open menu">
+                    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                </button>
             </div>
-
-            <div class="ai-tags">
-                <span>Detailed explanations</span>
-                <span>Step-by-step guidance</span>
-                <span>Engineering expertise</span>
-            </div>
-
-            <label class="detail-toggle">
-                <input type="checkbox" id="detailedMode" checked />
-                Detailed answers
-            </label>
         </div>
+    </header>
 
-        <div class="chat-container">
-            <div class="chat-messages" id="chatMessages">
-                <div class="ai-message">Hi! I'm LEARNcraft AI, your engineering expert. I'm here to provide detailed, structured explanations on any engineering topic. What would you like to learn today?</div>
-            </div>
+    <nav class="lc-drawer" id="drawer" aria-label="Menu" hidden>
+        <a class="lc-drawer__link" href="../index.html">Home</a>
+        <a class="lc-drawer__link" href="../courses/roadmap.html">Roadmap</a>
+        <a class="lc-drawer__link" href="../courses/learn.html">Articles</a>
+        <a class="lc-drawer__link" href="../learning/lesson.html">Lesson</a>
+        <a class="lc-drawer__link" href="../pages/ask-ai.html" aria-current="page">Ask AI</a>
+        <a class="lc-drawer__link" href="../courses/practice.html">Practice</a>
+        <a class="lc-drawer__link" href="../pages/about.html">About</a>
+        <a class="lc-drawer__link" href="../pages/settings.html">Settings</a>
+        <a class="lc-drawer__link" href="../pages/login.html">Sign in</a>
+        <a class="lc-drawer__link" href="../admin/admin-dashboard.html" id="sidebarAdminLink" hidden>Admin</a>
+    </nav>
 
-            <div class="chat-input-area">
-                <input type="text" id="userInput" class="chat-input" placeholder="Ask any engineering question..." onkeypress="if(event.key==='Enter') sendMessage()">
-                <button class="send-btn" onclick="sendMessage()">Send</button>
+    <main id="main" class="lc-container ask">
+        <header class="ask-head lc-stack" style="--gap: 12px">
+            <p class="lc-label">Ask AI</p>
+            <h1>Ask an engineering question</h1>
+            <p class="lc-lead">Covers civil, mechanical, electrical, aerospace, chemical and nuclear engineering. Signed-in Pro members can ask as many questions as they like.</p>
+        </header>
+        <div class="chat ask-chat">
+            <div class="chat__messages" id="chatMessages" role="log" aria-live="polite" aria-label="Conversation">
+                <div class="ai-message">Hi! Ask me about an engineering topic and I'll give you a structured explanation. What would you like to learn today?</div>
             </div>
+            <form class="chat__form" id="chatForm">
+                <div class="lc-field chat__field">
+                    <label for="userInput">Your question</label>
+                    <input type="text" id="userInput" name="question" autocomplete="off" placeholder="e.g. What does a retaining wall do?">
+                </div>
+                <button class="lc-btn lc-btn--primary chat__send send-btn" type="submit">Send</button>
+                <label class="ask-detail"><input type="checkbox" id="detailedMode" checked> Detailed answers</label>
+            </form>
         </div>
-    </section>
+    </main>
+
+    <footer class="lc-footer">
+        <div class="lc-container home-footer">
+            <div class="home-footer__brand">
+                <p class="lc-footer__brand">LEARN<span>craft</span></p>
+                <p class="home-footer__note">Civil engineering, one stage at a time. In English, Russian and Uzbek.</p>
+            </div>
+            <nav class="home-footer__col" aria-labelledby="f-learn">
+                <p class="lc-label" id="f-learn">Learn</p>
+                <a href="../courses/roadmap.html">Roadmap</a>
+                <a href="../courses/learn.html">Articles</a>
+                <a href="../learning/lesson.html">Lesson</a>
+                <a href="../courses/practice.html">Practice</a>
+                <a href="../pages/ask-ai.html">Ask AI</a>
+            </nav>
+            <nav class="home-footer__col" aria-labelledby="f-about">
+                <p class="lc-label" id="f-about">LEARNcraft</p>
+                <a href="../pages/about.html">About</a>
+                <a href="../index.html#pricing">Pro plans</a>
+                <a href="../pages/support.html">Support</a>
+                <a href="../pages/community.html">Community</a>
+            </nav>
+            <nav class="home-footer__col" aria-labelledby="f-account">
+                <p class="lc-label" id="f-account">Account</p>
+                <a href="../pages/login.html">Sign in</a>
+                <a href="../pages/settings.html">Settings</a>
+            </nav>
+        </div>
+    </footer>
 
     <script>
-        // Initialize Telegram Web App
-        if (typeof TelegramWebApp !== 'undefined') {
-            const tg = window.Telegram.WebApp;
-            tg.ready();
-            tg.setHeaderColor('#0a0a0a');
-            tg.setBackgroundColor('#0a0a0a');
-            tg.MainButton.hide();
-        }
 
-        // Back button functionality
-        const backBtn = document.querySelector('.back-btn');
-        if (backBtn) {
-            backBtn.addEventListener('click', function() {
-                // Check if there's history to go back to
-                if (document.referrer && document.referrer !== '') {
-                    window.history.back();
-                } else {
-                    // Fallback to home page
-                    window.location.href = '../index.html';
-                }
-            });
-        }
 
         const chatMessages = document.getElementById('chatMessages');
         const userInput = document.getElementById('userInput');
+
+        // Status notices (signed out, no Pro access, founder): icon + text, announced.
+        function showNotice(text, kind, link) {
+            const box = document.createElement('div');
+            box.className = 'lc-alert ' + (kind === 'success' ? 'lc-alert--success' : 'lc-alert--error');
+            box.setAttribute('role', kind === 'success' ? 'status' : 'alert');
+            box.innerHTML = '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg><p></p>';
+            box.querySelector('p').textContent = text;
+            if (link) {
+                const a = document.createElement('a');
+                a.href = link.href;
+                a.textContent = link.text;
+                box.querySelector('p').append(' ', a);
+            }
+            chatMessages.appendChild(box);
+            scrollToBottom();
+        }
 
         // Check access on page load
         function checkAIAccess() {
@@ -428,12 +147,9 @@
             
             if (!currentUser) {
                 userInput.disabled = true;
-                userInput.placeholder = 'Please log in to use AI...';
-                const msg = document.createElement('div');
-                msg.className = 'ai-message';
-                msg.style.color = '#ff6b6b';
-                msg.textContent = '⚠️ Please log in to access AI features';
-                chatMessages.appendChild(msg);
+                userInput.placeholder = 'Sign in to ask a question';
+                document.querySelector('#chatForm [type="submit"]').disabled = true;
+                showNotice('Please sign in to use Ask AI.', 'error', { href: 'login.html', text: 'Sign in' });
                 return;
             }
 
@@ -443,27 +159,20 @@
                 const status = window.accessControl.getAccessStatus('ai', currentUser);
                 
                 userInput.disabled = true;
-                userInput.placeholder = 'Upgrade to Pro to use AI...';
+                userInput.placeholder = 'Ask AI needs LEARNcraft Pro';
+                document.querySelector('#chatForm [type="submit"]').disabled = true;
                 
-                const msg = document.createElement('div');
-                msg.className = 'ai-message';
-                msg.style.color = '#ff6b6b';
                 if (daysRemaining && daysRemaining > 0) {
-                    msg.textContent = `⏰ Pro trial active! ${daysRemaining} days remaining.`;
+                    showNotice(`Pro trial active: ${daysRemaining} days left.`, 'error');
                 } else {
-                    msg.textContent = `📦 ${status.message}`;
+                    showNotice(status.message, 'error');
                 }
-                chatMessages.appendChild(msg);
                 return;
             }
 
             // Founder gets special treatment
             if (window.accessControl.isFounder(currentUser.email)) {
-                const msg = document.createElement('div');
-                msg.className = 'ai-message';
-                msg.style.color = '#FFD700';
-                msg.textContent = '👑 Welcome Founder! Full access to all AI features.';
-                chatMessages.appendChild(msg);
+                showNotice('Founder account: full access to Ask AI.', 'success');
             }
         }
 
@@ -559,14 +268,14 @@ Keep responses quick and actionable.`
             // Check if user can access AI feature
             const currentUser = JSON.parse(localStorage.getItem('learncraft_current_user'));
             if (!currentUser) {
-                addMessage('Please log in to access AI features', 'ai-message');
+                showNotice('Please sign in to use Ask AI.', 'error');
                 return;
             }
 
             // Use access control to check if AI is accessible
             if (!window.accessControl.canAccessAI(currentUser)) {
                 const status = window.accessControl.getAccessStatus('ai', currentUser);
-                addMessage(`⚠️ ${status.message}`, 'ai-message');
+                showNotice(status.message, 'error');
                 return;
             }
 
@@ -757,6 +466,11 @@ Keep responses quick and actionable.`
             lastMessageCount = chats.filter(chat => chat.userEmail === currentUser.email).length;
         }
 
+        document.getElementById('chatForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            sendMessage();
+        });
     </script>
+    <script src="../js/webapp-init.js"></script>
 </body>
 </html>

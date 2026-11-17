@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Check fixture: fails every generic check</title>
+  <style>
+    body { margin: 0; background: #ffffff; color: #000; font: 16px/1.6 system-ui, sans-serif; }
+    .wide { width: 2000px; height: 10px; background: #eee; }
+    .faint { color: #cccccc; }
+  </style>
+</head>
+<body>
+  .leaked-rule { color: red; display: flex; }
+  <div class="wide"></div>
+  <p class="faint">Low contrast text</p>
+  <img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=">
+  <button type="button"></button>
+  <p>Done ✅</p>
+  <script>window.addEventListener('load', () => { null.boom; });</script>
+</body>
+</html>

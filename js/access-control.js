@@ -230,18 +230,3 @@ window.accessControl = {
   FOUNDER_EMAIL,
   PRO_FEATURES
 };
-
-export {
-  isFounder,
-  isCurrentUserFounder,
-  hasProVersion,
-  canAccessFeature,
-  canAccessAI,
-  getAccessStatus,
-  setProDemo,
-  getProTrialDaysRemaining,
-  showAccessDenialMessage,
-  getCurrentUserProfile,
-  FOUNDER_EMAIL,
-  PRO_FEATURES
-};

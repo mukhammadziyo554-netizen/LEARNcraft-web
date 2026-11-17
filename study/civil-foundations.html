@@ -2,820 +2,340 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#000000">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Foundations - Civil Engineering - LEARNcraft</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="The maths and physics you need before civil engineering, with a weekly study plan and a progress tracker.">
+    <meta name="theme-color" content="#0b0b0b">
+    <title>Foundations — Civil engineering — LEARNcraft</title>
+    <link rel="stylesheet" href="../css/style.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            width: 100%;
-            height: 100%;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: radial-gradient(circle at top, #0a0a0a 0%, #000000 60%, #000000 100%);
-            color: #ffffff;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        .page-wrapper {
-            width: 100%;
-            min-height: 100vh;
-            padding: 80px 20px 60px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 16px;
-            background: transparent;
-            border: none;
-            color: #888;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-            cursor: pointer;
-            transition: color 0.3s;
-            margin-bottom: 50px;
-        }
-
-        .back-button:hover {
-            color: #ffffff;
-        }
-
-        .page-header {
-            margin-bottom: 60px;
-        }
-
-        .stage-title {
-            font-size: 48px;
-            font-weight: 700;
-            color: #FFD84D;
-            margin-bottom: 8px;
-        }
-
-        .stage-subtitle {
-            font-size: 24px;
-            font-weight: 400;
-            color: #bdbdbd;
-        }
-
-        .section {
-            margin-bottom: 60px;
-        }
-
-        .section-title {
-            font-size: 28px;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
-        }
-
-        .section-content {
-            font-size: 16px;
-            line-height: 1.8;
-            color: #EAEAEA;
-        }
-
-        .section-content p {
-            margin-bottom: 16px;
-        }
-
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-
-        .table th,
-        .table td {
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 12px 16px;
-            text-align: left;
-        }
-
-        .table th {
-            background: rgba(255, 216, 77, 0.1);
-            color: #FFD84D;
-            font-weight: 600;
-        }
-
-        .table tr:hover {
-            background: rgba(255, 216, 77, 0.05);
-        }
-
-        .list-item {
-            margin: 12px 0 12px 20px;
-            color: #EAEAEA;
-            line-height: 1.7;
-        }
-
-        .list-item::before {
-            content: "▸ ";
-            color: #FFD84D;
-            font-weight: bold;
-            margin-right: 8px;
-        }
-
-        .week-plan {
-            background: rgba(255, 216, 77, 0.05);
-            border-left: 4px solid #FFD84D;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 16px 0;
-        }
-
-        .week-title {
-            color: #FFD84D;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .week-content {
-            color: #EAEAEA;
-            line-height: 1.6;
-        }
-
-        .ask-ai-section {
-            margin-top: 80px;
-            padding: 40px;
-            background: rgba(255, 216, 77, 0.08);
-            border: 2px solid rgba(255, 216, 77, 0.3);
-            border-radius: 16px;
-            text-align: center;
-        }
-
-        .ask-ai-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #FFD84D;
-            margin-bottom: 16px;
-        }
-
-        .ask-ai-button {
-            display: inline-block;
-            padding: 16px 48px;
-            background: #FFD84D;
-            color: #000000;
-            border: none;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 40px rgba(255, 216, 77, 0.3);
-        }
-
-        .ask-ai-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 50px rgba(255, 216, 77, 0.5);
-        }
-
-        /* ===== PROGRESS TRACKING SECTION ===== */
-        .stage-progress-section {
-            margin-top: 80px;
-            padding-bottom: 40px;
-        }
-
-        .start-stage-btn {
-            background: linear-gradient(90deg, #ffd84d, #ffb700);
-            border: none;
-            padding: 14px 32px;
-            font-weight: 700;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            color: #000000;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(255, 216, 77, 0.2);
-            margin-bottom: 30px;
-            width: 100%;
-        }
-
-        .start-stage-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 35px rgba(255, 216, 77, 0.4);
-        }
-
-        .start-stage-btn:active {
-            transform: scale(0.98);
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        #progressDashboard {
-            background: rgba(255, 216, 77, 0.05);
-            border: 2px solid rgba(255, 216, 77, 0.2);
-            border-radius: 12px;
-            padding: 30px;
-            margin-top: 30px;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        #progressDashboard h2 {
-            font-size: 28px;
-            font-weight: 700;
-            color: #FFD84D;
-            margin-bottom: 24px;
-        }
-
-        .stats-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 24px 0;
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .stats-row div {
-            background: rgba(255, 216, 77, 0.08);
-            padding: 16px;
-            border-radius: 8px;
-            border-left: 3px solid #FFD84D;
-            color: #EAEAEA;
-        }
-
-        .stats-row span {
-            color: #FFD84D;
-            font-weight: 700;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 14px;
-            background: #222;
-            border-radius: 8px;
-            margin: 24px 0;
-            overflow: hidden;
-        }
-
-        #progressFill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #ffd84d, #ffb700);
-            transition: width 0.4s ease;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(255, 216, 77, 0.4);
-        }
-
-        .tracker-table {
-            width: 100%;
-            border-collapse: collapse;
-            color: white;
-            margin: 24px 0;
-            font-size: 14px;
-        }
-
-        .tracker-table th,
-        .tracker-table td {
-            border: 1px solid #333;
-            padding: 12px 8px;
-            text-align: center;
-        }
-
-        .tracker-table th {
-            background: rgba(255, 216, 77, 0.1);
-            color: #FFD84D;
-            font-weight: 700;
-        }
-
-        .tracker-table td:first-child {
-            text-align: left;
-            padding-left: 16px;
-        }
-
-        .tracker-table tr:hover {
-            background: rgba(255, 216, 77, 0.05);
-        }
-
-        .tracker-table input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            accent-color: #FFD84D;
-        }
-
-        .mental-state {
-            margin: 28px 0;
-            padding: 20px;
-            background: rgba(255, 216, 77, 0.05);
-            border-radius: 8px;
-        }
-
-        .mental-state label {
-            display: inline-block;
-            margin-right: 16px;
-            font-weight: 600;
-            color: #EAEAEA;
-            margin-bottom: 12px;
-        }
-
-        .mental-state select {
-            padding: 8px 12px;
-            background: #222;
-            color: #FFD84D;
-            border: 1px solid #333;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-right: 24px;
-            margin-bottom: 12px;
-        }
-
-        .mental-state select:hover {
-            border-color: #FFD84D;
-        }
-
-        #progressChart {
-            max-width: 100%;
-            margin: 30px 0;
-        }
-
-        @media (max-width: 768px) {
-            .page-wrapper {
-                padding: 60px 16px 50px;
-            }
-
-            .stage-title {
-                font-size: 36px;
-            }
-
-            .stage-subtitle {
-                font-size: 18px;
-            }
-
-            .section-title {
-                font-size: 22px;
-            }
-
-            .section-content {
-                font-size: 15px;
-            }
-
-            .ask-ai-section {
-                padding: 30px 20px;
-            }
-
-            .ask-ai-button {
-                padding: 14px 40px;
-                font-size: 15px;
-                width: 100%;
-            }
-
-            /* Progress tracking responsive */
-            #progressDashboard {
-                padding: 20px;
-            }
-
-            #progressDashboard h2 {
-                font-size: 22px;
-                margin-bottom: 16px;
-            }
-
-            .stats-row {
-                grid-template-columns: 1fr;
-                gap: 12px;
-                font-size: 14px;
-            }
-
-            .tracker-table {
-                font-size: 12px;
-            }
-
-            .tracker-table th,
-            .tracker-table td {
-                padding: 8px 4px;
-            }
-
-            .tracker-table input[type="checkbox"] {
-                width: 18px;
-                height: 18px;
-            }
-
-            .mental-state {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .mental-state label {
-                margin-right: 0;
-                margin-bottom: 4px;
-            }
-
-            .mental-state select {
-                margin-right: 0;
-                margin-bottom: 8px;
-                width: 100%;
-            }
-
-            .start-stage-btn {
-                padding: 12px 28px;
-                font-size: 15px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .page-wrapper {
-                padding: 50px 12px 40px;
-            }
-
-            .stage-title {
-                font-size: 28px;
-            }
-
-            .stage-subtitle {
-                font-size: 16px;
-            }
-
-            .section-title {
-                font-size: 18px;
-            }
-
-            .section-content {
-                font-size: 14px;
-            }
-
-            .ask-ai-button {
-                padding: 12px 24px;
-                font-size: 14px;
-            }
-
-            /* Progress tracking responsive for small screens */
-            #progressDashboard {
-                padding: 16px;
-                margin-top: 20px;
-                border-radius: 8px;
-            }
-
-            #progressDashboard h2 {
-                font-size: 18px;
-                margin-bottom: 12px;
-            }
-
-            .stats-row {
-                grid-template-columns: 1fr;
-                gap: 8px;
-                font-size: 13px;
-                margin: 16px 0;
-            }
-
-            .stats-row div {
-                padding: 12px;
-                border-left-width: 2px;
-            }
-
-            .progress-bar {
-                height: 12px;
-                margin: 16px 0;
-            }
-
-            .tracker-table {
-                font-size: 11px;
-                margin: 16px 0;
-            }
-
-            .tracker-table th,
-            .tracker-table td {
-                padding: 6px 3px;
-            }
-
-            .tracker-table td:first-child {
-                font-size: 10px;
-            }
-
-            .tracker-table input[type="checkbox"] {
-                width: 16px;
-                height: 16px;
-            }
-
-            .mental-state {
-                padding: 12px;
-                margin: 16px 0;
-            }
-
-            .mental-state label {
-                font-size: 13px;
-            }
-
-            .mental-state select {
-                font-size: 12px;
-                padding: 6px 8px;
-            }
-
-            .start-stage-btn {
-                padding: 11px 24px;
-                font-size: 14px;
-                margin-bottom: 20px;
-            }
-        }
-    </style>
+    <script src="../js/theme.js"></script>
+    <script src="../js/require-login.js" data-login="../pages/login.html"></script>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/site.js" defer></script>
 </head>
-<body>
-    <div class="page-wrapper">
-        <div class="container">
-            <button onclick="window.history.back()" class="back-button">← Back</button>
+<body class="lc">
+    <a class="lc-skip" href="#main">Skip to content</a>
 
-            <div class="page-header">
-                <h1 class="stage-title">Foundations</h1>
-                <p class="stage-subtitle">Civil Engineering</p>
-            </div>
-
-            <div class="section">
-                <h2 class="section-title">What You Will Learn</h2>
-                <div class="section-content">
-                    <p>In this foundational stage, you'll build the mathematical and physical knowledge required for civil engineering. You'll develop strong skills in algebra, geometry, and physics that form the backbone of all engineering disciplines.</p>
-                    <p>By the end of this stage, you'll be able to:</p>
-                    <div class="list-item">Solve complex algebraic equations and systems</div>
-                    <div class="list-item">Understand geometric concepts and spatial reasoning</div>
-                    <div class="list-item">Apply Newton's laws and basic physics principles</div>
-                    <div class="list-item">Perform accurate measurements and unit conversions</div>
-                    <div class="list-item">Analyze forces and motion in engineering contexts</div>
+    <header class="lc-header">
+        <div class="lc-container lc-header__inner">
+            <a class="lc-header__brand" href="../index.html">LEARN<span>craft</span></a>
+            <nav class="lc-nav" aria-label="Main">
+                <a class="lc-nav__link" href="../index.html" data-i18n="nav.home">Home</a>
+                <a class="lc-nav__link" href="../courses/roadmap.html">Roadmap</a>
+                <a class="lc-nav__link" href="../learning/lesson.html">Lesson</a>
+                <a class="lc-nav__link" href="../pages/ask-ai.html">Ask AI</a>
+                <a class="lc-nav__link" href="../pages/about.html" data-i18n="nav.about">About</a>
+                <a class="lc-nav__link" href="../index.html#pricing" data-i18n="nav.pro">LEARNcraft Pro</a>
+            </nav>
+            <div class="lc-header__actions">
+                <div class="lc-lang-wrap">
+                    <button class="lc-lang" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu" aria-label="Language: English">EN</button>
+                    <ul class="lc-lang__menu" id="lang-menu" role="listbox" aria-label="Language" hidden>
+                        <li class="lc-lang__option" role="option" data-lang="en" aria-selected="true" tabindex="-1">English</li>
+                        <li class="lc-lang__option" role="option" data-lang="ru" aria-selected="false" tabindex="-1">Русский</li>
+                        <li class="lc-lang__option" role="option" data-lang="uz" aria-selected="false" tabindex="-1">Oʻzbek</li>
+                    </ul>
                 </div>
+                <button class="lc-icon-btn" type="button" data-lc-theme-toggle aria-pressed="false" aria-label="Light theme">
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                </button>
+                <a class="lc-btn lc-btn--secondary home-signin" id="signInBtn" href="../pages/login.html" data-i18n="nav.signIn">Sign In</a>
+                <div class="home-account" id="userAccount" hidden>
+                    <button class="home-account__circle" id="userCircle" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="userMenu" aria-label="Account menu">U</button>
+                    <div class="home-account__menu" id="userMenu" role="menu" hidden>
+                        <p class="home-account__email" id="userEmail"></p>
+                        <a class="home-account__item" role="menuitem" href="../pages/settings.html">Account settings</a>
+                        <button class="home-account__item" role="menuitem" id="logoutBtn" type="button">Log out</button>
+                    </div>
+                </div>
+                <button class="lc-burger" type="button" data-lc-drawer-toggle aria-controls="drawer" aria-expanded="false" aria-label="Open menu">
+                    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                </button>
             </div>
+        </div>
+    </header>
 
-            <div class="section">
-                <h2 class="section-title">Prerequisites (Grade Level)</h2>
-                <div class="section-content">
-                    <p>The following table shows the recommended grade level and prior knowledge for each topic:</p>
-                    <table class="table">
+    <nav class="lc-drawer" id="drawer" aria-label="Menu" hidden>
+        <a class="lc-drawer__link" href="../index.html">Home</a>
+        <a class="lc-drawer__link" href="../courses/roadmap.html">Roadmap</a>
+        <a class="lc-drawer__link" href="../courses/learn.html">Articles</a>
+        <a class="lc-drawer__link" href="../learning/lesson.html">Lesson</a>
+        <a class="lc-drawer__link" href="../pages/ask-ai.html">Ask AI</a>
+        <a class="lc-drawer__link" href="../courses/practice.html">Practice</a>
+        <a class="lc-drawer__link" href="../pages/about.html">About</a>
+        <a class="lc-drawer__link" href="../pages/settings.html">Settings</a>
+        <a class="lc-drawer__link" href="../pages/login.html">Sign in</a>
+        <a class="lc-drawer__link" href="../admin/admin-dashboard.html" id="sidebarAdminLink" hidden>Admin</a>
+    </nav>
+
+
+    <main id="main" class="lc-container stage study">
+            <a class="lc-btn lc-btn--ghost stage-back" href="../courses/roadmap.html"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Back to roadmap</a>
+            <header class="lc-stack" style="--gap: 12px">
+                <p class="lc-label">Civil engineering / Study guide</p>
+                <h1>Foundations</h1>
+                <p class="lc-lead">The maths and physics you need before civil engineering: algebra, geometry, trigonometry, basic physics and units.</p>
+            </header>
+
+            <section class="lc-stack study-section" aria-labelledby="study-learn">
+                <h2 id="study-learn">What you will learn</h2>
+                <div class="lc-prose">
+                    <p>In this foundational stage, you'll build the mathematical and physical knowledge required for civil engineering: algebra, geometry and physics form the backbone of all engineering disciplines.</p>
+                    <p>By the end of this stage, you'll be able to:</p>
+                    <ul>
+                        <li>Solve algebraic equations and systems of equations</li>
+                        <li>Understand geometric concepts and spatial reasoning</li>
+                        <li>Apply Newton's laws and basic physics principles</li>
+                        <li>Perform accurate measurements and unit conversions</li>
+                        <li>Analyze forces and motion in engineering contexts</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="lc-stack study-section" aria-labelledby="study-prereq">
+                <h2 id="study-prereq">Prerequisites (grade level)</h2>
+                <p class="study-sub">The recommended grade level and prior knowledge for each topic.</p>
+                <div class="article-table" role="region" aria-label="Prerequisites table" tabindex="0">
+                    <table>
                         <thead>
                             <tr>
-                                <th>Topic</th>
-                                <th>Recommended Grade</th>
-                                <th>Prior Knowledge</th>
+                                <th scope="col">Topic</th>
+                                <th scope="col">Recommended grade</th>
+                                <th scope="col">Prior knowledge</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Algebra Fundamentals</td>
-                                <td>Grade 8–9</td>
-                                <td>Basic arithmetic, exponents</td>
-                            </tr>
-                            <tr>
-                                <td>Geometry & Trigonometry</td>
-                                <td>Grade 9–10</td>
-                                <td>Algebra basics, area/volume</td>
-                            </tr>
-                            <tr>
-                                <td>Basic Physics</td>
-                                <td>Grade 9–10</td>
-                                <td>Force, motion, energy concepts</td>
-                            </tr>
-                            <tr>
-                                <td>Units & Measurement</td>
-                                <td>Grade 10</td>
-                                <td>Metric system, conversions</td>
-                            </tr>
-                            <tr>
-                                <td>Engineering Math</td>
-                                <td>Grade 10–11</td>
-                                <td>Calculus foundations</td>
-                            </tr>
+                            <tr><td>Algebra Fundamentals</td><td>Grade 8–9</td><td>Basic arithmetic, exponents</td></tr>
+                            <tr><td>Geometry &amp; Trigonometry</td><td>Grade 9–10</td><td>Algebra basics, area/volume</td></tr>
+                            <tr><td>Basic Physics</td><td>Grade 9–10</td><td>Force, motion, energy concepts</td></tr>
+                            <tr><td>Units &amp; Measurement</td><td>Grade 10</td><td>Metric system, conversions</td></tr>
+                            <tr><td>Engineering Math</td><td>Grade 10–11</td><td>Calculus foundations</td></tr>
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </section>
 
-            <div class="section">
-                <h2 class="section-title">How to Study</h2>
-                <div class="section-content">
-                    <p>Follow this proven learning methodology to maximize retention and understanding:</p>
-                    <div style="margin: 20px 0;">
-                        <div class="list-item"><strong>Step 1: Learn Theory</strong> — Watch video lectures and read textbooks on each topic. Take notes on key concepts and formulas.</div>
-                        <div class="list-item"><strong>Step 2: Practice Problems</strong> — Solve 20-30 practice problems for each topic. Start with easier problems and progress to harder ones.</div>
-                        <div class="list-item"><strong>Step 3: Apply to Engineering</strong> — Connect each concept to real civil engineering applications (bridges, buildings, etc.).</div>
-                        <div class="list-item"><strong>Step 4: Ask AI Questions</strong> — Use the LEARNcraft AI chat to clarify confusing topics, get problem hints, or discuss real-world examples.</div>
-                    </div>
-                </div>
-            </div>
+            <section class="lc-stack study-section" aria-labelledby="study-how">
+                <h2 id="study-how">How to study</h2>
+                <ol class="study-steps" role="list">
+                    <li class="lc-card"><h3>1. Learn the theory</h3><p>Watch video lectures and read textbooks on each topic. Take notes on key concepts and formulas.</p></li>
+                    <li class="lc-card"><h3>2. Practise problems</h3><p>Solve 20–30 practice problems for each topic. Start with easier problems and progress to harder ones.</p></li>
+                    <li class="lc-card"><h3>3. Apply it to engineering</h3><p>Connect each concept to real civil engineering applications such as bridges and buildings.</p></li>
+                    <li class="lc-card"><h3>4. Ask AI</h3><p>Use the LEARNcraft AI chat to clarify confusing topics, get problem hints, or discuss real-world examples.</p></li>
+                </ol>
+            </section>
 
-            <div class="section">
-                <h2 class="section-title">Weekly Study Plan</h2>
-                <div class="section-content">
-                    <p>Dedicate 5-8 hours per week to complete this stage in 4 weeks. Here's a recommended schedule:</p>
-
-                    <div class="week-plan">
-                        <div class="week-title">Week 1: Algebra Review & Equations</div>
-                        <div class="week-content">
-                            Master linear and quadratic equations. Topics: solving for unknowns, systems of equations, graphing linear functions. Practice: 25 problems.
-                        </div>
-                    </div>
-
-                    <div class="week-plan">
-                        <div class="week-title">Week 2: Geometry, Trigonometry & Units</div>
-                        <div class="week-content">
-                            Learn properties of shapes, triangles, and trigonometric functions. Understand unit systems and conversions. Practice: 30 problems.
-                        </div>
-                    </div>
-
-                    <div class="week-plan">
-                        <div class="week-title">Week 3: Physics Fundamentals</div>
-                        <div class="week-content">
-                            Newton's laws, forces, motion, energy, and work. Apply concepts to real structures and systems. Practice: 30 problems.
-                        </div>
-                    </div>
-
-                    <div class="week-plan">
-                        <div class="week-title">Week 4: Engineering Applications & Review</div>
-                        <div class="week-content">
-                            Real-world civil engineering problems combining all previous topics. Complete comprehensive practice exam and review weak areas.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="ask-ai-section">
-                <h2 class="ask-ai-title">Questions About This Stage?</h2>
-                <p style="font-size: 16px; color: #bdbdbd; margin-bottom: 24px;">
-                    Get personalized help from LEARNcraft's AI tutor. Ask anything about the material, request problem solutions, or discuss concepts.
-                </p>
-                <button class="ask-ai-button">Ask AI About This Stage</button>
-            </div>
-
-            <!-- PROGRESS TRACKING SECTION -->
-            <section class="stage-progress-section">
-                <button class="start-stage-btn" onclick="startStage()">START STAGE & TRACK PROGRESS</button>
-
-                <div id="progressDashboard" class="hidden">
-                    <h2>Your Study Progress</h2>
-
-                    <!-- Progress Stats -->
-                    <div class="stats-row">
-                        <div>📅 Weekly Completion: <span id="weeklyPercent">0%</span></div>
-                        <div>🎯 Stage Progress: <span id="stagePercent">0%</span></div>
-                        <div>🔥 Study Streak: <span id="streakCount">0</span> days</div>
-                    </div>
-
-                    <!-- Progress Bar -->
-                    <div class="progress-bar">
-                        <div id="progressFill"></div>
-                    </div>
-
-                    <!-- Learning Task Grid -->
-                    <table class="tracker-table" id="trackerTable">
-                        <tr>
-                            <th>Task</th>
-                            <th>Mon</th><th>Tue</th><th>Wed</th>
-                            <th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
-                        </tr>
-
-                        <tr>
-                            <td>Study Algebra</td>
-                            <td><input type="checkbox"></td><td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td><td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td><td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
-                        </tr>
-
-                        <tr>
-                            <td>Physics Basics</td>
-                            <td><input type="checkbox"></td><td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td><td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td><td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
-                        </tr>
-
-                        <tr>
-                            <td>Watch Lesson</td>
-                            <td><input type="checkbox"></td><td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td><td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td><td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
-                        </tr>
-
-                        <tr>
-                            <td>Solve Problems</td>
-                            <td><input type="checkbox"></td><td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td><td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td><td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
-                        </tr>
-
-                        <tr>
-                            <td>Ask AI Questions</td>
-                            <td><input type="checkbox"></td><td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td><td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td><td><input type="checkbox"></td>
-                            <td><input type="checkbox"></td>
-                        </tr>
-                    </table>
-
-                    <!-- Mood + Motivation -->
-                    <div class="mental-state">
-                        <label>Mood:</label>
-                        <select id="moodSelect">
-                            <option value="">Select mood...</option>
-                            <option value="1">1 - Very Poor</option>
-                            <option value="2">2 - Poor</option>
-                            <option value="3">3 - Neutral</option>
-                            <option value="4">4 - Good</option>
-                            <option value="5">5 - Excellent</option>
-                        </select>
-
-                        <label>Motivation:</label>
-                        <select id="motivationSelect">
-                            <option value="">Select motivation...</option>
-                            <option value="1">1 - Very Low</option>
-                            <option value="2">2 - Low</option>
-                            <option value="3">3 - Average</option>
-                            <option value="4">4 - High</option>
-                            <option value="5">5 - Very High</option>
-                        </select>
-                    </div>
-
-                    <!-- Graph -->
-                    <canvas id="progressChart" height="100"></canvas>
+            <section class="lc-stack study-section" aria-labelledby="study-plan">
+                <h2 id="study-plan">Weekly study plan</h2>
+                <p class="study-sub">A suggested schedule: 5–8 hours a week for 4 weeks.</p>
+                <div class="stage-weeks">
+                    <article class="lc-card"><h3>Week 1: Algebra review &amp; equations</h3><p>Master linear and quadratic equations. Topics: solving for unknowns, systems of equations, graphing linear functions. Practice: 25 problems.</p></article>
+                    <article class="lc-card"><h3>Week 2: Geometry, trigonometry &amp; units</h3><p>Learn properties of shapes, triangles, and trigonometric functions. Understand unit systems and conversions. Practice: 30 problems.</p></article>
+                    <article class="lc-card"><h3>Week 3: Physics fundamentals</h3><p>Newton's laws, forces, motion, energy, and work. Apply concepts to real structures and systems. Practice: 30 problems.</p></article>
+                    <article class="lc-card"><h3>Week 4: Engineering applications &amp; review</h3><p>Civil engineering problems combining all previous topics. Complete a practice exam and review weak areas.</p></article>
                 </div>
             </section>
+
+            <aside class="lc-card stage-tip lc-stack" aria-labelledby="study-ask">
+                <h2 class="study-ask__title" id="study-ask">Questions about this stage?</h2>
+                <p>Ask the LEARNcraft AI about the material, a problem you are stuck on, or a concept you want explained another way.</p>
+                <a class="lc-btn lc-btn--primary study-ask__btn" href="../pages/ask-ai.html">Ask AI about this stage</a>
+            </aside>
+
+            <section class="lc-stack study-section" aria-labelledby="study-track">
+                <h2 id="study-track">Track your progress</h2>
+                <p class="study-sub">Tick the tasks you finish each day. Your ticks and notes are saved in this browser only.</p>
+                <button class="lc-btn lc-btn--primary study-start" id="startStageBtn" type="button" aria-controls="progressDashboard" aria-expanded="false">Start stage and track progress</button>
+
+                <div id="progressDashboard" class="study-dashboard lc-stack hidden">
+                    <div class="lc-card stage-progress">
+                        <div class="stage-progress__head">
+                            <h3 class="stage-progress__title">Stage progress</h3>
+                            <span class="stage-progress__count" id="stagePercent">0%</span>
+                        </div>
+                        <div class="study-bar" id="progressBar" role="progressbar" aria-label="Stage progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="progressFill"></div></div>
+                    </div>
+
+                    <div class="article-table study-tracker" role="region" aria-label="Daily task tracker" tabindex="0">
+                        <table id="trackerTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Task</th>
+                                    <th scope="col">Mon</th>
+                                    <th scope="col">Tue</th>
+                                    <th scope="col">Wed</th>
+                                    <th scope="col">Thu</th>
+                                    <th scope="col">Fri</th>
+                                    <th scope="col">Sat</th>
+                                    <th scope="col">Sun</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Study Algebra</th>
+                                    <td><input type="checkbox" aria-label="Study Algebra, Mon"></td>
+                                    <td><input type="checkbox" aria-label="Study Algebra, Tue"></td>
+                                    <td><input type="checkbox" aria-label="Study Algebra, Wed"></td>
+                                    <td><input type="checkbox" aria-label="Study Algebra, Thu"></td>
+                                    <td><input type="checkbox" aria-label="Study Algebra, Fri"></td>
+                                    <td><input type="checkbox" aria-label="Study Algebra, Sat"></td>
+                                    <td><input type="checkbox" aria-label="Study Algebra, Sun"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Physics Basics</th>
+                                    <td><input type="checkbox" aria-label="Physics Basics, Mon"></td>
+                                    <td><input type="checkbox" aria-label="Physics Basics, Tue"></td>
+                                    <td><input type="checkbox" aria-label="Physics Basics, Wed"></td>
+                                    <td><input type="checkbox" aria-label="Physics Basics, Thu"></td>
+                                    <td><input type="checkbox" aria-label="Physics Basics, Fri"></td>
+                                    <td><input type="checkbox" aria-label="Physics Basics, Sat"></td>
+                                    <td><input type="checkbox" aria-label="Physics Basics, Sun"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Watch Lesson</th>
+                                    <td><input type="checkbox" aria-label="Watch Lesson, Mon"></td>
+                                    <td><input type="checkbox" aria-label="Watch Lesson, Tue"></td>
+                                    <td><input type="checkbox" aria-label="Watch Lesson, Wed"></td>
+                                    <td><input type="checkbox" aria-label="Watch Lesson, Thu"></td>
+                                    <td><input type="checkbox" aria-label="Watch Lesson, Fri"></td>
+                                    <td><input type="checkbox" aria-label="Watch Lesson, Sat"></td>
+                                    <td><input type="checkbox" aria-label="Watch Lesson, Sun"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Solve Problems</th>
+                                    <td><input type="checkbox" aria-label="Solve Problems, Mon"></td>
+                                    <td><input type="checkbox" aria-label="Solve Problems, Tue"></td>
+                                    <td><input type="checkbox" aria-label="Solve Problems, Wed"></td>
+                                    <td><input type="checkbox" aria-label="Solve Problems, Thu"></td>
+                                    <td><input type="checkbox" aria-label="Solve Problems, Fri"></td>
+                                    <td><input type="checkbox" aria-label="Solve Problems, Sat"></td>
+                                    <td><input type="checkbox" aria-label="Solve Problems, Sun"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Ask AI Questions</th>
+                                    <td><input type="checkbox" aria-label="Ask AI Questions, Mon"></td>
+                                    <td><input type="checkbox" aria-label="Ask AI Questions, Tue"></td>
+                                    <td><input type="checkbox" aria-label="Ask AI Questions, Wed"></td>
+                                    <td><input type="checkbox" aria-label="Ask AI Questions, Thu"></td>
+                                    <td><input type="checkbox" aria-label="Ask AI Questions, Fri"></td>
+                                    <td><input type="checkbox" aria-label="Ask AI Questions, Sat"></td>
+                                    <td><input type="checkbox" aria-label="Ask AI Questions, Sun"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="study-mood">
+                        <div class="lc-field">
+                            <label for="moodSelect">Mood</label>
+                            <select id="moodSelect">
+                                <option value="">Select mood…</option>
+                                <option value="1">1 - Very Poor</option>
+                                <option value="2">2 - Poor</option>
+                                <option value="3">3 - Neutral</option>
+                                <option value="4">4 - Good</option>
+                                <option value="5">5 - Excellent</option>
+                            </select>
+                        </div>
+                        <div class="lc-field">
+                            <label for="motivationSelect">Motivation</label>
+                            <select id="motivationSelect">
+                                <option value="">Select motivation…</option>
+                                <option value="1">1 - Very Low</option>
+                                <option value="2">2 - Low</option>
+                                <option value="3">3 - Average</option>
+                                <option value="4">4 - High</option>
+                                <option value="5">5 - Very High</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <figure class="lc-card study-chart">
+                        <figcaption class="lc-label">Progress after each change</figcaption>
+                        <canvas id="progressChart" height="100" role="img" aria-label="Line chart of stage progress after each tick"></canvas>
+                    </figure>
+                </div>
+            </section>
+    </main>
+    <footer class="lc-footer">
+        <div class="lc-container home-footer">
+            <div class="home-footer__brand">
+                <p class="lc-footer__brand">LEARN<span>craft</span></p>
+                <p class="home-footer__note">Civil engineering, one stage at a time. In English, Russian and Uzbek.</p>
+            </div>
+            <nav class="home-footer__col" aria-labelledby="f-learn">
+                <p class="lc-label" id="f-learn">Learn</p>
+                <a href="../courses/roadmap.html">Roadmap</a>
+                <a href="../courses/learn.html">Articles</a>
+                <a href="../learning/lesson.html">Lesson</a>
+                <a href="../courses/practice.html">Practice</a>
+                <a href="../pages/ask-ai.html">Ask AI</a>
+            </nav>
+            <nav class="home-footer__col" aria-labelledby="f-about">
+                <p class="lc-label" id="f-about">LEARNcraft</p>
+                <a href="../pages/about.html">About</a>
+                <a href="../index.html#pricing">Pro plans</a>
+                <a href="../pages/support.html">Support</a>
+                <a href="../pages/community.html">Community</a>
+            </nav>
+            <nav class="home-footer__col" aria-labelledby="f-account">
+                <p class="lc-label" id="f-account">Account</p>
+                <a href="../pages/login.html">Sign in</a>
+                <a href="../pages/settings.html">Settings</a>
+            </nav>
         </div>
-    </div>
+    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="../js/webapp-init.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <script>
-        if (typeof TelegramWebApp !== 'undefined') {
-            const tg = window.Telegram.WebApp;
-            tg.ready();
-            tg.setHeaderColor('#000000');
-            tg.setBackgroundColor('#000000');
-            tg.MainButton.hide();
-        }
-
         // Progress tracking variables
-        let streak = 0;
         let progressHistory = [];
         let chart = null;
 
         function startStage() {
             document.getElementById("progressDashboard").classList.remove("hidden");
+            document.getElementById("startStageBtn").setAttribute("aria-expanded", "true");
             loadProgressFromStorage();
             initializeChart();
         }
 
+        function trackerBoxes() {
+            return document.querySelectorAll('#trackerTable input[type="checkbox"]');
+        }
+
         // Initialize checkboxes and event listeners
         function initializeCheckboxes() {
-            const checkboxes = document.querySelectorAll('#trackerTable input[type="checkbox"]');
-            checkboxes.forEach(box => {
+            trackerBoxes().forEach((box, idx) => {
+                if (box.dataset.bound) return;
+                box.dataset.bound = "1";
                 box.addEventListener("change", updateProgress);
-                // Load saved state
-                const savedState = localStorage.getItem(box.dataset.id);
+                // Load saved state (saved below as checkbox-<index>)
+                const savedState = localStorage.getItem(`checkbox-${idx}`);
                 if (savedState) {
                     box.checked = JSON.parse(savedState);
                 }
             });
+            renderProgress();
+        }
+
+        function currentPercent() {
+            const boxes = trackerBoxes();
+            const checked = document.querySelectorAll('#trackerTable input[type="checkbox"]:checked').length;
+            return Math.round((checked / boxes.length) * 100);
+        }
+
+        function renderProgress() {
+            const percent = currentPercent();
+            document.getElementById("stagePercent").textContent = percent + "%";
+            document.getElementById("progressFill").style.width = percent + "%";
+            document.getElementById("progressBar").setAttribute("aria-valuenow", String(percent));
+            return percent;
         }
 
         function updateProgress() {
-            const checkboxes = document.querySelectorAll('#trackerTable input[type="checkbox"]');
-            const total = checkboxes.length;
-            const checked = document.querySelectorAll('#trackerTable input[type="checkbox"]:checked').length;
-
-            const percent = Math.round((checked / total) * 100);
-            document.getElementById("stagePercent").textContent = percent + "%";
-            document.getElementById("progressFill").style.width = percent + "%";
-            document.getElementById("weeklyPercent").textContent = percent + "%";
-
-            // Update streak
-            if (checked > 0 && streak === 0) {
-                streak = 1;
-            } else if (checked > 0) {
-                streak = Math.floor(checked / 5); // Simulate streak based on tasks
-            } else {
-                streak = 0;
-            }
-            document.getElementById("streakCount").textContent = streak;
+            const percent = renderProgress();
 
             // Save to localStorage
             progressHistory.push(percent);
@@ -823,7 +343,7 @@
             updateChart();
 
             // Save checkbox states
-            checkboxes.forEach((box, idx) => {
+            trackerBoxes().forEach((box, idx) => {
                 localStorage.setItem(`checkbox-${idx}`, box.checked);
             });
         }
@@ -839,7 +359,7 @@
         function loadProgressFromStorage() {
             const saved = localStorage.getItem("learnProgress");
             if (saved) {
-                progressHistory = JSON.parse(saved);
+                try { progressHistory = JSON.parse(saved) || []; } catch (e) { progressHistory = []; }
             }
 
             const savedMood = localStorage.getItem("learnMood");
@@ -855,70 +375,51 @@
             initializeCheckboxes();
         }
 
+        function token(name) {
+            return getComputedStyle(document.body).getPropertyValue(name).trim();
+        }
+
         function initializeChart() {
-            if (chart !== null) {
-                return; // Chart already initialized
+            if (chart !== null || typeof Chart === "undefined") {
+                return; // Already initialized, or Chart.js did not load
             }
 
             const ctx = document.getElementById('progressChart');
             if (!ctx) return;
 
-            const canvasContext = ctx.getContext('2d');
-            
-            const labels = progressHistory.map((_, idx) => "Day " + (idx + 1));
+            const accent = token("--c-accent") || "#f5c400";
+            const muted = token("--c-text-muted") || "#a3a3a3";
+            const grid = token("--c-border") || "#2e2e2e";
+            const labels = progressHistory.map((_, idx) => "Change " + (idx + 1));
 
-            chart = new Chart(canvasContext, {
+            chart = new Chart(ctx.getContext('2d'), {
                 type: 'line',
                 data: {
                     labels: labels.length > 0 ? labels : ["Start"],
                     datasets: [{
-                        label: 'Learning Progress',
+                        label: 'Stage progress (%)',
                         data: progressHistory.length > 0 ? progressHistory : [0],
-                        borderColor: '#ffd84d',
-                        backgroundColor: 'rgba(255,216,77,0.2)',
+                        borderColor: accent,
+                        backgroundColor: accent + '33',
                         fill: true,
                         tension: 0.4,
-                        pointBackgroundColor: '#ffd84d',
-                        pointBorderColor: '#ffb700',
-                        pointRadius: 5,
-                        pointHoverRadius: 7
+                        pointBackgroundColor: accent,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: true,
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: '#bdbdbd',
-                                font: {
-                                    weight: 'bold'
-                                }
-                            }
-                        }
-                    },
+                    plugins: { legend: { labels: { color: muted } } },
                     scales: {
                         y: {
                             beginAtZero: true,
                             max: 100,
-                            ticks: {
-                                color: '#bdbdbd',
-                                callback: function(value) {
-                                    return value + '%';
-                                }
-                            },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            }
+                            ticks: { color: muted, callback: (value) => value + '%' },
+                            grid: { color: grid }
                         },
-                        x: {
-                            ticks: {
-                                color: '#bdbdbd'
-                            },
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            }
-                        }
+                        x: { ticks: { color: muted }, grid: { color: grid } }
                     }
                 }
             });
@@ -926,21 +427,15 @@
 
         function updateChart() {
             if (!chart) return;
-            
-            chart.data.labels.push("Day " + progressHistory.length);
+            chart.data.labels = progressHistory.map((_, idx) => "Change " + (idx + 1));
             chart.data.datasets[0].data = progressHistory;
             chart.update();
         }
 
+        document.getElementById("startStageBtn").addEventListener("click", startStage);
         // Save mood and motivation on change
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById("moodSelect").addEventListener("change", saveProgressToStorage);
-            document.getElementById("motivationSelect").addEventListener("change", saveProgressToStorage);
-        });
-    </script>
-    <script type="module">
-        import { requireAuth } from "../auth.js";
-        requireAuth();
+        document.getElementById("moodSelect").addEventListener("change", saveProgressToStorage);
+        document.getElementById("motivationSelect").addEventListener("change", saveProgressToStorage);
     </script>
 </body>
 </html>
