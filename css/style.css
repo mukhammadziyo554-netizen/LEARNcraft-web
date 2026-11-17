@@ -468,7 +468,7 @@ body.lc {
 }
 
 .lc-card > * + * { margin-top: 8px; }
-.lc-card p { color: var(--c-text-muted); }
+.lc-card p:not([class]) { color: var(--c-text-muted); }
 
 .lc-card--link,
 .lc-stage {
