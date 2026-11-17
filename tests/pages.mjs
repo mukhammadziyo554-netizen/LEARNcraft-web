@@ -1,7 +1,22 @@
 // In-scope learner pages (spec: "Pages in scope").
 // `expect(page, ctx)` returns extra failure messages for that page; later plan tasks add them.
 
-const page = (path, expect) => ({ path, name: path.replace(/\.html$/, ''), expect });
+const page = (path, expect, opts = {}) => ({ path, name: path.replace(/\.html$/, ''), expect, ...opts });
+
+// Owner decision: these pages require sign-in. Checked signed in; signed-out visits must land on the login page.
+const GATED = { signedIn: true };
+function gated(expect, loginPath) {
+  return async (tab, ctx) => {
+    const out = await expect(tab, ctx);
+    const probe = await tab.context().browser().newContext();
+    const anon = await probe.newPage();
+    await anon.goto(tab.url(), { waitUntil: 'load' }).catch(() => {});
+    await anon.waitForTimeout(300);
+    if (!anon.url().endsWith(loginPath)) out.push(`signed-out visit ends on ${anon.url()}, expected ${loginPath}`);
+    await probe.close();
+    return out;
+  };
+}
 
 // Task 2: the splash gate is gone and the home page renders straight away with a styled nav.
 async function homeRendersWithoutGate(tab) {
@@ -418,9 +433,9 @@ export const PAGES = [
   page('pages/auth.html', infoPage),
   page('pages/login.html', infoPage),
   page('pages/registration.html'),
-  page('pages/settings.html', infoPage),
+  page('pages/settings.html', gated(infoPage, '/pages/login.html'), GATED),
   page('pages/support.html', infoPage),
-  page('pages/community.html', infoPage),
+  page('pages/community.html', gated(infoPage, '/pages/login.html'), GATED),
   page('pages/debug-help.html', infoPage),
 
   page('courses/roadmap.html', roadmapPage),
@@ -433,10 +448,10 @@ export const PAGES = [
   page('courses/civil-stage6.html', stagePage(6)),
   page('courses/choose-field.html', infoPage),
   page('courses/learn.html', infoPage),
-  page('courses/practice.html', infoPage),
+  page('courses/practice.html', gated(infoPage, '/pages/login.html'), GATED),
 
   page('learning/lesson.html', lessonPage),
-  page('study/civil-foundations.html', infoPage),
+  page('study/civil-foundations.html', gated(infoPage, '/pages/login.html'), GATED),
 
   ...[
     'aerospace-engineering', 'architectural-engineering', 'biomedical-engineering',

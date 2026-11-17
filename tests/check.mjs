@@ -35,8 +35,10 @@ async function checkPage(p) {
   const failures = [];
   for (const run of RUNS) {
     const context = await browser.newContext({ viewport: { width: run.viewport[0], height: run.viewport[1] } });
-    if (run.storage) {
-      await context.addInitScript((s) => { for (const [k, v] of Object.entries(s)) localStorage.setItem(k, v); }, run.storage);
+    // Gated pages (require-login.js) are checked as a signed-in test user.
+    const storage = { ...(run.storage || {}), ...(p.signedIn ? { learncraft_current_user: JSON.stringify({ id: 'check', email: 'check@example.com' }) } : {}) };
+    if (Object.keys(storage).length) {
+      await context.addInitScript((s) => { for (const [k, v] of Object.entries(s)) localStorage.setItem(k, v); }, storage);
     }
     const tab = await context.newPage();
     try {
