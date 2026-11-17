@@ -70,7 +70,7 @@
         <header class="lc-stack" style="--gap: 12px">
             <p class="lc-label">Account</p>
             <h1 id="authTitle">Welcome Back</h1>
-            <p class="lc-lead" id="authSubtitle">Sign in to continue your civil engineering journey</p>
+            <p class="lc-lead" id="authSubtitle">Sign in to pick up where you left off</p>
         </header>
 
         <div id="message" class="lc-alert login-message" hidden>
@@ -275,8 +275,8 @@
             registerPanel.hidden = !register;
             document.getElementById('authTitle').textContent = register ? 'Create Account' : 'Welcome Back';
             document.getElementById('authSubtitle').textContent = register
-                ? 'Start your civil engineering learning journey'
-                : 'Sign in to continue your civil engineering journey';
+                ? 'Create an account to get started'
+                : 'Sign in to pick up where you left off';
         }
 
         document.getElementById('loginForm').addEventListener('submit', handleLogin);
