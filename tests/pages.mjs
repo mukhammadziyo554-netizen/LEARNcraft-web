@@ -247,6 +247,29 @@ async function askAiPage(tab, ctx) {
   return out;
 }
 
+// Task 7: all articles share one layout.
+async function articlePage(tab, ctx) {
+  const out = await sharedChrome(tab, ctx);
+  const info = await tab.evaluate(() => {
+    const prose = document.querySelector('main .lc-prose');
+    const p = prose?.querySelector('p');
+    const cs = p && getComputedStyle(p);
+    return {
+      styleTags: document.querySelectorAll('body style, head style').length,
+      prose: !!prose,
+      maxWidthCh: prose ? prose.getBoundingClientRect().width / parseFloat(getComputedStyle(prose).fontSize) : 0,
+      pFont: cs && `${cs.fontSize}/${cs.lineHeight}`,
+      back: !!document.querySelector('main a[href="../courses/learn.html"]'),
+    };
+  });
+  if (info.styleTags) out.push(`${info.styleTags} inline <style> block(s)`);
+  if (!info.prose) out.push('article body is not in main .lc-prose');
+  if (info.maxWidthCh > 40) out.push(`prose is ${info.maxWidthCh.toFixed(0)}em wide (limit ~40em = 72ch)`);
+  if (info.pFont && !['17px/27.2px', '16px/25.6px'].includes(info.pFont)) out.push(`paragraph type ${info.pFont} is not the shared body size`);
+  if (!info.back) out.push('no link to the articles list (../courses/learn.html)');
+  return out;
+}
+
 // Task 3: shared components and site.js behaviour, tested on the component fixture.
 async function tabUntil(tab, selector, max = 30) {
   for (let i = 0; i < max; i++) {
@@ -386,7 +409,7 @@ export const PAGES = [
     'electrical-engineering', 'environmental-engineering', 'industrial-engineering',
     'machine-learning', 'marine-engineering', 'materials-science',
     'mechanical-engineering', 'mechatronics', 'nuclear-engineering',
-  ].map((slug) => page(`articles/${slug}.html`)),
+  ].map((slug) => page(`articles/${slug}.html`, articlePage)),
 
   // Component fixture, added in Task 3. The runner skips it until the file exists.
   page('tests/fixtures/components.html', componentsWork),

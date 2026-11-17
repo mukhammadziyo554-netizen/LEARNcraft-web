@@ -1178,6 +1178,47 @@ body.lc {
 }
 
 /* ==========================================================================
+   Page: articles (articles/*.html)
+   ========================================================================== */
+.article {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-block: 24px 48px;
+}
+
+.article-body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.article-note { border-left: 3px solid var(--c-accent); }
+.article-note > :first-child { margin-top: 0; }
+
+.article-table {
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+}
+
+.article-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+}
+
+.article-table th,
+.article-table td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.article-table th { background: var(--c-surface); }
+
+/* ==========================================================================
    Legacy styles — pages without body.lc. Removed as pages move over.
    ========================================================================== */
 
