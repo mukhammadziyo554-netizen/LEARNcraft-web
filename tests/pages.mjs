@@ -270,6 +270,41 @@ async function articlePage(tab, ctx) {
   return out;
 }
 
+// Task 8: remaining learner pages share the chrome, label every field, carry no page <style>.
+async function infoPage(tab, ctx) {
+  const out = await sharedChrome(tab, ctx);
+  const info = await tab.evaluate(() => {
+    const fields = [...document.querySelectorAll('input, select, textarea')]
+      .filter((f) => !['hidden', 'submit', 'button'].includes(f.type) && f.getClientRects().length);
+    const unlabeled = fields.filter((f) => {
+      if (f.getAttribute('aria-label') || f.getAttribute('aria-labelledby')) return false;
+      return !f.labels || ![...f.labels].some((l) => l.textContent.trim() && l.getClientRects().length);
+    }).map((f) => f.id || f.name || f.type);
+    const green = [...document.querySelectorAll('body *')].filter((el) => {
+      const m = getComputedStyle(el).backgroundColor.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?/);
+      if (!m || (m[4] !== undefined && +m[4] === 0)) return false;
+      const [r, g, b] = [+m[1] / 255, +m[2] / 255, +m[3] / 255];
+      const max = Math.max(r, g, b), min = Math.min(r, g, b), d = max - min;
+      if (!d) return false;
+      const sat = d / (1 - Math.abs(max + min - 1));
+      let h = max === r ? ((g - b) / d) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
+      h = (h * 60 + 360) % 360;
+      return h >= 90 && h <= 150 && sat > 0.4 && !el.closest('.lc-alert--success');
+    }).length;
+    return {
+      styleTags: document.querySelectorAll('style').length,
+      unlabeled,
+      green,
+      johnDoe: /John Doe/.test(document.body.innerText) || [...document.querySelectorAll('input')].some((i) => i.value === 'John Doe'),
+    };
+  });
+  if (info.styleTags) out.push(`${info.styleTags} inline <style> block(s)`);
+  for (const f of info.unlabeled.slice(0, 5)) out.push(`field without a visible label: ${f}`);
+  if (info.green) out.push(`${info.green} element(s) with a green background (off-brand)`);
+  if (info.johnDoe) out.push('placeholder person "John Doe" on the page');
+  return out;
+}
+
 // Task 3: shared components and site.js behaviour, tested on the component fixture.
 async function tabUntil(tab, selector, max = 30) {
   for (let i = 0; i < max; i++) {
@@ -377,16 +412,16 @@ async function componentsWork(tab) {
 export const PAGES = [
   page('index.html', homePage),
 
-  page('pages/about.html'),
+  page('pages/about.html', infoPage),
   page('pages/ask-ai.html', askAiPage),
-  page('pages/ai-usage.html'),
-  page('pages/auth.html'),
-  page('pages/login.html'),
+  page('pages/ai-usage.html', infoPage),
+  page('pages/auth.html', infoPage),
+  page('pages/login.html', infoPage),
   page('pages/registration.html'),
-  page('pages/settings.html'),
-  page('pages/support.html'),
-  page('pages/community.html'),
-  page('pages/debug-help.html'),
+  page('pages/settings.html', infoPage),
+  page('pages/support.html', infoPage),
+  page('pages/community.html', infoPage),
+  page('pages/debug-help.html', infoPage),
 
   page('courses/roadmap.html', roadmapPage),
   page('courses/civil-roadmap.html', roadmapPage),
@@ -396,12 +431,12 @@ export const PAGES = [
   page('courses/civil-stage4.html', stagePage(4)),
   page('courses/civil-stage5.html', stagePage(5)),
   page('courses/civil-stage6.html', stagePage(6)),
-  page('courses/choose-field.html'),
-  page('courses/learn.html'),
-  page('courses/practice.html'),
+  page('courses/choose-field.html', infoPage),
+  page('courses/learn.html', infoPage),
+  page('courses/practice.html', infoPage),
 
   page('learning/lesson.html', lessonPage),
-  page('study/civil-foundations.html'),
+  page('study/civil-foundations.html', infoPage),
 
   ...[
     'aerospace-engineering', 'architectural-engineering', 'biomedical-engineering',
