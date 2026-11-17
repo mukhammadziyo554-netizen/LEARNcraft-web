@@ -5,7 +5,10 @@
   "main": "bot.py",
   "scripts": {
     "dev": "python3 -m http.server 8000",
-    "start": "python3 bot.py"
+    "start": "python3 bot.py",
+    "check": "node tests/check.mjs",
+    "lint": "html-validate index.html pages courses learning articles study && stylelint css/style.css",
+    "check:self": "node tests/self-test.mjs"
   },
   "keywords": [
     "telegram",
@@ -19,5 +22,11 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/mukhammadziyo554-netizen/LEARNcraft-web.git"
+  },
+  "devDependencies": {
+    "html-validate": "^11.21.1",
+    "playwright": "^1.65.1",
+    "stylelint": "^18.0.0",
+    "stylelint-config-standard": "^41.0.0"
   }
 }

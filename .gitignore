@@ -8,3 +8,9 @@ __pycache__/
 dist/
 build/
 .DS_Store
+
+# local tooling
+.superpowers/
+.playwright-mcp/
+test-results/
+playwright-report/
