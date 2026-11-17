@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Components — LEARNcraft design system fixture</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <script src="../../js/theme.js"></script>
+  <script src="../../js/i18n.js"></script>
+  <script src="../../js/site.js" defer></script>
+</head>
+<body class="lc">
+  <a class="lc-skip" href="#main">Skip to content</a>
+
+  <header class="lc-header">
+    <div class="lc-container lc-header__inner">
+      <a class="lc-header__brand" href="../../index.html">LEARN<span>craft</span></a>
+      <nav class="lc-nav" aria-label="Main">
+        <a class="lc-nav__link" href="../../index.html" aria-current="page">Home</a>
+        <a class="lc-nav__link" href="../../courses/roadmap.html">Roadmap</a>
+        <a class="lc-nav__link" href="../../learning/lesson.html">Lesson</a>
+        <a class="lc-nav__link" href="../../pages/ask-ai.html">Ask AI</a>
+      </nav>
+      <div class="lc-header__actions">
+        <div class="lc-lang-wrap">
+          <button class="lc-lang" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu" aria-label="Language: English">EN</button>
+          <ul class="lc-lang__menu" id="lang-menu" role="listbox" aria-label="Language" hidden>
+            <li class="lc-lang__option" role="option" data-lang="en" aria-selected="true" tabindex="-1">English</li>
+            <li class="lc-lang__option" role="option" data-lang="ru" aria-selected="false" tabindex="-1">Русский</li>
+            <li class="lc-lang__option" role="option" data-lang="uz" aria-selected="false" tabindex="-1">Oʻzbek</li>
+          </ul>
+        </div>
+        <button class="lc-icon-btn" type="button" data-lc-theme-toggle aria-pressed="false" aria-label="Light theme">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        </button>
+        <button class="lc-burger" type="button" data-lc-drawer-toggle aria-controls="drawer" aria-expanded="false" aria-label="Open menu">
+          <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="lc-drawer" id="drawer" aria-label="Menu" hidden>
+    <a class="lc-drawer__link" href="../../index.html" aria-current="page">Home</a>
+    <a class="lc-drawer__link" href="../../courses/roadmap.html">Roadmap</a>
+    <a class="lc-drawer__link" href="../../learning/lesson.html">Lesson</a>
+    <a class="lc-drawer__link" href="../../pages/ask-ai.html">Ask AI</a>
+    <a class="lc-drawer__link" href="../../pages/settings.html">Settings</a>
+  </nav>
+
+  <main id="main" class="lc-container lc-stack" style="--gap: 32px">
+    <section class="lc-grid-bg lc-stack" style="--gap: 16px">
+      <p class="lc-label">00 / Components</p>
+      <h1>Every shared component on one page</h1>
+      <p class="lc-lead">This page exists for the automated checks. It is not linked from the site.</p>
+      <div class="lc-row">
+        <a class="lc-btn lc-btn--primary" href="#stage">Start stage 1</a>
+        <a class="lc-btn lc-btn--secondary" href="#card">View roadmap</a>
+        <button class="lc-btn lc-btn--ghost" type="button">Ghost button</button>
+      </div>
+    </section>
+
+    <section class="lc-stack" style="--gap: 16px" aria-labelledby="forms-h">
+      <h2 id="forms-h">Form field</h2>
+      <div class="lc-field">
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="email" aria-describedby="email-hint email-error" aria-invalid="true">
+        <p class="lc-field__hint" id="email-hint">We only use this to sign you in.</p>
+      </div>
+      <div class="lc-alert lc-alert--error" role="alert" id="email-error">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+        <p>Enter an email address, like name@example.com.</p>
+      </div>
+      <div class="lc-alert lc-alert--success" role="status">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
+        <p>Saved.</p>
+      </div>
+    </section>
+
+    <section class="lc-stack" style="--gap: 16px" aria-labelledby="cards-h">
+      <h2 id="cards-h">Cards</h2>
+      <div class="lc-card" id="card">
+        <h3>Plain card</h3>
+        <p>Cards hold one idea each.</p>
+      </div>
+      <a class="lc-card lc-card--link" href="../../courses/roadmap.html">
+        <h3>Link card</h3>
+        <p>The whole card is the link.</p>
+      </a>
+      <a class="lc-stage" id="stage" href="../../courses/civil-stage1.html">
+        <span class="lc-label">01 / Stage</span>
+        <span class="lc-stage__title">Foundations</span>
+        <span class="lc-progress" role="progressbar" aria-label="Foundations progress" aria-valuemin="0" aria-valuemax="6" aria-valuenow="2" style="--value: 0.3333"></span>
+        <span class="lc-stage__meta">2 of 6 lessons</span>
+      </a>
+    </section>
+
+    <section class="lc-prose" aria-labelledby="prose-h">
+      <h2 id="prose-h">Prose</h2>
+      <p>Long-form text uses a readable measure. A <a href="#main">link inside text</a> keeps its underline.</p>
+      <p class="lc-glyphs">Oʻzbek, gʻisht — <code class="lc-glyphs">Oʻzbek, gʻisht</code></p>
+    </section>
+  </main>
+
+  <footer class="lc-footer">
+    <div class="lc-container lc-footer__inner">
+      <p class="lc-footer__brand">LEARNcraft</p>
+      <nav aria-label="Footer">
+        <a href="../../pages/about.html">About</a>
+        <a href="../../pages/support.html">Support</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
