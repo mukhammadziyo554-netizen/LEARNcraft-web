@@ -3,8 +3,29 @@
 
 const page = (path, expect) => ({ path, name: path.replace(/\.html$/, ''), expect });
 
+// Task 2: the splash gate is gone and the home page renders straight away with a styled nav.
+async function homeRendersWithoutGate(tab) {
+  return tab.evaluate(() => {
+    const out = [];
+    for (const id of ['startupOverlay', 'welcomeMessage']) {
+      if (document.getElementById(id)) out.push(`#${id} still exists`);
+    }
+    const content = document.getElementById('pageContent');
+    if (!content) out.push('#pageContent missing');
+    else {
+      const cs = getComputedStyle(content);
+      if (content.classList.contains('hidden') || cs.display === 'none' || parseFloat(cs.opacity) === 0) {
+        out.push('#pageContent is not visible after load');
+      }
+    }
+    const blue = [...document.querySelectorAll('.main-nav a')].filter((a) => getComputedStyle(a).color === 'rgb(0, 0, 238)');
+    if (blue.length) out.push(`${blue.length} nav link(s) render as unstyled default blue`);
+    return out;
+  });
+}
+
 export const PAGES = [
-  page('index.html'),
+  page('index.html', homeRendersWithoutGate),
 
   page('pages/about.html'),
   page('pages/ask-ai.html'),
