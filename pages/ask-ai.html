@@ -125,12 +125,18 @@
         const userInput = document.getElementById('userInput');
 
         // Status notices (signed out, no Pro access, founder): icon + text, announced.
-        function showNotice(text, kind) {
+        function showNotice(text, kind, link) {
             const box = document.createElement('div');
             box.className = 'lc-alert ' + (kind === 'success' ? 'lc-alert--success' : 'lc-alert--error');
             box.setAttribute('role', kind === 'success' ? 'status' : 'alert');
             box.innerHTML = '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg><p></p>';
             box.querySelector('p').textContent = text;
+            if (link) {
+                const a = document.createElement('a');
+                a.href = link.href;
+                a.textContent = link.text;
+                box.querySelector('p').append(' ', a);
+            }
             chatMessages.appendChild(box);
             scrollToBottom();
         }
@@ -142,7 +148,8 @@
             if (!currentUser) {
                 userInput.disabled = true;
                 userInput.placeholder = 'Sign in to ask a question';
-                showNotice('Please sign in to use Ask AI.', 'error');
+                document.querySelector('#chatForm [type="submit"]').disabled = true;
+                showNotice('Please sign in to use Ask AI.', 'error', { href: 'login.html', text: 'Sign in' });
                 return;
             }
 
@@ -153,6 +160,7 @@
                 
                 userInput.disabled = true;
                 userInput.placeholder = 'Ask AI needs LEARNcraft Pro';
+                document.querySelector('#chatForm [type="submit"]').disabled = true;
                 
                 if (daysRemaining && daysRemaining > 0) {
                     showNotice(`Pro trial active: ${daysRemaining} days left.`, 'error');

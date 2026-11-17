@@ -141,6 +141,20 @@ async function sharedChrome(tab, ctx) {
   if (!(await tab.evaluate(() => document.body.classList.contains('lc')))) out.push('body is not opted in (class="lc")');
   if (got.header !== want.header) out.push('header/drawer links differ from the home page');
   if (got.footer !== want.footer) out.push('footer links differ from the home page');
+  // [hidden] must really hide (component display rules must not override it)
+  const shown = await tab.evaluate(() => [...document.querySelectorAll('[hidden]')]
+    .filter((el) => getComputedStyle(el).display !== 'none').map((el) => el.id || el.className));
+  for (const h of shown) out.push(`element with hidden attribute is still displayed: ${h}`);
+  // the sticky header stays pinned on long pages
+  const pinned = await tab.evaluate(async () => {
+    if (document.documentElement.scrollHeight < innerHeight * 2.5) return null;
+    window.scrollTo(0, innerHeight * 2);
+    await new Promise((r) => setTimeout(r, 100));
+    const top = document.querySelector('.lc-header')?.getBoundingClientRect().top;
+    window.scrollTo(0, 0);
+    return top;
+  });
+  if (pinned !== null && Math.abs(pinned) > 1) out.push(`sticky header scrolled away (top ${Math.round(pinned)}px)`);
   return out;
 }
 
@@ -259,6 +273,12 @@ async function askAiPage(tab, ctx) {
   if (info.emoji) out.push('emoji used as status icons in the chat');
   if (!info.label) out.push('question input has no visible label');
   if (info.slogans) out.push('slogan filler still on the page');
+  const gate = await tab.evaluate(() => ({
+    link: !!document.querySelector('#chatMessages .lc-alert--error a[href="login.html"]'),
+    sendDisabled: document.querySelector('#chatForm [type="submit"]')?.disabled,
+  }));
+  if (!gate.link) out.push('signed-out notice has no link to the sign-in page');
+  if (!gate.sendDisabled) out.push('Send stays enabled while the question box is disabled');
   return out;
 }
 

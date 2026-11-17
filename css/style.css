@@ -59,6 +59,7 @@ body.lc.light-mode {
 
 /* ---------- Base (opt-in) ---------- */
 body.lc {
+  height: auto; /* legacy 'html, body { height: 100% }' would cap the page and unpin the sticky header */
   margin: 0;
   min-height: 100vh;
   background: var(--c-bg);
@@ -96,6 +97,8 @@ body.lc {
 :where(.lc) a { color: inherit; }
 
 :where(.lc) [id] { scroll-margin-top: calc(var(--header-h) + env(safe-area-inset-top) + 16px); }
+
+:where(.lc) [hidden] { display: none !important; } /* component display rules must not beat the hidden attribute */
 
 .lc :focus-visible {
   outline: 2px solid var(--c-focus);
@@ -529,6 +532,12 @@ body.lc {
 .lc-alert svg {
   flex: none;
   margin-top: 3px;
+}
+
+.lc-alert a {
+  color: var(--c-accent-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .lc-alert--error { border-left-color: var(--c-danger); }
@@ -1781,26 +1790,29 @@ body.lc {
 /* --- Telegram Mini App adaptive header --- */
 @media (max-width: 768px) {
     body.tg-mini-app .nav-bar, body.tg-mini-app .topbar {
-        flex-direction: row;
+        flex-flow: row nowrap;
         align-items: center;
-        flex-wrap: nowrap;
     }
+
     body.tg-mini-app .nav-center, body.tg-mini-app .main-nav, body.tg-mini-app .nav-links {
         display: none !important;
     }
+
     body.tg-mini-app .tg-nav-scroll {
         display: flex !important;
         flex-direction: row;
         overflow-x: auto;
         gap: 10px;
-        padding: 8px 0 0 0;
-        margin: 0 -12px 0 -12px;
+        padding: 8px 0 0;
+        margin: 0 -12px;
         background: transparent;
         scrollbar-width: none;
     }
+
     body.tg-mini-app .tg-nav-scroll::-webkit-scrollbar {
         display: none;
     }
+
     body.tg-mini-app .tg-nav-scroll a, body.tg-mini-app .tg-nav-scroll button {
         flex: 0 0 auto;
         min-width: 80px;
@@ -1815,6 +1827,7 @@ body.lc {
         text-align: center;
         transition: background 0.2s, color 0.2s;
     }
+
     body.tg-mini-app .tg-nav-scroll a.active, body.tg-mini-app .tg-nav-scroll button.active {
         background: #FFD84D;
         color: #000;
@@ -1835,13 +1848,13 @@ html, body {
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    color: #ffffff;
+    color: #fff;
     min-height: 100vh;
     overflow-x: hidden;
 }
 
 body.dark {
-    background: radial-gradient(circle at top, #0a0a0a 0%, #000000 60%, #000000 100%);
+    background: radial-gradient(circle at top, #0a0a0a 0%, #000 60%, #000 100%);
 }
 
 /* ===== TOPBAR HEADER ===== */
@@ -1851,8 +1864,8 @@ body.dark {
     left: 0;
     right: 0;
     height: 70px;
-    background: rgba(0, 0, 0, 0.95);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgb(0 0 0 / 95%);
+    border-bottom: 1px solid rgb(255 255 255 / 8%);
     display: flex;
     align-items: center;
     padding: 0 20px;
@@ -1919,7 +1932,7 @@ body.dark {
 .hero h1 {
     font-size: 48px;
     font-weight: 700;
-    color: #ffffff;
+    color: #fff;
     margin-bottom: 16px;
     letter-spacing: -0.5px;
 }
@@ -1942,8 +1955,8 @@ body.dark {
 
 /* ===== STAGE CARDS ===== */
 .stage-card {
-    background: #111111;
-    border: 1px solid #222222;
+    background: #111;
+    border: 1px solid #222;
     border-radius: 12px;
     padding: 30px 25px;
     margin-bottom: 25px;
@@ -1952,19 +1965,19 @@ body.dark {
 
 .stage-card:hover {
     border-color: #FFD84D;
-    box-shadow: 0 0 30px rgba(255, 216, 77, 0.2);
+    box-shadow: 0 0 30px rgb(255 216 77 / 20%);
 }
 
 .stage-card h2 {
     font-size: 20px;
     font-weight: 600;
-    color: #ffffff;
+    color: #fff;
     margin-bottom: 12px;
 }
 
 .stage-card p {
     font-size: 14px;
-    color: #999999;
+    color: #999;
     margin-bottom: 20px;
     line-height: 1.5;
 }
@@ -1974,7 +1987,7 @@ body.dark {
     display: inline-block;
     padding: 12px 28px;
     background: linear-gradient(90deg, #ffd84d, #ffb700);
-    color: #000000;
+    color: #000;
     border: none;
     border-radius: 8px;
     font-weight: 700;
@@ -1983,12 +1996,12 @@ body.dark {
     text-decoration: none;
     text-align: center;
     transition: all 0.3s ease;
-    box-shadow: 0 0 20px rgba(255, 216, 77, 0.2);
+    box-shadow: 0 0 20px rgb(255 216 77 / 20%);
 }
 
 .open-stage-btn:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 35px rgba(255, 216, 77, 0.4);
+    box-shadow: 0 0 35px rgb(255 216 77 / 40%);
 }
 
 .open-stage-btn:active {
@@ -1998,20 +2011,20 @@ body.dark {
 .start-stage-btn {
     padding: 14px 32px;
     background: linear-gradient(90deg, #ffd84d, #ffb700);
-    color: #000000;
+    color: #000;
     border: none;
     border-radius: 8px;
     font-weight: 700;
     font-size: 16px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 0 20px rgba(255, 216, 77, 0.2);
+    box-shadow: 0 0 20px rgb(255 216 77 / 20%);
     margin-bottom: 30px;
 }
 
 .start-stage-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 35px rgba(255, 216, 77, 0.4);
+    box-shadow: 0 0 35px rgb(255 216 77 / 40%);
 }
 
 .start-stage-btn:active {
@@ -2035,6 +2048,7 @@ body.dark {
         opacity: 0;
         transform: translateY(-10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -2061,7 +2075,7 @@ body.dark {
 .stat-card:hover {
     border-color: #FFD84D;
     background: linear-gradient(145deg, #141414, #0a0a0a);
-    box-shadow: 0 0 20px rgba(255, 216, 77, 0.15);
+    box-shadow: 0 0 20px rgb(255 216 77 / 15%);
 }
 
 .stat-card h3 {
@@ -2099,7 +2113,7 @@ body.dark {
     width: 0%;
     background: linear-gradient(90deg, #ffd84d, #ffb700);
     transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: inset 0 0 10px rgba(255, 216, 77, 0.3);
+    box-shadow: inset 0 0 10px rgb(255 216 77 / 30%);
 }
 
 .progress-label {
@@ -2124,7 +2138,7 @@ body.dark {
     border-radius: 14px;
     border: 1px solid #1a1a1a;
     margin: 40px 0;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 32px rgb(0 0 0 / 40%);
 }
 
 .tracker-header {
@@ -2134,7 +2148,7 @@ body.dark {
 .tracker-header h2 {
     font-size: 18px;
     font-weight: 700;
-    color: #ffffff;
+    color: #fff;
     margin-bottom: 8px;
 }
 
@@ -2150,7 +2164,7 @@ body.dark {
 }
 
 .tracker-table thead {
-    background: rgba(255, 216, 77, 0.05);
+    background: rgb(255 216 77 / 5%);
 }
 
 .tracker-table th {
@@ -2171,7 +2185,7 @@ body.dark {
 }
 
 .tracker-table tbody tr:hover {
-    background: rgba(255, 216, 77, 0.03);
+    background: rgb(255 216 77 / 3%);
 }
 
 .task-name {
@@ -2193,13 +2207,13 @@ body.dark {
 }
 
 .tracker-table input[type="checkbox"]:checked {
-    filter: drop-shadow(0 0 4px rgba(255, 216, 77, 0.4));
+    filter: drop-shadow(0 0 4px rgb(255 216 77 / 40%));
 }
 
 /* ===== TIP SECTION ===== */
 .tip-section {
-    background: linear-gradient(145deg, rgba(255, 216, 77, 0.08), rgba(255, 216, 77, 0.02));
-    border: 1px solid rgba(255, 216, 77, 0.2);
+    background: linear-gradient(145deg, rgb(255 216 77 / 8%), rgb(255 216 77 / 2%));
+    border: 1px solid rgb(255 216 77 / 20%);
     border-radius: 12px;
     padding: 24px;
     margin: 40px 0;
@@ -2254,7 +2268,7 @@ body.dark {
 .week-card:hover {
     border-color: #FFD84D;
     background: linear-gradient(145deg, #141414, #0a0a0a);
-    box-shadow: 0 0 20px rgba(255, 216, 77, 0.15);
+    box-shadow: 0 0 20px rgb(255 216 77 / 15%);
 }
 
 .week-card h3 {
@@ -2280,7 +2294,7 @@ body.dark {
     color: #888;
     font-size: 13px;
     font-style: italic;
-    margin: 12px 0 0 0;
+    margin: 12px 0 0;
     padding-top: 12px;
     border-top: 1px solid #1a1a1a;
 }
@@ -2579,17 +2593,17 @@ body.dark {
 
 /* ===== LIGHT MODE STYLES ===== */
 body.light-mode:not(.lc) {
-    background: #ffffff !important;
-    color: #000000 !important;
+    background: #fff !important;
+    color: #000 !important;
 }
 
 body.light-mode:not(.lc) .topbar {
-    background: rgba(255, 255, 255, 0.95);
-    border-bottom: 1px solid #000000;
+    background: rgb(255 255 255 / 95%);
+    border-bottom: 1px solid #000;
 }
 
 body.light-mode:not(.lc) .back-nav {
-    color: #000000;
+    color: #000;
 }
 
 body.light-mode:not(.lc) .back-nav:hover {
@@ -2603,16 +2617,16 @@ body.light-mode:not(.lc) .topbar-title {
 body.light-mode:not(.lc) .hero h1,
 body.light-mode:not(.lc) .hero h2,
 body.light-mode:not(.lc) h1, body.light-mode:not(.lc) h2, body.light-mode:not(.lc) h3 {
-    color: #000000 !important;
+    color: #000 !important;
 }
 
 body.light-mode:not(.lc) .hero p,
 body.light-mode:not(.lc) p, body.light-mode:not(.lc) .description {
-    color: #000000 !important;
+    color: #000 !important;
 }
 
 body.light-mode:not(.lc) .breadcrumb {
-    color: #000000;
+    color: #000;
 }
 
 /* Keep yellow elements yellow in light mode */
@@ -2629,29 +2643,29 @@ body.light-mode:not(.lc) .card,
 body.light-mode:not(.lc) .field-card,
 body.light-mode:not(.lc) .week-card,
 body.light-mode:not(.lc) .level-card {
-    background: #ffffff;
-    border: 2px solid #000000 !important;
-    color: #000000;
+    background: #fff;
+    border: 2px solid #000 !important;
+    color: #000;
 }
 
 body.light-mode:not(.lc) .card h3,
 body.light-mode:not(.lc) .field-card h3,
 body.light-mode:not(.lc) .week-card h3 {
-    color: #000000 !important;
+    color: #000 !important;
 }
 
 body.light-mode:not(.lc) .card p,
 body.light-mode:not(.lc) .field-card p,
 body.light-mode:not(.lc) .week-card p {
-    color: #000000 !important;
+    color: #000 !important;
 }
 
 /* Buttons */
 body.light-mode:not(.lc) .btn,
 body.light-mode:not(.lc) button {
     background: #FFD700;
-    color: #000000;
-    border: 2px solid #000000;
+    color: #000;
+    border: 2px solid #000;
 }
 
 body.light-mode:not(.lc) .btn:hover,
@@ -2660,14 +2674,14 @@ body.light-mode:not(.lc) button:hover {
 }
 
 body.light-mode:not(.lc) .btn-secondary {
-    background: #ffffff;
-    color: #000000;
-    border: 2px solid #000000;
+    background: #fff;
+    color: #000;
+    border: 2px solid #000;
 }
 
 /* Navigation and links */
 body.light-mode:not(.lc) a {
-    color: #000000;
+    color: #000;
 }
 
 body.light-mode:not(.lc) a:hover {
@@ -2678,33 +2692,33 @@ body.light-mode:not(.lc) a:hover {
 body.light-mode:not(.lc) input,
 body.light-mode:not(.lc) textarea,
 body.light-mode:not(.lc) select {
-    background: #ffffff;
-    color: #000000;
-    border: 2px solid #000000;
+    background: #fff;
+    color: #000;
+    border: 2px solid #000;
 }
 
 body.light-mode:not(.lc) input::placeholder,
 body.light-mode:not(.lc) textarea::placeholder {
-    color: #666666;
+    color: #666;
 }
 
 /* Roadmap specific */
 body.light-mode:not(.lc) .timeline-line {
-    border-left: 2px solid #000000;
+    border-left: 2px solid #000;
 }
 
 body.light-mode:not(.lc) .stage-card {
-    background: #ffffff;
-    border: 2px solid #000000 !important;
+    background: #fff;
+    border: 2px solid #000 !important;
 }
 
 body.light-mode:not(.lc) .stage-title {
-    color: #000000;
+    color: #000;
 }
 
 body.light-mode:not(.lc) .topic-item {
-    background: #ffffff;
-    border: 2px solid #000000 !important;
+    background: #fff;
+    border: 2px solid #000 !important;
 }
 
 /* Ensure all text is black except yellow highlights */
@@ -2712,12 +2726,12 @@ body.light-mode:not(.lc) .hero-feature-box h4,
 body.light-mode:not(.lc) .section-heading h2,
 body.light-mode:not(.lc) .feature-card h3,
 body.light-mode:not(.lc) .roadmap-card h3 {
-    color: #000000 !important;
+    color: #000 !important;
 }
 
 body.light-mode:not(.lc) .hero-feature-box p,
 body.light-mode:not(.lc) .section-heading p,
 body.light-mode:not(.lc) .feature-card p,
 body.light-mode:not(.lc) .roadmap-card p {
-    color: #000000 !important;
+    color: #000 !important;
 }
