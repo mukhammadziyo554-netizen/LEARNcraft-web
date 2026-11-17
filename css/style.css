@@ -876,6 +876,198 @@ body.lc {
 }
 
 /* ==========================================================================
+   Page: roadmap + stages (courses/roadmap.html, courses/civil-stage*.html)
+   Roadmap reuses .home-hero, .home-section, .home-stages.
+   ========================================================================== */
+.stage {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding-block: 24px 48px;
+}
+
+.stage-back { align-self: flex-start; margin-left: -12px; }
+
+.stage-progress {
+  display: grid;
+  gap: 10px;
+}
+
+.stage-progress__head,
+.stage-progress__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+:where(.lc) .stage-progress__title { font-size: var(--fs-md); }
+
+.stage-progress__count {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--c-accent-text);
+}
+
+.stage-progress__foot p {
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+}
+
+.stage-progress .lc-progress { height: 8px; }
+
+.stage-section__sub { color: var(--c-text-muted); }
+
+/* Stage 1 topics */
+.stage-topics {
+  display: grid;
+  gap: 8px;
+}
+
+.stage-topic {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+}
+
+.stage-topic summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 52px;
+  padding: 12px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+
+.stage-topic summary::-webkit-details-marker { display: none; }
+
+.stage-topic summary::after {
+  content: "+";
+  flex: none;
+  font-family: var(--font-mono);
+  color: var(--c-accent-text);
+}
+
+.stage-topic[open] summary::after { content: "–"; }
+.stage-topic__body { padding: 0 16px 8px; }
+
+.stage-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  margin: 8px 16px 12px;
+  padding-top: 8px;
+  font-size: var(--fs-sm);
+  border-top: 1px solid var(--c-border);
+  cursor: pointer;
+}
+
+.stage-check input,
+.stage-day input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--c-accent);
+}
+
+/* Stages 2-6 */
+.stage-weeks {
+  display: grid;
+  gap: 12px;
+}
+
+.stage-week ul {
+  display: grid;
+  gap: 4px;
+  padding-left: 1.1em;
+}
+
+.stage-week ul,
+.stage-week__goal { font-size: var(--fs-sm); }
+
+.stage-tasks {
+  display: grid;
+  gap: 12px;
+}
+
+.stage-task {
+  margin: 0;
+  padding: 12px 16px 16px;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+}
+
+.stage-task legend {
+  padding: 0 4px;
+  font-weight: 600;
+}
+
+.stage-days {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.stage-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 56px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--c-text-muted);
+  background: var(--c-surface-2);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.stage-day:has(input:checked) {
+  color: var(--c-text);
+  border-color: var(--c-accent);
+}
+
+.stage-day:has(input:focus-visible) { outline: 2px solid var(--c-focus); outline-offset: 2px; }
+.stage-day input:focus-visible { outline: none; }
+
+.stage-tip {
+  border-left: 3px solid var(--c-accent);
+}
+
+.stage-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 24px;
+  border-top: 1px solid var(--c-border);
+}
+
+.stage-nav .lc-btn:only-child { margin-left: auto; }
+
+@media (min-width: 768px) {
+  .stage { padding-block: 32px 64px; }
+
+  .stage-progress {
+    position: sticky;
+    top: calc(var(--header-h) + env(safe-area-inset-top) + 8px);
+    z-index: 5;
+  }
+
+  .stage-weeks { grid-template-columns: repeat(2, 1fr); }
+  .stage-days { grid-template-columns: repeat(7, 1fr); }
+}
+
+/* ==========================================================================
    Legacy styles — pages without body.lc. Removed as pages move over.
    ========================================================================== */
 

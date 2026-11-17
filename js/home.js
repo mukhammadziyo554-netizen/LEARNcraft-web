@@ -1,6 +1,6 @@
 // Home page behaviour: pricing plan switch, the keyword-based Ask AI chat,
-// signed-in state in the header, Telegram mini app setup, and activity saving.
-// Shared header, drawer, language and theme behaviour lives in js/site.js.
+// Telegram mini app setup, and activity saving.
+// Shared header (incl. signed-in state), drawer, language and theme live in js/site.js.
 
 (function () {
     'use strict';
@@ -168,59 +168,6 @@
         });
     }
 
-    /* ---------- Signed-in state ---------- */
-    const ADMIN_EMAIL = 'mukhammadziyo554@gmail.com';
-
-    function initAccount() {
-        const signIn = document.getElementById('signInBtn');
-        const account = document.getElementById('userAccount');
-        const user = readJSON('learncraft_current_user', null);
-        if (!signIn || !account) return;
-
-        if (!user || !user.email) {
-            signIn.hidden = false;
-            account.hidden = true;
-            return;
-        }
-
-        signIn.hidden = true;
-        account.hidden = false;
-        document.getElementById('userCircle').textContent = user.email.charAt(0).toUpperCase();
-        document.getElementById('userEmail').textContent = user.email;
-
-        const circle = document.getElementById('userCircle');
-        const menu = document.getElementById('userMenu');
-        circle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const open = menu.hidden;
-            menu.hidden = !open;
-            circle.setAttribute('aria-expanded', String(open));
-        });
-        document.addEventListener('click', (e) => {
-            if (!account.contains(e.target)) {
-                menu.hidden = true;
-                circle.setAttribute('aria-expanded', 'false');
-            }
-        });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !menu.hidden) {
-                menu.hidden = true;
-                circle.setAttribute('aria-expanded', 'false');
-                circle.focus();
-            }
-        });
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-            localStorage.removeItem('learncraft_current_user');
-            window.location.reload();
-        });
-
-        // The admin link is shown only to the admin account.
-        if (user.email.toLowerCase() === ADMIN_EMAIL) {
-            const admin = document.getElementById('sidebarAdminLink');
-            if (admin) admin.hidden = false;
-        }
-    }
-
     /* ---------- Telegram mini app ---------- */
     function initTelegram() {
         const tg = window.Telegram && window.Telegram.WebApp;
@@ -253,7 +200,6 @@
     function init() {
         initPricing();
         initChat();
-        initAccount();
         initTelegram();
         initActivity();
     }

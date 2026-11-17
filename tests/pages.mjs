@@ -105,6 +105,93 @@ async function homePage(tab, ctx) {
   return out;
 }
 
+// Task 5: roadmap and stage pages share the home header/footer, show real saved progress only.
+async function chromeSignature(tab) {
+  return tab.evaluate(() => {
+    const links = (sel) => [...document.querySelectorAll(sel)].map((a) => `${a.textContent.trim()} -> ${a.href.replace(/#.*$/, '')}`);
+    return {
+      header: links('.lc-header a, .lc-drawer a').join('\n'),
+      footer: links('.lc-footer a').join('\n'),
+    };
+  });
+}
+
+async function sharedChrome(tab, ctx) {
+  const out = [];
+  const home = await tab.context().newPage();
+  await home.goto(`${ctx.url}/index.html`);
+  const want = await chromeSignature(home);
+  await home.close();
+  const got = await chromeSignature(tab);
+  if (!(await tab.evaluate(() => document.body.classList.contains('lc')))) out.push('body is not opted in (class="lc")');
+  if (got.header !== want.header) out.push('header/drawer links differ from the home page');
+  if (got.footer !== want.footer) out.push('footer links differ from the home page');
+  return out;
+}
+
+const FAKE_PROGRESS = ['34%', '4 days', 'Study Streak', 'Weekly Completion'];
+
+function stagePage(n) {
+  return async (tab, ctx) => {
+    const out = await sharedChrome(tab, ctx);
+    const info = await tab.evaluate((fake) => ({
+      h1: document.querySelector('h1')?.textContent.trim(),
+      back: !!document.querySelector('a[href="roadmap.html"]'),
+      fake: fake.filter((t) => document.body.innerText.includes(t)),
+      unlabeled: [...document.querySelectorAll('input[type="checkbox"]')]
+        .filter((c) => !c.labels?.length && !c.getAttribute('aria-label')).length,
+      boxes: document.querySelectorAll('input[type="checkbox"][data-task]').length,
+    }), FAKE_PROGRESS);
+    const title = `Stage ${n} — ${STAGE_TITLES[n - 1]}`;
+    if (info.h1 !== title) out.push(`h1 is "${info.h1}", expected "${title}"`);
+    if (!info.back) out.push('no link back to roadmap.html');
+    for (const t of info.fake) out.push(`made-up progress text on the page: "${t}"`);
+    if (info.unlabeled) out.push(`${info.unlabeled} checkbox(es) without a label`);
+    if (!info.boxes) out.push('no trackable checkboxes (input[data-task])');
+    else {
+      // progress survives a reload
+      await tab.locator('input[type="checkbox"][data-task]').first().check();
+      const before = await tab.$eval('[data-stage-progress]', (p) => p.getAttribute('aria-valuenow')).catch(() => null);
+      await tab.reload();
+      const after = await tab.evaluate(() => ({
+        checked: document.querySelector('input[type="checkbox"][data-task]').checked,
+        now: document.querySelector('[data-stage-progress]')?.getAttribute('aria-valuenow'),
+      }));
+      if (before !== '1') out.push(`progress bar shows ${before} after ticking one box, expected 1`);
+      if (!after.checked || after.now !== '1') out.push('ticked progress is not kept after reload');
+      await tab.evaluate(() => localStorage.removeItem('learncraft_stage_progress'));
+    }
+    return out;
+  };
+}
+
+async function roadmapPage(tab, ctx) {
+  const out = await sharedChrome(tab, ctx);
+  const info = await tab.evaluate(() => ({
+    stages: [...document.querySelectorAll('.lc-stage')].map((s) => ({
+      title: s.querySelector('.lc-stage__title')?.textContent.trim(),
+      label: s.querySelector('.lc-label')?.textContent.trim(),
+      href: s.getAttribute('href'),
+      status: s.querySelector('.lc-stage__meta')?.textContent.trim(),
+    })),
+  }));
+  if (info.stages.length !== 6) out.push(`expected 6 .lc-stage entries, found ${info.stages.length}`);
+  info.stages.forEach((s, i) => {
+    const nn = String(i + 1).padStart(2, '0');
+    if (s.title !== STAGE_TITLES[i]) out.push(`stage ${i + 1} title "${s.title}"`);
+    if (!s.label?.includes(nn)) out.push(`stage ${i + 1} label "${s.label}" lacks ${nn}`);
+    if (s.href !== `civil-stage${i + 1}.html`) out.push(`stage ${i + 1} links to "${s.href}"`);
+    if (s.status !== 'Not started') out.push(`stage ${i + 1} status "${s.status}" with no saved progress`);
+  });
+  // saved progress shows up
+  await tab.evaluate(() => localStorage.setItem('learncraft_stage_progress', JSON.stringify({ 2: { done: ['a', 'b'], total: 35 } })));
+  await tab.reload();
+  const s2 = await tab.$eval('.lc-stage:nth-of-type(1)', () => document.querySelectorAll('.lc-stage')[1].querySelector('.lc-stage__meta')?.textContent.trim()).catch(() => null);
+  if (s2 !== '2 of 35 done') out.push(`stage 2 status with saved progress is "${s2}", expected "2 of 35 done"`);
+  await tab.evaluate(() => localStorage.removeItem('learncraft_stage_progress'));
+  return out;
+}
+
 // Task 3: shared components and site.js behaviour, tested on the component fixture.
 async function tabUntil(tab, selector, max = 30) {
   for (let i = 0; i < max; i++) {
@@ -223,14 +310,14 @@ export const PAGES = [
   page('pages/community.html'),
   page('pages/debug-help.html'),
 
-  page('courses/roadmap.html'),
-  page('courses/civil-roadmap.html'),
-  page('courses/civil-stage1.html'),
-  page('courses/civil-stage2.html'),
-  page('courses/civil-stage3.html'),
-  page('courses/civil-stage4.html'),
-  page('courses/civil-stage5.html'),
-  page('courses/civil-stage6.html'),
+  page('courses/roadmap.html', roadmapPage),
+  page('courses/civil-roadmap.html', roadmapPage),
+  page('courses/civil-stage1.html', stagePage(1)),
+  page('courses/civil-stage2.html', stagePage(2)),
+  page('courses/civil-stage3.html', stagePage(3)),
+  page('courses/civil-stage4.html', stagePage(4)),
+  page('courses/civil-stage5.html', stagePage(5)),
+  page('courses/civil-stage6.html', stagePage(6)),
   page('courses/choose-field.html'),
   page('courses/learn.html'),
   page('courses/practice.html'),

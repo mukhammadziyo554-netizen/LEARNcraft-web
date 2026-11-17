@@ -1,5 +1,6 @@
 // Shared page behaviour for the LEARNcraft design system:
-// drawer menu, language menu, theme toggle, and one-time storage key migration.
+// drawer menu, language menu, theme toggle, signed-in header state,
+// and one-time storage key migration.
 // Bound by markup (classes and data attributes), so pages need no inline JS.
 // Every binding does nothing if its element is missing.
 
@@ -210,11 +211,65 @@
         render();
     }
 
+    /* ---------- Signed-in state ---------- */
+    const ADMIN_EMAIL = 'mukhammadziyo554@gmail.com';
+
+    function initAccount() {
+        const signIn = document.getElementById('signInBtn');
+        const account = document.getElementById('userAccount');
+        const user = storage((ls) => JSON.parse(ls.getItem('learncraft_current_user') || 'null'));
+        if (!signIn || !account) return;
+
+        if (!user || !user.email) {
+            signIn.hidden = false;
+            account.hidden = true;
+            return;
+        }
+
+        signIn.hidden = true;
+        account.hidden = false;
+        document.getElementById('userCircle').textContent = user.email.charAt(0).toUpperCase();
+        document.getElementById('userEmail').textContent = user.email;
+
+        const circle = document.getElementById('userCircle');
+        const menu = document.getElementById('userMenu');
+        circle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const open = menu.hidden;
+            menu.hidden = !open;
+            circle.setAttribute('aria-expanded', String(open));
+        });
+        document.addEventListener('click', (e) => {
+            if (!account.contains(e.target)) {
+                menu.hidden = true;
+                circle.setAttribute('aria-expanded', 'false');
+            }
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !menu.hidden) {
+                menu.hidden = true;
+                circle.setAttribute('aria-expanded', 'false');
+                circle.focus();
+            }
+        });
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('learncraft_current_user');
+            window.location.reload();
+        });
+
+        // The admin link is shown only to the admin account.
+        if (user.email.toLowerCase() === ADMIN_EMAIL) {
+            const admin = document.getElementById('sidebarAdminLink');
+            if (admin) admin.hidden = false;
+        }
+    }
+
     function init() {
         migrateStorage();
         initDrawer();
         initLanguageMenu();
         initThemeToggle();
+        initAccount();
     }
 
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

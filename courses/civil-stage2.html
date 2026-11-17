@@ -1,197 +1,246 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#000000">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>Stage 2 — Core Civil Concepts | LEARNcraft</title>
-  <script src="../js/theme.js"></script>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <link rel="stylesheet" href="../css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Master statics, mechanics of materials, and structural principles essential for civil engineering.">
+    <meta name="theme-color" content="#0b0b0b">
+    <title>Stage 2 — Core Civil Concepts — LEARNcraft</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/site.js" defer></script>
+    <script src="../js/stage.js" defer></script>
 </head>
-<body class="dark">
+<body class="lc">
+    <a class="lc-skip" href="#main">Skip to content</a>
 
-<header class="topbar">
-  <div class="topbar-container">
-    <button onclick="window.history.back()" class="back-nav">← Back</button>
-    <span class="topbar-title">LEARNcraft</span>
-    <div style="width: 50px;"></div>
-  </div>
-</header>
+    <header class="lc-header">
+        <div class="lc-container lc-header__inner">
+            <a class="lc-header__brand" href="../index.html">LEARN<span>craft</span></a>
+            <nav class="lc-nav" aria-label="Main">
+                <a class="lc-nav__link" href="../index.html" data-i18n="nav.home">Home</a>
+                <a class="lc-nav__link" href="../courses/roadmap.html" aria-current="page">Roadmap</a>
+                <a class="lc-nav__link" href="../learning/lesson.html">Lesson</a>
+                <a class="lc-nav__link" href="../pages/ask-ai.html">Ask AI</a>
+                <a class="lc-nav__link" href="../pages/about.html" data-i18n="nav.about">About</a>
+                <a class="lc-nav__link" href="../index.html#pricing" data-i18n="nav.pro">LEARNcraft Pro</a>
+            </nav>
+            <div class="lc-header__actions">
+                <div class="lc-lang-wrap">
+                    <button class="lc-lang" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu" aria-label="Language: English">EN</button>
+                    <ul class="lc-lang__menu" id="lang-menu" role="listbox" aria-label="Language" hidden>
+                        <li class="lc-lang__option" role="option" data-lang="en" aria-selected="true" tabindex="-1">English</li>
+                        <li class="lc-lang__option" role="option" data-lang="ru" aria-selected="false" tabindex="-1">Русский</li>
+                        <li class="lc-lang__option" role="option" data-lang="uz" aria-selected="false" tabindex="-1">Oʻzbek</li>
+                    </ul>
+                </div>
+                <button class="lc-icon-btn" type="button" data-lc-theme-toggle aria-pressed="false" aria-label="Light theme">
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                </button>
+                <a class="lc-btn lc-btn--secondary home-signin" id="signInBtn" href="../pages/login.html" data-i18n="nav.signIn">Sign In</a>
+                <div class="home-account" id="userAccount" hidden>
+                    <button class="home-account__circle" id="userCircle" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="userMenu" aria-label="Account menu">U</button>
+                    <div class="home-account__menu" id="userMenu" role="menu" hidden>
+                        <p class="home-account__email" id="userEmail"></p>
+                        <a class="home-account__item" role="menuitem" href="../pages/settings.html">Account settings</a>
+                        <button class="home-account__item" role="menuitem" id="logoutBtn" type="button">Log out</button>
+                    </div>
+                </div>
+                <button class="lc-burger" type="button" data-lc-drawer-toggle aria-controls="drawer" aria-expanded="false" aria-label="Open menu">
+                    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
 
-<section class="hero small">
-  <div class="hero-content">
-    <div class="breadcrumb">Civil Engineering</div>
-    <h1>Stage 2 — Core Civil Concepts</h1>
-    <p>Master statics, mechanics of materials, and structural principles essential for civil engineering.</p>
-    <button class="start-stage-btn" onclick="startStage()">START STAGE & TRACK PROGRESS</button>
-  </div>
-</section>
+    <nav class="lc-drawer" id="drawer" aria-label="Menu" hidden>
+        <a class="lc-drawer__link" href="../index.html">Home</a>
+        <a class="lc-drawer__link" href="../courses/roadmap.html" aria-current="page">Roadmap</a>
+        <a class="lc-drawer__link" href="../courses/learn.html">Articles</a>
+        <a class="lc-drawer__link" href="../learning/lesson.html">Lesson</a>
+        <a class="lc-drawer__link" href="../pages/ask-ai.html">Ask AI</a>
+        <a class="lc-drawer__link" href="../courses/practice.html">Practice</a>
+        <a class="lc-drawer__link" href="../pages/about.html">About</a>
+        <a class="lc-drawer__link" href="../pages/settings.html">Settings</a>
+        <a class="lc-drawer__link" href="../pages/login.html">Sign in</a>
+        <a class="lc-drawer__link" href="../admin/admin-dashboard.html" id="sidebarAdminLink" hidden>Admin</a>
+    </nav>
 
-<section id="progressSection" class="hidden">
+    <main id="main" class="lc-container stage" data-stage="2">
+            <a class="lc-btn lc-btn--ghost stage-back" href="roadmap.html"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Back to roadmap</a>
+            <header class="stage-head lc-stack" style="--gap: 12px">
+                <p class="lc-label">Stage 02 / Beginner</p>
+                <h1>Stage 2 — Core Civil Concepts</h1>
+                <p class="lc-lead">Master statics, mechanics of materials, and structural principles essential for civil engineering.</p>
+            </header>
+            <section class="stage-progress lc-card" aria-labelledby="progress-title">
+                <div class="stage-progress__head">
+                    <h2 class="stage-progress__title" id="progress-title">Your progress</h2>
+                    <span class="stage-progress__count" data-stage-progress-text>0 done</span>
+                </div>
+                <span class="lc-progress" data-stage-progress role="progressbar" aria-labelledby="progress-title" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" style="--value: 0"></span>
+                <div class="stage-progress__foot">
+                    <p>Ticks are saved in this browser.</p>
+                    <button class="lc-btn lc-btn--ghost" type="button" data-stage-reset>Clear ticks</button>
+                </div>
+            </section>
+            <section class="stage-section lc-stack" style="--gap: 16px" aria-labelledby="plan-title">
+                <h2 id="plan-title">Core Concepts Study Roadmap</h2>
+                <p class="stage-section__sub">Build your understanding of structural mechanics and materials</p>
+                <div class="stage-weeks">
+                <article class="lc-card stage-week">
+                    <p class="lc-label">Week 1</p>
+                    <h3>Statics Fundamentals</h3>
+                    <ul>
+                        <li>Equilibrium equations (ΣF = 0, ΣM = 0)</li>
+                        <li>Free body diagrams</li>
+                        <li>Support reactions</li>
+                        <li>Internal forces and moments</li>
+                    </ul>
+                    <p class="stage-week__goal"><strong>Goal:</strong> Analyze forces in static structures</p>
+                </article>
+                <article class="lc-card stage-week">
+                    <p class="lc-label">Week 2</p>
+                    <h3>Beam Analysis</h3>
+                    <ul>
+                        <li>Beam types and loading conditions</li>
+                        <li>Shear force and bending moment diagrams</li>
+                        <li>Cantilever and simply supported beams</li>
+                        <li>Distributed loads</li>
+                    </ul>
+                    <p class="stage-week__goal"><strong>Goal:</strong> Understand how beams behave under load</p>
+                </article>
+                <article class="lc-card stage-week">
+                    <p class="lc-label">Week 3</p>
+                    <h3>Material Properties</h3>
+                    <ul>
+                        <li>Stress and strain relationships</li>
+                        <li>Elastic modulus (Young's modulus)</li>
+                        <li>Ductility vs brittleness</li>
+                        <li>Common materials: steel, concrete, timber</li>
+                    </ul>
+                    <p class="stage-week__goal"><strong>Goal:</strong> Learn how materials respond to forces</p>
+                </article>
+                <article class="lc-card stage-week">
+                    <p class="lc-label">Week 4</p>
+                    <h3>Structural Design Basics</h3>
+                    <ul>
+                        <li>Design codes and standards</li>
+                        <li>Factor of safety</li>
+                        <li>Load combinations</li>
+                        <li>Simple column design</li>
+                    </ul>
+                    <p class="stage-week__goal"><strong>Goal:</strong> Understand design principles used in practice</p>
+                </article>
+                </div>
+            </section>
+            <section class="stage-section lc-stack" style="--gap: 16px" aria-labelledby="week-title">
+                <h2 id="week-title">Weekly Learning Schedule</h2>
+                <p class="stage-section__sub">Check off tasks as you complete them each day</p>
+                <div class="stage-tasks">
+                <fieldset class="stage-task">
+                    <legend>Study Statics</legend>
+                    <div class="stage-days">
+                        <label class="stage-day"><input type="checkbox" data-task="study-statics-mon" aria-label="Study Statics, Mon"><span aria-hidden="true">Mon</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="study-statics-tue" aria-label="Study Statics, Tue"><span aria-hidden="true">Tue</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="study-statics-wed" aria-label="Study Statics, Wed"><span aria-hidden="true">Wed</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="study-statics-thu" aria-label="Study Statics, Thu"><span aria-hidden="true">Thu</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="study-statics-fri" aria-label="Study Statics, Fri"><span aria-hidden="true">Fri</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="study-statics-sat" aria-label="Study Statics, Sat"><span aria-hidden="true">Sat</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="study-statics-sun" aria-label="Study Statics, Sun"><span aria-hidden="true">Sun</span></label>
+                    </div>
+                </fieldset>
+                <fieldset class="stage-task">
+                    <legend>Beam Analysis</legend>
+                    <div class="stage-days">
+                        <label class="stage-day"><input type="checkbox" data-task="beam-analysis-mon" aria-label="Beam Analysis, Mon"><span aria-hidden="true">Mon</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="beam-analysis-tue" aria-label="Beam Analysis, Tue"><span aria-hidden="true">Tue</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="beam-analysis-wed" aria-label="Beam Analysis, Wed"><span aria-hidden="true">Wed</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="beam-analysis-thu" aria-label="Beam Analysis, Thu"><span aria-hidden="true">Thu</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="beam-analysis-fri" aria-label="Beam Analysis, Fri"><span aria-hidden="true">Fri</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="beam-analysis-sat" aria-label="Beam Analysis, Sat"><span aria-hidden="true">Sat</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="beam-analysis-sun" aria-label="Beam Analysis, Sun"><span aria-hidden="true">Sun</span></label>
+                    </div>
+                </fieldset>
+                <fieldset class="stage-task">
+                    <legend>Material Properties</legend>
+                    <div class="stage-days">
+                        <label class="stage-day"><input type="checkbox" data-task="material-properties-mon" aria-label="Material Properties, Mon"><span aria-hidden="true">Mon</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="material-properties-tue" aria-label="Material Properties, Tue"><span aria-hidden="true">Tue</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="material-properties-wed" aria-label="Material Properties, Wed"><span aria-hidden="true">Wed</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="material-properties-thu" aria-label="Material Properties, Thu"><span aria-hidden="true">Thu</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="material-properties-fri" aria-label="Material Properties, Fri"><span aria-hidden="true">Fri</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="material-properties-sat" aria-label="Material Properties, Sat"><span aria-hidden="true">Sat</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="material-properties-sun" aria-label="Material Properties, Sun"><span aria-hidden="true">Sun</span></label>
+                    </div>
+                </fieldset>
+                <fieldset class="stage-task">
+                    <legend>Practice Problems</legend>
+                    <div class="stage-days">
+                        <label class="stage-day"><input type="checkbox" data-task="practice-problems-mon" aria-label="Practice Problems, Mon"><span aria-hidden="true">Mon</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="practice-problems-tue" aria-label="Practice Problems, Tue"><span aria-hidden="true">Tue</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="practice-problems-wed" aria-label="Practice Problems, Wed"><span aria-hidden="true">Wed</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="practice-problems-thu" aria-label="Practice Problems, Thu"><span aria-hidden="true">Thu</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="practice-problems-fri" aria-label="Practice Problems, Fri"><span aria-hidden="true">Fri</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="practice-problems-sat" aria-label="Practice Problems, Sat"><span aria-hidden="true">Sat</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="practice-problems-sun" aria-label="Practice Problems, Sun"><span aria-hidden="true">Sun</span></label>
+                    </div>
+                </fieldset>
+                <fieldset class="stage-task">
+                    <legend>Design Exercise</legend>
+                    <div class="stage-days">
+                        <label class="stage-day"><input type="checkbox" data-task="design-exercise-mon" aria-label="Design Exercise, Mon"><span aria-hidden="true">Mon</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="design-exercise-tue" aria-label="Design Exercise, Tue"><span aria-hidden="true">Tue</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="design-exercise-wed" aria-label="Design Exercise, Wed"><span aria-hidden="true">Wed</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="design-exercise-thu" aria-label="Design Exercise, Thu"><span aria-hidden="true">Thu</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="design-exercise-fri" aria-label="Design Exercise, Fri"><span aria-hidden="true">Fri</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="design-exercise-sat" aria-label="Design Exercise, Sat"><span aria-hidden="true">Sat</span></label>
+                        <label class="stage-day"><input type="checkbox" data-task="design-exercise-sun" aria-label="Design Exercise, Sun"><span aria-hidden="true">Sun</span></label>
+                    </div>
+                </fieldset>
+                </div>
+            </section>
+            <aside class="lc-card stage-tip" aria-labelledby="tip-title">
+                <p class="lc-label" id="tip-title">Study Tip</p>
+                <p>Draw free body diagrams for every problem. This visual representation is crucial for understanding structural mechanics and will help you in professional practice.</p>
+            </aside>
+            <nav class="stage-nav" aria-label="Stages">
+                <a class="lc-btn lc-btn--secondary" href="civil-stage1.html"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Stage 1: Foundations</a>
+                <a class="lc-btn lc-btn--primary" href="civil-stage3.html">Stage 3: Field Specialization<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            </nav>
+    </main>
 
-  <div class="progress-dashboard">
-    <div class="stat-card">
-      <h3>Weekly Completion</h3>
-      <p id="weeklyPercent" class="stat-value">0%</p>
-    </div>
+    <footer class="lc-footer">
+        <div class="lc-container home-footer">
+            <div class="home-footer__brand">
+                <p class="lc-footer__brand">LEARN<span>craft</span></p>
+                <p class="home-footer__note">Civil engineering, one stage at a time. In English, Russian and Uzbek.</p>
+            </div>
+            <nav class="home-footer__col" aria-labelledby="f-learn">
+                <p class="lc-label" id="f-learn">Learn</p>
+                <a href="../courses/roadmap.html">Roadmap</a>
+                <a href="../courses/learn.html">Articles</a>
+                <a href="../learning/lesson.html">Lesson</a>
+                <a href="../courses/practice.html">Practice</a>
+                <a href="../pages/ask-ai.html">Ask AI</a>
+            </nav>
+            <nav class="home-footer__col" aria-labelledby="f-about">
+                <p class="lc-label" id="f-about">LEARNcraft</p>
+                <a href="../pages/about.html">About</a>
+                <a href="../index.html#pricing">Pro plans</a>
+                <a href="../pages/support.html">Support</a>
+                <a href="../pages/community.html">Community</a>
+            </nav>
+            <nav class="home-footer__col" aria-labelledby="f-account">
+                <p class="lc-label" id="f-account">Account</p>
+                <a href="../pages/login.html">Sign in</a>
+                <a href="../pages/settings.html">Settings</a>
+            </nav>
+        </div>
+    </footer>
 
-    <div class="stat-card">
-      <h3>Stage Progress</h3>
-      <p id="stagePercent" class="stat-value">0%</p>
-    </div>
-
-    <div class="stat-card">
-      <h3>Study Streak</h3>
-      <p class="stat-value"><span id="streakCount">0</span> days</p>
-    </div>
-  </div>
-
-  <div class="progress-bar-container">
-    <div class="progress-bar-track">
-      <div id="progressFill" class="progress-bar-fill"></div>
-    </div>
-    <div class="progress-label">
-      <span id="progressPercent">0%</span> Complete
-    </div>
-  </div>
-
-  <section class="study-roadmap">
-    <h2>Core Concepts Study Roadmap</h2>
-    <p class="roadmap-sub">Build your understanding of structural mechanics and materials</p>
-
-    <div class="week-card">
-      <h3>Week 1 — Statics Fundamentals</h3>
-      <ul>
-        <li>Equilibrium equations (ΣF = 0, ΣM = 0)</li>
-        <li>Free body diagrams</li>
-        <li>Support reactions</li>
-        <li>Internal forces and moments</li>
-      </ul>
-      <p class="week-goal">Goal: Analyze forces in static structures</p>
-    </div>
-
-    <div class="week-card">
-      <h3>Week 2 — Beam Analysis</h3>
-      <ul>
-        <li>Beam types and loading conditions</li>
-        <li>Shear force and bending moment diagrams</li>
-        <li>Cantilever and simply supported beams</li>
-        <li>Distributed loads</li>
-      </ul>
-      <p class="week-goal">Goal: Understand how beams behave under load</p>
-    </div>
-
-    <div class="week-card">
-      <h3>Week 3 — Material Properties</h3>
-      <ul>
-        <li>Stress and strain relationships</li>
-        <li>Elastic modulus (Young's modulus)</li>
-        <li>Ductility vs brittleness</li>
-        <li>Common materials: steel, concrete, timber</li>
-      </ul>
-      <p class="week-goal">Goal: Learn how materials respond to forces</p>
-    </div>
-
-    <div class="week-card">
-      <h3>Week 4 — Structural Design Basics</h3>
-      <ul>
-        <li>Design codes and standards</li>
-        <li>Factor of safety</li>
-        <li>Load combinations</li>
-        <li>Simple column design</li>
-      </ul>
-      <p class="week-goal">Goal: Understand design principles used in practice</p>
-    </div>
-  </section>
-
-  <div class="tracker-wrapper">
-    <div class="tracker-header">
-      <h2>Weekly Learning Schedule</h2>
-      <p>Check off tasks as you complete them each day</p>
-    </div>
-
-    <table class="tracker-table">
-      <thead>
-        <tr>
-          <th>Task</th>
-          <th>Mon</th><th>Tue</th><th>Wed</th>
-          <th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="task-name">Study Statics</td>
-          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
-          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
-        </tr>
-
-        <tr>
-          <td class="task-name">Beam Analysis</td>
-          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
-          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
-        </tr>
-
-        <tr>
-          <td class="task-name">Material Properties</td>
-          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
-          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
-        </tr>
-
-        <tr>
-          <td class="task-name">Practice Problems</td>
-          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
-          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
-        </tr>
-
-        <tr>
-          <td class="task-name">Design Exercise</td>
-          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
-          <td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td><td><input type="checkbox"></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="tip-section">
-    <h3>Study Tip</h3>
-    <p>Draw free body diagrams for every problem. This visual representation is crucial for understanding structural mechanics and will help you in professional practice.</p>
-  </div>
-
-</section>
-
-<script>
-  if (typeof TelegramWebApp !== 'undefined') {
-    const tg = window.Telegram.WebApp;
-    tg.ready();
-    tg.setHeaderColor('#000000');
-    tg.setBackgroundColor('#000000');
-    tg.MainButton.hide();
-  }
-
-  function startStage() {
-    document.getElementById("progressSection").classList.remove("hidden");
-    document.querySelector("section.hero").style.paddingBottom = "20px";
-  }
-
-  const checkboxes = document.querySelectorAll("input[type='checkbox']");
-  checkboxes.forEach(cb => cb.addEventListener("change", updateProgress));
-
-  function updateProgress() {
-    const total = checkboxes.length;
-    let checked = 0;
-    checkboxes.forEach(cb => { if (cb.checked) checked++; });
-
-    const percent = Math.round((checked / total) * 100);
-
-    document.getElementById("stagePercent").textContent = percent + "%";
-    document.getElementById("weeklyPercent").textContent = percent + "%";
-    document.getElementById("progressPercent").textContent = percent + "%";
-    document.getElementById("progressFill").style.width = percent + "%";
-  }
-</script>
-
+    <script src="../js/webapp-init.js"></script>
 </body>
 </html>
