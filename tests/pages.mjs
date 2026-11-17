@@ -192,6 +192,61 @@ async function roadmapPage(tab, ctx) {
   return out;
 }
 
+// Task 6: lesson and Ask AI.
+async function lessonPage(tab, ctx) {
+  const out = await sharedChrome(tab, ctx);
+  const src = await (await tab.request.fetch(`${ctx.url}/learning/lesson.html`)).text();
+  if (/great question|Let me explain that in detail/i.test(src)) out.push('fake canned chat replies are still in the page');
+  const info = await tab.evaluate(() => {
+    const prose = document.querySelector('main .lc-prose');
+    const textBoxes = prose ? [...prose.querySelectorAll('p, li, pre')].map((el) => el.getBoundingClientRect()) : [];
+    const fixed = [...document.querySelectorAll('body *')].filter((el) => {
+      const cs = getComputedStyle(el);
+      return (cs.position === 'fixed' || cs.position === 'sticky') && el.getClientRects().length && !el.closest('.lc-header, .lc-drawer, [hidden]');
+    }).map((el) => ({ who: el.className, r: el.getBoundingClientRect() }));
+    const overlaps = fixed.filter((f) => textBoxes.some((t) => !(f.r.right <= t.left || f.r.left >= t.right || f.r.bottom <= t.top || f.r.top >= t.bottom)));
+    return {
+      prose: !!prose,
+      overlaps: overlaps.map((o) => o.who),
+      askLink: !!document.querySelector('a[href="../pages/ask-ai.html"]:not(.lc-nav__link):not(.lc-drawer__link):not(.lc-footer a)'),
+      inlinePx: [...document.querySelectorAll('[style*="color"]')].length,
+    };
+  });
+  if (!info.prose) out.push('lesson body is not in main .lc-prose');
+  for (const o of info.overlaps) out.push(`fixed element "${o}" covers lesson text`);
+  if (!info.askLink) out.push('no link from the lesson to Ask AI');
+  if (info.inlinePx) out.push(`${info.inlinePx} element(s) with inline colour styles`);
+  return out;
+}
+
+async function askAiPage(tab, ctx) {
+  const out = await sharedChrome(tab, ctx);
+  const info = await tab.evaluate(() => {
+    const send = document.querySelector('#chatForm [type="submit"], .send-btn');
+    const accent = getComputedStyle(document.body).getPropertyValue('--c-accent').trim();
+    const alert = document.querySelector('#chatMessages .lc-alert--error');
+    return {
+      sendBg: send && getComputedStyle(send).backgroundColor,
+      accent,
+      alert: alert && { role: alert.getAttribute('role'), svg: !!alert.querySelector('svg'), text: alert.textContent.trim() },
+      emoji: /[⚠⏰📦👑]/u.test(document.getElementById('chatMessages')?.textContent || ''),
+      label: !!document.querySelector('label[for="userInput"]'),
+      slogans: /Answers that actually teach|From confusion to clarity/.test(document.body.innerText),
+    };
+  });
+  if (info.sendBg !== 'rgb(245, 196, 0)') out.push(`send button background is ${info.sendBg}, expected the accent yellow`);
+  if (!info.alert) out.push('signed-out notice is not an .lc-alert--error in the chat');
+  else {
+    if (info.alert.role !== 'alert') out.push('signed-out notice has no role="alert"');
+    if (!info.alert.svg) out.push('signed-out notice has no icon');
+    if (!/log in|sign in/i.test(info.alert.text)) out.push(`signed-out notice text: "${info.alert.text}"`);
+  }
+  if (info.emoji) out.push('emoji used as status icons in the chat');
+  if (!info.label) out.push('question input has no visible label');
+  if (info.slogans) out.push('slogan filler still on the page');
+  return out;
+}
+
 // Task 3: shared components and site.js behaviour, tested on the component fixture.
 async function tabUntil(tab, selector, max = 30) {
   for (let i = 0; i < max; i++) {
@@ -300,7 +355,7 @@ export const PAGES = [
   page('index.html', homePage),
 
   page('pages/about.html'),
-  page('pages/ask-ai.html'),
+  page('pages/ask-ai.html', askAiPage),
   page('pages/ai-usage.html'),
   page('pages/auth.html'),
   page('pages/login.html'),
@@ -322,7 +377,7 @@ export const PAGES = [
   page('courses/learn.html'),
   page('courses/practice.html'),
 
-  page('learning/lesson.html'),
+  page('learning/lesson.html', lessonPage),
   page('study/civil-foundations.html'),
 
   ...[

@@ -1068,6 +1068,116 @@ body.lc {
 }
 
 /* ==========================================================================
+   Page: ask-ai (pages/ask-ai.html) — reuses .chat from the home page
+   ========================================================================== */
+.ask {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-block: 32px 48px;
+}
+
+.ask-chat .chat__messages {
+  min-height: 280px;
+  max-height: min(60vh, 560px);
+}
+
+.ask-chat .ai-message,
+.ask-chat .user-message {
+  max-width: 85%;
+  padding: 10px 14px;
+  background: var(--c-surface-2);
+  border-radius: var(--radius);
+  white-space: pre-line;
+}
+
+.ask-chat .user-message {
+  align-self: flex-end;
+  background: var(--c-accent);
+  color: var(--c-on-accent);
+}
+
+.ask-chat .typing { color: var(--c-text-muted); }
+
+.ask-detail {
+  display: flex;
+  flex-basis: 100%;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+  cursor: pointer;
+}
+
+.ask-detail input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--c-accent);
+}
+
+.chat__field input:disabled { opacity: 0.6; }
+
+/* ==========================================================================
+   Page: lesson (learning/lesson.html)
+   ========================================================================== */
+.lesson {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-block: 24px 48px;
+}
+
+.lesson-layout {
+  display: grid;
+  gap: 32px;
+}
+
+.lesson-article {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+.lesson-box { margin-block: 1.25em; }
+.lesson-box > :first-child { margin-top: 0; }
+.lesson-box--problem { border-left: 3px solid var(--c-accent); }
+
+.lesson-calc {
+  margin: 0;
+  padding: 14px 16px;
+  overflow-x: auto;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+}
+
+.lesson-note {
+  color: var(--c-text-muted);
+  font-style: italic;
+}
+
+.lesson-ask {
+  display: grid;
+  gap: 10px;
+}
+
+.lesson-ask .lc-btn { justify-self: start; }
+
+@media (min-width: 1024px) {
+  .lesson-layout { grid-template-columns: minmax(0, 1fr) 300px; }
+
+  .lesson-aside .lesson-ask {
+    position: sticky;
+    top: calc(var(--header-h) + 24px);
+  }
+}
+
+/* ==========================================================================
    Legacy styles — pages without body.lc. Removed as pages move over.
    ========================================================================== */
 
