@@ -2,378 +2,133 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#000000">
-    <title>Learn - LEARNcraft</title>
-    <!-- Global Theme System -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Short introductions to fifteen engineering fields, from civil engineering to machine learning.">
+    <meta name="theme-color" content="#0b0b0b">
+    <title>Engineering articles — LEARNcraft</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="../js/theme.js"></script>
     <script src="../js/i18n.js"></script>
-    <style>
-        :root {
-            --app-height: 100vh;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0a0a0c;
-            color: #c9cace;
-            min-height: var(--app-height);
-            width: 100%;
-            overflow-x: hidden;
-        }
-
-        img, video {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .container {
-            max-width: min(1200px, 95vw);
-            margin: 0 auto;
-            padding: clamp(60px, 10vh, 80px) clamp(16px, 4vw, 24px) clamp(40px, 8vh, 60px);
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            margin-bottom: clamp(40px, 10vw, 80px);
-            padding: clamp(30px, 8vw, 60px) 0;
-        }
-
-        .hero h1 {
-            font-size: clamp(32px, 8vw, 56px);
-            font-weight: 700;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, #d4d4d8, #c9a961);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero p {
-            font-size: clamp(16px, 3vw, 20px);
-            color: #a3a5aa;
-            margin-bottom: 32px;
-            max-width: min(600px, 90vw);
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .btn-primary {
-            display: inline-block;
-            padding: 16px 48px;
-            background: #b8956a;
-            color: #0a0a0c;
-            font-size: 18px;
-            font-weight: 600;
-            border-radius: 30px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(184, 149, 106, 0.2);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(184, 149, 106, 0.3);
-        }
-
-        /* Topic Categories Grid */
-        .section-title {
-            font-size: clamp(24px, 5vw, 32px);
-            font-weight: 600;
-            text-align: center;
-            margin-bottom: clamp(32px, 6vw, 48px);
-        }
-
-        .topics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-            gap: clamp(16px, 3vw, 24px);
-            margin-bottom: clamp(40px, 10vw, 80px);
-        }
-
-        .topic-card {
-            background: rgba(201, 202, 206, 0.02);
-            border: 1px solid rgba(201, 202, 206, 0.1);
-            border-radius: 12px;
-            padding: clamp(20px, 4vw, 32px);
-            transition: all 0.3s ease;
-        }
-
-        .topic-card:hover {
-            background: rgba(184, 149, 106, 0.05);
-            border-color: rgba(184, 149, 106, 0.4);
-            transform: translateY(-4px);
-        }
-
-        .topic-card h3 {
-            font-size: 24px;
-            margin-bottom: 12px;
-            color: #b8956a;
-        }
-
-        .topic-card p {
-            font-size: 16px;
-            color: #a3a5aa;
-            margin-bottom: 24px;
-            line-height: 1.6;
-        }
-
-        .btn-secondary {
-            display: inline-block;
-            padding: 12px 32px;
-            background: transparent;
-            color: #b8956a;
-            font-size: 16px;
-            font-weight: 500;
-            border: 2px solid #b8956a;
-            border-radius: 24px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .btn-secondary:hover {
-            background: #b8956a;
-            color: #0a0a0c;
-        }
-
-        /* How It Works Section */
-        .how-it-works {
-            margin-bottom: 80px;
-        }
-
-        .steps-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 32px;
-            margin-top: 48px;
-        }
-
-        .step-card {
-            text-align: center;
-            padding: 32px;
-            background: rgba(201, 202, 206, 0.02);
-            border: 1px solid rgba(201, 202, 206, 0.08);
-            border-radius: 12px;
-        }
-
-        .step-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 24px;
-            background: rgba(184, 149, 106, 0.08);
-            border: 2px solid #b8956a;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-        }
-
-        .step-card h3 {
-            font-size: 20px;
-            margin-bottom: 12px;
-            color: #b8956a;
-        }
-
-        .step-card p {
-            font-size: 15px;
-            color: #7f8185;
-            line-height: 1.6;
-        }
-
-        /* Back Button */
-        .back-btn {
-            position: fixed;
-            top: 24px;
-            left: 24px;
-            padding: 12px 24px;
-            background: rgba(201, 202, 206, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(201, 202, 206, 0.1);
-            border-radius: 24px;
-            color: #c9cace;
-            text-decoration: none;
-            font-weight: 500;
-            font-family: inherit;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 100;
-        }
-
-        .back-btn:hover {
-            background: rgba(184, 149, 106, 0.1);
-            border-color: #b8956a;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 40px;
-            }
-
-            .hero p {
-                font-size: 18px;
-            }
-
-            .topics-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .steps-container {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <script src="../js/site.js" defer></script>
 </head>
-<body>
-    <button onclick="if (document.referrer && document.referrer !== window.location.href) { history.back(); } else { window.location.href = '../index.html'; }" class="back-btn">← Back</button>
+<body class="lc">
+    <a class="lc-skip" href="#main">Skip to content</a>
 
-    <div class="container">
-        <!-- Hero Section -->
-        <section class="hero">
-            <h1>Engineering Articles & Topics</h1>
-            <p>Explore in-depth articles, guides, and resources covering essential engineering concepts and practices.</p>
-            <a href="#" class="btn-primary">Browse Topics</a>
-        </section>
-
-        <!-- Topic Categories Grid -->
-        <section>
-            <h2 class="section-title">Browse by Engineering Field</h2>
-            <div class="topics-grid">
-                <div class="topic-card">
-                    <h3>Civil Engineering</h3>
-                    <p>Read about structural design, construction management, and infrastructure development.</p>
-                    <a href="../articles/civil-engineering.html" class="btn-secondary">Read Articles</a>
+    <header class="lc-header">
+        <div class="lc-container lc-header__inner">
+            <a class="lc-header__brand" href="../index.html">LEARN<span>craft</span></a>
+            <nav class="lc-nav" aria-label="Main">
+                <a class="lc-nav__link" href="../index.html" data-i18n="nav.home">Home</a>
+                <a class="lc-nav__link" href="../courses/roadmap.html">Roadmap</a>
+                <a class="lc-nav__link" href="../learning/lesson.html">Lesson</a>
+                <a class="lc-nav__link" href="../pages/ask-ai.html">Ask AI</a>
+                <a class="lc-nav__link" href="../pages/about.html" data-i18n="nav.about">About</a>
+                <a class="lc-nav__link" href="../index.html#pricing" data-i18n="nav.pro">LEARNcraft Pro</a>
+            </nav>
+            <div class="lc-header__actions">
+                <div class="lc-lang-wrap">
+                    <button class="lc-lang" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu" aria-label="Language: English">EN</button>
+                    <ul class="lc-lang__menu" id="lang-menu" role="listbox" aria-label="Language" hidden>
+                        <li class="lc-lang__option" role="option" data-lang="en" aria-selected="true" tabindex="-1">English</li>
+                        <li class="lc-lang__option" role="option" data-lang="ru" aria-selected="false" tabindex="-1">Русский</li>
+                        <li class="lc-lang__option" role="option" data-lang="uz" aria-selected="false" tabindex="-1">Oʻzbek</li>
+                    </ul>
                 </div>
-
-                <div class="topic-card">
-                    <h3>Mechanical Engineering</h3>
-                    <p>Discover articles on thermodynamics, mechanics, and machine design fundamentals.</p>
-                    <a href="../articles/mechanical-engineering.html" class="btn-secondary">Read Articles</a>
+                <button class="lc-icon-btn" type="button" data-lc-theme-toggle aria-pressed="false" aria-label="Light theme">
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                </button>
+                <a class="lc-btn lc-btn--secondary home-signin" id="signInBtn" href="../pages/login.html" data-i18n="nav.signIn">Sign In</a>
+                <div class="home-account" id="userAccount" hidden>
+                    <button class="home-account__circle" id="userCircle" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="userMenu" aria-label="Account menu">U</button>
+                    <div class="home-account__menu" id="userMenu" role="menu" hidden>
+                        <p class="home-account__email" id="userEmail"></p>
+                        <a class="home-account__item" role="menuitem" href="../pages/settings.html">Account settings</a>
+                        <button class="home-account__item" role="menuitem" id="logoutBtn" type="button">Log out</button>
+                    </div>
                 </div>
+                <button class="lc-burger" type="button" data-lc-drawer-toggle aria-controls="drawer" aria-expanded="false" aria-label="Open menu">
+                    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
 
-                <div class="topic-card">
-                    <h3>Electrical Engineering</h3>
-                    <p>Explore articles on circuits, power systems, and electronic devices.</p>
-                    <a href="../articles/electrical-engineering.html" class="btn-secondary">Read Articles</a>
-                </div>
+    <nav class="lc-drawer" id="drawer" aria-label="Menu" hidden>
+        <a class="lc-drawer__link" href="../index.html">Home</a>
+        <a class="lc-drawer__link" href="../courses/roadmap.html">Roadmap</a>
+        <a class="lc-drawer__link" href="../courses/learn.html">Articles</a>
+        <a class="lc-drawer__link" href="../learning/lesson.html">Lesson</a>
+        <a class="lc-drawer__link" href="../pages/ask-ai.html">Ask AI</a>
+        <a class="lc-drawer__link" href="../courses/practice.html">Practice</a>
+        <a class="lc-drawer__link" href="../pages/about.html">About</a>
+        <a class="lc-drawer__link" href="../pages/settings.html">Settings</a>
+        <a class="lc-drawer__link" href="../pages/login.html">Sign in</a>
+        <a class="lc-drawer__link" href="../admin/admin-dashboard.html" id="sidebarAdminLink" hidden>Admin</a>
+    </nav>
 
-                <div class="topic-card">
-                    <h3>Computer Science</h3>
-                    <p>Read about algorithms, data structures, and software engineering concepts.</p>
-                    <a href="../articles/computer-science.html" class="btn-secondary">Read Articles</a>
-                </div>
 
-                <div class="topic-card">
-                    <h3>Aerospace Engineering</h3>
-                    <p>Browse articles on aerodynamics, propulsion, and spacecraft systems.</p>
-                    <a href="../articles/aerospace-engineering.html" class="btn-secondary">Read Articles</a>
-                </div>
-
-                <div class="topic-card">
-                    <h3>Chemical Engineering</h3>
-                    <p>Discover topics in process design, thermodynamics, and reaction engineering.</p>
-                    <a href="../articles/chemical-engineering.html" class="btn-secondary">Read Articles</a>
-                </div>
-
-                <div class="topic-card">
-                    <h3>Biomedical Engineering</h3>
-                    <p>Read about engineering and medical innovations in healthcare.</p>
-                    <a href="../articles/biomedical-engineering.html" class="btn-secondary">Read Articles</a>
-                </div>
-
-                <div class="topic-card">
-                    <h3>Environmental Engineering</h3>
-                    <p>Read about water treatment, pollution control, and sustainability solutions.</p>
-                    <a href="../articles/environmental-engineering.html" class="btn-secondary">Read Articles</a>
-                </div>
-
-                <div class="topic-card">
-                    <h3>Industrial Engineering</h3>
-                    <p>Explore production systems optimization and manufacturing efficiency topics.</p>
-                    <a href="../articles/industrial-engineering.html" class="btn-secondary">Read Articles</a>
-                </div>
-
-                <div class="topic-card">
-                    <h3>Materials Science</h3>
-                    <p>Discover material properties and advanced material development topics.</p>
-                    <a href="../articles/materials-science.html" class="btn-secondary">Read Articles</a>
-                </div>
-
-                <div class="topic-card">
-                    <h3>Mechatronics</h3>
-                    <p>Browse articles on mechanical systems integration with electronics and automation.</p>
-                    <a href="../articles/mechatronics.html" class="btn-secondary">Read Articles</a>
-                </div>
-
-                <div class="topic-card">
-                    <h3>Nuclear Engineering</h3>
-                    <p>Read about nuclear reactions, safety systems, and power generation.</p>
-                    <a href="../articles/nuclear-engineering.html" class="btn-secondary">Read Articles</a>
-                </div>
-
-                <div class="topic-card">
-                    <h3>Machine Learning</h3>
-                    <p>Explore articles on AI algorithms, neural networks, and data-driven decision making.</p>
-                    <a href="../articles/machine-learning.html" class="btn-secondary">Read Articles</a>
-                </div>
-
-                <div class="topic-card">
-                    <h3>Architectural Engineering</h3>
-                    <p>Read about sustainable buildings, structural systems, and construction planning.</p>
-                    <a href="../articles/architectural-engineering.html" class="btn-secondary">Read Articles</a>
-                </div>
-
-                <div class="topic-card">
-                    <h3>Marine Engineering</h3>
-                    <p>Browse topics on ship design, naval architecture, and maritime systems.</p>
-                    <a href="../articles/marine-engineering.html" class="btn-secondary">Read Articles</a>
-                </div>
+    <main id="main">
+        <section class="home-hero lc-grid-bg" aria-labelledby="learn-title">
+            <div class="lc-container home-hero__inner">
+                <p class="lc-label">Articles</p>
+                <h1 id="learn-title">Engineering articles</h1>
+                <p class="lc-lead">Short introductions to 15 engineering fields. Short introductions to the main engineering fields. Pick one to start reading.</p>
             </div>
         </section>
-
-        <!-- How It Works Section -->
-        <section class="how-it-works">
-            <h2 class="section-title">How It Works</h2>
-            <div class="steps-container">
-                <div class="step-card">
-                    <div class="step-icon">1</div>
-                    <h3>Ask AI</h3>
-                    <p>Start by asking any engineering question or topic you want to understand.</p>
-                </div>
-
-                <div class="step-card">
-                    <div class="step-icon">2</div>
-                    <h3>Get Structured Explanation</h3>
-                    <p>Receive clear, step-by-step explanations tailored to your learning level.</p>
-                </div>
-
-                <div class="step-card">
-                    <div class="step-icon">3</div>
-                    <h3>Practice with Examples</h3>
-                    <p>Apply what you learned with interactive examples and problem-solving.</p>
-                </div>
+        <section class="home-section" aria-labelledby="learn-all">
+            <div class="lc-container lc-stack">
+                <h2 id="learn-all">All articles</h2>
+                <ul class="learn-grid" role="list">
+                    <li><a class="lc-card lc-card--link learn-card" href="../articles/aerospace-engineering.html"><span class="learn-card__title">Aerospace Engineering</span><span class="learn-card__desc">The development of aircraft and spacecraft through advanced engineering</span></a></li>
+                    <li><a class="lc-card lc-card--link learn-card" href="../articles/architectural-engineering.html"><span class="learn-card__title">Architectural Engineering</span><span class="learn-card__desc">Bridging design and engineering for sustainable, efficient buildings</span></a></li>
+                    <li><a class="lc-card lc-card--link learn-card" href="../articles/biomedical-engineering.html"><span class="learn-card__title">Biomedical Engineering</span><span class="learn-card__desc">Applying engineering principles to medicine and healthcare innovation</span></a></li>
+                    <li><a class="lc-card lc-card--link learn-card" href="../articles/chemical-engineering.html"><span class="learn-card__title">Chemical Engineering</span><span class="learn-card__desc">Converting raw materials into useful products through chemical processes</span></a></li>
+                    <li><a class="lc-card lc-card--link learn-card" href="../articles/civil-engineering.html"><span class="learn-card__title">Civil Engineering</span><span class="learn-card__desc">Designing and building the infrastructure of the modern world</span></a></li>
+                    <li><a class="lc-card lc-card--link learn-card" href="../articles/computer-science.html"><span class="learn-card__title">Computer Science</span><span class="learn-card__desc">The study of computation, information, and automation</span></a></li>
+                    <li><a class="lc-card lc-card--link learn-card" href="../articles/electrical-engineering.html"><span class="learn-card__title">Electrical Engineering</span><span class="learn-card__desc">The study, design, and application of electricity, electronics, and electromagnetism</span></a></li>
+                    <li><a class="lc-card lc-card--link learn-card" href="../articles/environmental-engineering.html"><span class="learn-card__title">Environmental Engineering</span><span class="learn-card__desc">Protecting and improving the environment through engineering solutions</span></a></li>
+                    <li><a class="lc-card lc-card--link learn-card" href="../articles/industrial-engineering.html"><span class="learn-card__title">Industrial Engineering</span><span class="learn-card__desc">Optimizing complex systems and processes for efficiency and productivity</span></a></li>
+                    <li><a class="lc-card lc-card--link learn-card" href="../articles/machine-learning.html"><span class="learn-card__title">Machine Learning</span><span class="learn-card__desc">Empowering computers to learn from data and make intelligent decisions</span></a></li>
+                    <li><a class="lc-card lc-card--link learn-card" href="../articles/marine-engineering.html"><span class="learn-card__title">Marine Engineering</span><span class="learn-card__desc">Engineering the vessels and systems that navigate our oceans</span></a></li>
+                    <li><a class="lc-card lc-card--link learn-card" href="../articles/materials-science.html"><span class="learn-card__title">Materials Science</span><span class="learn-card__desc">Understanding materials from atomic structure to real-world performance</span></a></li>
+                    <li><a class="lc-card lc-card--link learn-card" href="../articles/mechanical-engineering.html"><span class="learn-card__title">Mechanical Engineering</span><span class="learn-card__desc">The study of physical machines and mechanisms involving force and movement</span></a></li>
+                    <li><a class="lc-card lc-card--link learn-card" href="../articles/mechatronics.html"><span class="learn-card__title">Mechatronics</span><span class="learn-card__desc">Synergistic integration of mechanical, electrical, and computing systems</span></a></li>
+                    <li><a class="lc-card lc-card--link learn-card" href="../articles/nuclear-engineering.html"><span class="learn-card__title">Nuclear Engineering</span><span class="learn-card__desc">Harnessing the power of the atom</span></a></li>
+                </ul>
             </div>
         </section>
-    </div>
+    </main>
+    <footer class="lc-footer">
+        <div class="lc-container home-footer">
+            <div class="home-footer__brand">
+                <p class="lc-footer__brand">LEARN<span>craft</span></p>
+                <p class="home-footer__note">Civil engineering, one stage at a time. In English, Russian and Uzbek.</p>
+            </div>
+            <nav class="home-footer__col" aria-labelledby="f-learn">
+                <p class="lc-label" id="f-learn">Learn</p>
+                <a href="../courses/roadmap.html">Roadmap</a>
+                <a href="../courses/learn.html">Articles</a>
+                <a href="../learning/lesson.html">Lesson</a>
+                <a href="../courses/practice.html">Practice</a>
+                <a href="../pages/ask-ai.html">Ask AI</a>
+            </nav>
+            <nav class="home-footer__col" aria-labelledby="f-about">
+                <p class="lc-label" id="f-about">LEARNcraft</p>
+                <a href="../pages/about.html">About</a>
+                <a href="../index.html#pricing">Pro plans</a>
+                <a href="../pages/support.html">Support</a>
+                <a href="../pages/community.html">Community</a>
+            </nav>
+            <nav class="home-footer__col" aria-labelledby="f-account">
+                <p class="lc-label" id="f-account">Account</p>
+                <a href="../pages/login.html">Sign in</a>
+                <a href="../pages/settings.html">Settings</a>
+            </nav>
+        </div>
+    </footer>
 
-    <script>
-        // Telegram Mini App Viewport Support
-        function setAppHeight() {
-            const vh = window.innerHeight;
-            document.documentElement.style.setProperty('--app-height', `${vh}px`);
-        }
-        
-        window.addEventListener('resize', setAppHeight);
-        window.addEventListener('orientationchange', setAppHeight);
-        setAppHeight();
-    </script>
+
+    <script src="../js/webapp-init.js"></script>
 </body>
 </html>

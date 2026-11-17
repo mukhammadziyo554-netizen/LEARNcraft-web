@@ -2,707 +2,161 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Usage Analytics - LEARNcraft Admin</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-            background: #000000;
-            color: #ffffff;
-            overflow-x: hidden;
-        }
-
-        body.light-mode {
-            background: #ffffff;
-            color: #000000;
-        }
-
-        /* SIDEBAR */
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 200px;
-            height: 100vh;
-            background: #000000;
-            border-right: 1px solid #222;
-            padding: 16px 0;
-            z-index: 100;
-        }
-
-        body.light-mode .sidebar {
-            background: #ffffff;
-            border-right-color: #e0e0e0;
-        }
-
-        .sidebar-brand {
-            padding: 0 16px 20px;
-            font-size: 16px;
-            font-weight: 700;
-            color: #FFD700;
-            border-bottom: 1px solid #222;
-            margin-bottom: 12px;
-        }
-
-        body.light-mode .sidebar-brand {
-            border-bottom-color: #e0e0e0;
-        }
-
-        .back-button {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 16px;
-            margin: 0 0 12px 0;
-            font-size: 13px;
-            font-weight: 600;
-            color: #ffffff;
-            background: transparent;
-            border: 1px solid #333;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
-        }
-
-        body.light-mode .back-button {
-            color: #000000;
-            border-color: #e0e0e0;
-        }
-
-        .back-button:hover {
-            background: #111;
-            border-color: #FFD700;
-            color: #FFD700;
-        }
-
-        body.light-mode .back-button:hover {
-            background: #f5f5f5;
-            border-color: #FFD700;
-            color: #FFD700;
-        }
-
-        .back-button svg {
-            width: 14px;
-            height: 14px;
-        }
-
-        .sidebar-section {
-            margin-bottom: 20px;
-        }
-
-        .sidebar-label {
-            padding: 0 16px;
-            font-size: 10px;
-            font-weight: 600;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-        }
-
-        .sidebar-item {
-            padding: 8px 16px;
-            font-size: 13px;
-            color: #ffffff;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: block;
-            text-decoration: none;
-        }
-
-        body.light-mode .sidebar-item {
-            color: #000000;
-        }
-
-        .sidebar-item:hover {
-            background: #111;
-        }
-
-        body.light-mode .sidebar-item:hover {
-            background: #f5f5f5;
-        }
-
-        .sidebar-item.active {
-            background: #FFD700;
-            color: #000000;
-            font-weight: 600;
-        }
-
-        /* MAIN CONTENT */
-        .main-content {
-            margin-left: 200px;
-            min-height: 100vh;
-        }
-
-        /* TOP BAR */
-        .topbar {
-            height: 50px;
-            border-bottom: 1px solid #222;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            position: sticky;
-            top: 0;
-            background: #000000;
-            z-index: 50;
-        }
-
-        body.light-mode .topbar {
-            background: #ffffff;
-            border-bottom-color: #e0e0e0;
-        }
-
-        .topbar-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .search-input {
-            width: 280px;
-            height: 32px;
-            background: #111;
-            border: 1px solid #222;
-            border-radius: 6px;
-            padding: 0 12px;
-            color: #ffffff;
-            font-size: 13px;
-        }
-
-        body.light-mode .search-input {
-            background: #f5f5f5;
-            border-color: #e0e0e0;
-            color: #000000;
-        }
-
-        .search-input::placeholder {
-            color: #666;
-        }
-
-        .topbar-right {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .theme-toggle-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 6px;
-            border: 1px solid #222;
-            background: #111;
-            color: #FFD700;
-            cursor: pointer;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        body.light-mode .theme-toggle-btn {
-            background: #f5f5f5;
-            border-color: #e0e0e0;
-        }
-
-        .admin-profile {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        .admin-avatar {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: #FFD700;
-            color: #000000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 12px;
-        }
-
-        /* CONTENT AREA */
-        .content-area {
-            padding: 20px;
-        }
-
-        .page-header {
-            margin-bottom: 20px;
-        }
-
-        .page-title {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .page-subtitle {
-            font-size: 12px;
-            color: #666;
-        }
-
-        /* SUMMARY CARDS */
-        .summary-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .summary-card {
-            background: #0a0a0a;
-            border: 1px solid #222;
-            border-radius: 8px;
-            padding: 14px;
-        }
-
-        body.light-mode .summary-card {
-            background: #ffffff;
-            border-color: #e0e0e0;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-
-        .summary-label {
-            font-size: 11px;
-            color: #666;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .summary-value {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-
-        .summary-change {
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        .summary-change.positive {
-            color: #4ade80;
-        }
-
-        .summary-change.negative {
-            color: #f87171;
-        }
-
-        /* CHART SECTIONS */
-        .chart-section {
-            background: #0a0a0a;
-            border: 1px solid #222;
-            border-radius: 8px;
-            padding: 16px;
-            margin-bottom: 20px;
-        }
-
-        body.light-mode .chart-section {
-            background: #ffffff;
-            border-color: #e0e0e0;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-
-        .chart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .chart-title {
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .chart-filter {
-            font-size: 12px;
-            padding: 6px 12px;
-            border: 1px solid #222;
-            border-radius: 6px;
-            background: transparent;
-            color: inherit;
-            cursor: pointer;
-        }
-
-        body.light-mode .chart-filter {
-            border-color: #e0e0e0;
-        }
-
-        .chart-container {
-            height: 300px;
-            position: relative;
-        }
-
-        .chart-container.small {
-            height: 200px;
-        }
-
-        /* THREE COLUMN LAYOUT */
-        .three-column {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        /* METRIC CARD WITH PROGRESS BAR */
-        .metric-card {
-            background: #0a0a0a;
-            border: 1px solid #222;
-            border-radius: 8px;
-            padding: 14px;
-        }
-
-        body.light-mode .metric-card {
-            background: #ffffff;
-            border-color: #e0e0e0;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-
-        .metric-label {
-            font-size: 11px;
-            color: #666;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .metric-value {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .metric-bar {
-            height: 6px;
-            background: #222;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        body.light-mode .metric-bar {
-            background: #e0e0e0;
-        }
-
-        .metric-bar-fill {
-            height: 100%;
-            background: #FFD700;
-            transition: width 0.3s ease;
-        }
-
-        /* TABLE */
-        .data-table {
-            background: #0a0a0a;
-            border: 1px solid #222;
-            border-radius: 8px;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-
-        body.light-mode .data-table {
-            background: #ffffff;
-            border-color: #e0e0e0;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-
-        .table-controls {
-            padding: 12px;
-            border-bottom: 1px solid #222;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        body.light-mode .table-controls {
-            border-bottom-color: #e0e0e0;
-        }
-
-        .table-search {
-            flex: 1;
-            height: 32px;
-            background: #111;
-            border: 1px solid #222;
-            border-radius: 6px;
-            padding: 0 12px;
-            color: #ffffff;
-            font-size: 13px;
-        }
-
-        body.light-mode .table-search {
-            background: #f5f5f5;
-            border-color: #e0e0e0;
-            color: #000000;
-        }
-
-        .table-filter {
-            height: 32px;
-            padding: 0 12px;
-            background: #111;
-            border: 1px solid #222;
-            border-radius: 6px;
-            color: #ffffff;
-            font-size: 12px;
-            cursor: pointer;
-        }
-
-        body.light-mode .table-filter {
-            background: #f5f5f5;
-            border-color: #e0e0e0;
-            color: #000000;
-        }
-
-        .data-table table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .data-table th {
-            text-align: left;
-            padding: 10px 12px;
-            font-size: 11px;
-            font-weight: 600;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border-bottom: 1px solid #222;
-        }
-
-        body.light-mode .data-table th {
-            border-bottom-color: #e0e0e0;
-        }
-
-        .data-table td {
-            padding: 10px 12px;
-            font-size: 13px;
-            border-bottom: 1px solid #111;
-        }
-
-        body.light-mode .data-table td {
-            border-bottom-color: #f5f5f5;
-        }
-
-        .data-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .status-badge.pro {
-            background: rgba(255, 215, 0, 0.2);
-            color: #FFD700;
-        }
-
-        .status-badge.free {
-            background: rgba(96, 165, 250, 0.2);
-            color: #60a5fa;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 60px;
-            }
-
-            .main-content {
-                margin-left: 60px;
-            }
-
-            .sidebar-brand,
-            .sidebar-label,
-            .sidebar-item span {
-                display: none;
-            }
-
-            .three-column {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Admin view of Ask AI requests saved in this browser.">
+    <meta name="theme-color" content="#0b0b0b">
+    <title>AI usage — LEARNcraft Admin</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/site.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
-<body>
-    <!-- SIDEBAR -->
-    <div class="sidebar">
-        <div class="sidebar-brand">LEARNcraft</div>
-        
-        <a href="../admin/admin-dashboard.html" class="back-button">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-            </svg>
-            Back to Dashboard
-        </a>
-        
-        <div class="sidebar-section">
-            <div class="sidebar-label">Main</div>
-            <a href="../admin/admin-dashboard.html" class="sidebar-item">Dashboard</a>
-            <a href="../utils/user-analytics.html" class="sidebar-item">User Analytics</a>
-            <a href="ai-usage.html" class="sidebar-item active">AI Usage</a>
-        </div>
+<body class="lc">
+    <a class="lc-skip" href="#main">Skip to content</a>
 
-        <div class="sidebar-section">
-            <div class="sidebar-label">Content</div>
-            <a href="../utils/course-analytics.html" class="sidebar-item">Courses Analytics</a>
-            <a href="../utils/subscriptions.html" class="sidebar-item">Subscriptions</a>
-        </div>
-
-        <div class="sidebar-section">
-            <div class="sidebar-label">Data</div>
-            <a href="#" class="sidebar-item">Registered Emails</a>
-            <a href="#" class="sidebar-item">Activity Logs</a>
-            <a href="#" class="sidebar-item">Screen Time</a>
-        </div>
-
-        <div class="sidebar-section">
-            <div class="sidebar-label">System</div>
-            <a href="#" class="sidebar-item">System Health</a>
-            <a href="#" class="sidebar-item">Admin Settings</a>
-        </div>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div class="main-content">
-        <!-- TOP BAR -->
-        <div class="topbar">
-            <div class="topbar-left">
-                <input type="text" class="search-input" placeholder="Search...">
-            </div>
-            <div class="topbar-right">
-                <button class="theme-toggle-btn" id="themeToggle">☀</button>
-                <div class="admin-profile">
-                    <div class="admin-avatar">A</div>
-                    <span id="adminEmail">Admin</span>
+    <header class="lc-header">
+        <div class="lc-container lc-header__inner">
+            <a class="lc-header__brand" href="../index.html">LEARN<span>craft</span></a>
+            <nav class="lc-nav" aria-label="Main">
+                <a class="lc-nav__link" href="../index.html" data-i18n="nav.home">Home</a>
+                <a class="lc-nav__link" href="../courses/roadmap.html">Roadmap</a>
+                <a class="lc-nav__link" href="../learning/lesson.html">Lesson</a>
+                <a class="lc-nav__link" href="../pages/ask-ai.html">Ask AI</a>
+                <a class="lc-nav__link" href="../pages/about.html" data-i18n="nav.about">About</a>
+                <a class="lc-nav__link" href="../index.html#pricing" data-i18n="nav.pro">LEARNcraft Pro</a>
+            </nav>
+            <div class="lc-header__actions">
+                <div class="lc-lang-wrap">
+                    <button class="lc-lang" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu" aria-label="Language: English">EN</button>
+                    <ul class="lc-lang__menu" id="lang-menu" role="listbox" aria-label="Language" hidden>
+                        <li class="lc-lang__option" role="option" data-lang="en" aria-selected="true" tabindex="-1">English</li>
+                        <li class="lc-lang__option" role="option" data-lang="ru" aria-selected="false" tabindex="-1">Русский</li>
+                        <li class="lc-lang__option" role="option" data-lang="uz" aria-selected="false" tabindex="-1">Oʻzbek</li>
+                    </ul>
                 </div>
+                <button class="lc-icon-btn" type="button" data-lc-theme-toggle aria-pressed="false" aria-label="Light theme">
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                </button>
+                <a class="lc-btn lc-btn--secondary home-signin" id="signInBtn" href="../pages/login.html" data-i18n="nav.signIn">Sign In</a>
+                <div class="home-account" id="userAccount" hidden>
+                    <button class="home-account__circle" id="userCircle" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="userMenu" aria-label="Account menu">U</button>
+                    <div class="home-account__menu" id="userMenu" role="menu" hidden>
+                        <p class="home-account__email" id="userEmail"></p>
+                        <a class="home-account__item" role="menuitem" href="../pages/settings.html">Account settings</a>
+                        <button class="home-account__item" role="menuitem" id="logoutBtn" type="button">Log out</button>
+                    </div>
+                </div>
+                <button class="lc-burger" type="button" data-lc-drawer-toggle aria-controls="drawer" aria-expanded="false" aria-label="Open menu">
+                    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                </button>
             </div>
         </div>
+    </header>
 
-        <!-- CONTENT AREA -->
-        <div class="content-area">
-            <!-- PAGE HEADER -->
-            <div class="page-header">
-                <div class="page-title">AI Usage Analytics</div>
-                <div class="page-subtitle">Monitor AI requests, usage patterns, and subscription impact.</div>
+    <nav class="lc-drawer" id="drawer" aria-label="Menu" hidden>
+        <a class="lc-drawer__link" href="../index.html">Home</a>
+        <a class="lc-drawer__link" href="../courses/roadmap.html">Roadmap</a>
+        <a class="lc-drawer__link" href="../courses/learn.html">Articles</a>
+        <a class="lc-drawer__link" href="../learning/lesson.html">Lesson</a>
+        <a class="lc-drawer__link" href="../pages/ask-ai.html">Ask AI</a>
+        <a class="lc-drawer__link" href="../courses/practice.html">Practice</a>
+        <a class="lc-drawer__link" href="../pages/about.html">About</a>
+        <a class="lc-drawer__link" href="../pages/settings.html">Settings</a>
+        <a class="lc-drawer__link" href="../pages/login.html">Sign in</a>
+        <a class="lc-drawer__link" href="../admin/admin-dashboard.html" id="sidebarAdminLink" hidden>Admin</a>
+    </nav>
+
+    <main id="main" class="lc-container usage">
+        <header class="usage-head lc-stack" style="--gap: 12px">
+            <p class="lc-label">Admin</p>
+            <h1>AI usage</h1>
+            <p class="lc-lead">Ask AI requests and users saved in this browser's storage.</p>
+            <nav class="usage-nav" aria-label="Admin">
+                <a href="../admin/admin-dashboard.html">Dashboard</a>
+                <a href="../utils/user-analytics.html">User analytics</a>
+                <a href="../utils/course-analytics.html">Course analytics</a>
+                <a href="../utils/subscriptions.html">Subscriptions</a>
+                <a href="../admin/registered-emails.html">Registered emails</a>
+            </nav>
+        </header>
+
+        <section aria-labelledby="summary-title" class="lc-stack">
+            <h2 id="summary-title" class="usage-h2">Summary</h2>
+            <dl class="usage-summary">
+                <div class="lc-card">
+                    <dt>Total AI requests</dt>
+                    <dd id="totalRequests">0</dd>
+                </div>
+                <div class="lc-card">
+                    <dt>Requests today</dt>
+                    <dd id="requestsToday">0</dd>
+                </div>
+                <div class="lc-card">
+                    <dt>Average per user</dt>
+                    <dd id="avgPerUser">0</dd>
+                </div>
+                <div class="lc-card">
+                    <dt>Pro share of requests</dt>
+                    <dd id="proUsage">0%</dd>
+                </div>
+                <div class="lc-card">
+                    <dt>Free share of requests</dt>
+                    <dd id="freeUsage">0%</dd>
+                </div>
+            </dl>
+        </section>
+
+        <section class="lc-card usage-chart" aria-labelledby="trend-title">
+            <h2 id="trend-title" class="usage-h2">Requests, last 7 days</h2>
+            <div class="usage-chart__box">
+                <canvas id="requestTrendChart" role="img" aria-label="Line chart of Pro and Free AI requests per day for the last 7 days"></canvas>
             </div>
+        </section>
 
-            <!-- SUMMARY CARDS -->
-            <div class="summary-grid">
-                <div class="summary-card">
-                    <div class="summary-label">Total AI Requests (All Time)</div>
-                    <div class="summary-value" id="totalRequests">0</div>
-                    <div class="summary-change positive">+35%</div>
-                </div>
-                <div class="summary-card">
-                    <div class="summary-label">AI Requests Today</div>
-                    <div class="summary-value" id="requestsToday">0</div>
-                    <div class="summary-change positive">+28%</div>
-                </div>
-                <div class="summary-card">
-                    <div class="summary-label">Average Requests Per User</div>
-                    <div class="summary-value" id="avgPerUser">0</div>
-                    <div class="summary-change positive">+5%</div>
-                </div>
-                <div class="summary-card">
-                    <div class="summary-label">Pro AI Usage %</div>
-                    <div class="summary-value" id="proUsage">0%</div>
-                    <div class="summary-change positive">+8%</div>
-                </div>
-                <div class="summary-card">
-                    <div class="summary-label">Free AI Usage %</div>
-                    <div class="summary-value" id="freeUsage">0%</div>
-                    <div class="summary-change negative">-3%</div>
-                </div>
+        <section class="lc-card usage-chart" aria-labelledby="hourly-title">
+            <h2 id="hourly-title" class="usage-h2">Requests today, by hour</h2>
+            <div class="usage-chart__box">
+                <canvas id="hourlyLoadChart" role="img" aria-label="Bar chart of AI requests today in two-hour blocks"></canvas>
             </div>
+        </section>
 
-            <!-- AI REQUEST TREND -->
-            <div class="chart-section">
-                <div class="chart-header">
-                    <div class="chart-title">AI Request Trend</div>
-                    <select class="chart-filter" id="trendFilter">
-                        <option value="today">Today</option>
-                        <option value="7days" selected>Last 7 Days</option>
-                        <option value="30days">Last 30 Days</option>
+        <section class="lc-stack" aria-labelledby="users-title">
+            <h2 id="users-title" class="usage-h2">Usage by user</h2>
+            <div class="usage-controls">
+                <div class="lc-field usage-controls__search">
+                    <label for="aiUserSearch">Search by email</label>
+                    <input type="search" id="aiUserSearch" autocomplete="off">
+                </div>
+                <div class="lc-field">
+                    <label for="sortFilter">Sort</label>
+                    <select id="sortFilter">
+                        <option value="usage">Highest usage</option>
+                        <option value="pro">Pro first</option>
+                        <option value="recent">Newest users</option>
                     </select>
                 </div>
-                <div class="chart-container">
-                    <canvas id="requestTrendChart"></canvas>
-                </div>
-            </div>
-
-            <!-- AI LOAD DISTRIBUTION -->
-            <div class="chart-section">
-                <div class="chart-header">
-                    <div class="chart-title">AI Load Distribution (Hourly)</div>
-                    <div style="font-size: 11px; color: #666;">Peak usage hours: 12:00 - 18:00</div>
-                </div>
-                <div class="chart-container">
-                    <canvas id="hourlyLoadChart"></canvas>
-                </div>
-            </div>
-
-            <!-- AI COST & SYSTEM LOAD -->
-            <div class="three-column">
-                <div class="metric-card">
-                    <div class="metric-label">Estimated Monthly AI Cost</div>
-                    <div class="metric-value">$2,450</div>
-                    <div class="metric-bar"><div class="metric-bar-fill" style="width: 65%"></div></div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Avg Response Time</div>
-                    <div class="metric-value">1.2s</div>
-                    <div class="metric-bar"><div class="metric-bar-fill" style="width: 35%"></div></div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">System Load %</div>
-                    <div class="metric-value">42%</div>
-                    <div class="metric-bar"><div class="metric-bar-fill" style="width: 42%"></div></div>
-                </div>
-            </div>
-
-            <!-- USER AI USAGE TABLE -->
-            <div class="data-table">
-                <div class="table-controls">
-                    <input type="text" class="table-search" placeholder="Search by email..." id="aiUserSearch">
-                    <select class="table-filter" id="sortFilter">
-                        <option value="usage">Highest Usage</option>
-                        <option value="pro">Pro First</option>
-                        <option value="recent">Newest Users</option>
-                    </select>
-                    <select class="table-filter" id="aiPlanFilter">
-                        <option value="all">All Plans</option>
-                        <option value="pro">Pro Only</option>
-                        <option value="free">Free Only</option>
+                <div class="lc-field">
+                    <label for="aiPlanFilter">Plan</label>
+                    <select id="aiPlanFilter">
+                        <option value="all">All plans</option>
+                        <option value="pro">Pro only</option>
+                        <option value="free">Free only</option>
                     </select>
                 </div>
+            </div>
+            <div class="usage-table" role="region" aria-label="AI usage table, scrolls sideways" tabindex="0">
                 <table>
                     <thead>
                         <tr>
-                            <th>Email</th>
-                            <th>Plan</th>
-                            <th>Requests Today</th>
-                            <th>Requests This Month</th>
-                            <th>Total Requests</th>
-                            <th>Avg Prompt Length</th>
-                            <th>Last Used AI</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Plan</th>
+                            <th scope="col">Today</th>
+                            <th scope="col">This month</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Avg prompt length</th>
+                            <th scope="col">Last used</th>
                         </tr>
                     </thead>
                     <tbody id="aiUsageTableBody">
@@ -710,26 +164,39 @@
                     </tbody>
                 </table>
             </div>
+        </section>
+    </main>
+
+    <footer class="lc-footer">
+        <div class="lc-container home-footer">
+            <div class="home-footer__brand">
+                <p class="lc-footer__brand">LEARN<span>craft</span></p>
+                <p class="home-footer__note">Civil engineering, one stage at a time. In English, Russian and Uzbek.</p>
+            </div>
+            <nav class="home-footer__col" aria-labelledby="f-learn">
+                <p class="lc-label" id="f-learn">Learn</p>
+                <a href="../courses/roadmap.html">Roadmap</a>
+                <a href="../courses/learn.html">Articles</a>
+                <a href="../learning/lesson.html">Lesson</a>
+                <a href="../courses/practice.html">Practice</a>
+                <a href="../pages/ask-ai.html">Ask AI</a>
+            </nav>
+            <nav class="home-footer__col" aria-labelledby="f-about">
+                <p class="lc-label" id="f-about">LEARNcraft</p>
+                <a href="../pages/about.html">About</a>
+                <a href="../index.html#pricing">Pro plans</a>
+                <a href="../pages/support.html">Support</a>
+                <a href="../pages/community.html">Community</a>
+            </nav>
+            <nav class="home-footer__col" aria-labelledby="f-account">
+                <p class="lc-label" id="f-account">Account</p>
+                <a href="../pages/login.html">Sign in</a>
+                <a href="../pages/settings.html">Settings</a>
+            </nav>
         </div>
-    </div>
+    </footer>
 
     <script>
-        // THEME TOGGLE
-        const themeToggle = document.getElementById('themeToggle');
-        const savedTheme = localStorage.getItem('admin_theme') || 'dark';
-
-        if (savedTheme === 'light') {
-            document.body.classList.add('light-mode');
-            themeToggle.textContent = '🌙';
-        }
-
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-            const isLight = document.body.classList.contains('light-mode');
-            themeToggle.textContent = isLight ? '🌙' : '☀';
-            localStorage.setItem('admin_theme', isLight ? 'light' : 'dark');
-        });
-
         // LOAD DATA
         const USERS_KEY = 'learncraft_users';
         const AI_REQUESTS_KEY = 'learncraft_ai_requests';
@@ -839,8 +306,43 @@
         // CHARTS
         let requestTrendChart, hourlyLoadChart;
 
+        // Chart colours come from the design tokens so both themes stay readable.
+        function token(name) {
+            return getComputedStyle(document.body).getPropertyValue(name).trim();
+        }
+
+        function last7DayLabels() {
+            const labels = [];
+            const now = new Date();
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date(now);
+                date.setDate(date.getDate() - i);
+                labels.push(date.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric' }));
+            }
+            return labels;
+        }
+
+        function showChartUnavailable() {
+            document.querySelectorAll('.usage-chart__box').forEach((box) => {
+                const note = document.createElement('p');
+                note.className = 'usage-empty';
+                note.textContent = 'Charts could not load (Chart.js is unavailable). The numbers above and the table below are still current.';
+                box.replaceWith(note);
+            });
+        }
+
         function initializeCharts() {
+            if (!window.Chart) {
+                showChartUnavailable();
+                return;
+            }
             const data = getAIAnalyticsData();
+            const accent = token('--c-accent');
+            const textColor = token('--c-text');
+            const mutedColor = token('--c-text-muted');
+            const gridColor = token('--c-border');
+            Chart.defaults.color = mutedColor;
+            Chart.defaults.font.family = token('--font-sans');
 
             // AI REQUEST TREND CHART (Last 7 Days)
             const proData = data.dailyTrend.map(d => d.pro);
@@ -850,23 +352,24 @@
             requestTrendChart = new Chart(document.getElementById('requestTrendChart'), {
                 type: 'line',
                 data: {
-                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    labels: last7DayLabels(),
                     datasets: [
                         {
                             label: 'Pro Users',
                             data: proData,
-                            borderColor: '#FFD700',
-                            backgroundColor: 'rgba(255, 215, 0, 0.1)',
-                            tension: 0.4,
-                            fill: true
+                            borderColor: accent,
+                            backgroundColor: 'transparent',
+                            tension: 0,
+                            fill: false
                         },
                         {
                             label: 'Free Users',
                             data: freeData,
-                            borderColor: '#60a5fa',
-                            backgroundColor: 'rgba(96, 165, 250, 0.1)',
-                            tension: 0.4,
-                            fill: true
+                            borderColor: textColor,
+                            backgroundColor: 'transparent',
+                            borderDash: [6, 4],
+                            tension: 0,
+                            fill: false
                         }
                     ]
                 },
@@ -890,7 +393,7 @@
                     scales: {
                         y: { 
                             beginAtZero: true, 
-                            grid: { color: '#222' },
+                            grid: { color: gridColor },
                             ticks: { stepSize: 1 }
                         },
                         x: { grid: { display: false } }
@@ -903,7 +406,7 @@
             const hourData = [];
             for (let i = 0; i < 24; i += 2) {
                 hourLabels.push(i.toString().padStart(2, '0'));
-                hourData.push(data.hourlyLoad[i]);
+                hourData.push(data.hourlyLoad[i] + data.hourlyLoad[i + 1]); // two-hour block
             }
 
             const hasHourlyData = hourData.some(v => v > 0);
@@ -915,7 +418,7 @@
                     datasets: [{
                         label: 'AI Requests',
                         data: hourData,
-                        backgroundColor: '#FFD700'
+                        backgroundColor: accent
                     }]
                 },
                 options: {
@@ -934,7 +437,7 @@
                     scales: {
                         y: { 
                             beginAtZero: true, 
-                            grid: { color: '#222' },
+                            grid: { color: gridColor },
                             ticks: { stepSize: 1 }
                         },
                         x: { grid: { display: false } }
@@ -991,20 +494,25 @@
                     }
                 }
 
-                row.innerHTML = `
-                    <td>${user.email}</td>
-                    <td><span class="status-badge ${plan}">${plan.toUpperCase()}</span></td>
-                    <td>${requestsToday}</td>
-                    <td>${requestsMonth}</td>
-                    <td>${totalRequests.toLocaleString()}</td>
-                    <td>${avgPromptLength} chars</td>
-                    <td>${lastUsed}</td>
-                `;
+                // Built with textContent so stored emails are never parsed as HTML.
+                const cells = [user.email, null, requestsToday, requestsMonth, totalRequests.toLocaleString(), `${avgPromptLength} chars`, lastUsed];
+                cells.forEach((value, i) => {
+                    const td = document.createElement('td');
+                    if (i === 1) {
+                        const badge = document.createElement('span');
+                        badge.className = `usage-badge usage-badge--${plan}`;
+                        badge.textContent = plan.toUpperCase();
+                        td.appendChild(badge);
+                    } else {
+                        td.textContent = value;
+                    }
+                    row.appendChild(td);
+                });
                 tbody.appendChild(row);
             });
 
             if (users.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:20px;color:#666;">No AI usage data</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="7" class="usage-empty">No AI usage saved in this browser yet.</td></tr>';
             }
         }
 

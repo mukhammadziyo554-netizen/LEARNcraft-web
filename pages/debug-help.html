@@ -2,316 +2,182 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#000000">
-    <title>Debug & Solve Problems - LEARNcraft</title>
-    <style>
-        :root {
-            --app-height: 100vh;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(180deg, #0a0a0f 0%, #0f0f15 100%);
-            color: #ffffff;
-            min-height: var(--app-height);
-            width: 100%;
-            overflow-x: hidden;
-        }
-
-        img, video {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .container {
-            max-width: min(1000px, 95vw);
-            margin: 0 auto;
-            padding: clamp(60px, 10vh, 80px) clamp(16px, 4vw, 24px) clamp(40px, 8vh, 60px);
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            margin-bottom: clamp(40px, 8vw, 60px);
-            padding: clamp(40px, 8vw, 60px) 0 clamp(20px, 5vw, 40px);
-        }
-
-        .hero h1 {
-            font-size: clamp(32px, 8vw, 56px);
-            font-weight: 700;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, #ffffff, #a0d8f1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero p {
-            font-size: clamp(16px, 3vw, 20px);
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 32px;
-            max-width: min(700px, 90vw);
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .btn-primary {
-            display: inline-block;
-            padding: 16px 48px;
-            background: transparent;
-            color: #fff;
-            font-size: 18px;
-            font-weight: 600;
-            border: 2px solid rgba(255, 255, 255, 0.4);
-            border-radius: 30px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .btn-primary:hover {
-            border-color: #60c5f1;
-            box-shadow: 0 0 20px rgba(96, 197, 241, 0.4);
-            transform: translateY(-2px);
-        }
-
-        /* Input Sections */
-        .input-section {
-            margin-bottom: 40px;
-        }
-
-        .input-label {
-            font-size: 18px;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 16px;
-            display: block;
-        }
-
-        .input-area {
-            width: 100%;
-            min-height: 150px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: #ffffff;
-            font-family: inherit;
-            font-size: 16px;
-            resize: vertical;
-            transition: all 0.3s ease;
-        }
-
-        .input-area:focus {
-            outline: none;
-            border-color: rgba(96, 197, 241, 0.5);
-            background: rgba(255, 255, 255, 0.05);
-            box-shadow: 0 0 15px rgba(96, 197, 241, 0.2);
-        }
-
-        .input-area::placeholder {
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        /* Assistance Modes */
-        .section-title {
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 32px;
-            text-align: center;
-        }
-
-        .modes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin-bottom: 60px;
-        }
-
-        .mode-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 32px;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .mode-card:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(96, 197, 241, 0.3);
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(96, 197, 241, 0.15);
-        }
-
-        .mode-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 20px;
-            background: rgba(96, 197, 241, 0.1);
-            border: 2px solid rgba(96, 197, 241, 0.3);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: #60c5f1;
-            transition: all 0.3s ease;
-        }
-
-        .mode-card:hover .mode-icon {
-            background: rgba(96, 197, 241, 0.15);
-            box-shadow: 0 0 20px rgba(96, 197, 241, 0.3);
-        }
-
-        .mode-card h3 {
-            font-size: 20px;
-            margin-bottom: 12px;
-            color: #ffffff;
-        }
-
-        .mode-card p {
-            font-size: 15px;
-            color: rgba(255, 255, 255, 0.6);
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .btn-mode {
-            display: inline-block;
-            padding: 10px 28px;
-            background: transparent;
-            color: #fff;
-            font-size: 14px;
-            font-weight: 500;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 20px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .btn-mode:hover {
-            border-color: #60c5f1;
-            box-shadow: 0 0 15px rgba(96, 197, 241, 0.3);
-            background: rgba(96, 197, 241, 0.05);
-        }
-
-        /* Back Button */
-        .back-btn {
-            position: fixed;
-            top: 24px;
-            left: 24px;
-            padding: 12px 24px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-            font-family: inherit;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 100;
-        }
-
-        .back-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: #60c5f1;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 40px;
-            }
-
-            .hero p {
-                font-size: 18px;
-            }
-
-            .modes-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Write up an engineering problem you are stuck on and take it to Ask AI.">
+    <meta name="theme-color" content="#0b0b0b">
+    <title>Debug a problem — LEARNcraft</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/i18n.js"></script>
+    <script src="../js/site.js" defer></script>
 </head>
-<body>
-    <button onclick="if (document.referrer && document.referrer !== window.location.href) { history.back(); } else { window.location.href = '../index.html'; }" class="back-btn">← Back</button>
+<body class="lc">
+    <a class="lc-skip" href="#main">Skip to content</a>
 
-    <div class="container">
-        <!-- Hero Section -->
-        <section class="hero">
-            <h1>Debug and Solve Engineering Problems</h1>
-            <p>Get guided help to understand mistakes, fix logic, and improve solutions.</p>
-            <button class="btn-primary">Get Help Now</button>
-        </section>
-
-        <!-- Describe Problem Section -->
-        <section class="input-section">
-            <label class="input-label">Describe Your Problem</label>
-            <textarea 
-                class="input-area" 
-                placeholder="Describe your issue, confusion, or problem step..."
-            ></textarea>
-        </section>
-
-        <!-- Upload Work Section -->
-        <section class="input-section">
-            <label class="input-label">Paste or Upload Work (Optional)</label>
-            <textarea 
-                class="input-area" 
-                placeholder="Paste your solution steps, code, or calculations here..."
-            ></textarea>
-        </section>
-
-        <!-- Assistance Modes -->
-        <section>
-            <h2 class="section-title">Assistance Modes</h2>
-            <div class="modes-grid">
-                <div class="mode-card">
-                    <div class="mode-icon">SS</div>
-                    <h3>Step-by-Step Explanation</h3>
-                    <p>Breaks the solution into logical steps with clear reasoning at each stage.</p>
-                    <button class="btn-mode">Use Mode</button>
+    <header class="lc-header">
+        <div class="lc-container lc-header__inner">
+            <a class="lc-header__brand" href="../index.html">LEARN<span>craft</span></a>
+            <nav class="lc-nav" aria-label="Main">
+                <a class="lc-nav__link" href="../index.html" data-i18n="nav.home">Home</a>
+                <a class="lc-nav__link" href="../courses/roadmap.html">Roadmap</a>
+                <a class="lc-nav__link" href="../learning/lesson.html">Lesson</a>
+                <a class="lc-nav__link" href="../pages/ask-ai.html">Ask AI</a>
+                <a class="lc-nav__link" href="../pages/about.html" data-i18n="nav.about">About</a>
+                <a class="lc-nav__link" href="../index.html#pricing" data-i18n="nav.pro">LEARNcraft Pro</a>
+            </nav>
+            <div class="lc-header__actions">
+                <div class="lc-lang-wrap">
+                    <button class="lc-lang" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu" aria-label="Language: English">EN</button>
+                    <ul class="lc-lang__menu" id="lang-menu" role="listbox" aria-label="Language" hidden>
+                        <li class="lc-lang__option" role="option" data-lang="en" aria-selected="true" tabindex="-1">English</li>
+                        <li class="lc-lang__option" role="option" data-lang="ru" aria-selected="false" tabindex="-1">Русский</li>
+                        <li class="lc-lang__option" role="option" data-lang="uz" aria-selected="false" tabindex="-1">Oʻzbek</li>
+                    </ul>
                 </div>
-
-                <div class="mode-card">
-                    <div class="mode-icon">EA</div>
-                    <h3>Error Analysis</h3>
-                    <p>Identifies where the mistake happened and explains why it occurred.</p>
-                    <button class="btn-mode">Use Mode</button>
+                <button class="lc-icon-btn" type="button" data-lc-theme-toggle aria-pressed="false" aria-label="Light theme">
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                </button>
+                <a class="lc-btn lc-btn--secondary home-signin" id="signInBtn" href="../pages/login.html" data-i18n="nav.signIn">Sign In</a>
+                <div class="home-account" id="userAccount" hidden>
+                    <button class="home-account__circle" id="userCircle" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="userMenu" aria-label="Account menu">U</button>
+                    <div class="home-account__menu" id="userMenu" role="menu" hidden>
+                        <p class="home-account__email" id="userEmail"></p>
+                        <a class="home-account__item" role="menuitem" href="../pages/settings.html">Account settings</a>
+                        <button class="home-account__item" role="menuitem" id="logoutBtn" type="button">Log out</button>
+                    </div>
                 </div>
-
-                <div class="mode-card">
-                    <div class="mode-icon">CC</div>
-                    <h3>Concept Clarification</h3>
-                    <p>Explains the theory behind the issue to deepen understanding.</p>
-                    <button class="btn-mode">Use Mode</button>
-                </div>
+                <button class="lc-burger" type="button" data-lc-drawer-toggle aria-controls="drawer" aria-expanded="false" aria-label="Open menu">
+                    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                </button>
             </div>
-        </section>
-    </div>
+        </div>
+    </header>
+
+    <nav class="lc-drawer" id="drawer" aria-label="Menu" hidden>
+        <a class="lc-drawer__link" href="../index.html">Home</a>
+        <a class="lc-drawer__link" href="../courses/roadmap.html">Roadmap</a>
+        <a class="lc-drawer__link" href="../courses/learn.html">Articles</a>
+        <a class="lc-drawer__link" href="../learning/lesson.html">Lesson</a>
+        <a class="lc-drawer__link" href="../pages/ask-ai.html">Ask AI</a>
+        <a class="lc-drawer__link" href="../courses/practice.html">Practice</a>
+        <a class="lc-drawer__link" href="../pages/about.html">About</a>
+        <a class="lc-drawer__link" href="../pages/settings.html">Settings</a>
+        <a class="lc-drawer__link" href="../pages/login.html">Sign in</a>
+        <a class="lc-drawer__link" href="../admin/admin-dashboard.html" id="sidebarAdminLink" hidden>Admin</a>
+    </nav>
+
+    <main id="main" class="lc-container debug">
+        <header class="debug-head lc-stack" style="--gap: 12px">
+            <p class="lc-label">Debug help</p>
+            <h1>Debug an engineering problem</h1>
+            <p class="lc-lead">Write down the problem and your working, pick the kind of help you want, then copy the question into Ask AI.</p>
+        </header>
+
+        <form class="debug-form lc-stack" id="debugForm" style="--gap: 20px" novalidate>
+            <div class="lc-field">
+                <label for="debugProblem">What is the problem?</label>
+                <textarea id="debugProblem" name="problem" required aria-describedby="debugProblemHint" placeholder="e.g. My bending moment at midspan comes out negative"></textarea>
+                <p class="lc-field__hint" id="debugProblemHint">Say what you expected and what you got.</p>
+            </div>
+
+            <div class="lc-field">
+                <label for="debugWork">Your working (optional)</label>
+                <textarea id="debugWork" name="work" placeholder="Paste your steps, calculations or code"></textarea>
+            </div>
+
+            <fieldset class="debug-modes">
+                <legend>What kind of help?</legend>
+                <label class="debug-mode">
+                    <input type="radio" name="mode" value="steps" checked>
+                    <span><strong>Step-by-step explanation</strong><span class="debug-mode__desc">Break the solution into steps with the reasoning for each.</span></span>
+                </label>
+                <label class="debug-mode">
+                    <input type="radio" name="mode" value="errors">
+                    <span><strong>Find the mistake</strong><span class="debug-mode__desc">Point to where the working goes wrong and why.</span></span>
+                </label>
+                <label class="debug-mode">
+                    <input type="radio" name="mode" value="concept">
+                    <span><strong>Explain the concept</strong><span class="debug-mode__desc">Explain the theory behind the problem.</span></span>
+                </label>
+            </fieldset>
+
+            <div class="lc-row">
+                <button class="lc-btn lc-btn--primary" type="submit">Copy question</button>
+                <a class="lc-btn lc-btn--secondary" href="../pages/ask-ai.html">Open Ask AI</a>
+            </div>
+            <div id="debugStatus" role="status"></div>
+        </form>
+    </main>
+
+    <footer class="lc-footer">
+        <div class="lc-container home-footer">
+            <div class="home-footer__brand">
+                <p class="lc-footer__brand">LEARN<span>craft</span></p>
+                <p class="home-footer__note">Civil engineering, one stage at a time. In English, Russian and Uzbek.</p>
+            </div>
+            <nav class="home-footer__col" aria-labelledby="f-learn">
+                <p class="lc-label" id="f-learn">Learn</p>
+                <a href="../courses/roadmap.html">Roadmap</a>
+                <a href="../courses/learn.html">Articles</a>
+                <a href="../learning/lesson.html">Lesson</a>
+                <a href="../courses/practice.html">Practice</a>
+                <a href="../pages/ask-ai.html">Ask AI</a>
+            </nav>
+            <nav class="home-footer__col" aria-labelledby="f-about">
+                <p class="lc-label" id="f-about">LEARNcraft</p>
+                <a href="../pages/about.html">About</a>
+                <a href="../index.html#pricing">Pro plans</a>
+                <a href="../pages/support.html">Support</a>
+                <a href="../pages/community.html">Community</a>
+            </nav>
+            <nav class="home-footer__col" aria-labelledby="f-account">
+                <p class="lc-label" id="f-account">Account</p>
+                <a href="../pages/login.html">Sign in</a>
+                <a href="../pages/settings.html">Settings</a>
+            </nav>
+        </div>
+    </footer>
 
     <script>
-        // Telegram Mini App Viewport Support
-        function setAppHeight() {
-            const vh = window.innerHeight;
-            document.documentElement.style.setProperty('--app-height', `${vh}px`);
-        }
-        
-        window.addEventListener('resize', setAppHeight);
-        window.addEventListener('orientationchange', setAppHeight);
-        setAppHeight();
+        (function () {
+            const form = document.getElementById('debugForm');
+            const status = document.getElementById('debugStatus');
+            const ASKS = {
+                steps: 'Explain the solution step by step, with the reasoning for each step.',
+                errors: 'Find where my working goes wrong and explain why.',
+                concept: 'Explain the concept behind this problem.',
+            };
+            const ICONS = {
+                success: '<path d="M20 6 9 17l-5-5"/>',
+                error: '<circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>',
+            };
+
+            function show(kind, text) {
+                status.innerHTML = '<div class="lc-alert lc-alert--' + kind + '"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">' + ICONS[kind] + '</svg><p></p></div>';
+                status.querySelector('p').textContent = text;
+            }
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const problem = form.problem.value.trim();
+                const work = form.work.value.trim();
+                if (!problem) {
+                    form.problem.setAttribute('aria-invalid', 'true');
+                    form.problem.focus();
+                    show('error', 'Describe the problem first.');
+                    return;
+                }
+                form.problem.removeAttribute('aria-invalid');
+                const text = ASKS[form.mode.value] + '\n\nProblem: ' + problem + (work ? '\n\nMy working:\n' + work : '');
+                try {
+                    await navigator.clipboard.writeText(text);
+                    show('success', 'Question copied. Open Ask AI and paste it in.');
+                } catch (err) {
+                    show('error', 'Could not copy automatically. Select your text and copy it into Ask AI.');
+                }
+            });
+        })();
     </script>
 </body>
 </html>

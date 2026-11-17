@@ -1219,6 +1219,562 @@ body.lc {
 .article-table th { background: var(--c-surface); }
 
 /* ==========================================================================
+   Task 8 form pages — to be merged into css/style.css (above "Legacy styles").
+   ========================================================================== */
+
+/* ==========================================================================
+   Page: auth (pages/auth.html) — reuses .plan-switch for the Sign In / Create Account switch
+   ========================================================================== */
+.auth {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 520px;
+  padding-block: 32px 48px;
+}
+
+.auth-switch { align-self: stretch; }
+.auth-switch .plan-switch__btn { flex: 1 1 0; }
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth-form[hidden] { display: none; }
+
+.auth-names {
+  display: grid;
+  gap: 16px;
+}
+
+.auth-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  font-size: var(--fs-sm);
+  cursor: pointer;
+}
+
+.auth-check input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--c-accent);
+}
+
+.auth-switch-link {
+  align-self: center;
+  min-height: 44px;
+  padding: 0 4px;
+  background: none;
+  color: var(--c-text);
+  font: inherit;
+  font-size: var(--fs-sm);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  border: 0;
+  cursor: pointer;
+}
+
+@media (min-width: 480px) {
+  .auth-names { grid-template-columns: 1fr 1fr; }
+}
+
+/* ==========================================================================
+   Page: login (pages/login.html)
+   ========================================================================== */
+.login {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 520px;
+  padding-block: 32px 48px;
+}
+
+.login-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.login-panel[hidden] { display: none; }
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.login-form .lc-btn { margin-top: 8px; }
+
+.login-alt {
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+}
+
+.login-switch {
+  min-height: 44px;
+  padding: 0 4px;
+  background: none;
+  color: var(--c-text);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  border: 0;
+  cursor: pointer;
+}
+
+.login-message[hidden] { display: none; }
+
+/* ==========================================================================
+   Page: settings (pages/settings.html)
+   ========================================================================== */
+.settings {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 720px;
+  padding-block: 24px 48px;
+}
+
+.settings-back { align-self: flex-start; margin-left: -12px; }
+
+.settings-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.lc-card.settings-card > * + * { margin-top: 0; }
+
+.settings-card .lc-btn { align-self: flex-start; }
+
+.settings-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 48px;
+  border-bottom: 1px solid var(--c-border);
+  cursor: pointer;
+}
+
+.settings-toggle:last-child { border-bottom: 0; }
+
+.settings-toggle input {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  accent-color: var(--c-accent);
+}
+
+/* ==========================================================================
+   Page: support (pages/support.html)
+   ========================================================================== */
+.support {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 720px;
+  padding-block: 32px 48px;
+}
+
+.support-info { border-left: 3px solid var(--c-accent); }
+
+.support-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.support-form .lc-btn { align-self: flex-start; }
+
+.support-message[hidden] { display: none; }
+
+.support-req { color: var(--c-text-muted); }
+
+/* ==========================================================================
+   Task 8 info pages. Page helpers only; components live in style.css.
+   ========================================================================== */
+
+/* ---------- Page: about (pages/about.html) ---------- */
+.about {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding-block: 32px 48px;
+}
+
+.about-section__sub { color: var(--c-text-muted); }
+
+.about-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.about-fields h3 { font-size: var(--fs-md); }
+.about-fields p { font-size: var(--fs-sm); }
+
+/* ---------- Page: community (pages/community.html) ---------- */
+.community {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-block: 32px 48px;
+}
+
+.community-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.community-links .lc-card { height: 100%; }
+.community-links h3 { font-size: var(--fs-md); }
+
+/* ---------- Page: debug help (pages/debug-help.html) ---------- */
+.debug {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding-block: 32px 48px;
+}
+
+.debug-form { max-width: 68ch; }
+
+.debug-modes {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.debug-modes legend {
+  margin-bottom: 8px;
+  padding: 0;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+
+.debug-mode {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-height: 48px;
+  padding: 12px 16px;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.debug-mode:has(input:checked) { border-color: var(--c-accent); }
+
+.debug-mode input {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 2px 0 0;
+  accent-color: var(--c-accent);
+}
+
+.debug-mode strong {
+  display: block;
+  font-weight: 600;
+}
+
+.debug-mode__desc {
+  display: block;
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+}
+
+/* ---------- Page: AI usage, admin (pages/ai-usage.html) ---------- */
+.usage {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding-block: 32px 48px;
+}
+
+.usage-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+}
+
+.usage-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--c-text-muted);
+  font-size: var(--fs-sm);
+  text-decoration: none;
+}
+
+.usage-nav a:hover { color: var(--c-text); }
+
+:where(.lc) .usage-h2 { font-size: var(--fs-lg); }
+
+.usage-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 160px), 1fr));
+  gap: 12px;
+  margin: 0;
+}
+
+.usage-summary dt {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-text-muted);
+}
+
+.usage-summary dd {
+  margin: 0;
+  font-size: var(--fs-2xl);
+  font-weight: 700;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+.usage-chart > * + * { margin-top: 16px; }
+
+.usage-chart__box {
+  position: relative;
+  height: 280px;
+}
+
+.usage-controls {
+  display: grid;
+  gap: 12px;
+}
+
+.usage-table {
+  max-width: 100%;
+  overflow-x: auto;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+}
+
+.usage-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+}
+
+.usage-table th,
+.usage-table td {
+  padding: 10px 12px;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.usage-table th {
+  font-weight: 600;
+  color: var(--c-text-muted);
+}
+
+.usage-table tr:last-child td { border-bottom: 0; }
+
+.usage-table td.usage-empty {
+  padding: 24px 12px;
+  text-align: center;
+  white-space: normal;
+}
+
+.usage-empty { color: var(--c-text-muted); }
+
+.usage-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  border: 1px solid var(--c-border-strong);
+  border-radius: 4px;
+}
+
+.usage-badge--pro {
+  color: var(--c-accent-text);
+  border-color: var(--c-accent);
+}
+
+@media (min-width: 768px) {
+  .usage-controls { grid-template-columns: 2fr 1fr 1fr; }
+  .usage-chart__box { height: 320px; }
+}
+
+/* ==========================================================================
+   Page: choose field (courses/choose-field.html)
+   Reuses .home-hero and .home-section.
+   ========================================================================== */
+.field-grid,
+.learn-grid,
+.practice-grid,
+.study-steps {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.field-grid .lc-card,
+.learn-grid .lc-card,
+.practice-grid .lc-card,
+.study-steps .lc-card {
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+.field-grid > li:not(.lc-card),
+.learn-grid > li { display: flex; }
+
+.field-grid .lc-card,
+.learn-grid .lc-card { width: 100%; }
+
+:where(.lc) .field-card__name { font-size: var(--fs-lg); }
+
+.field-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--c-accent-text);
+}
+
+.field-card--locked {
+  background: var(--c-bg);
+  border-style: dashed;
+}
+
+.field-card__status {
+  padding-top: 8px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-text-muted);
+  border-top: 1px solid var(--c-border);
+}
+
+/* ==========================================================================
+   Page: articles index (courses/learn.html)
+   ========================================================================== */
+.learn-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lc-card > .learn-card__desc { margin-top: 0; }
+
+.learn-card__title {
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.learn-card__desc {
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+}
+
+/* ==========================================================================
+   Page: practice (courses/practice.html)
+   ========================================================================== */
+.practice-card__status {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-text-muted);
+}
+
+/* ==========================================================================
+   Page: civil foundations study guide (study/civil-foundations.html)
+   Reuses .stage, .stage-back, .stage-weeks, .stage-progress, .stage-tip, .article-table.
+   ========================================================================== */
+.study-sub { color: var(--c-text-muted); }
+
+:where(.lc) .study-ask__title { font-size: var(--fs-lg); }
+
+.study-ask__btn,
+.study-start { align-self: flex-start; }
+
+.study-dashboard.hidden { display: none; }
+
+.study-bar {
+  height: 8px;
+  overflow: hidden;
+  background: var(--c-surface-2);
+  border-radius: 4px;
+}
+
+.study-bar > div {
+  width: 0;
+  height: 100%;
+  background: var(--c-accent);
+  transition: width var(--dur) var(--ease);
+}
+
+.study-tracker table { min-width: 520px; }
+
+.study-tracker th[scope="row"] {
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.study-tracker td { text-align: center; }
+
+.study-tracker input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--c-accent);
+}
+
+.study-mood {
+  display: grid;
+  gap: 16px;
+}
+
+.study-chart { margin: 0; }
+
+@media (min-width: 768px) {
+  .field-grid,
+  .learn-grid,
+  .practice-grid,
+  .study-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .study-mood { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1024px) {
+  .field-grid,
+  .learn-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ==========================================================================
    Legacy styles — pages without body.lc. Removed as pages move over.
    ========================================================================== */
 
